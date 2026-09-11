@@ -35,7 +35,7 @@ export const CinemaView: React.FC = () => {
     <div className="space-y-8 pb-16">
       
       {/* Top Hero Banner */}
-      <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
             <Headphones className="w-3.5 h-3.5 text-[#DDBF78]" />
@@ -61,7 +61,7 @@ export const CinemaView: React.FC = () => {
               className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
                 isSelected
                   ? 'bg-[#F3DDE2] text-[#A94A62] border-2 border-[#A94A62] shadow-xs scale-[1.01]'
-                  : 'bg-[#FCFAF6] hover:bg-[#F3EEE5] border-[#E8DECE] text-[#29354A]'
+                  : 'bg-white hover:bg-slate-50 border-slate-200/80 text-[#29354A]'
               }`}
             >
               <div>
@@ -69,7 +69,7 @@ export const CinemaView: React.FC = () => {
                 <div className="font-extrabold text-sm sm:text-base mt-0.5">{movie.movieTitle}</div>
               </div>
               <span className={`text-[10px] mt-2 px-2 py-0.5 rounded-md font-medium truncate ${
-                isSelected ? 'bg-[#A94A62] text-white' : 'bg-[#F3EEE5] text-[#29354A]'
+                isSelected ? 'bg-[#A94A62] text-white' : 'bg-slate-100 text-[#29354A]'
               }`}>
                 {movie.year} · {movie.director}
               </span>
@@ -79,7 +79,7 @@ export const CinemaView: React.FC = () => {
       </div>
 
       {/* Selected Movie Stage */}
-      <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-sm overflow-hidden">
+      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
         
         {/* Cover + Summary Header */}
         <div className="relative h-48 sm:h-64 bg-[#1C2E46] overflow-hidden">
@@ -124,7 +124,7 @@ export const CinemaView: React.FC = () => {
                   className={`p-5 rounded-2xl border transition-all cursor-pointer space-y-2 ${
                     isPlaying
                       ? 'bg-[#F3DDE2] border-[#A94A62]/50 shadow-sm'
-                      : 'bg-[#F3EEE5] hover:bg-[#FAF6EE] border-[#E8DECE]'
+                      : 'bg-slate-50/80 hover:bg-slate-50 border-slate-200/70'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -132,7 +132,7 @@ export const CinemaView: React.FC = () => {
                       {dlg.character}
                     </span>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
-                      isPlaying ? 'bg-[#A94A62] text-white shadow-xs' : 'bg-[#FCFAF6] text-[#29354A]/60 shadow-2xs'
+                      isPlaying ? 'bg-[#A94A62] text-white shadow-xs' : 'bg-white text-[#29354A]/60 shadow-2xs'
                     }`}>
                       <Volume2 className="w-4 h-4" />
                     </div>
@@ -147,7 +147,7 @@ export const CinemaView: React.FC = () => {
                   </p>
 
                   {dlg.keyPoints && (
-                    <div className="pt-2 border-t border-[#E8DECE] text-xs text-[#29354A] bg-[#FCFAF6] p-2.5 rounded-xl">
+                    <div className="pt-2 border-t border-slate-200/70 text-xs text-[#29354A] bg-white p-2.5 rounded-xl">
                       <span className="font-bold text-[#A94A62]">语法要点：</span>{dlg.keyPoints}
                     </div>
                   )}
@@ -157,7 +157,7 @@ export const CinemaView: React.FC = () => {
           </div>
 
           {/* Vocabulary Highlight Section */}
-          <div className="pt-4 border-t border-[#E8DECE] space-y-3">
+          <div className="pt-4 border-t border-slate-200/80 space-y-3">
             <h4 className="text-xs font-bold text-stone-500 uppercase tracking-wider">
               本片高频考点生词
             </h4>
@@ -166,7 +166,7 @@ export const CinemaView: React.FC = () => {
                 <div 
                   key={i} 
                   onClick={() => playSpeech(voc.word)}
-                  className="p-3 rounded-xl bg-[#F3EEE5] hover:bg-[#F3DDE2] border border-[#E8DECE] cursor-pointer transition text-xs space-y-0.5"
+                  className="p-3 rounded-xl bg-slate-50 hover:bg-[#F3DDE2] border border-slate-200/70 cursor-pointer transition text-xs space-y-0.5"
                 >
                   <div className="font-serif font-bold text-[#29354A] flex items-center justify-between">
                     <span>{voc.word}</span>

@@ -4,18 +4,18 @@
   --color-primary: #A94A62;
   --color-primary-hover: #933C52;
   --color-primary-light: #F3DDE2;
-  --color-page-bg: #FBF8F3;
-  --color-nav-bg: #F3EEE5;
+  --color-page-bg: #F8F9FA;
+  --color-nav-bg: #FFFFFF;
   --color-gold: #DDBF78;
   --color-gold-hover: #C9A95C;
   --color-text-main: #29354A;
-  --color-card-bg: #FCFAF6;
-  --color-card-border: #E8DECE;
+  --color-card-bg: #FFFFFF;
+  --color-card-border: #E2E8F0;
 }
 
 @layer base {
   body {
-    background-color: #FBF8F3;
+    background-color: #F8F9FA;
     color: #29354A;
     font-family:
       -apple-system,
@@ -40,10 +40,10 @@
 
 /* Custom French Chic Aesthetics */
 .glass-card {
-  background: rgba(252, 250, 246, 0.95);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(232, 222, 206, 0.9);
+  border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
 .french-wine-gradient {

@@ -79,7 +79,7 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm animate-fade-in">
       <div 
         onClick={e => e.stopPropagation()}
-        className="relative w-full max-w-xl bg-[#FCFAF6] rounded-3xl shadow-2xl border border-[#E8DECE] overflow-hidden"
+        className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-slate-200/80 overflow-hidden"
       >
         
         {/* Header */}
@@ -103,7 +103,7 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
           {!isAuthenticated ? (
             /* PIN authentication */
             <div className="space-y-4 py-4 max-w-xs mx-auto text-center">
-              <div className="w-12 h-12 rounded-full bg-[#F3EEE5] text-[#DDBF78] flex items-center justify-center mx-auto border border-[#DDBF78]/30">
+              <div className="w-12 h-12 rounded-full bg-slate-100 text-[#DDBF78] flex items-center justify-center mx-auto border border-[#DDBF78]/30">
                 <ShieldAlert className="w-6 h-6" />
               </div>
               <div>
@@ -116,7 +116,7 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
                 value={pinInput}
                 onChange={e => setPinInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleVerifyPin()}
-                className="w-full px-4 py-2 rounded-xl bg-[#FCFAF6] border border-[#E8DECE] text-center text-sm focus:ring-2 focus:ring-[#A94A62]/20 text-[#29354A]"
+                className="w-full px-4 py-2 rounded-xl bg-slate-50 border border-slate-200/80 text-center text-sm focus:ring-2 focus:ring-[#A94A62]/20 text-[#29354A]"
               />
               {pinError && <p className="text-xs text-[#A94A62] font-bold">{pinError}</p>}
               <button
@@ -136,7 +136,7 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
                   <select
                     value={keyType}
                     onChange={e => setKeyType(e.target.value as any)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#FCFAF6] border border-[#E8DECE] text-xs font-semibold text-[#29354A]"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200/80 text-xs font-semibold text-[#29354A]"
                   >
                     <option value="FR">CS313-FR- (法语单语种终身卡)</option>
                     <option value="ALL">CS313-ALL- (全语种黑金终身通卡)</option>
@@ -148,7 +148,7 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
                   <select
                     value={generateCount}
                     onChange={e => setGenerateCount(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-xl bg-[#FCFAF6] border border-[#E8DECE] text-xs font-semibold text-[#29354A]"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200/80 text-xs font-semibold text-[#29354A]"
                   >
                     <option value={5}>5 张卡密</option>
                     <option value={10}>10 张卡密</option>
@@ -180,9 +180,9 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
                     </button>
                   </div>
 
-                  <div className="p-3 rounded-2xl bg-[#FCFAF6] border border-[#E8DECE] font-mono text-xs max-h-48 overflow-y-auto space-y-1">
+                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 font-mono text-xs max-h-48 overflow-y-auto space-y-1">
                     {generatedBatch.map((k, i) => (
-                      <div key={k} className="flex items-center justify-between hover:bg-[#F3EEE5] p-1 rounded-md">
+                      <div key={k} className="flex items-center justify-between hover:bg-slate-100 p-1 rounded-md">
                         <span className="text-[#29354A]">{k}</span>
                         <button
                           onClick={() => handleCopyOne(k, i)}

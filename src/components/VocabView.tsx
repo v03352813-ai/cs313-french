@@ -81,7 +81,7 @@ export const VocabView: React.FC = () => {
     <div className="space-y-8 pb-16">
       
       {/* Top Hero Banner */}
-      <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
             <Layers className="w-3.5 h-3.5 text-[#DDBF78]" />
@@ -110,7 +110,7 @@ export const VocabView: React.FC = () => {
               className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition cursor-pointer ${
                 activeLevel === lvl.id
                   ? 'bg-[#A94A62] text-white shadow-xs'
-                  : 'bg-[#FCFAF6] text-[#29354A] hover:bg-[#F3EEE5] border border-[#E8DECE]'
+                  : 'bg-white text-[#29354A] hover:bg-slate-50 border border-slate-200/80'
               }`}
             >
               {lvl.label}
@@ -129,7 +129,7 @@ export const VocabView: React.FC = () => {
               setCurrentIndex(0);
               setIsFlipped(false);
             }}
-            className="w-full pl-10 pr-4 py-2 rounded-xl bg-[#FCFAF6] border border-[#E8DECE] text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#A94A62]/20 focus:bg-white text-[#29354A] font-medium transition"
+            className="w-full pl-10 pr-4 py-2 rounded-xl bg-white border border-slate-200/80 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#A94A62]/20 focus:bg-white text-[#29354A] font-medium transition"
           />
         </div>
       </div>
@@ -147,7 +147,7 @@ export const VocabView: React.FC = () => {
           {/* 3D Flip Card Container */}
           <div 
             onClick={() => setIsFlipped(!isFlipped)}
-            className="relative min-h-[320px] rounded-3xl bg-[#FCFAF6] border border-[#E8DECE] shadow-xs p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 hover:shadow-md select-none group"
+            className="relative min-h-[320px] rounded-3xl bg-white border border-slate-200/80 shadow-xs p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 hover:shadow-md select-none group"
           >
             {/* Top Badges */}
             <div className="absolute top-5 inset-x-6 flex items-center justify-between">
@@ -155,13 +155,13 @@ export const VocabView: React.FC = () => {
                 currentItem.gender === 'feminine'
                   ? 'bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25'
                   : currentItem.gender === 'masculine'
-                  ? 'bg-[#F3EEE5] text-[#29354A] border border-[#E8DECE]'
-                  : 'bg-[#F3EEE5] text-[#29354A] border border-[#E8DECE]'
+                  ? 'bg-slate-50 text-[#29354A] border border-slate-200/70'
+                  : 'bg-slate-50 text-[#29354A] border border-slate-200/70'
               }`}>
                 {currentItem.gender === 'feminine' ? '♀ 阴性 Féminin' : currentItem.gender === 'masculine' ? '♂ 阳性 Masculin' : currentItem.pos}
               </span>
 
-              <span className="text-xs px-2 py-0.5 rounded-md bg-[#F3EEE5] text-[#29354A]/80 font-bold border border-[#E8DECE]">
+              <span className="text-xs px-2 py-0.5 rounded-md bg-slate-50 text-[#29354A]/80 font-bold border border-slate-200/70">
                 {currentItem.level} · {currentItem.category}
               </span>
             </div>
@@ -190,7 +190,7 @@ export const VocabView: React.FC = () => {
                 <div className="text-2xl font-black text-[#A94A62]">
                   {currentItem.chinese}
                 </div>
-                <div className="p-4 rounded-2xl bg-[#F3EEE5] border border-[#E8DECE] text-left space-y-1 max-w-md">
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 text-left space-y-1 max-w-md">
                   <div className="text-xs font-bold text-stone-500">实战例句：</div>
                   <div className="text-sm font-serif font-bold text-[#29354A]">
                     « {currentItem.example.fr} »
@@ -206,7 +206,7 @@ export const VocabView: React.FC = () => {
             <div className="absolute bottom-5 inset-x-6 flex items-center justify-between" onClick={e => e.stopPropagation()}>
               <button
                 onClick={() => playSpeech(`${currentItem.article || ''} ${currentItem.french}`)}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#F3EEE5] hover:bg-[#F3DDE2] text-[#A94A62] border border-[#E8DECE] text-xs font-bold transition cursor-pointer"
+                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-[#F3DDE2] text-[#A94A62] border border-slate-200/70 text-xs font-bold transition cursor-pointer"
               >
                 <Volume2 className="w-4 h-4 text-[#A94A62]" />
                 <span>朗读</span>
@@ -217,7 +217,7 @@ export const VocabView: React.FC = () => {
                 className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
                   learnedIds.has(currentItem.id)
                     ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
-                    : 'bg-[#F3EEE5] text-[#29354A]/80 hover:bg-white border border-[#E8DECE]'
+                    : 'bg-slate-50 text-[#29354A]/80 hover:bg-white border border-slate-200/70'
                 }`}
               >
                 <Check className="w-3.5 h-3.5" />
@@ -230,7 +230,7 @@ export const VocabView: React.FC = () => {
           <div className="flex items-center justify-between gap-3 pt-2">
             <button
               onClick={handlePrev}
-              className="flex-1 py-3 rounded-2xl bg-[#FCFAF6] hover:bg-[#F3EEE5] border border-[#E8DECE] text-[#29354A] font-bold text-sm flex items-center justify-center gap-1 transition shadow-xs cursor-pointer"
+              className="flex-1 py-3 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200/80 text-[#29354A] font-bold text-sm flex items-center justify-center gap-1 transition shadow-xs cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" />
               <span>上一个</span>

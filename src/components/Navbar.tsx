@@ -109,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     return (
       <header className="w-full pt-2.5 sm:pt-3 transition-all">
         <div className="max-w-6xl mx-auto px-4 w-full">
-          <div className="bg-[#F3EEE5] rounded-3xl border border-[#E8DECE] shadow-xs p-3 sm:p-5 space-y-3 sm:space-y-3.5 overflow-hidden">
+          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-3 sm:p-5 space-y-3 sm:space-y-3.5 overflow-hidden">
             
             {/* 1. 顶部品牌与核心主标语 */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 min-w-0">
@@ -133,9 +133,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {/* 平台定位与考期徽章 */}
                   <div className="flex items-center gap-1.5 shrink-0 flex-wrap">
                     <span className="hidden xs:inline-block px-2 py-0.5 rounded-full bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/20 text-[10.5px] sm:text-[11px] font-bold whitespace-nowrap">
-                      French Pro · 自研平台
+                       French Pro · 自研平台
                     </span>
-                    <span className="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-[#FCFAF6] text-[#29354A] border border-[#DDBF78]/40 text-[10.5px] sm:text-[11px] font-bold items-center gap-1 whitespace-nowrap">
+                    <span className="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-slate-50 text-[#29354A] border border-[#DDBF78]/40 text-[10.5px] sm:text-[11px] font-bold items-center gap-1 whitespace-nowrap">
                       <Sparkles className="w-2.5 h-2.5 text-[#DDBF78]" /> 考研二外/DELF双轨全真卷
                     </span>
 
@@ -176,21 +176,21 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </button>
                   <button 
                     onClick={() => setActiveTab('exam')}
-                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-[#FCFAF6] border border-[#E8DECE] text-center cursor-pointer hover:bg-[#F3DDE2]/40 transition active:scale-98"
+                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/80 text-center cursor-pointer hover:bg-slate-100 transition active:scale-98"
                   >
                     <span className="hidden sm:block text-sm font-black text-[#29354A] hover:text-[#A94A62] whitespace-nowrap">全真卷</span>
                     <span className="block sm:hidden text-[10px] font-black text-[#29354A] truncate w-full">真题</span>
-                    <span className="hidden sm:block text-[9px] text-stone-500 font-medium whitespace-nowrap">历届名校</span>
-                    <span className="block sm:hidden text-[8px] text-stone-500 font-medium truncate w-full">真题</span>
+                    <span className="hidden sm:block text-[9px] text-slate-500 font-medium whitespace-nowrap">历届名校</span>
+                    <span className="block sm:hidden text-[8px] text-slate-500 font-medium truncate w-full">真题</span>
                   </button>
                   <button 
                     onClick={() => setActiveTab('vocab')}
-                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-[#FCFAF6] border border-[#E8DECE] text-center cursor-pointer hover:bg-[#F3DDE2]/40 transition active:scale-98"
+                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/80 text-center cursor-pointer hover:bg-slate-100 transition active:scale-98"
                   >
                     <span className="hidden sm:block text-sm font-black text-[#29354A] hover:text-[#A94A62] whitespace-nowrap">5000+</span>
                     <span className="block sm:hidden text-[10px] font-black text-[#29354A] truncate w-full">5000+</span>
-                    <span className="hidden sm:block text-[9px] text-stone-500 font-medium whitespace-nowrap">性数词库</span>
-                    <span className="block sm:hidden text-[8px] text-stone-500 font-medium truncate w-full">词库</span>
+                    <span className="hidden sm:block text-[9px] text-slate-500 font-medium whitespace-nowrap">性数词库</span>
+                    <span className="block sm:hidden text-[8px] text-slate-500 font-medium truncate w-full">词库</span>
                   </button>
                   <button 
                     onClick={() => setActiveTab('exam')}
@@ -204,17 +204,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </button>
                   <button 
                     onClick={onOpenWallpaperModal}
-                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-[#FCFAF6] hover:bg-[#F3DDE2]/40 border border-[#DDBF78]/50 text-center cursor-pointer transition active:scale-98 shadow-2xs"
+                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200/80 text-center cursor-pointer transition active:scale-98 shadow-2xs"
                     title="免费领取 iPad/手机 4K 法式伴学壁纸"
                   >
-                    <span className="hidden sm:block text-sm font-black text-[#A94A62] whitespace-nowrap">🎁 免费壁纸</span>
-                    <span className="block sm:hidden text-[10px] font-black text-[#A94A62] truncate w-full">🎁 壁纸</span>
-                    <span className="hidden sm:block text-[9px] text-[#DDBF78] font-bold whitespace-nowrap">4K 伴学锁屏</span>
-                    <span className="block sm:hidden text-[8px] text-[#DDBF78] font-bold truncate w-full">伴学</span>
+                    <span className="hidden sm:block text-sm font-black text-amber-900 whitespace-nowrap">🎁 免费壁纸</span>
+                    <span className="block sm:hidden text-[10px] font-black text-amber-900 truncate w-full">🎁 壁纸</span>
+                    <span className="hidden sm:block text-[9px] text-amber-700 font-bold whitespace-nowrap">4K 伴学锁屏</span>
+                    <span className="block sm:hidden text-[8px] text-amber-700 font-bold truncate w-full">伴学</span>
                   </button>
                   <button 
                     onClick={onOpenVipModal}
-                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-[#FCFAF6] hover:bg-[#F3DDE2]/30 border border-[#DDBF78]/50 text-center cursor-pointer transition active:scale-98 shadow-2xs"
+                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-[#F3DDE2]/30 border border-[#DDBF78]/50 text-center cursor-pointer transition active:scale-98 shadow-2xs"
                     title="终身 VIP 特权"
                   >
                     <span className="hidden sm:block text-sm font-black text-[#A94A62] whitespace-nowrap">🎁 终身VIP</span>
@@ -226,10 +226,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                 {/* Admin Status / Trigger */}
                 {isAdmin && (
-                  <div className="flex items-center justify-end gap-1.5 pt-1 sm:pt-0 sm:pl-2 border-t sm:border-t-0 sm:border-l border-[#E8DECE]">
+                  <div className="flex items-center justify-end gap-1.5 pt-1 sm:pt-0 sm:pl-2 border-t sm:border-t-0 sm:border-l border-slate-200">
                     <button
                       onClick={onOpenAdminModal}
-                      className="p-1.5 rounded-xl text-[#29354A] hover:text-[#A94A62] hover:bg-[#F3DDE2]/30 transition border border-[#E8DECE] shrink-0 cursor-pointer flex items-center gap-1 text-xs font-bold"
+                      className="p-1.5 rounded-xl text-slate-600 hover:text-[#A94A62] hover:bg-slate-100 transition border border-slate-200/80 shrink-0 cursor-pointer flex items-center gap-1 text-xs font-bold"
                       title="店主管理后台"
                     >
                       <Settings2 className="w-3.5 h-3.5 text-[#A94A62]" />
@@ -265,7 +265,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* 2. 紧随其后的 9 大核心功能平铺导航条 */}
             <div className="pt-0.5">
-              <nav className="hidden md:grid grid-cols-9 gap-1 bg-[#E5DFD4]/70 p-1 rounded-xl border border-[#E0D8CB] shadow-2xs">
+              <nav className="hidden md:grid grid-cols-9 gap-1 bg-slate-100/90 p-1 rounded-xl border border-slate-200/70 shadow-2xs">
                 {navItems.map((item) => {
                   const Icon = item.icon;
                   const isActive = activeTab === item.id;
@@ -273,16 +273,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <button
                       key={item.id}
                       onClick={() => setActiveTab(item.id)}
-                      className={`flex items-center justify-center gap-1.5 py-2 px-1 rounded-lg text-xs font-extrabold transition-all duration-150 cursor-pointer ${
+                      className={`w-full flex items-center justify-center gap-1 py-1.5 px-0.5 rounded-lg text-xs lg:text-[13px] font-bold transition-all whitespace-nowrap select-none cursor-pointer ${
                         isActive
-                          ? 'bg-[#A94A62] text-white shadow-xs font-black'
-                          : item.isHero
-                          ? 'text-[#29354A] hover:bg-white/80 hover:text-[#A94A62]'
-                          : 'text-[#29354A]/80 hover:bg-white/70 hover:text-[#A94A62]'
+                          ? 'bg-white text-[#A94A62] shadow-2xs shadow-slate-200/90 font-black'
+                          : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                       }`}
                     >
-                      <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-white' : 'text-stone-500'}`} />
-                      <span className="truncate">{item.label}</span>
+                      <Icon className={`w-3.5 h-3.5 shrink-0 hidden lg:inline ${isActive ? 'text-[#A94A62]' : 'text-slate-400'}`} />
+                      <span>{item.label}</span>
                     </button>
                   );
                 })}
@@ -299,8 +297,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                       onClick={() => setActiveTab(item.id)}
                       className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition cursor-pointer ${
                         isActive
-                          ? 'bg-[#A94A62] text-white shadow-xs'
-                          : 'bg-[#E5DFD4]/70 text-[#29354A] hover:bg-[#EBE2D4]'
+                          ? 'bg-white text-[#A94A62] shadow-xs font-black border border-slate-200/80'
+                          : 'bg-slate-100/90 text-slate-700 hover:bg-slate-200/80'
                       }`}
                     >
                       <Icon className="w-3.5 h-3.5" />
@@ -319,7 +317,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   // 非首页模式：吸顶精致导航条
   return (
-    <header className="sticky top-0 z-40 bg-[#F3EEE5]/95 backdrop-blur-md border-b border-[#E8DECE] shadow-xs">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
       <div className="max-w-7xl mx-auto px-3 sm:px-6">
         <div className="flex items-center justify-between h-14 sm:h-16">
           
@@ -343,7 +341,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Nav Items */}
-          <nav className="hidden lg:flex items-center gap-1 bg-[#E5DFD4]/70 p-1 rounded-xl border border-[#E0D8CB]">
+          <nav className="hidden lg:flex items-center gap-1 bg-slate-100/90 p-1 rounded-xl border border-slate-200/70 shadow-2xs">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -351,13 +349,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+                  className={`flex items-center gap-1.5 py-1.5 px-3 rounded-lg text-xs font-bold transition whitespace-nowrap cursor-pointer ${
                     isActive
-                      ? 'bg-[#A94A62] text-white shadow-xs'
-                      : 'text-[#29354A] hover:bg-white hover:text-[#A94A62]'
+                      ? 'bg-white text-[#A94A62] shadow-2xs shadow-slate-200/90 font-black'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                   }`}
                 >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-stone-500'}`} />
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#A94A62]' : 'text-slate-400'}`} />
                   <span>{item.label}</span>
                 </button>
               );
@@ -368,7 +366,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={onOpenWallpaperModal}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-[#FCFAF6] hover:bg-[#F3DDE2]/40 text-[#A94A62] border border-[#DDBF78]/50 text-xs font-bold transition shrink-0 cursor-pointer shadow-2xs"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200/80 text-xs font-bold transition shrink-0 cursor-pointer shadow-2xs"
               title="免费领取 4K 法式伴学壁纸"
             >
               <span>🎁</span>
@@ -393,7 +391,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {isAdmin && (
               <button
                 onClick={onOpenAdminModal}
-                className="p-1.5 rounded-xl text-[#29354A] hover:text-[#A94A62] hover:bg-[#F3DDE2]/40 transition border border-[#E8DECE]"
+                className="p-1.5 rounded-xl text-slate-600 hover:text-[#A94A62] hover:bg-slate-100 transition border border-slate-200/80"
                 title="店主管理后台"
               >
                 <Settings2 className="w-4 h-4 text-[#A94A62]" />

@@ -91,7 +91,7 @@ export const App: React.FC = () => {
   const isVip = !!license?.isVip;
 
   return (
-    <div className="min-h-screen bg-[#FBF8F3] text-[#29354A] flex flex-col selection:bg-[#F3DDE2] selection:text-[#A94A62]">
+    <div className="min-h-screen bg-[#F8F9FA] text-[#29354A] flex flex-col selection:bg-[#F3DDE2] selection:text-[#A94A62]">
       
       {/* Top Navbar */}
       <Navbar
@@ -154,7 +154,7 @@ export const App: React.FC = () => {
         {activeTab !== 'home' && (
           <button
             onClick={() => handleTabChange('home')}
-            className="w-10 h-10 rounded-full bg-[#FCFAF6] text-[#A94A62] shadow-md border border-[#E8DECE] hover:bg-[#F3DDE2]/50 flex items-center justify-center transition cursor-pointer"
+            className="w-10 h-10 rounded-full bg-white text-[#A94A62] shadow-md border border-slate-200/80 hover:bg-[#F3DDE2]/50 flex items-center justify-center transition cursor-pointer"
             title="返回首页"
           >
             <Home className="w-4 h-4" />
@@ -192,7 +192,7 @@ export const App: React.FC = () => {
       />
 
       {/* Footer */}
-      <footer className="border-t border-[#E8DECE] bg-[#FCFAF6]/90 py-8 px-4 text-center text-xs text-stone-600 space-y-2 mt-8">
+      <footer className="border-t border-slate-200/80 bg-white/90 py-8 px-4 text-center text-xs text-stone-600 space-y-2 mt-8">
         <div className="flex items-center justify-center gap-2 text-[#29354A] font-bold">
           <span className="text-[#A94A62]">🇫🇷 CS313 法语研习社</span>
           <span>•</span>

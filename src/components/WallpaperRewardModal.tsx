@@ -27,7 +27,7 @@ export const WallpaperRewardModal: React.FC<WallpaperRewardModalProps> = ({ isOp
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg bg-[#FCFAF6] rounded-3xl shadow-2xl border border-[#E8DECE] overflow-hidden select-none">
+      <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-200/80 overflow-hidden select-none">
         
         {/* Header */}
         <div className="bg-gradient-to-r from-[#A94A62] via-[#BA5C74] to-[#933C52] px-4 py-3.5 sm:px-5 sm:py-4 text-white relative flex items-center justify-between">
@@ -64,7 +64,7 @@ export const WallpaperRewardModal: React.FC<WallpaperRewardModalProps> = ({ isOp
           <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
             
             {/* Left: 4K Wallpaper Preview Card */}
-            <div className="relative rounded-2xl overflow-hidden border border-[#E8DECE] shadow-xs group bg-stone-100 flex flex-col justify-between min-h-[190px] sm:min-h-[200px]">
+            <div className="relative rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs group bg-stone-100 flex flex-col justify-between min-h-[190px] sm:min-h-[200px]">
               <img 
                 src="/images/wallpaper/wallpaper_thumb.jpg" 
                 alt="一子一木4K高清壁纸"
@@ -92,7 +92,7 @@ export const WallpaperRewardModal: React.FC<WallpaperRewardModalProps> = ({ isOp
             {/* Right: Large High-Res Mini-Program QR Code Card */}
             <div 
               onClick={() => setIsZoomed(true)}
-              className="rounded-2xl border-2 border-[#DDBF78]/50 bg-gradient-to-b from-[#FBF8F3] to-[#F3EEE5] p-2 sm:p-3 flex flex-col items-center justify-between text-center min-h-[180px] sm:min-h-[200px] shadow-xs cursor-pointer group hover:border-[#A94A62]/60 transition"
+              className="rounded-2xl border-2 border-[#DDBF78]/50 bg-gradient-to-b from-white to-slate-50 p-2 sm:p-3 flex flex-col items-center justify-between text-center min-h-[180px] sm:min-h-[200px] shadow-xs cursor-pointer group hover:border-[#A94A62]/60 transition"
               title="点击可放大二维码"
             >
               <div className="flex items-center justify-between w-full px-1 text-[10px] font-bold text-[#29354A]">
@@ -107,7 +107,7 @@ export const WallpaperRewardModal: React.FC<WallpaperRewardModalProps> = ({ isOp
               </div>
 
               {/* Large Sharp QR Code Box */}
-              <div className="w-full max-w-[130px] sm:max-w-[160px] aspect-square p-1 bg-white rounded-2xl border border-[#E8DECE] shadow-xs flex items-center justify-center overflow-hidden my-0.5">
+              <div className="w-full max-w-[130px] sm:max-w-[160px] aspect-square p-1 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-center overflow-hidden my-0.5">
                 <img 
                   src="/images/wallpaper/qrcode.png" 
                   alt="一子一木小程序码"
@@ -115,7 +115,7 @@ export const WallpaperRewardModal: React.FC<WallpaperRewardModalProps> = ({ isOp
                 />
               </div>
 
-              <span className="text-[10px] text-stone-500 font-medium leading-tight">
+              <span className="text-[10px] text-slate-500 font-medium leading-tight">
                 打开微信扫码 (可点击放大)
               </span>
             </div>
@@ -124,7 +124,7 @@ export const WallpaperRewardModal: React.FC<WallpaperRewardModalProps> = ({ isOp
 
           {/* Quick Copy Command Line */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-0.5">
-            <div className="flex-1 px-3 py-2 bg-[#F3EEE5] rounded-xl border border-dashed border-[#DDBF78]/80 font-mono text-[11px] text-[#29354A] select-all truncate text-center sm:text-left flex items-center justify-between">
+            <div className="flex-1 px-3 py-2 bg-slate-50 rounded-xl border border-dashed border-[#DDBF78]/80 font-mono text-[11px] text-[#29354A] select-all truncate text-center sm:text-left flex items-center justify-between">
               <span className="truncate">{miniProgramCode}</span>
               {copied && <span className="text-[10px] text-emerald-600 font-black shrink-0 ml-1">已复制！</span>}
             </div>
@@ -156,13 +156,13 @@ export const WallpaperRewardModal: React.FC<WallpaperRewardModalProps> = ({ isOp
           >
             <div 
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#FCFAF6] rounded-3xl p-6 max-w-xs w-full text-center space-y-4 shadow-2xl border border-[#E8DECE]"
+              className="bg-white rounded-3xl p-6 max-w-xs w-full text-center space-y-4 shadow-2xl border border-slate-200/80"
             >
               <div className="flex items-center justify-between">
                 <h4 className="text-sm font-bold text-[#29354A]">微信扫码进入【一子一木】</h4>
                 <button 
                   onClick={() => setIsZoomed(false)}
-                  className="p-1 rounded-full bg-[#F3EEE5] hover:bg-[#E8DECE] text-[#29354A] cursor-pointer"
+                  className="p-1 rounded-full bg-slate-100 hover:bg-slate-200 text-[#29354A] cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>

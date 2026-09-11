@@ -35,7 +35,7 @@ export const GrammarView: React.FC = () => {
     <div className="space-y-8 pb-16">
       
       {/* Top Hero Banner */}
-      <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
             <BookOpenCheck className="w-3.5 h-3.5 text-[#DDBF78]" />
@@ -64,7 +64,7 @@ export const GrammarView: React.FC = () => {
               placeholder="检索考点 (如 直宾提前, y/en, 虚拟式...)"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#FCFAF6] border border-[#E8DECE] text-xs sm:text-sm text-[#29354A] placeholder:text-stone-400 focus:outline-hidden focus:ring-2 focus:ring-[#A94A62]/20"
+              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-slate-200/80 text-xs sm:text-sm text-[#29354A] placeholder:text-stone-400 focus:outline-hidden focus:ring-2 focus:ring-[#A94A62]/20"
             />
           </div>
 
@@ -77,7 +77,7 @@ export const GrammarView: React.FC = () => {
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
                   activeCategory === cat.id
                     ? 'bg-[#A94A62] text-white shadow-xs'
-                    : 'bg-[#FCFAF6] text-[#29354A] hover:bg-[#F3EEE5] border border-[#E8DECE]'
+                    : 'bg-white text-[#29354A] hover:bg-slate-50 border border-slate-200/80'
                 }`}
               >
                 {cat.label}
@@ -86,7 +86,7 @@ export const GrammarView: React.FC = () => {
           </div>
 
           {/* List of Grammar Points */}
-          <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-2 space-y-1.5 max-h-[560px] overflow-y-auto">
+          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-2 space-y-1.5 max-h-[560px] overflow-y-auto">
             {filteredPoints.map(point => {
               const isSelected = selectedPoint.id === point.id;
               return (
@@ -96,13 +96,13 @@ export const GrammarView: React.FC = () => {
                   className={`w-full p-3.5 rounded-2xl flex items-start justify-between text-left transition cursor-pointer ${
                     isSelected
                       ? 'bg-[#F3DDE2] text-[#A94A62] border-2 border-[#A94A62] shadow-xs'
-                      : 'hover:bg-[#F3EEE5] border border-transparent text-[#29354A]'
+                      : 'hover:bg-slate-50 border border-transparent text-[#29354A]'
                   }`}
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <span className={`text-[10px] px-2 py-0.5 rounded-md font-bold ${
-                        isSelected ? 'bg-[#A94A62] text-white' : 'bg-[#F3EEE5] text-[#29354A]'
+                        isSelected ? 'bg-[#A94A62] text-white' : 'bg-slate-100 text-[#29354A]'
                       }`}>
                         {point.level}
                       </span>
@@ -121,10 +121,10 @@ export const GrammarView: React.FC = () => {
 
         {/* Right Column (7 cols): Detailed Grammar Card */}
         <div className="lg:col-span-7">
-          <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-6 sm:p-8 space-y-6">
+          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-6 sm:p-8 space-y-6">
             
             {/* Header of Grammar Point */}
-            <div className="space-y-2 pb-4 border-b border-[#E8DECE]">
+            <div className="space-y-2 pb-4 border-b border-slate-200/80">
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold">
                   {selectedPoint.level} · {selectedPoint.category}
@@ -142,7 +142,7 @@ export const GrammarView: React.FC = () => {
             </div>
 
             {/* Formula Block */}
-            <div className="p-4 rounded-2xl bg-[#F3EEE5] border border-[#E8DECE] space-y-1">
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 space-y-1">
               <div className="text-xs font-bold text-[#29354A] flex items-center gap-1.5">
                 <Sparkles className="w-4 h-4 text-[#DDBF78]" />
                 <span>核心文法公式 (Règle d'or)</span>
@@ -158,7 +158,7 @@ export const GrammarView: React.FC = () => {
                 分项详解与实战例句
               </div>
               {selectedPoint.rules.map((rule, idx) => (
-                <div key={idx} className="p-4 rounded-2xl bg-[#F3EEE5] border border-[#E8DECE] space-y-2.5">
+                <div key={idx} className="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 space-y-2.5">
                   <h4 className="font-bold text-sm text-[#29354A] flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#A94A62] shrink-0" />
                     <span>{rule.name}</span>
@@ -168,7 +168,7 @@ export const GrammarView: React.FC = () => {
                   </p>
                   <div className="space-y-1.5 pt-1">
                     {rule.examples.map((ex, i) => (
-                      <div key={i} className="p-2.5 rounded-xl bg-[#FCFAF6] border border-[#E8DECE] text-xs space-y-0.5">
+                      <div key={i} className="p-2.5 rounded-xl bg-white border border-slate-200/80 text-xs space-y-0.5">
                         <div className="font-serif font-bold text-[#29354A]">
                           {ex.fr}
                         </div>

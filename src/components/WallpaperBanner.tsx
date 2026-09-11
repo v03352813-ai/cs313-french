@@ -13,7 +13,7 @@ export const WallpaperBanner: React.FC<WallpaperBannerProps> = ({
   return (
     <div
       onClick={onOpenWallpaperModal}
-      className={`group relative bg-gradient-to-r from-[#F3DDE2]/70 via-[#F3EEE5] to-[#FCFAF6] rounded-3xl p-5 sm:p-6 border border-[#DDBF78]/60 shadow-xs hover:shadow-md hover:border-[#A94A62]/60 transition-all duration-300 cursor-pointer overflow-hidden space-y-3 ${className}`}
+      className={`group relative bg-gradient-to-r from-[#F3DDE2]/40 via-slate-50 to-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:shadow-md hover:border-[#A94A62]/50 transition-all duration-300 cursor-pointer overflow-hidden space-y-3 ${className}`}
     >
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         
@@ -43,7 +43,7 @@ export const WallpaperBanner: React.FC<WallpaperBannerProps> = ({
               精选法式浪漫氛围感手机/iPad 高清学习壁纸 · 免费下载 · 每日打卡参与微信小程序积分抽大奖！
             </p>
             <div className="hidden sm:flex items-center gap-2 text-[11px] text-[#29354A]/70 font-mono">
-              <span className="bg-white/80 px-2 py-0.5 rounded-md border border-[#E8DECE] font-semibold text-[#A94A62]">
+              <span className="bg-white/80 px-2 py-0.5 rounded-md border border-slate-200 font-semibold text-[#A94A62]">
                 #小程序://一子一木/0JPDrt84ecI5Gwd
               </span>
               <span>微信扫码 / 口令秒开</span>

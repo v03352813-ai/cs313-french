@@ -91,7 +91,7 @@ export const VipModal: React.FC<VipModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fade-in">
       <div 
         onClick={e => e.stopPropagation()}
-        className="relative w-full max-w-lg bg-[#FCFAF6] rounded-3xl shadow-2xl border border-[#E8DECE] overflow-hidden"
+        className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-200/80 overflow-hidden"
       >
         
         {/* Header Ribbon */}
@@ -111,7 +111,7 @@ export const VipModal: React.FC<VipModalProps> = ({
               <h2 className="text-xl font-black tracking-tight">
                 CS313 法语研习社 · 终身 VIP
               </h2>
-              <p className="text-xs text-[#FAF5EB] mt-0.5">
+              <p className="text-xs text-rose-100 mt-0.5">
                 考研二外(241/242) & DELF 欧标真题全功能授权
               </p>
             </div>
@@ -151,7 +151,7 @@ export const VipModal: React.FC<VipModalProps> = ({
                     placeholder="格式：CS313-FR-XXXX-YYYY"
                     value={inputKey}
                     onChange={e => setInputKey(e.target.value)}
-                    className="flex-1 px-4 py-2.5 rounded-xl bg-[#FCFAF6] border border-[#E8DECE] font-mono text-xs sm:text-sm uppercase focus:outline-hidden focus:ring-2 focus:ring-[#A94A62]/20 focus:bg-white transition text-[#A94A62] font-bold"
+                    className="flex-1 px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200/80 font-mono text-xs sm:text-sm uppercase focus:outline-hidden focus:ring-2 focus:ring-[#A94A62]/20 focus:bg-white transition text-[#A94A62] font-bold"
                   />
                   <button
                     onClick={handleActivate}
@@ -178,7 +178,7 @@ export const VipModal: React.FC<VipModalProps> = ({
               </div>
 
               {/* Purchase from Xianyu Box */}
-              <div className="p-4 rounded-2xl bg-[#F3EEE5] border border-[#DDBF78]/40 space-y-3">
+              <div className="p-4 rounded-2xl bg-slate-50 border border-[#DDBF78]/50 space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-[#A94A62] flex items-center gap-1">
                     <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
@@ -206,7 +206,7 @@ export const VipModal: React.FC<VipModalProps> = ({
 
                   <button
                     onClick={copyXianyuLink}
-                    className="px-3.5 py-2.5 rounded-xl bg-white hover:bg-[#FAF6EE] text-[#29354A] font-bold text-xs border border-[#E8DECE] transition flex items-center gap-1 cursor-pointer"
+                    className="px-3.5 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-[#29354A] font-bold text-xs border border-slate-200/80 transition flex items-center gap-1 cursor-pointer"
                   >
                     {copiedXianyu ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedXianyu ? '已复制链接' : '复制链接'}</span>
@@ -215,7 +215,7 @@ export const VipModal: React.FC<VipModalProps> = ({
               </div>
 
               {/* Current Device Fingerprint Notice */}
-              <div className="p-3 rounded-xl bg-[#F3EEE5] border border-[#E8DECE] text-[#29354A]/70 text-[11px] flex items-center justify-between">
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/70 text-[#29354A]/70 text-[11px] flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   {currentDevice.deviceType === 'Mobile Phone' ? <Smartphone className="w-4 h-4" /> : currentDevice.deviceType === 'iPad/Tablet' ? <Tablet className="w-4 h-4" /> : <Laptop className="w-4 h-4" />}
                   <span>当前识别设备：{currentDevice.deviceName} ({currentDevice.os})</span>
@@ -227,7 +227,7 @@ export const VipModal: React.FC<VipModalProps> = ({
           )}
 
           {/* Guarantee Badges */}
-          <div className="pt-2 border-t border-[#E8DECE] grid grid-cols-3 gap-2 text-center text-[11px] text-stone-500">
+          <div className="pt-2 border-t border-slate-200/80 grid grid-cols-3 gap-2 text-center text-[11px] text-stone-500">
             <div>✔ 2台设备授权</div>
             <div>✔ 随考期云端迭代</div>
             <div>✔ 零二次杂费</div>

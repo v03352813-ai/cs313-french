@@ -47,7 +47,7 @@ export const PhoneticsView: React.FC = () => {
     <div className="space-y-8 pb-16">
       
       {/* Top Hero Banner */}
-      <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
             <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
@@ -77,7 +77,7 @@ export const PhoneticsView: React.FC = () => {
                 className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition cursor-pointer ${
                   activeCategory === cat.id
                     ? 'bg-[#A94A62] text-white shadow-xs'
-                    : 'bg-[#FCFAF6] text-[#29354A] hover:bg-[#F3EEE5] border border-[#E8DECE]'
+                    : 'bg-white text-[#29354A] hover:bg-slate-50 border border-slate-200/80'
                 }`}
               >
                 {cat.label}
@@ -104,7 +104,7 @@ export const PhoneticsView: React.FC = () => {
                       ? 'bg-[#A94A62] text-white border-[#A94A62] shadow-md scale-[1.04] z-10'
                       : isNasal
                       ? 'bg-[#F3DDE2] text-[#A94A62] border-[#A94A62]/30 hover:bg-[#EFE2E6] hover:scale-[1.02]'
-                      : 'bg-[#FCFAF6] text-[#29354A] border-[#E8DECE] hover:bg-[#F3EEE5] hover:border-[#A94A62]/30 hover:scale-[1.02]'
+                      : 'bg-white text-[#29354A] border-slate-200/80 hover:bg-slate-50 hover:border-[#A94A62]/30 hover:scale-[1.02]'
                   }`}
                 >
                   <span className={`text-lg sm:text-xl font-black ${isSelected ? 'text-white' : 'text-[#29354A]'}`}>
@@ -122,7 +122,7 @@ export const PhoneticsView: React.FC = () => {
           </div>
 
           {/* Quick Audio Hint */}
-          <div className="p-3.5 rounded-2xl bg-[#F3EEE5] border border-[#E8DECE] flex items-center gap-2 text-xs text-[#29354A]">
+          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70 flex items-center gap-2 text-xs text-[#29354A]">
             <Volume2 className="w-4 h-4 text-[#DDBF78] shrink-0" />
             <span>点击上方任意卡片即可发音，右侧可查看嘴型口诀与高频例词。</span>
           </div>
@@ -130,10 +130,10 @@ export const PhoneticsView: React.FC = () => {
 
         {/* Right 5 Cols: Detail Inspector */}
         <div className="lg:col-span-5">
-          <div className="sticky top-20 bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-6 space-y-5">
+          <div className="sticky top-20 bg-white rounded-3xl border border-slate-200/80 shadow-xs p-6 space-y-5">
             
             {/* Header of Inspector */}
-            <div className="flex items-start justify-between pb-4 border-b border-[#E8DECE]">
+            <div className="flex items-start justify-between pb-4 border-b border-slate-200/80">
               <div>
                 <div className="flex items-center gap-2">
                   <span className="text-3xl sm:text-4xl font-black text-[#29354A] font-mono">
@@ -163,7 +163,7 @@ export const PhoneticsView: React.FC = () => {
                 <HelpCircle className="w-4 h-4 text-[#DDBF78]" />
                 <span>发音嘴型与技巧指南</span>
               </div>
-              <p className="text-xs sm:text-sm text-[#29354A] bg-[#F3EEE5] p-3.5 rounded-2xl border border-[#E8DECE] leading-relaxed font-medium">
+              <p className="text-xs sm:text-sm text-[#29354A] bg-slate-50 p-3.5 rounded-2xl border border-slate-200/70 leading-relaxed font-medium">
                 {selectedItem.mouthTips}
               </p>
             </div>
@@ -178,7 +178,7 @@ export const PhoneticsView: React.FC = () => {
                   <div
                     key={ex.word}
                     onClick={() => playSpeech(ex.word)}
-                    className="p-3 rounded-2xl bg-[#F3EEE5] hover:bg-white border border-[#E8DECE] hover:border-[#A94A62]/30 flex items-center justify-between cursor-pointer transition group"
+                    className="p-3 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/70 hover:border-[#A94A62]/30 flex items-center justify-between cursor-pointer transition group"
                   >
                     <div>
                       <div className="flex items-center gap-2">
@@ -193,7 +193,7 @@ export const PhoneticsView: React.FC = () => {
                         {ex.meaning}
                       </p>
                     </div>
-                    <div className="w-8 h-8 rounded-xl bg-white group-hover:bg-[#A94A62] text-stone-400 group-hover:text-white flex items-center justify-center shadow-2xs border border-[#E8DECE] transition">
+                    <div className="w-8 h-8 rounded-xl bg-white group-hover:bg-[#A94A62] text-stone-400 group-hover:text-white flex items-center justify-center shadow-2xs border border-slate-200/70 transition">
                       <Volume2 className="w-4 h-4" />
                     </div>
                   </div>
@@ -207,7 +207,7 @@ export const PhoneticsView: React.FC = () => {
       </div>
 
       {/* 4 Major Pronunciation & Liaison Rules Section */}
-      <section className="space-y-4 pt-6 border-t border-[#E8DECE]">
+      <section className="space-y-4 pt-6 border-t border-slate-200/80">
         <div>
           <div className="flex items-center gap-2">
             <span className="px-2 py-0.5 rounded-md bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25 font-bold text-xs">
@@ -226,7 +226,7 @@ export const PhoneticsView: React.FC = () => {
           {PRONUNCIATION_RULES.map(rule => (
             <div
               key={rule.id}
-              className="p-5 rounded-3xl bg-[#FCFAF6] border border-[#E8DECE] shadow-xs space-y-3"
+              className="p-5 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-3"
             >
               <div className="flex items-start justify-between">
                 <div>
@@ -246,7 +246,7 @@ export const PhoneticsView: React.FC = () => {
                 {rule.summary}
               </p>
 
-              <div className="p-2.5 rounded-xl bg-[#F3EEE5] text-[#29354A] font-mono text-xs font-bold border border-[#E8DECE]">
+              <div className="p-2.5 rounded-xl bg-slate-50 text-[#29354A] font-mono text-xs font-bold border border-slate-200/70">
                 {rule.formula}
               </div>
 
@@ -255,7 +255,7 @@ export const PhoneticsView: React.FC = () => {
                   <div 
                     key={ex.phrase}
                     onClick={() => playSpeech(ex.phrase)}
-                    className="p-2.5 rounded-xl bg-[#F3EEE5] hover:bg-white border border-[#E8DECE] flex items-center justify-between cursor-pointer transition text-xs"
+                    className="p-2.5 rounded-xl bg-slate-50 hover:bg-white border border-slate-200/70 flex items-center justify-between cursor-pointer transition text-xs"
                   >
                     <div>
                       <div className="flex items-center gap-2">

@@ -35,7 +35,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
     <div className="space-y-6 pb-16">
       
       {/* Top Hero Banner */}
-      <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
             <BookMarked className="w-3.5 h-3.5 text-[#DDBF78]" />
@@ -62,7 +62,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
 
       {mistakes.length === 0 ? (
         /* Empty State */
-        <div className="p-12 sm:p-16 rounded-3xl bg-[#FCFAF6] border border-[#E8DECE] text-center space-y-4 max-w-md mx-auto shadow-xs">
+        <div className="p-12 sm:p-16 rounded-3xl bg-white border border-slate-200/80 text-center space-y-4 max-w-md mx-auto shadow-xs">
           <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-8 h-8" />
           </div>
@@ -97,7 +97,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
                   className={`px-3 py-1 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
                     filterTag === t
                       ? 'bg-[#A94A62] text-white shadow-xs'
-                      : 'bg-[#FCFAF6] text-[#29354A] hover:bg-[#F3EEE5] border border-[#E8DECE]'
+                      : 'bg-white text-[#29354A] hover:bg-slate-50 border border-slate-200/80'
                   }`}
                 >
                   {t === 'all' ? '全部错题' : t}
@@ -112,15 +112,15 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
               return (
                 <div 
                   key={m.id}
-                  className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-6 space-y-4"
+                  className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-6 space-y-4"
                 >
-                  <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#E8DECE]">
+                  <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200/80">
                     <div className="flex items-center gap-2">
                       <span className="px-2.5 py-0.5 rounded-md bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25 text-xs font-bold">
                         {m.paperTitle}
                       </span>
                       {q.grammarTag && (
-                        <span className="px-2 py-0.5 rounded-md bg-[#F3EEE5] text-[#29354A] border border-[#E8DECE] text-xs font-bold">
+                        <span className="px-2 py-0.5 rounded-md bg-slate-50 text-[#29354A] border border-slate-200/70 text-xs font-bold">
                           考点：{q.grammarTag}
                         </span>
                       )}
@@ -146,7 +146,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
                       const isCorrect = q.correctAnswer === oIdx;
                       const isUserAns = m.userAnswer === oIdx;
 
-                      let style = 'bg-[#F3EEE5] border-[#E8DECE] text-[#29354A]/80';
+                      let style = 'bg-slate-50 border-slate-200/70 text-[#29354A]/80';
                       if (isCorrect) style = 'bg-emerald-50 border-emerald-300 text-emerald-900 font-bold';
                       else if (isUserAns) style = 'bg-[#F3DDE2] border-[#A94A62]/40 text-[#A94A62] font-bold';
 
@@ -161,7 +161,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
                   </div>
 
                   {/* Explanation */}
-                  <div className="p-4 rounded-2xl bg-[#F3EEE5] border border-[#E8DECE] text-xs leading-relaxed text-[#29354A] space-y-1">
+                  <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 text-xs leading-relaxed text-[#29354A] space-y-1">
                     <div className="font-bold text-[#29354A] flex items-center gap-1">
                       <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
                       <span>名师深度解析：</span>
