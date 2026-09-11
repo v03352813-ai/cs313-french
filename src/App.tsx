@@ -88,7 +88,7 @@ export const App: React.FC = () => {
   const isVip = !!license?.isVip;
 
   return (
-    <div className="min-h-screen bg-[#F7F3EA] flex flex-col selection:bg-[#243B5A] selection:text-white">
+    <div className="min-h-screen bg-[#F7F3EA] text-[#292929] flex flex-col selection:bg-[#8C3B4A] selection:text-white">
       
       {/* Top Navbar */}
       <Navbar
@@ -136,7 +136,7 @@ export const App: React.FC = () => {
         {activeTab !== 'home' && (
           <button
             onClick={() => handleTabChange('home')}
-            className="w-10 h-10 rounded-full bg-white/95 text-[#243B5A] shadow-md border border-[#E8DECE] hover:bg-[#FAF6EE] flex items-center justify-center transition cursor-pointer"
+            className="w-10 h-10 rounded-full bg-[#FCFAF6] text-[#8C3B4A] shadow-md border border-[#E8DECE] hover:bg-[#FAF5EB] flex items-center justify-center transition cursor-pointer"
             title="返回首页"
           >
             <Home className="w-4 h-4" />
@@ -146,7 +146,7 @@ export const App: React.FC = () => {
         {showBackToTop && (
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="w-10 h-10 rounded-full bg-[#243B5A] text-white shadow-md hover:bg-[#1C2E46] flex items-center justify-center transition cursor-pointer"
+            className="w-10 h-10 rounded-full bg-[#8C3B4A] text-white shadow-md hover:bg-[#752E3C] flex items-center justify-center transition cursor-pointer"
             title="回到顶部"
           >
             <ArrowUp className="w-4 h-4" />
@@ -169,13 +169,13 @@ export const App: React.FC = () => {
       />
 
       {/* Footer */}
-      <footer className="border-t border-[#E8DECE] bg-[#FAF6EE]/90 py-8 px-4 text-center text-xs text-slate-500 space-y-2 mt-8">
-        <div className="flex items-center justify-center gap-2 text-[#243B5A] font-bold">
+      <footer className="border-t border-[#E8DECE] bg-[#FCFAF6]/90 py-8 px-4 text-center text-xs text-stone-600 space-y-2 mt-8">
+        <div className="flex items-center justify-center gap-2 text-[#8C3B4A] font-bold">
           <span>🇫🇷 CS313 法语研习社</span>
           <span>•</span>
           <span>考研二外与 DELF 全真机考系统</span>
         </div>
-        <p className="text-slate-400">
+        <p className="text-stone-500">
           © 2026 CS313 Study. All rights reserved. 依《消费者权益保护法》第二十五条规范自研提供。
         </p>
       </footer>
