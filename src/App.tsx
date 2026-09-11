@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, ActiveTab } from './components/Navbar';
 import { HomePortal } from './components/HomePortal';
 import { PhoneticsView } from './components/PhoneticsView';
@@ -12,6 +12,7 @@ import { VipModal } from './components/VipModal';
 import { AdminKeyGeneratorModal } from './components/AdminKeyGeneratorModal';
 import { WallpaperRewardModal } from './components/WallpaperRewardModal';
 import { WallpaperBanner } from './components/WallpaperBanner';
+import { ExamRegistrationModal } from './components/ExamRegistrationModal';
 import { getLocalLicense, LicenseInfo } from './data/auth/cardKeys';
 import { ArrowUp, Home, ShieldCheck } from 'lucide-react';
 
@@ -21,6 +22,7 @@ export const App: React.FC = () => {
   const [isVipModalOpen, setIsVipModalOpen] = useState<boolean>(false);
   const [isAdminModalOpen, setIsAdminModalOpen] = useState<boolean>(false);
   const [isWallpaperModalOpen, setIsWallpaperModalOpen] = useState<boolean>(false);
+  const [isExamModalOpen, setIsExamModalOpen] = useState<boolean>(false);
   const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
 
   // Mistakes state stored in localStorage
@@ -102,6 +104,7 @@ export const App: React.FC = () => {
         onOpenVipModal={() => setIsVipModalOpen(true)}
         onOpenAdminModal={() => setIsAdminModalOpen(true)}
         onOpenWallpaperModal={() => setIsWallpaperModalOpen(true)}
+        onOpenExamModal={() => setIsExamModalOpen(true)}
       />
 
       {/* Main View Area */}
@@ -191,6 +194,12 @@ export const App: React.FC = () => {
       <WallpaperRewardModal
         isOpen={isWallpaperModalOpen}
         onClose={() => setIsWallpaperModalOpen(false)}
+      />
+
+      <ExamRegistrationModal
+        isOpen={isExamModalOpen}
+        onClose={() => setIsExamModalOpen(false)}
+        onNavigateToExam={() => handleTabChange('exam')}
       />
 
       {/* Footer */}

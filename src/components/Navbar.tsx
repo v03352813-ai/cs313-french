@@ -36,6 +36,7 @@ interface NavbarProps {
   onOpenVipModal: () => void;
   onOpenAdminModal: () => void;
   onOpenWallpaperModal?: () => void;
+  onOpenExamModal?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -45,7 +46,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   license,
   onOpenVipModal,
   onOpenAdminModal,
-  onOpenWallpaperModal
+  onOpenWallpaperModal,
+  onOpenExamModal
 }) => {
   const examCountdown = getFrenchExamCountdown();
 
@@ -140,16 +142,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </span>
 
                     {/* 动态考期倒计时模块 */}
-                    <div
-                      className="px-2 py-0.5 rounded-full border border-[#80142A]/25 bg-[#FCECEF] text-[#80142A] text-[10px] sm:text-[11px] font-black flex items-center gap-1.5 whitespace-nowrap shadow-2xs"
+                    <button
+                      onClick={onOpenExamModal}
+                      className="px-2 py-0.5 rounded-full border border-[#80142A]/25 bg-[#FCECEF] text-[#80142A] text-[10px] sm:text-[11px] font-black flex items-center gap-1.5 whitespace-nowrap shadow-2xs hover:bg-[#FCECEF]/80 cursor-pointer transition active:scale-95 group"
+                      title="点击查看 2026 官方考期全景与报考指南"
                     >
                       <span className="relative flex h-2 w-2 shrink-0">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#80142A] opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-[#80142A]"></span>
                       </span>
                       <span>{examCountdown.badgeText}</span>
-                      <span className="text-[9px] sm:text-[9.5px] opacity-75 font-bold">指南&gt;</span>
-                    </div>
+                      <span className="text-[9px] sm:text-[9.5px] opacity-75 group-hover:opacity-100 font-bold">指南&gt;</span>
+                    </button>
                   </div>
                 </div>
 
@@ -193,9 +197,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span className="block sm:hidden text-[8px] text-slate-500 font-medium truncate w-full">词库</span>
                   </button>
                   <button 
-                    onClick={() => setActiveTab('exam')}
+                    onClick={onOpenExamModal || (() => setActiveTab('exam'))}
                     className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-center cursor-pointer transition shadow-xs active:scale-98 group"
-                    title="2026 考研二外与 DELF 官方考期全景"
+                    title="2026 考研二外与 DELF 官方考期全景与报考指南"
                   >
                     <span className="hidden sm:block text-sm font-black text-white whitespace-nowrap">📅 官方考期</span>
                     <span className="block sm:hidden text-[10px] font-black text-white truncate w-full">📅 考期</span>
@@ -372,7 +376,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Right Area: 福利与VIP/管理区 */}
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 whitespace-nowrap">
               <button
-                onClick={() => setActiveTab('exam')}
+                onClick={onOpenExamModal || (() => setActiveTab('exam'))}
                 className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-bold transition shrink-0 cursor-pointer shadow-2xs"
                 title="查看官方考期全景与避坑指南"
               >
