@@ -316,12 +316,12 @@ export const HomePortal: React.FC<HomePortalProps> = ({
         <div className="lg:col-span-8 bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs flex flex-col justify-between space-y-3">
           
           {/* Header row */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="p-1.5 rounded-lg bg-[#F3DDE2] text-[#A94A62] font-bold text-xs flex items-center gap-1 border border-[#A94A62]/20">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 flex-wrap min-w-0">
+              <span className="p-1.5 rounded-lg bg-[#F3DDE2] text-[#A94A62] font-bold text-xs flex items-center gap-1 border border-[#A94A62]/20 shrink-0">
                 <Calendar className="w-3.5 h-3.5" /> 每日晨读
               </span>
-              <span className="text-xs font-bold text-[#29354A]">
+              <span className="text-xs font-bold text-[#29354A] shrink-0">
                 今日推荐 · 法语励志格言 · 每日自律
               </span>
               <span className="text-[10px] text-[#A94A62] bg-[#F3DDE2] px-1.5 py-0.2 rounded border border-[#A94A62]/25 font-bold hidden sm:inline">
@@ -329,14 +329,14 @@ export const HomePortal: React.FC<HomePortalProps> = ({
               </span>
             </div>
 
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 shrink-0 ml-auto">
               <button
                 onClick={handleNextQuote}
-                className="text-[11px] text-slate-500 hover:text-[#A94A62] flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-slate-50 transition cursor-pointer font-bold"
+                className="text-[11px] text-slate-500 hover:text-[#A94A62] flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-slate-100 transition cursor-pointer font-bold shrink-0 whitespace-nowrap"
                 title="切换金句"
               >
-                <RefreshCw className="w-3 h-3" />
-                <span>换一句</span>
+                <RefreshCw className="w-3 h-3 shrink-0" />
+                <span className="whitespace-nowrap">换一句</span>
               </button>
             </div>
           </div>
