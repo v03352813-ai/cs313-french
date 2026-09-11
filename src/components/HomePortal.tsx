@@ -155,18 +155,6 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         targetTab: 'home',
         icon: Calendar,
         buttonBg: 'bg-[#A94A62] hover:bg-[#933C52] text-white shadow-xs'
-      },
-      {
-        stepNum: '03',
-        stepLabel: '第 3 步 · 词汇积累',
-        title: '5,000+ 日常高频生活词汇闪卡',
-        targetBadge: '地道口语 · 场景词',
-        badgeBg: 'bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25',
-        desc: '精选法国人日常对话最高频词汇与习语，阴阳性清晰标定，搭配纯正巴黎真人朗读。',
-        actionText: '背诵日常核心词汇',
-        targetTab: 'vocab',
-        icon: Layers,
-        buttonBg: 'bg-[#A94A62] hover:bg-[#933C52] text-white shadow-xs'
       }
     ]
   },
@@ -611,7 +599,13 @@ export const HomePortal: React.FC<HomePortalProps> = ({
 
         {/* Roadmap Steps Container */}
         <div id="track-steps-roadmap" className="pt-2 space-y-3">
-          <div className={`grid grid-cols-1 ${currentTrackConfig.steps.length === 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-3`}>
+          <div className={`grid grid-cols-1 ${
+            currentTrackConfig.steps.length === 2 
+              ? 'sm:grid-cols-2' 
+              : currentTrackConfig.steps.length === 4 
+              ? 'sm:grid-cols-2 lg:grid-cols-4' 
+              : 'md:grid-cols-3'
+          } gap-3`}>
             {currentTrackConfig.steps.map((step) => {
               return (
                 <div
