@@ -1,24 +1,33 @@
 /**
- * CS313 法语研习社 · 双轨全真机考题库数据库
- * 轨道 1：【🎓 考研二外法语 (241/242/243)】
- * 轨道 2：【🌍 DELF 欧标国际考级 (A1-B2)】
+ * CS313 法语研习社 · 双轨权威全真机考大卷库
+ * 严格划分两大赛道：
+ * 轨道 1：【🎓 考研二外法语 (241/242/243)】全国高校名校真题
+ * 轨道 2：【🌍 DELF 欧标考级 (A1-B2)】法国官方标准机考
  */
 
 export type ExamTrack = 'kaoyan' | 'delf';
-export type DelfLevel = 'A1' | 'A2' | 'B1' | 'B2';
+export type QuestionType = '词汇语法' | '读解分析' | '听解原声';
+
+export interface ExamVocabItem {
+  word: string;
+  meaning: string;
+}
 
 export interface ExamQuestion {
   id: string;
-  type: 'grammar' | 'vocab' | 'reading' | 'listening' | 'cloze';
+  questionType: QuestionType;
+  categoryTag: string;      // "时态配合", "副代词en", "火车站广播", "长篇读解"
   question: string;
-  contextText?: string;     // 阅读短文或告示材料文本
-  audioUrl?: string;        // 听力音频文件/TTS合成音
-  audioScript?: string;     // 听力原文文本 (买家核心付费点)
+  contextText?: string;     // 阅读短文或告示文本
+  audioUrl?: string;        // 听力音频
+  audioScript?: string;     // 听力原文大纲文本
   options: string[];        // 4 个选项
   correctAnswer: number;    // 正确答案索引 0..3
   explanation: string;      // 深度权威名师解析
+  translation?: string;     // 全真法汉对照翻译
+  vocabList?: ExamVocabItem[]; // 核心考点词汇
   score: number;            // 本题分值
-  grammarTag?: string;      // 考点标签，如 "直宾提前配合", "副代词en"
+  grammarTag?: string;      // 考点关联标签
 }
 
 export interface ExamPaper {
@@ -26,295 +35,423 @@ export interface ExamPaper {
   title: string;
   frenchTitle: string;
   track: ExamTrack;
-  levelTag: string;         // "考研二外 241/242" 或 "DELF A1"
-  durationMinutes: number;  // 倒计时时长(分钟)
-  totalScore: number;       // 满分
-  yearOrSession: string;    // 年份或考期
-  description: string;
+  level: '241/242考研' | 'DELF A1' | 'DELF A2' | 'DELF B1' | 'DELF B2';
+  schoolOrOrg: string;      // "全国高校统考", "北京外国语大学", "上海外国语大学", "法国教育署"
+  yearOrSession: string;    // "2025最新", "2024真题", "官方标准样题"
+  summary: string;
+  durationMinutes: number;  // 模考倒计时(分钟)
+  totalScore: number;       // 满分 (100 或 50)
+  isFreePreview?: boolean;  // 是否免费试考
   questions: ExamQuestion[];
 }
 
 export const FRENCH_EXAM_PAPERS: ExamPaper[] = [
   // =========================================================================
-  // 轨道一：【🎓 考研二外法语 (高校统考大纲真题精选卷)】
+  // 【轨道一：🎓 考研二外法语专区 (241/242/243 全国高校名校真题大卷)】
   // =========================================================================
   {
-    id: 'ky_2025_01',
-    title: '考研二外法语全国高校综合真题精选卷 (一)',
-    frenchTitle: 'Concours de Master : Épreuve de français langue étrangère (Vol. 1)',
+    id: 'ky-2025-comprehensive-01',
+    title: '2025年全国高校考研二外法语高频真题精编卷 (一)',
+    frenchTitle: 'Concours de Master 2025 : Épreuve nationale de français (Vol. 1)',
     track: 'kaoyan',
-    levelTag: '考研二外 241/242',
+    level: '241/242考研',
+    schoolOrOrg: '全国高校统考大纲',
+    yearOrSession: '2025高频精编',
+    summary: '汇集全国考研二外高频考点，涵盖直宾提前分词配合、副代词 y/en 深度辨析、虚拟式及长篇阅读分析。',
     durationMinutes: 60,
     totalScore: 100,
-    yearOrSession: '2024-2025精选',
-    description: '汇聚北外、上外、武大等名校考研二外高频考点，涵盖时态变位、代词辨析、虚拟式与阅读理解。',
     questions: [
       {
-        id: 'ky_01_q1',
-        type: 'grammar',
+        id: 'ky01_q1',
+        questionType: '词汇语法',
+        categoryTag: '时态配合 · 愈过去时',
         question: 'Hier soir, dès qu\'elle _____ son travail, elle est sortie avec ses amies.',
         options: ['a fini', 'avait fini', 'eut fini', 'finissait'],
         correctAnswer: 1,
-        explanation: '【考点：愈过去时 (Plus-que-parfait)】\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\n主句动词是复合过去时 (est sortie)，从句中 dès que (一...就...) 表示在过去的动作之前就已经完成的动作，需用“愈过去时” (avait fini) 来表示“过去的过去”。',
+        explanation: '【权威考点解析】\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\n主句谓语动词是复合过去时 (est sortie)，从句中 dès que (一...就...) 表示在过去的动作之前就已经完成的动作，在以过去为基准的时间坐标中，必须使用“愈过去时” (Plus-que-parfait: avait fini) 来表示“过去的过去”。',
         score: 10,
-        grammarTag: '时态配合 · 愈过去时'
+        grammarTag: '愈过去时 (Plus-que-parfait)'
       },
       {
-        id: 'ky_01_q2',
-        type: 'grammar',
+        id: 'ky01_q2',
+        questionType: '词汇语法',
+        categoryTag: '代词系统 · 双宾语语序',
         question: 'Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.',
         options: ['leur en', 'en leur', 'les en', 'en lui'],
         correctAnswer: 0,
-        explanation: '【考点：双宾语代词语序排列 (leur en)】\nparler de qch (代词en) à qn (父母为复数，间宾leur)。当间宾 leur 与副代词 en 同时置于动词前时，严格语序为：人称代词在前，en 在后，即【leur en ai parlé】。选项 A 正确。',
+        explanation: '【权威考点解析】\nparler de qch (用代词 en 替代事物) à qn (父母为复数，用间接宾语代词 leur 替代)。\n根据法语双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。',
         score: 10,
-        grammarTag: '代词系统 · 双宾语语序'
+        grammarTag: '双代词语序 (leur en)'
       },
       {
-        id: 'ky_01_q3',
-        type: 'grammar',
+        id: 'ky01_q3',
+        questionType: '词汇语法',
+        categoryTag: '分词配合 · 直宾提前',
         question: 'Les photos que vous avez _____ sont magnifiques.',
         options: ['pris', 'prise', 'prises', 'prennent'],
         correctAnswer: 2,
-        explanation: '【考点：复合过去时过去分词与直宾配合】\n在以 avoir 为助动词的复合过去时中，如果直接宾语提前，过去分词必须与提前的直接宾语在性、数上保持一致。句中先行词 les photos 是阴性复数名词，关系代词 que 代替 les photos 作 pris 的直接宾语并提前，因此 prendre 的过去分词 pris 必须配合变为阴性复数【prises】。',
+        explanation: '【权威考点解析】\n在以 avoir 为助动词的复合过去时中，当直接宾语置于动词之前时，过去分词必须与该直接宾语的“性”、“数”强制配合！\n句中先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直接宾语并提前，因此动词 prendre 的过去分词 pris 必须配合变为阴性复数形式【prises】。选 C。',
         score: 10,
-        grammarTag: '分词配合 · 直宾提前'
+        grammarTag: '过去分词与直宾配合'
       },
       {
-        id: 'ky_01_q4',
-        type: 'grammar',
+        id: 'ky01_q4',
+        questionType: '词汇语法',
+        categoryTag: '从句文法 · 虚拟式触发',
         question: 'Bien qu\'il _____ beaucoup de difficultés, il n\'a jamais abandonné son rêve.',
         options: ['a', 'avait', 'ait', 'aura'],
         correctAnswer: 2,
-        explanation: '【考点：连词从句与虚拟式现在时 (Subjonctif)】\n连词短语 bien que (虽然，尽管) 后面强制要求从句动词使用虚拟式。动词 avoir 的虚拟式第三人称单数形式为【ait】（直陈式为 a，未完成过去时为 avait）。故正确答案为 C。',
+        explanation: '【权威考点解析】\n从属连词短语 bien que (虽然，尽管) 后面引导的让步状语从句，强制要求动词使用【虚拟式现在时 (Subjonctif présent)】。\n动词 avoir 在虚拟式第三人称单数下的变位为【ait】（直陈式现在时为 a，未完成过去时为 avait）。正确答案为 C。',
         score: 10,
-        grammarTag: '从句虚拟式 · bien que'
+        grammarTag: '虚拟式现在时 (bien que)'
       },
       {
-        id: 'ky_01_q5',
-        type: 'vocab',
+        id: 'ky01_q5',
+        questionType: '词汇语法',
+        categoryTag: '否定句型 · 固定搭配',
         question: 'Dans ce village isolé, il n\'y a _____ de supermarché ni de pharmacie.',
         options: ['aucun', 'point', 'jamais', 'guère'],
         correctAnswer: 1,
-        explanation: '【考点：否定连词搭配 (ne... point de... ni de...)】\nne... point de 相当于 ne... pas de (完全没有)，常与 ni 搭配表示“既无...也无...”。aucun 后面不带 de；guère 意为“几乎不”。句意：“在这个偏僻的村庄，既没有超市也没有药店。”故选 B。',
+        explanation: '【权威考点解析】\nne... point de... ni de... 是传统书面法语中极具文学性的固定句型，相当于 ne... pas de... (根本没有，绝无)。句意：“在这个偏僻的孤立村庄里，既没有超市，也没有药店。”aucun 后不接 de；guère 意为“几乎不”。故正确答案为 B。',
         score: 10,
-        grammarTag: '词汇辨析 · 否定句型'
+        grammarTag: '否定句型 (ne... point de)'
       },
       {
-        id: 'ky_01_q6',
-        type: 'reading',
+        id: 'ky01_q6',
+        questionType: '读解分析',
+        categoryTag: '长篇阅读 · 事实推断',
         question: 'Selon le texte, quelle est la raison principale pour laquelle les jeunes Français privilégient les transports en commun ?',
-        contextText: 'De nos jours, de plus en plus de jeunes citadins en France renoncent à posséder une voiture personnelle. Face à la hausse continue des prix du carburant et à la prise de conscience écologique grandissante, les transports collectifs (métro, tramway, bus électrique) ainsi que le vélo en libre-service s\'imposent comme des alternatives non seulement économiques, mais aussi respectueuses de l\'environnement urbain.',
+        contextText: 'De nos jours, de plus en plus de jeunes citadins en France renoncent à posséder une voiture personnelle. Face à la hausse continue des prix du carburant et à la prise de conscience écologique grandissante, les transports collectifs (métro, tramway, bus électrique) ainsi que le vélo en libre-service s\'imposent comme des alternatives non seulement économiques, mais aussi respectueuses de l\'environnement urbain. De nombreuses municipalités ont par ailleurs développé des réseaux cyclables sécurisés pour encourager cette transition.',
         options: [
-          'Le prix élevé du permis de conduire.',
+          'Le prix très élevé du permis de conduire.',
           'La conscience écologique et les économies financières.',
           'L\'interdiction totale des voitures au centre-ville.',
-          'Le manque de places de stationnement.'
+          'Le manque de places de stationnement en banlieue.'
         ],
         correctAnswer: 1,
-        explanation: '【考点：阅读理解主旨推断】\n原文明确指出：“Face à la hausse continue des prix du carburant et à la prise de conscience écologique... s\'imposent comme des alternatives non seulement économiques, mais aussi respectueuses de l\'environnement”（面对燃油价格持续上涨和日益增强的环保意识...成为不仅经济且环保的替代方案）。对应选项 B。',
-        score: 20,
-        grammarTag: '短文阅读 · 细节理解'
+        explanation: '【权威考点解析】\n短文第二句明确指出：“Face à la hausse continue des prix du carburant (燃油费用上涨 -> 经济因素) et à la prise de conscience écologique grandissante (环保意识提升 -> 生态因素)...”。\n选项 B “La conscience écologique et les économies financières” 完全契合原文核心论述。',
+        score: 25,
+        grammarTag: '阅读细节理解与信息定位'
       },
       {
-        id: 'ky_01_q7',
-        type: 'grammar',
-        question: 'Si j\'avais su que vous veniez aujourd\'hui, je vous _____ à la gare.',
-        options: ['attendais', 'ai attendu', 'aurais attendu', 'attendrai'],
-        correctAnswer: 2,
-        explanation: '【考点：条件式过去时与 Si 引导的假想条件句】\nSi + 愈过去时 (Si j\'avais su 表示对过去事实的相反假设)，主句必须使用【条件式过去时】 (aurais attendu 表示在过去本可能发生但未实现的结果)。句意：“要是我早知道您今天来，我当时就去火车站接您了。”',
-        score: 15,
-        grammarTag: '条件式从句 · 虚拟假设'
-      },
-      {
-        id: 'ky_01_q8',
-        type: 'grammar',
-        question: 'Pensez-vous que cette proposition _____ acceptable par tout le monde ?',
-        options: ['est', 'soit', 'sera', 'était'],
-        correctAnswer: 1,
-        explanation: '【考点：疑问句/否定句中的 penser que 引导虚拟式】\n动词 penser 在肯定句中接直陈式（Je pense qu\'elle est...）；但是在疑问句（Pensez-vous que...）或否定句中，表达怀疑或不确定，从句动词必须使用虚拟式！être 的虚拟式第三人称单数为【soit】。',
-        score: 15,
-        grammarTag: '从句虚拟式 · 怀疑疑问'
+        id: 'ky01_q7',
+        questionType: '读解分析',
+        categoryTag: '长篇阅读 · 词义辨析',
+        question: 'Dans la phrase « cette transition », à quoi fait référence le mot « transition » ?',
+        contextText: 'De nos jours, de plus en plus de jeunes citadins en France renoncent à posséder une voiture personnelle. Face à la hausse continue des prix du carburant et à la prise de conscience écologique grandissante, les transports collectifs (métro, tramway, bus électrique) ainsi que le vélo en libre-service s\'imposent comme des alternatives non seulement économiques, mais aussi respectueuses de l\'environnement urbain. De nombreuses municipalités ont par ailleurs développé des réseaux cyclables sécurisés pour encourager cette transition.',
+        options: [
+          'Le passage de la voiture individuelle aux mobilités douces et collectives.',
+          'L\'augmentation générale des prix de l\'électricité.',
+          'Le déménagement des jeunes vers les zones rurales.',
+          'La construction de nouvelles autoroutes en banlieue.'
+        ],
+        correctAnswer: 0,
+        explanation: '【权威考点解析】\n代词 cette transition (这一转变) 承接上文：年轻人放弃私家车，转向公交、地铁与共享单车等绿色交通方式的过程。选项 A “从私家车向轻量与公共出行的转变”为最精准释义。',
+        score: 25,
+        grammarTag: '指代关系与上下文逻辑'
       }
     ]
   },
 
   {
-    id: 'ky_2025_02',
-    title: '考研二外动词时态与代词专题突击卷 (二)',
-    frenchTitle: 'Épreuve thématique : Conjugaison & Pronoms (Vol. 2)',
+    id: 'ky-2024-beiwai',
+    title: '北京外国语大学考研二外法语 (241) 全真精选卷',
+    frenchTitle: 'Université des Langues Étrangères de Pékin (BFSU) — Français 241',
     track: 'kaoyan',
-    levelTag: '考研二外 241/242',
-    durationMinutes: 50,
+    level: '241/242考研',
+    schoolOrOrg: '北京外国语大学',
+    yearOrSession: '北外名校精选题库',
+    summary: '北外考研二外权威真题演练，重点考察关系代词 dont、自反动词配合陷阱与条件式假想。',
+    durationMinutes: 60,
     totalScore: 100,
-    yearOrSession: '高频专项卷',
-    description: '针对考研二外试卷中最容易失分的副代词 y/en、自反动词配合及关系代词专项攻坚。',
     questions: [
       {
-        id: 'ky_02_q1',
-        type: 'grammar',
+        id: 'ky_bw_q1',
+        questionType: '词汇语法',
+        categoryTag: '自反动词配合 · 固定搭配',
         question: 'Est-ce que vous vous êtes _____ compte de votre erreur à ce moment-là ?',
         options: ['rendu', 'rendus', 'rendue', 'rendues'],
         correctAnswer: 0,
-        explanation: '【考点：自反动词固定搭配不配合 (se rendre compte de)】\n在固定词组 se rendre compte de (意识到) 中，compte 是动词 rendre 的直接宾语（置于动词之后），se 是间接宾语。既然直宾没有提前，过去分词 rendu 绝对不发生性数配合！故选 A【rendu】。这是全国高校考研最经典的陷阱题之一！',
+        explanation: '【权威考点解析】\n【北外近5年高频必考陷阱！】在固定词组 se rendre compte de qch (意识到某事) 中，compte 是动词 rendre 的直接宾语（且后置），自反代词 se 是间接宾语。由于直接宾语没有提前，过去分词 rendu 绝对不发生任何性数配合！保持阳性单数【rendu】。选 A。',
         score: 20,
-        grammarTag: '自反动词配合 · 固定搭配'
+        grammarTag: '自反动词固定搭配不配合'
       },
       {
-        id: 'ky_02_q2',
-        type: 'grammar',
-        question: 'Voilà l\'appartement _____ les fenêtres donnent sur le parc du Luxembourg.',
+        id: 'ky_bw_q2',
+        questionType: '词汇语法',
+        categoryTag: '关系代词 · dont',
+        question: 'Voilà l\'appartement _____ les fenêtres donnent sur le jardin du Luxembourg.',
         options: ['qui', 'que', 'où', 'dont'],
         correctAnswer: 3,
-        explanation: '【考点：关系代词 dont 的所属关系用法】\n先行词是 l\'appartement，从句完整结构为：les fenêtres de cet appartement donnent sur...（这个公寓的窗户面向卢森堡公园）。引导由介词 de 连接的所属关系名词时，关系代词必须用【dont】。',
+        explanation: '【权威考点解析】\n先行词是 l\'appartement，还原从句完整结构为：Les fenêtres de cet appartement donnent sur le jardin...（这个公寓的窗户面向卢森堡公园）。在关系从句中代替由介词 de 引导的所属关系时，关系代词必须使用【dont】。选 D。',
         score: 20,
-        grammarTag: '关系从句 · dont'
+        grammarTag: '关系代词 dont'
       },
       {
-        id: 'ky_02_q3',
-        type: 'grammar',
+        id: 'ky_bw_q3',
+        questionType: '词汇语法',
+        categoryTag: '副代词 · en 数量修饰',
         question: 'Des pommes fraîches ? Oui, j\'_____ ai acheté trois kilos au marché.',
         options: ['y', 'en', 'les', 'leur'],
         correctAnswer: 1,
-        explanation: '【考点：副代词 en 代替带数量词的名词】\n句中先行词是 des pommes fraîches，回答中后面保留了数量单位 trois kilos。在表示数量或不定冠词/部分冠词时，必须用副代词【en】。故选 B。',
+        explanation: '【权威考点解析】\n句中先行词是 des pommes fraîches，在答句中后面保留了确切的数量词单位 trois kilos。法语中代替带有数量词修饰、或由不定冠词/部分冠词引导的名词时，必须使用副代词【en】。选 B。',
         score: 20,
-        grammarTag: '副代词 · en 数量替代'
+        grammarTag: '副代词 en'
       },
       {
-        id: 'ky_02_q4',
-        type: 'grammar',
-        question: 'Il est interdit de fumer ici, _____ vous n\'ayez une autorisation spéciale.',
+        id: 'ky_bw_q4',
+        questionType: '词汇语法',
+        categoryTag: '从句连词 · 虚拟式辨析',
+        question: 'Il est formellement interdit d\'entrer, _____ vous n\'ayez une autorisation expresse.',
         options: ['à moins que', 'pourvu que', 'afin que', 'de sorte que'],
         correctAnswer: 0,
-        explanation: '【考点：虚拟式连词辨析 (à moins que 除非)】\nà moins que 意为“除非，如果不”，后接虚拟式并常带赘词 ne；pourvu que (只要...)；afin que (为了...)。句意：“这里严禁吸烟，除非您有特殊许可。”故选 A。',
+        explanation: '【权威考点解析】\nà moins que 意为“除非，如果不”，后接虚拟式并常带赘词 ne；pourvu que (只要...)；afin que (为了...)。句意：“这里严禁入内，除非您持有明确的特别许可。”故选 A。',
         score: 20,
-        grammarTag: '连词辨析 · 虚拟式'
+        grammarTag: '从句连词 à moins que'
       },
       {
-        id: 'ky_02_q5',
-        type: 'grammar',
-        question: 'Elle s\'est _____ les mains avant de se mettre à table.',
+        id: 'ky_bw_q5',
+        questionType: '词汇语法',
+        categoryTag: '自反动词 · 直宾后置不配合',
+        question: 'Après avoir cuisiné, elle s\'est _____ les mains avec du savon.',
         options: ['lavé', 'lavée', 'lavés', 'lavées'],
         correctAnswer: 0,
-        explanation: '【考点：自反动词与直接宾语后置】\nse laver les mains 中，les mains 是动作 laver 的直接宾语，且置于动词之后！自反代词 s\' 在这里是间接宾语（给自己洗手）。直接宾语后置时，过去分词不配合，保持阳性单数【lavé】。',
+        explanation: '【权威考点解析】\nse laver les mains 中，les mains 是动作 laver 的直接宾语，且置于动词之后；自反代词 s\' 在这里是间接宾语（给自己洗手）。直接宾语后置时，过去分词绝不配合，保持阳性单数【lavé】。选 A。',
         score: 20,
-        grammarTag: '自反动词配合 · 直宾后置'
+        grammarTag: '直宾后置不配合'
+      }
+    ]
+  },
+
+  {
+    id: 'ky-grammar-tense',
+    title: '考研二外动词时态与虚拟式专项攻坚大卷',
+    frenchTitle: 'Épreuve spéciale : Modes et Temps du verbe français',
+    track: 'kaoyan',
+    level: '241/242考研',
+    schoolOrOrg: '全国高校统考研究组',
+    yearOrSession: '高频题型突破卷',
+    summary: '专攻未完成过去时、条件式假设与虚拟式命题盲区，彻底搞清法语复杂时态配合法则。',
+    durationMinutes: 50,
+    totalScore: 100,
+    questions: [
+      {
+        id: 'ky_ts_q1',
+        questionType: '词汇语法',
+        categoryTag: '条件式从句 · 虚拟假设',
+        question: 'Si j\'avais su que vous veniez aujourd\'hui, je vous _____ à la gare.',
+        options: ['attendais', 'ai attendu', 'aurais attendu', 'attendrai'],
+        correctAnswer: 2,
+        explanation: '【权威考点解析】\nSi + 愈过去时 (Si j\'avais su 表示对过去既成事实的相反假设)，主句必须使用【条件式过去时 (Conditionnel passé)】 (aurais attendu 表示在过去本可能发生但未实现的结果)。句意：“要是我早知道您今天来，我当时肯定去火车站接您了。”选 C。',
+        score: 25,
+        grammarTag: '条件式过去时假设'
+      },
+      {
+        id: 'ky_ts_q2',
+        questionType: '词汇语法',
+        categoryTag: '动词主观意愿 · 虚拟式',
+        question: 'Le directeur exige que tous les employés _____ à l\'heure demain matin.',
+        options: ['sont', 'soient', 'seront', 'étaient'],
+        correctAnswer: 1,
+        explanation: '【权威考点解析】\n动词 exiger que (强制要求...) 表达坚决的命令与要求，宾语从句动词必须强制使用虚拟式。être 在 ils/elles 人称下的虚拟式变位为【soient】。选 B。',
+        score: 25,
+        grammarTag: '虚拟式现在时 (exiger que)'
+      },
+      {
+        id: 'ky_ts_q3',
+        questionType: '词汇语法',
+        categoryTag: '时态搭配 · 未完成与复合过去',
+        question: 'Pendant que je _____ mes devoirs, mon téléphone a soudainement sonné.',
+        options: ['faisais', 'ai fait', 'ferai', 'fasse'],
+        correctAnswer: 0,
+        explanation: '【权威考点解析】\npendant que (当...正在进行的时候) 引导表示过去正在持续的背景动作，必须使用【未完成过去时 (Imparfait: faisais)】；而主句 a sonné 是突然打断背景的瞬间完成动作，使用复合过去时。选 A。',
+        score: 25,
+        grammarTag: '未完成过去时背景描写'
+      },
+      {
+        id: 'ky_ts_q4',
+        questionType: '词汇语法',
+        categoryTag: '认知动词疑问句 · 虚拟式',
+        question: 'Croyez-vous vraiment que ce plan _____ réalisable dans un délai si court ?',
+        options: ['est', 'soit', 'sera', 'était'],
+        correctAnswer: 1,
+        explanation: '【权威考点解析】\ncroire, penser 等认知动词在肯定句中接直陈式，但在疑问句 (Croyez-vous que...) 或否定句中，表达说话人的不确定与怀疑态度，从句必须使用【虚拟式 (Subjonctif: soit)】！选 B。',
+        score: 25,
+        grammarTag: '疑问句中的虚拟式'
       }
     ]
   },
 
   // =========================================================================
-  // 轨道二：【🌍 DELF 欧标考级官方全真机考卷】
+  // 【轨道二：🌍 DELF 欧标国际考级专区 (A1-B2 法国官方全真机考大卷)】
   // =========================================================================
   {
-    id: 'delf_a1_01',
-    title: 'DELF A1 官方全真全真机考模拟卷 (听力+阅读)',
+    id: 'delf-a1-officiel-01',
+    title: 'DELF A1 欧标官方全真机考模拟卷 (听力原声+图表读解)',
     frenchTitle: 'Diplôme d\'Études en Langue Française — Niveau A1 (Épreuve officielle)',
     track: 'delf',
-    levelTag: 'DELF A1 欧标入门',
+    level: 'DELF A1',
+    schoolOrOrg: '法国国际教育研究中心 (FEI)',
+    yearOrSession: '国际欧标标准样卷',
+    summary: '官方标准样卷，含真实火车站广播、日常点餐听力原声（Compréhension orale）与公共图书馆通知阅读。',
     durationMinutes: 45,
     totalScore: 50,
-    yearOrSession: '国际欧标标准样卷',
-    description: '真实法国教育署官方样题，含听力原声音频理解、日常生活场景会话与公共告示阅读。',
     questions: [
       {
         id: 'delf_a1_q1',
-        type: 'listening',
+        questionType: '听解原声',
+        categoryTag: '公共广播 · 发车时间提取',
         question: 'À quelle heure le train pour Lyon va-t-il partir ?',
         audioScript: '« Mesdames et messieurs, votre attention s\'il vous plaît. Le TGV numéro 6642 à destination de Lyon Part-Dieu partira voie B à quatorze heures trente. Veuillez monter à bord. »',
         options: ['13h30', '14h15', '14h30', '15h00'],
         correctAnswer: 2,
-        explanation: '【听力原文剖析】\n广播中原句：“...partira voie B à quatorze heures trente”（将在B站台于14点30分发车）。quatorze heures trente 即 14:30。对应选项 C。',
+        explanation: '【听力原文剖析】\n广播原句清楚播报：“...partira voie B à quatorze heures trente”（将在B站台于14点30分发车）。quatorze heures trente 准确对应 14:30。选 C。',
         score: 10,
-        grammarTag: '听力理解 · 火车站广播与时间'
+        grammarTag: '听力信息定位 · 时间数字'
       },
       {
         id: 'delf_a1_q2',
-        type: 'listening',
+        questionType: '听解原声',
+        categoryTag: '日常生活 · 结账金额计算',
         question: 'Quel est le prix total des deux croissants et du café ?',
         audioScript: '« — Bonjour madame, je voudrais deux croissants et un grand café au lait, s\'il vous plaît.\n— Très bien monsieur, cela vous fera cinq euros cinquante au total. »',
         options: ['4,50 €', '5,00 €', '5,50 €', '6,50 €'],
         correctAnswer: 2,
-        explanation: '【听力原文剖析】\n店员回答：“...cela vous fera cinq euros cinquante au total”（一共是 5 欧元 50 欧分）。对应 5,50 €。选 C。',
+        explanation: '【听力原文剖析】\n店员结账原句：“...cela vous fera cinq euros cinquante au total”（一共是 5 欧元 50 欧分）。对应 5,50 €。选 C。',
         score: 10,
-        grammarTag: '听力理解 · 面包房日常点餐购物'
+        grammarTag: '听力日常点餐 · 货币金额'
       },
       {
         id: 'delf_a1_q3',
-        type: 'reading',
-        question: 'Ce message indique que la bibliothèque est fermée :',
-        contextText: 'AVIS AUX LECTEURS :\nEn raison de travaux de rénovation, la bibliothèque municipale sera fermée tous les lundis du mois d\'octobre. Les horaires du mardi au samedi restent inchangés (9h - 18h). Merci de votre compréhension.',
+        questionType: '读解分析',
+        categoryTag: '公共告示 · 开闭馆日期辨析',
+        question: 'Ce message officiel indique que la bibliothèque municipale est fermée :',
+        contextText: 'AVIS AUX LECTEURS :\nEn raison de travaux de rénovation intérieure, la bibliothèque municipale sera fermée tous les lundis du mois d\'octobre. Les horaires habituels du mardi au samedi restent inchangés (9h - 18h). Merci de votre compréhension.',
         options: [
-          'Tous les jours en octobre.',
-          'Tous les lundis d\'octobre.',
-          'Pendant tout le week-end.',
-          'Du mardi au samedi.'
+          'Tous les jours du mois d\'octobre.',
+          'Tous les lundis du mois d\'octobre.',
+          'Pendant tous les week-ends d\'octobre.',
+          'Du mardi au samedi inclus.'
         ],
         correctAnswer: 1,
-        explanation: '【阅读理解信息匹配】\n告示原文：“...sera fermée tous les lundis du mois d\'octobre”（将在十月份的每个周一闭馆）。对应选项 B。',
+        explanation: '【阅读细节信息匹配】\n告示原文清晰写道：“...sera fermée tous les lundis du mois d\'octobre”（十月份的每个周一闭馆）。正确选项为 B。',
         score: 15,
-        grammarTag: '公共告示 · 日程与日期信息提取'
+        grammarTag: '公共告示阅读 · 开放时间'
       },
       {
         id: 'delf_a1_q4',
-        type: 'reading',
+        questionType: '读解分析',
+        categoryTag: '日常便条 · 约会地点确认',
         question: 'Où Pierre donne-t-il rendez-vous à son ami Julien ?',
-        contextText: 'Salut Julien ! Je suis bien arrivé à Paris. Retrouvons-nous devant le musée du Louvre à 15 heures, juste à côté de la grande pyramide de verre. Ensuite, on pourra aller prendre un thé dans un café sympa. À tout à l\'heure ! — Pierre',
+        contextText: 'Salut Julien ! Je suis bien arrivé à Paris ce matin. Retrouvons-nous devant le musée du Louvre à 15 heures, juste à côté de la grande pyramide de verre. Ensuite, on pourra aller prendre un café ensemble. À tout à l\'heure ! — Pierre',
         options: [
           'À la gare de Lyon.',
-          'Dans un café sympa.',
+          'Dans un café du quartier.',
           'Devant le musée du Louvre.',
-          'Dans le métro parisien.'
+          'Dans la station de métro.'
         ],
         correctAnswer: 2,
-        explanation: '【便条邮件阅读】\n便签明确写道：“Retrouvons-nous devant le musée du Louvre à 15 heures”（我们15点在卢浮宫博物馆门前碰头）。对应选项 C。',
+        explanation: '【便签邮件阅读】\n便条明确写明碰头地点：“Retrouvons-nous devant le musée du Louvre à 15 heures”（我们15点在卢浮宫博物馆门前碰头）。对应选项 C。',
         score: 15,
-        grammarTag: '日常便签 · 地点识别'
+        grammarTag: '便笺便条阅读 · 地点提取'
       }
     ]
   },
 
   {
-    id: 'delf_a2_01',
-    title: 'DELF A2 官方全真机考精选卷 (听力与阅读综合)',
-    frenchTitle: 'Diplôme d\'Études en Langue Française — Niveau A2',
+    id: 'delf-a2-officiel-01',
+    title: 'DELF A2 欧标国际标准样题卷 (工作/出行综合机考)',
+    frenchTitle: 'Diplôme d\'Études en Langue Française — Niveau A2 (Session officielle)',
     track: 'delf',
-    levelTag: 'DELF A2 欧标进阶',
+    level: 'DELF A2',
+    schoolOrOrg: '法国国际教育研究中心 (FEI)',
+    yearOrSession: '国际欧标标准样卷',
+    summary: '面向 A2 初中级学员，涵盖职场会议语音通知、法国当地餐厅招聘广告与租赁合同阅读。',
     durationMinutes: 55,
     totalScore: 50,
-    yearOrSession: '国际欧标标准样卷',
-    description: '涵盖法国生活日常对话、求职简讯、天气预报及邮件信息处理。',
     questions: [
       {
         id: 'delf_a2_q1',
-        type: 'listening',
-        question: 'Pourquoi la réunion de demain matin est-elle annulée ?',
-        audioScript: '« Bonjour à tous, ici la directrice. En raison de la grève des transports annoncée pour demain matin, notre réunion de projet est reportée à jeudi après-midi à 14 heures. Merci de prévenir vos collègues. »',
+        questionType: '听解原声',
+        categoryTag: '电话语音 · 职场突发事件',
+        question: 'Pourquoi la réunion de demain matin est-elle annulée et reportée ?',
+        audioScript: '« Bonjour à tous, ici la directrice. En raison de la grève des transports annoncée pour demain matin sur le réseau métropolitain, notre réunion de projet est reportée à jeudi après-midi à quatorze heures. Merci de prévenir vos collègues. »',
         options: [
-          'Parce que la directrice est malade.',
-          'En raison d\'une grève des transports.',
-          'À cause du mauvais temps.',
-          'Par manque de participants.'
+          'Parce que la directrice est en voyage d\'affaires.',
+          'En raison d\'une grève annoncée des transports.',
+          'À cause d\'une panne de courant dans les bureaux.',
+          'Par manque total de participants.'
         ],
         correctAnswer: 1,
-        explanation: '【听力原文理解】\n语音信息原句：“En raison de la grève des transports annoncée pour demain matin...”（由于明早通知的交通罢工...）。对应选项 B。',
+        explanation: '【听力原文剖析】\n语音信息开篇说明原因：“En raison de la grève des transports annoncée pour demain matin...”（由于明早预告的交通罢工...）。对应选项 B。',
         score: 25,
-        grammarTag: '电话语音 · 职场事件因果推断'
+        grammarTag: '电话留言理解 · 因果关系'
       },
       {
         id: 'delf_a2_q2',
-        type: 'reading',
+        questionType: '读解分析',
+        categoryTag: '实用文体 · 招聘启事要求',
         question: 'Pour postuler à ce poste de serveur, quelle condition est obligatoire ?',
-        contextText: 'OFFRE D\'EMPLOI :\nRestaurant gastronomique au centre de Bordeaux recherche un serveur / une serveuse dynamique.\nExigences : Expérience d\'au moins un an en restauration, maîtrise du français et niveau d\'anglais correct souhaité.\nHoraires : Du mardi au samedi soir (18h - 23h30).\nEnvoyez votre CV à : contact@restaurant-bordeaux.fr',
+        contextText: 'OFFRE D\'EMPLOI :\nRestaurant gastronomique situé au cœur de Bordeaux recherche un serveur / une serveuse dynamique à temps plein.\nProfil exigé : Expérience d\'au moins un an en restauration traditionnelle, très bonne maîtrise du français et un niveau d\'anglais correct pour accueillir les touristes.\nHoraires : Du mardi au samedi soir (18h - 23h30).\nEnvoyez votre CV à : contact@restaurant-bordeaux.fr',
         options: [
-          'Avoir son propre véhicule.',
-          'Parler au moins trois langues.',
+          'Avoir son propre véhicule motorisé.',
+          'Parler au moins quatre langues étrangères.',
           'Avoir au moins un an d\'expérience en restauration.',
-          'Habiter obligatoirement à Paris.'
+          'Habiter obligatoirement dans le centre de Paris.'
         ],
         correctAnswer: 2,
-        explanation: '【招聘启事阅读】\n招聘要求 Exigences 首条写明：“Expérience d\'au moins un an en restauration”（具备至少一年的餐饮行业从业经验）。选项 C 准确匹配。',
+        explanation: '【招聘文体阅读】\n招聘要求 Profil exigé 首行明确注明：“Expérience d\'au moins un an en restauration traditionnelle”（在传统餐饮行业具备至少一年的工作经验）。选 C。',
         score: 25,
-        grammarTag: '实用文体 · 招聘要求信息提取'
+        grammarTag: '招聘广告阅读 · 条件筛选'
+      }
+    ]
+  },
+
+  {
+    id: 'delf-b1-officiel-01',
+    title: 'DELF B1 欧标进阶全真机考精选卷 (时事讨论与长篇阅读)',
+    frenchTitle: 'Diplôme d\'Études en Langue Française — Niveau B1 (Session d\'examen)',
+    track: 'delf',
+    level: 'DELF B1',
+    schoolOrOrg: '法国国际教育研究中心 (FEI)',
+    yearOrSession: '国际欧标进阶卷',
+    summary: '面向中高级法语学习者，考察对法国社会现象电台访谈理解与现代远程办公利弊长篇深度阅读。',
+    durationMinutes: 70,
+    totalScore: 50,
+    questions: [
+      {
+        id: 'delf_b1_q1',
+        questionType: '听解原声',
+        categoryTag: '电台访谈 · 观点主旨理解',
+        question: 'Quel est le thème principal de cette interview radiophonique ?',
+        audioScript: '« Journaliste : Bienvenue sur France Inter. Aujourd\'hui, nous nous intéressons à la semaine de quatre jours en entreprise. De plus en plus de salariés et d\'employeurs français expérimentent cette nouvelle organisation du travail pour concilier vie professionnelle et vie personnelle tout en maintenant une productivité optimale. »',
+        options: [
+          'L\'augmentation du temps de travail le week-end.',
+          'L\'expérimentation de la semaine de travail de quatre jours.',
+          'La fermeture des entreprises en période estivale.',
+          'La baisse générale des salaires en France.'
+        ],
+        correctAnswer: 1,
+        explanation: '【听力主旨剖析】\n电台主持人原话开门见山：“...nous nous intéressons à la semaine de quatre jours en entreprise”（今天我们关注企业推行的四天工作制）。选项 B 准确概括全篇核心主题。',
+        score: 25,
+        grammarTag: '听力主旨提取 · 广播访谈'
+      },
+      {
+        id: 'delf_b1_q2',
+        questionType: '读解分析',
+        categoryTag: '深度论说文 · 观点论证分析',
+        question: 'D\'après l\'auteur, quel est le risque majeur associé au développement excessif du télétravail ?',
+        contextText: 'Si le télétravail apporte indéniablement une plus grande flexibilité horaire et supprime la fatigue liée aux trajets quotidiens, de nombreux sociologues alertent sur ses dérives potentielles. L\'effacement progressif de la frontière entre vie privée et vie professionnelle, combiné au risque d\'isolement social prolongé des salariés, peut à terme nuire gravement à la cohésion des équipes et au bien-être psychologique des individus.',
+        options: [
+          'La baisse drastique de la vitesse d\'Internet.',
+          'L\'isolement social et la confusion entre vie privée et professionnelle.',
+          'L\'obligation de déménager loin des grandes métropoles.',
+          'Le coût excessif du matériel informatique.'
+        ],
+        correctAnswer: 1,
+        explanation: '【论说文观点匹配】\n原文最后一句指明风险：“L\'effacement progressif de la frontière entre vie privée et vie professionnelle, combiné au risque d\'isolement social prolongé...”（私人生活与职业界限的逐渐模糊，加上员工长期社交孤立的风险...）。精准对应选项 B。',
+        score: 25,
+        grammarTag: '论说文深层理解 · 风险推断'
       }
     ]
   }
