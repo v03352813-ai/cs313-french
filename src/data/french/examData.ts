@@ -224,6 +224,76 @@ export const FRENCH_EXAM_PAPERS: ExamPaper[] = [
   },
 
   {
+    id: 'ky-2024-shisu',
+    title: '上海外国语大学考研二外法语 (242) 全真精选卷',
+    frenchTitle: 'Université des Études Internationales de Shanghai (SISU) — Français 242',
+    track: 'kaoyan',
+    level: '241/242考研',
+    schoolOrOrg: '上海外国语大学',
+    yearOrSession: '上外名校精选题库',
+    summary: '上外考研二外权威真题演练，深度考察复合关系代词 auquel、使动结构 faire 不变性、间接引语过去将来时与虚拟式。',
+    durationMinutes: 60,
+    totalScore: 100,
+    questions: [
+      {
+        id: 'ky_sh_q1',
+        questionType: '词汇语法',
+        categoryTag: '复合关系代词 · auquel 合成',
+        question: 'C\'est un problème complexe _____ nous devons accorder une attention particulière.',
+        options: ['auquel', 'duquel', 'lequel', 'dans lequel'],
+        correctAnswer: 0,
+        explanation: '【权威考点解析】\n【上外近年高频必考！】还原从句逻辑搭配为：accorder une attention particulière à ce problème（对该问题给予特别关注）。由介词 à 引导阳性单数物名词先行词 (un problème) 时，关系代词必须使用合成形式【auquel】(à + lequel)。选 A。',
+        score: 20,
+        grammarTag: '复合关系代词 auquel'
+      },
+      {
+        id: 'ky_sh_q2',
+        questionType: '词汇语法',
+        categoryTag: '过去分词配合 · 使动结构 faire + 不定式',
+        question: 'Ces robes de soirée sont magnifiques, je les ai _____ faire par un grand couturier parisien.',
+        options: ['fait', 'faite', 'faits', 'faites'],
+        correctAnswer: 0,
+        explanation: '【权威考点解析】\n【上外经典易错雷区！】在 faire + 动词不定式（faire faire 使动结构）中，faire 的过去分词是绝对不变化的语法硬规则！即使直接宾语代词 les（代指阴性复数 ces robes）置于助动词 ai 之前，过去分词也绝对不配合，固定使用阳性单数【fait】。选 A。',
+        score: 20,
+        grammarTag: 'faire+不定式不配合'
+      },
+      {
+        id: 'ky_sh_q3',
+        questionType: '词汇语法',
+        categoryTag: '间接引语时态呼应 · 过去将来时',
+        question: 'Hier après-midi, le professeur nous a assuré qu\'il nous _____ les résultats de l\'examen le lendemain.',
+        options: ['donnera', 'donnerait', 'donne', 'avait donné'],
+        correctAnswer: 1,
+        explanation: '【权威考点解析】\n主句谓语为复合过去时 (a assuré)，从句表示在过去的时间点之后将要发生的动作（依据从句时间状语 le lendemain 次日），必须使用【过去将来时 (Conditionnel présent 作为过去将来使用：donnerait)】。直陈式简单将来时 donnera 只能用于主句为现在时的情况。选 B。',
+        score: 20,
+        grammarTag: '间接引语过去将来时'
+      },
+      {
+        id: 'ky_sh_q4',
+        questionType: '词汇语法',
+        categoryTag: '副代词 · y 代替介词 à 引导的事物',
+        question: 'Pensez-vous souvent à votre avenir professionnel ? — Oui, j\'_____ pense très souvent.',
+        options: ['en', 'y', 'le', 'lui'],
+        correctAnswer: 1,
+        explanation: '【权威考点解析】\n动词短语 penser à qch (思考、考虑某事物，引导非人抽象概念)。在回答中代替 à votre avenir professionnel，必须使用副代词【y】。注意：若 penser à 后面接具体的人 (penser à qn)，则必须使用重读人称代词（如 je pense à lui/elle），不得使用 y。本题为事物，选 B。',
+        score: 20,
+        grammarTag: '副代词 y 代替介词 à'
+      },
+      {
+        id: 'ky_sh_q5',
+        questionType: '词汇语法',
+        categoryTag: '疑问代词 · lequel 阴阳性辨析',
+        question: 'Voici deux propositions très intéressantes pour notre voyage, _____ préférez-vous ?',
+        options: ['laquelle', 'lequel', 'lesquels', 'lesquelles'],
+        correctAnswer: 0,
+        explanation: '【权威考点解析】\n提问在给定的两者 (deux propositions，proposition 为阴性单数名词) 中选择“哪一个”。指代阴性单数事物时，必须使用阴性单数疑问代词【laquelle】。句意：“这里有两份非常有趣的旅行提议，您更喜欢哪一份？”选 A。',
+        score: 20,
+        grammarTag: '疑问代词 laquelle'
+      }
+    ]
+  },
+
+  {
     id: 'ky-grammar-tense',
     title: '考研二外动词时态与虚拟式专项攻坚大卷',
     frenchTitle: 'Épreuve spéciale : Modes et Temps du verbe français',
@@ -452,6 +522,55 @@ export const FRENCH_EXAM_PAPERS: ExamPaper[] = [
         explanation: '【论说文观点匹配】\n原文最后一句指明风险：“L\'effacement progressif de la frontière entre vie privée et vie professionnelle, combiné au risque d\'isolement social prolongé...”（私人生活与职业界限的逐渐模糊，加上员工长期社交孤立的风险...）。精准对应选项 B。',
         score: 25,
         grammarTag: '论说文深层理解 · 风险推断'
+      }
+    ]
+  },
+
+  {
+    id: 'delf-b2-officiel-01',
+    title: 'DELF B2 欧标高级官方全真机考精选卷 (当代社会热点思辨)',
+    frenchTitle: 'Diplôme d\'Études en Langue Française — Niveau B2 (Session officielle)',
+    track: 'delf',
+    level: 'DELF B2',
+    schoolOrOrg: '法国国际教育研究中心 (FEI)',
+    yearOrSession: '国际欧标高级官方卷',
+    summary: '面向 B2 独立运用者与留学读研考生，深度考察法国电台关于人工智能与职场转型的深度辩论听解，以及生态转型法律长篇论说文分析。',
+    durationMinutes: 90,
+    totalScore: 50,
+    questions: [
+      {
+        id: 'delf_b2_q1',
+        questionType: '听解原声',
+        categoryTag: '电台辩论 · 科技伦理与就业',
+        question: 'D\'après les intervenants dans cette émission, quel est le principal défi posé par l\'intégration de l\'IA générative dans les entreprises ?',
+        audioScript: '« Journaliste : Nous poursuivons notre dossier sur l\'intelligence artificielle générative. Selon l\'économiste invité, si l\'IA promet des gains de productivité spectaculaires, le véritable défi réside dans la formation continue des salariés et la requalification des compétences pour éviter une précarisation accrue des profils juniors. »',
+        options: [
+          'Le coût énergétique des centres de données.',
+          'La nécessité de former et requalifier les compétences des salariés.',
+          'L\'interdiction légale immédiate de tous les logiciels d\'automatisation.',
+          'La suppression totale du travail humain d\'ici cinq ans.'
+        ],
+        correctAnswer: 1,
+        explanation: '【听力论辩主旨剖析】\n经济学家明确指出：“...le véritable défi réside dans la formation continue des salariés et la requalification des compétences...”（真正的挑战在于员工的持续培训与技能重塑）。精准对应选项 B。',
+        score: 25,
+        grammarTag: '听力思辨理解 · 论点提炼'
+      },
+      {
+        id: 'delf_b2_q2',
+        questionType: '读解分析',
+        categoryTag: '深度学术评述 · 生态法治与公民实践',
+        question: 'D\'après le texte, quelle est la conclusion de l\'auteur concernant l\'efficacité des politiques environnementales actuelles ?',
+        contextText: 'Face à l\'urgence climatique, la multiplication des réglementations et des incitations fiscales ne saurait suffire sans une transformation profonde des modèles de production industrielle et des habitudes individuelles de consommation. L\'auteur souligne que la transition écologique ne sera couronnée de succès que si elle s\'accompagne d\'une véritable justice sociale, garantissant que les populations les plus vulnérables ne supportent pas le coût disproportionné des réformes écologiques.',
+        options: [
+          'Les incitations fiscales suffisent à elles seules pour résoudre la crise.',
+          'La transition écologique ne réussira qu\'en garantissant une réelle justice sociale.',
+          'Il faut immédiatement cesser toute production industrielle dans les pays développés.',
+          'Les citoyens refusent catégoriquement de modifier leurs habitudes de consommation.'
+        ],
+        correctAnswer: 1,
+        explanation: '【学术论说文深层论点】\n原文结论段深刻指出：“...la transition écologique ne sera couronnée de succès que si elle s\'accompagne d\'une véritable justice sociale...”（生态转型只有在伴随着真正的社会公正时才能取得成功）。与选项 B 完全契合。',
+        score: 25,
+        grammarTag: '长篇论述观点把握与深层推论'
       }
     ]
   }
