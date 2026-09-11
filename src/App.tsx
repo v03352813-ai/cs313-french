@@ -10,6 +10,8 @@ import { MistakesView } from './components/MistakesView';
 import { CinemaView } from './components/CinemaView';
 import { VipModal } from './components/VipModal';
 import { AdminKeyGeneratorModal } from './components/AdminKeyGeneratorModal';
+import { WallpaperRewardModal } from './components/WallpaperRewardModal';
+import { WallpaperBanner } from './components/WallpaperBanner';
 import { getLocalLicense, LicenseInfo } from './data/auth/cardKeys';
 import { ArrowUp, Home, ShieldCheck } from 'lucide-react';
 
@@ -18,6 +20,7 @@ export const App: React.FC = () => {
   const [license, setLicense] = useState<LicenseInfo | null>(() => getLocalLicense());
   const [isVipModalOpen, setIsVipModalOpen] = useState<boolean>(false);
   const [isAdminModalOpen, setIsAdminModalOpen] = useState<boolean>(false);
+  const [isWallpaperModalOpen, setIsWallpaperModalOpen] = useState<boolean>(false);
   const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
 
   // Mistakes state stored in localStorage
@@ -98,6 +101,7 @@ export const App: React.FC = () => {
         license={license}
         onOpenVipModal={() => setIsVipModalOpen(true)}
         onOpenAdminModal={() => setIsAdminModalOpen(true)}
+        onOpenWallpaperModal={() => setIsWallpaperModalOpen(true)}
       />
 
       {/* Main View Area */}
@@ -107,6 +111,7 @@ export const App: React.FC = () => {
             setActiveTab={handleTabChange}
             isVip={isVip}
             onOpenVipModal={() => setIsVipModalOpen(true)}
+            onOpenWallpaperModal={() => setIsWallpaperModalOpen(true)}
           />
         )}
         {activeTab === 'phonetics' && <PhoneticsView />}
@@ -135,6 +140,13 @@ export const App: React.FC = () => {
           />
         )}
         {activeTab === 'cinema' && <CinemaView />}
+
+        {/* 🎁 学员美学福利 · 一子一木 4K 伴学治愈壁纸屋横幅 (二级页面底部展示) */}
+        {activeTab !== 'home' && (
+          <div className="mt-8 pb-4">
+            <WallpaperBanner onOpenWallpaperModal={() => setIsWallpaperModalOpen(true)} />
+          </div>
+        )}
       </main>
 
       {/* Floating Bottom Right Controls */}
@@ -172,6 +184,11 @@ export const App: React.FC = () => {
       <AdminKeyGeneratorModal
         isOpen={isAdminModalOpen}
         onClose={() => setIsAdminModalOpen(false)}
+      />
+
+      <WallpaperRewardModal
+        isOpen={isWallpaperModalOpen}
+        onClose={() => setIsWallpaperModalOpen(false)}
       />
 
       {/* Footer */}

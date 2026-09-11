@@ -35,6 +35,7 @@ interface NavbarProps {
   license: LicenseInfo | null;
   onOpenVipModal: () => void;
   onOpenAdminModal: () => void;
+  onOpenWallpaperModal?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -43,7 +44,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   isVip,
   license,
   onOpenVipModal,
-  onOpenAdminModal
+  onOpenAdminModal,
+  onOpenWallpaperModal
 }) => {
   const examCountdown = getFrenchExamCountdown();
 
@@ -162,7 +164,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {/* 快速直达统计徽章与管理员栏 */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full max-w-full lg:w-auto min-w-0">
-                <div className="grid grid-cols-5 sm:flex sm:items-center gap-1 sm:gap-2 w-full sm:w-auto min-w-0">
+                <div className="grid grid-cols-6 sm:flex sm:items-center gap-1 sm:gap-1.5 w-full sm:w-auto min-w-0">
                   <button 
                     onClick={() => setActiveTab('conjugation')}
                     className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-[#A94A62] hover:bg-[#933C52] text-white text-center cursor-pointer transition shadow-xs active:scale-98"
@@ -199,6 +201,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span className="block sm:hidden text-[10px] font-black text-white truncate w-full">📅 考期</span>
                     <span className="hidden sm:block text-[9px] text-[#F3DDE2] font-medium whitespace-nowrap">{examCountdown.buttonSubText}</span>
                     <span className="block sm:hidden text-[8px] text-[#F3DDE2] font-medium truncate w-full">{examCountdown.days}天</span>
+                  </button>
+                  <button 
+                    onClick={onOpenWallpaperModal}
+                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-[#FCFAF6] hover:bg-[#F3DDE2]/40 border border-[#DDBF78]/50 text-center cursor-pointer transition active:scale-98 shadow-2xs"
+                    title="免费领取 iPad/手机 4K 法式伴学壁纸"
+                  >
+                    <span className="hidden sm:block text-sm font-black text-[#A94A62] whitespace-nowrap">🎁 免费壁纸</span>
+                    <span className="block sm:hidden text-[10px] font-black text-[#A94A62] truncate w-full">🎁 壁纸</span>
+                    <span className="hidden sm:block text-[9px] text-[#DDBF78] font-bold whitespace-nowrap">4K 伴学锁屏</span>
+                    <span className="block sm:hidden text-[8px] text-[#DDBF78] font-bold truncate w-full">伴学</span>
                   </button>
                   <button 
                     onClick={onOpenVipModal}
@@ -354,6 +366,15 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right VIP / Actions */}
           <div className="flex items-center gap-2">
+            <button
+              onClick={onOpenWallpaperModal}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-[#FCFAF6] hover:bg-[#F3DDE2]/40 text-[#A94A62] border border-[#DDBF78]/50 text-xs font-bold transition shrink-0 cursor-pointer shadow-2xs"
+              title="免费领取 4K 法式伴学壁纸"
+            >
+              <span>🎁</span>
+              <span className="hidden sm:inline font-bold">免费壁纸</span>
+            </button>
+
             {isVip ? (
               <div className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#DDBF78] text-[#29354A] text-xs font-black shadow-xs">
                 <Crown className="w-3.5 h-3.5" />

@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { ActiveTab } from './Navbar';
+import { WallpaperBanner } from './WallpaperBanner';
 import { 
   DAILY_QUOTES_POOL, 
   CONTENT_UPDATE_LOGS, 
@@ -213,13 +214,15 @@ interface HomePortalProps {
   onSelectModule?: (tab: ActiveTab) => void;
   isVip: boolean;
   onOpenVipModal: (reason?: string) => void;
+  onOpenWallpaperModal?: () => void;
 }
 
 export const HomePortal: React.FC<HomePortalProps> = ({
   setActiveTab,
   onSelectModule,
   isVip,
-  onOpenVipModal
+  onOpenVipModal,
+  onOpenWallpaperModal
 }) => {
   const navigateTab = (tab: ActiveTab) => {
     if (setActiveTab) setActiveTab(tab);
@@ -585,6 +588,9 @@ export const HomePortal: React.FC<HomePortalProps> = ({
         </div>
 
       </div>
+
+      {/* --- 6. 学员美学福利 · 一子一木 4K 伴学治愈壁纸屋横幅 --- */}
+      <WallpaperBanner onOpenWallpaperModal={onOpenWallpaperModal} />
 
     </div>
   );
