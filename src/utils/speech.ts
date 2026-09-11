@@ -1,4 +1,4 @@
-﻿// Web Speech API 法语标准发音引擎工具，支持语速控制、巴黎腔/法语自然音优先匹配与防死锁队列
+// Web Speech API 法语标准发音引擎工具，支持语速控制、巴黎腔/法语自然音优先匹配与防死锁队列
 
 let cachedFrenchVoice: SpeechSynthesisVoice | null = null;
 let isVoiceInitialized = false;
@@ -92,3 +92,18 @@ export function speakFrench(text: string, rate: number = 0.9): Promise<void> {
     }
   });
 }
+
+export function stopFrenchSpeech(): void {
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    try {
+      if (activeTimeout) {
+        clearTimeout(activeTimeout);
+        activeTimeout = null;
+      }
+      window.speechSynthesis.cancel();
+    } catch (err) {
+      console.warn('[Speech] Stop error:', err);
+    }
+  }
+}
+
