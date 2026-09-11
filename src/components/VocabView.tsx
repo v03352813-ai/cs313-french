@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Layers, 
   Search, 
@@ -83,7 +83,7 @@ export const VocabView: React.FC = () => {
       {/* Top Hero Banner */}
       <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-bold border border-[#80142A]/25">
             <Layers className="w-3.5 h-3.5 text-[#DDBF78]" />
             <span>艾宾浩斯抗遗忘记忆曲线</span>
           </div>
@@ -91,7 +91,7 @@ export const VocabView: React.FC = () => {
             法语核心考纲词汇闪卡 (阴阳性双标)
           </h1>
           <p className="text-xs sm:text-sm text-[#29354A]/80 leading-relaxed max-w-3xl font-medium">
-            背法语单词最忌讳不记阴阳性！卡片严格标定 <strong className="text-[#A94A62] font-bold">阳性 (Masculin 标)</strong> 与 <strong className="text-[#A94A62] font-bold">阴性 (Féminin 标)</strong>，点击正反翻转，原声朗读。
+            背法语单词最忌讳不记阴阳性！卡片严格标定 <strong className="text-[#80142A] font-bold">阳性 (Masculin 标)</strong> 与 <strong className="text-[#80142A] font-bold">阴性 (Féminin 标)</strong>，点击正反翻转，原声朗读。
           </p>
         </div>
       </div>
@@ -109,7 +109,7 @@ export const VocabView: React.FC = () => {
               }}
               className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition cursor-pointer ${
                 activeLevel === lvl.id
-                  ? 'bg-[#A94A62] text-white shadow-xs'
+                  ? 'bg-[#80142A] text-white shadow-xs'
                   : 'bg-white text-[#29354A] hover:bg-slate-50 border border-slate-200/80'
               }`}
             >
@@ -129,7 +129,7 @@ export const VocabView: React.FC = () => {
               setCurrentIndex(0);
               setIsFlipped(false);
             }}
-            className="w-full pl-10 pr-4 py-2 rounded-xl bg-white border border-slate-200/80 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#A94A62]/20 focus:bg-white text-[#29354A] font-medium transition"
+            className="w-full pl-10 pr-4 py-2 rounded-xl bg-white border border-slate-200/80 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/20 focus:bg-white text-[#29354A] font-medium transition"
           />
         </div>
       </div>
@@ -153,7 +153,7 @@ export const VocabView: React.FC = () => {
             <div className="absolute top-5 inset-x-6 flex items-center justify-between">
               <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
                 currentItem.gender === 'feminine'
-                  ? 'bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25'
+                  ? 'bg-[#FCECEF] text-[#80142A] border border-[#80142A]/25'
                   : currentItem.gender === 'masculine'
                   ? 'bg-slate-50 text-[#29354A] border border-slate-200/70'
                   : 'bg-slate-50 text-[#29354A] border border-slate-200/70'
@@ -172,7 +172,7 @@ export const VocabView: React.FC = () => {
               <div className="space-y-3 my-auto">
                 <div className="text-3xl sm:text-4xl font-black text-[#29354A] font-serif tracking-tight">
                   {currentItem.article && (
-                    <span className="text-[#A94A62] mr-2 font-normal opacity-85">{currentItem.article}</span>
+                    <span className="text-[#80142A] mr-2 font-normal opacity-85">{currentItem.article}</span>
                   )}
                   {currentItem.french}
                 </div>
@@ -187,7 +187,7 @@ export const VocabView: React.FC = () => {
             ) : (
               /* Back: Chinese meaning + Example Sentence */
               <div className="space-y-4 my-auto">
-                <div className="text-2xl font-black text-[#A94A62]">
+                <div className="text-2xl font-black text-[#80142A]">
                   {currentItem.chinese}
                 </div>
                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 text-left space-y-1 max-w-md">
@@ -206,9 +206,9 @@ export const VocabView: React.FC = () => {
             <div className="absolute bottom-5 inset-x-6 flex items-center justify-between" onClick={e => e.stopPropagation()}>
               <button
                 onClick={() => playSpeech(`${currentItem.article || ''} ${currentItem.french}`)}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-[#F3DDE2] text-[#A94A62] border border-slate-200/70 text-xs font-bold transition cursor-pointer"
+                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-[#FCECEF] text-[#80142A] border border-slate-200/70 text-xs font-bold transition cursor-pointer"
               >
-                <Volume2 className="w-4 h-4 text-[#A94A62]" />
+                <Volume2 className="w-4 h-4 text-[#80142A]" />
                 <span>朗读</span>
               </button>
 
@@ -238,7 +238,7 @@ export const VocabView: React.FC = () => {
 
             <button
               onClick={handleNext}
-              className="flex-1 py-3 rounded-2xl bg-[#A94A62] hover:bg-[#933C52] text-white font-bold text-sm flex items-center justify-center gap-1 transition shadow-xs cursor-pointer active:scale-98"
+              className="flex-1 py-3 rounded-2xl bg-[#80142A] hover:bg-[#680E20] text-white font-bold text-sm flex items-center justify-center gap-1 transition shadow-xs cursor-pointer active:scale-98"
             >
               <span>下一个</span>
               <ChevronRight className="w-4 h-4" />

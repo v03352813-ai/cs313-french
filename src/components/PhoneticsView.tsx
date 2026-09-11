@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Sparkles, 
   Volume2, 
@@ -49,7 +49,7 @@ export const PhoneticsView: React.FC = () => {
       {/* Top Hero Banner */}
       <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-bold border border-[#80142A]/25">
             <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
             <span>法兰西语音纯正发音规范</span>
           </div>
@@ -76,7 +76,7 @@ export const PhoneticsView: React.FC = () => {
                 onClick={() => setActiveCategory(cat.id as any)}
                 className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition cursor-pointer ${
                   activeCategory === cat.id
-                    ? 'bg-[#A94A62] text-white shadow-xs'
+                    ? 'bg-[#80142A] text-white shadow-xs'
                     : 'bg-white text-[#29354A] hover:bg-slate-50 border border-slate-200/80'
                 }`}
               >
@@ -101,10 +101,10 @@ export const PhoneticsView: React.FC = () => {
                   }}
                   className={`relative p-3 rounded-2xl flex flex-col items-center justify-center transition-all duration-150 border cursor-pointer ${
                     isSelected
-                      ? 'bg-[#A94A62] text-white border-[#A94A62] shadow-md scale-[1.04] z-10'
+                      ? 'bg-[#80142A] text-white border-[#80142A] shadow-md scale-[1.04] z-10'
                       : isNasal
-                      ? 'bg-[#F3DDE2] text-[#A94A62] border-[#A94A62]/30 hover:bg-[#EFE2E6] hover:scale-[1.02]'
-                      : 'bg-white text-[#29354A] border-slate-200/80 hover:bg-slate-50 hover:border-[#A94A62]/30 hover:scale-[1.02]'
+                      ? 'bg-[#FCECEF] text-[#80142A] border-[#80142A]/30 hover:bg-[#EFE2E6] hover:scale-[1.02]'
+                      : 'bg-white text-[#29354A] border-slate-200/80 hover:bg-slate-50 hover:border-[#80142A]/30 hover:scale-[1.02]'
                   }`}
                 >
                   <span className={`text-lg sm:text-xl font-black ${isSelected ? 'text-white' : 'text-[#29354A]'}`}>
@@ -114,7 +114,7 @@ export const PhoneticsView: React.FC = () => {
                     {item.spellingRules.slice(0, 2).join(', ')}
                   </span>
                   {isNasal && !isSelected && (
-                    <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#A94A62]" title="鼻化元音"></span>
+                    <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#80142A]" title="鼻化元音"></span>
                   )}
                 </button>
               );
@@ -139,7 +139,7 @@ export const PhoneticsView: React.FC = () => {
                   <span className="text-3xl sm:text-4xl font-black text-[#29354A] font-mono">
                     {selectedItem.ipa}
                   </span>
-                  <span className="px-2.5 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25 text-xs font-bold">
+                  <span className="px-2.5 py-1 rounded-full bg-[#FCECEF] text-[#80142A] border border-[#80142A]/25 text-xs font-bold">
                     {selectedItem.name}
                   </span>
                 </div>
@@ -150,7 +150,7 @@ export const PhoneticsView: React.FC = () => {
 
               <button
                 onClick={() => playSpeech(selectedItem.examples.map(e => e.word).join(', '))}
-                className="w-11 h-11 rounded-2xl bg-[#A94A62] hover:bg-[#933C52] text-white flex items-center justify-center shadow-xs hover:scale-105 transition cursor-pointer"
+                className="w-11 h-11 rounded-2xl bg-[#80142A] hover:bg-[#680E20] text-white flex items-center justify-center shadow-xs hover:scale-105 transition cursor-pointer"
                 title="朗读全部例词"
               >
                 <Volume2 className="w-5 h-5" />
@@ -178,11 +178,11 @@ export const PhoneticsView: React.FC = () => {
                   <div
                     key={ex.word}
                     onClick={() => playSpeech(ex.word)}
-                    className="p-3 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/70 hover:border-[#A94A62]/30 flex items-center justify-between cursor-pointer transition group"
+                    className="p-3 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/70 hover:border-[#80142A]/30 flex items-center justify-between cursor-pointer transition group"
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-bold text-[#29354A] group-hover:text-[#A94A62]">
+                        <span className="text-sm font-bold text-[#29354A] group-hover:text-[#80142A]">
                           {ex.word}
                         </span>
                         <span className="text-xs text-stone-400 font-mono">
@@ -193,7 +193,7 @@ export const PhoneticsView: React.FC = () => {
                         {ex.meaning}
                       </p>
                     </div>
-                    <div className="w-8 h-8 rounded-xl bg-white group-hover:bg-[#A94A62] text-stone-400 group-hover:text-white flex items-center justify-center shadow-2xs border border-slate-200/70 transition">
+                    <div className="w-8 h-8 rounded-xl bg-white group-hover:bg-[#80142A] text-stone-400 group-hover:text-white flex items-center justify-center shadow-2xs border border-slate-200/70 transition">
                       <Volume2 className="w-4 h-4" />
                     </div>
                   </div>
@@ -210,7 +210,7 @@ export const PhoneticsView: React.FC = () => {
       <section className="space-y-4 pt-6 border-t border-slate-200/80">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded-md bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25 font-bold text-xs">
+            <span className="px-2 py-0.5 rounded-md bg-[#FCECEF] text-[#80142A] border border-[#80142A]/25 font-bold text-xs">
               重中之重
             </span>
             <h2 className="text-xl font-black text-[#29354A] tracking-tight">
@@ -233,11 +233,11 @@ export const PhoneticsView: React.FC = () => {
                   <h3 className="text-base font-black text-[#29354A]">
                     {rule.title}
                   </h3>
-                  <span className="text-xs font-serif italic text-[#A94A62] font-bold">
+                  <span className="text-xs font-serif italic text-[#80142A] font-bold">
                     {rule.frenchTitle}
                   </span>
                 </div>
-                <span className="px-2 py-0.5 rounded-full bg-[#F3DDE2] text-[#A94A62] text-[11px] font-bold border border-[#A94A62]/25">
+                <span className="px-2 py-0.5 rounded-full bg-[#FCECEF] text-[#80142A] text-[11px] font-bold border border-[#80142A]/25">
                   {rule.tag}
                 </span>
               </div>
@@ -263,9 +263,9 @@ export const PhoneticsView: React.FC = () => {
                         <span className="text-stone-400 font-mono">{ex.ipa}</span>
                         <span className="text-[#29354A]/70">({ex.meaning})</span>
                       </div>
-                      <p className="text-[11px] text-[#A94A62] mt-0.5 font-medium">{ex.explanation}</p>
+                      <p className="text-[11px] text-[#80142A] mt-0.5 font-medium">{ex.explanation}</p>
                     </div>
-                    <Volume2 className="w-3.5 h-3.5 text-stone-400 hover:text-[#A94A62] shrink-0 ml-2" />
+                    <Volume2 className="w-3.5 h-3.5 text-stone-400 hover:text-[#80142A] shrink-0 ml-2" />
                   </div>
                 ))}
               </div>

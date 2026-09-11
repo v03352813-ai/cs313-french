@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { 
   Headphones, 
   Play, 
@@ -107,7 +107,7 @@ export const CinemaView: React.FC = () => {
       {/* Top Hero Banner */}
       <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-bold border border-[#80142A]/25">
             <Headphones className="w-3.5 h-3.5 text-[#DDBF78]" />
             <span>法式浪漫原声 · 沉浸式听力跟读</span>
           </div>
@@ -130,16 +130,16 @@ export const CinemaView: React.FC = () => {
               onClick={() => setSelectedMovie(movie)}
               className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
                 isSelected
-                  ? 'bg-[#F3DDE2] text-[#A94A62] border-2 border-[#A94A62] shadow-xs scale-[1.01]'
+                  ? 'bg-[#FCECEF] text-[#80142A] border-2 border-[#80142A] shadow-xs scale-[1.01]'
                   : 'bg-white hover:bg-slate-50 border-slate-200/80 text-[#29354A]'
               }`}
             >
               <div>
-                <div className={`text-xs font-bold font-serif ${isSelected ? 'text-[#A94A62]' : 'text-stone-400'}`}>{movie.frenchTitle}</div>
+                <div className={`text-xs font-bold font-serif ${isSelected ? 'text-[#80142A]' : 'text-stone-400'}`}>{movie.frenchTitle}</div>
                 <div className="font-extrabold text-sm sm:text-base mt-0.5">{movie.movieTitle}</div>
               </div>
               <span className={`text-[10px] mt-2 px-2 py-0.5 rounded-md font-medium truncate ${
-                isSelected ? 'bg-[#A94A62] text-white' : 'bg-slate-100 text-[#29354A]'
+                isSelected ? 'bg-[#80142A] text-white' : 'bg-slate-100 text-[#29354A]'
               }`}>
                 {movie.year} · {movie.director}
               </span>
@@ -169,7 +169,7 @@ export const CinemaView: React.FC = () => {
 
               {/* Live Audio Equalizer Pill when playing */}
               {playingFr && (
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#A94A62]/90 border border-[#F3DDE2]/40 text-white text-xs font-bold backdrop-blur-md animate-pulse">
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#80142A]/90 border border-[#FCECEF]/40 text-white text-xs font-bold backdrop-blur-md animate-pulse">
                   <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                   <Music2 className="w-3.5 h-3.5" />
                   <span>正在播放原声...</span>
@@ -193,7 +193,7 @@ export const CinemaView: React.FC = () => {
                 className={`px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 shadow-lg transition-all cursor-pointer ${
                   isPlayingAll
                     ? 'bg-amber-400 hover:bg-amber-500 text-slate-900 ring-4 ring-amber-400/30'
-                    : 'bg-[#A94A62] hover:bg-[#8F3E53] text-white hover:scale-105 active:scale-95 shadow-[#A94A62]/40'
+                    : 'bg-[#80142A] hover:bg-[#680E20] text-white hover:scale-105 active:scale-95 shadow-[#80142A]/40'
                 }`}
               >
                 {isPlayingAll ? (
@@ -230,7 +230,7 @@ export const CinemaView: React.FC = () => {
                     onClick={() => setPlaybackRate(rate)}
                     className={`px-2 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
                       playbackRate === rate
-                        ? 'bg-[#A94A62] text-white shadow-xs'
+                        ? 'bg-[#80142A] text-white shadow-xs'
                         : 'text-slate-300 hover:text-white hover:bg-white/10'
                     }`}
                   >
@@ -247,7 +247,7 @@ export const CinemaView: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-100">
             <div>
               <h3 className="text-lg font-bold text-[#29354A] flex items-center gap-2">
-                <Volume2 className="w-5 h-5 text-[#A94A62]" />
+                <Volume2 className="w-5 h-5 text-[#80142A]" />
                 <span>名场面原声台词逐句精练</span>
               </h3>
               <p className="text-xs text-slate-500 mt-0.5">
@@ -258,7 +258,7 @@ export const CinemaView: React.FC = () => {
             {/* Current Playing Sentence Tracker */}
             <div className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 flex items-center gap-2 self-start sm:self-auto">
               <span>当前台词:</span>
-              <span className="font-bold text-[#A94A62]">
+              <span className="font-bold text-[#80142A]">
                 {activeDialogueIndex + 1} / {selectedMovie.dialogues.length} 句
               </span>
             </div>
@@ -275,15 +275,15 @@ export const CinemaView: React.FC = () => {
                   onClick={() => handlePlaySentence(idx)}
                   className={`p-5 rounded-2xl border transition-all cursor-pointer space-y-3 relative ${
                     isCurrentlySpeaking
-                      ? 'bg-[#F3DDE2] border-[#A94A62] shadow-md ring-2 ring-[#A94A62]/25 scale-[1.005]'
+                      ? 'bg-[#FCECEF] border-[#80142A] shadow-md ring-2 ring-[#80142A]/25 scale-[1.005]'
                       : isSelected
-                      ? 'bg-slate-50/90 border-[#A94A62]/40 shadow-xs'
+                      ? 'bg-slate-50/90 border-[#80142A]/40 shadow-xs'
                       : 'bg-slate-50/60 hover:bg-slate-50 border-slate-200/70'
                   }`}
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-[#A94A62] bg-[#F3DDE2] px-2.5 py-0.5 rounded-md border border-[#A94A62]/20">
+                      <span className="text-xs font-bold text-[#80142A] bg-[#FCECEF] px-2.5 py-0.5 rounded-md border border-[#80142A]/20">
                         {dlg.character}
                       </span>
                       <span className="text-[11px] text-slate-400 font-serif">
@@ -299,8 +299,8 @@ export const CinemaView: React.FC = () => {
                       }}
                       className={`px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs cursor-pointer ${
                         isCurrentlySpeaking
-                          ? 'bg-[#A94A62] text-white ring-2 ring-[#A94A62]/30 animate-pulse'
-                          : 'bg-white hover:bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/30 hover:border-[#A94A62]'
+                          ? 'bg-[#80142A] text-white ring-2 ring-[#80142A]/30 animate-pulse'
+                          : 'bg-white hover:bg-[#FCECEF] text-[#80142A] border border-[#80142A]/30 hover:border-[#80142A]'
                       }`}
                     >
                       {isCurrentlySpeaking ? (
@@ -327,7 +327,7 @@ export const CinemaView: React.FC = () => {
 
                   {dlg.keyPoints && (
                     <div className="pt-2 border-t border-slate-200/60 text-xs text-[#29354A] bg-white/80 p-2.5 rounded-xl">
-                      <span className="font-bold text-[#A94A62]">语法要点：</span>{dlg.keyPoints}
+                      <span className="font-bold text-[#80142A]">语法要点：</span>{dlg.keyPoints}
                     </div>
                   )}
                 </div>
@@ -353,8 +353,8 @@ export const CinemaView: React.FC = () => {
                     onClick={(e) => handlePlayWord(voc.word, e)}
                     className={`p-3 rounded-xl border cursor-pointer transition text-xs space-y-1 ${
                       isWordPlaying
-                        ? 'bg-[#F3DDE2] border-[#A94A62] shadow-xs'
-                        : 'bg-slate-50 hover:bg-[#F3DDE2]/60 border-slate-200/70'
+                        ? 'bg-[#FCECEF] border-[#80142A] shadow-xs'
+                        : 'bg-slate-50 hover:bg-[#FCECEF]/60 border-slate-200/70'
                     }`}
                   >
                     <div className="font-serif font-bold text-[#29354A] flex items-center justify-between">
@@ -362,7 +362,7 @@ export const CinemaView: React.FC = () => {
                       <button
                         type="button"
                         className={`w-6 h-6 rounded-full flex items-center justify-center transition shrink-0 ${
-                          isWordPlaying ? 'bg-[#A94A62] text-white' : 'bg-white text-slate-400 hover:text-[#A94A62] border border-slate-200'
+                          isWordPlaying ? 'bg-[#80142A] text-white' : 'bg-white text-slate-400 hover:text-[#80142A] border border-slate-200'
                         }`}
                         title="点击播放发音"
                       >

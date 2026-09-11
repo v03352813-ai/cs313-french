@@ -1,9 +1,9 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @theme {
-  --color-primary: #A94A62;
-  --color-primary-hover: #933C52;
-  --color-primary-light: #F3DDE2;
+  --color-primary: #80142A;
+  --color-primary-hover: #680E20;
+  --color-primary-light: #FCECEF;
   --color-page-bg: #F8F9FA;
   --color-nav-bg: #FFFFFF;
   --color-gold: #DDBF78;
@@ -55,7 +55,7 @@
 }
 
 .french-wine-gradient {
-  background: linear-gradient(135deg, #A94A62 0%, #BA5C74 50%, #933C52 100%);
+  background: linear-gradient(135deg, #80142A 0%, #9B1B36 50%, #680E20 100%);
 }
 
 .french-gold-gradient {

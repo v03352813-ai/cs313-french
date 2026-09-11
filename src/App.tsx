@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Navbar, ActiveTab } from './components/Navbar';
 import { HomePortal } from './components/HomePortal';
 import { PhoneticsView } from './components/PhoneticsView';
@@ -91,7 +91,7 @@ export const App: React.FC = () => {
   const isVip = !!license?.isVip;
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] text-[#29354A] flex flex-col selection:bg-[#F3DDE2] selection:text-[#A94A62]">
+    <div className="min-h-screen bg-[#F8F9FA] text-[#29354A] flex flex-col selection:bg-[#FCECEF] selection:text-[#80142A]">
       
       {/* Top Navbar */}
       <Navbar
@@ -156,7 +156,7 @@ export const App: React.FC = () => {
         {activeTab !== 'home' && (
           <button
             onClick={() => handleTabChange('home')}
-            className="w-10 h-10 rounded-full bg-white text-[#A94A62] shadow-md border border-slate-200/80 hover:bg-[#F3DDE2]/50 flex items-center justify-center transition cursor-pointer"
+            className="w-10 h-10 rounded-full bg-white text-[#80142A] shadow-md border border-slate-200/80 hover:bg-[#FCECEF]/50 flex items-center justify-center transition cursor-pointer"
             title="返回首页"
           >
             <Home className="w-4 h-4" />
@@ -166,7 +166,7 @@ export const App: React.FC = () => {
         {showBackToTop && (
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="w-10 h-10 rounded-full bg-[#A94A62] text-white shadow-md hover:bg-[#933C52] flex items-center justify-center transition cursor-pointer"
+            className="w-10 h-10 rounded-full bg-[#80142A] text-white shadow-md hover:bg-[#680E20] flex items-center justify-center transition cursor-pointer"
             title="回到顶部"
           >
             <ArrowUp className="w-4 h-4" />
@@ -196,7 +196,7 @@ export const App: React.FC = () => {
       {/* Footer */}
       <footer className="border-t border-slate-200/80 bg-white/90 py-8 px-4 text-center text-xs text-stone-600 space-y-2 mt-8">
         <div className="flex items-center justify-center gap-2 text-[#29354A] font-bold">
-          <span className="text-[#A94A62]">🇫🇷 CS313 法语研习社</span>
+          <span className="text-[#80142A]">🇫🇷 CS313 法语研习社</span>
           <span>•</span>
           <span>考研二外与 DELF 全真机考系统</span>
         </div>

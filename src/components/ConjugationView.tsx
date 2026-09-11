@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   RotateCcw, 
   Search, 
@@ -57,7 +57,7 @@ export const ConjugationView: React.FC = () => {
       {/* Top Hero Banner */}
       <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-bold border border-[#80142A]/25">
             <RotateCcw className="w-3.5 h-3.5 text-[#DDBF78]" />
             <span>自研法语核心文法推导引擎</span>
           </div>
@@ -83,7 +83,7 @@ export const ConjugationView: React.FC = () => {
               placeholder="搜索动词 (如 être, parler...)"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-slate-200/80 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#A94A62]/20 focus:bg-white transition text-[#29354A] font-medium"
+              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-slate-200/80 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/20 focus:bg-white transition text-[#29354A] font-medium"
             />
           </div>
 
@@ -97,7 +97,7 @@ export const ConjugationView: React.FC = () => {
                   onClick={() => setSelectedVerb(verb)}
                   className={`w-full p-3 rounded-2xl flex items-center justify-between text-left transition cursor-pointer ${
                     isSelected
-                      ? 'bg-[#F3DDE2] text-[#A94A62] border-2 border-[#A94A62] shadow-xs'
+                      ? 'bg-[#FCECEF] text-[#80142A] border-2 border-[#80142A] shadow-xs'
                       : 'hover:bg-slate-50 border border-transparent text-[#29354A]'
                   }`}
                 >
@@ -108,21 +108,21 @@ export const ConjugationView: React.FC = () => {
                       </span>
                       <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-bold ${
                         isSelected 
-                          ? 'bg-[#A94A62] text-white' 
+                          ? 'bg-[#80142A] text-white' 
                           : verb.group === '1st_er' 
                           ? 'bg-emerald-100 text-emerald-800' 
                           : verb.group === '2nd_ir'
-                          ? 'bg-[#F3DDE2] text-[#A94A62]' 
+                          ? 'bg-[#FCECEF] text-[#80142A]' 
                           : 'bg-slate-50 text-[#29354A] border border-slate-200/70'
                       }`}>
                         {verb.group === '1st_er' ? '第1组 -er' : verb.group === '2nd_ir' ? '第2组 -ir' : '第3组不规则'}
                       </span>
                     </div>
-                    <p className={`text-xs mt-0.5 truncate max-w-[200px] ${isSelected ? 'text-[#A94A62]' : 'text-stone-500'}`}>
+                    <p className={`text-xs mt-0.5 truncate max-w-[200px] ${isSelected ? 'text-[#80142A]' : 'text-stone-500'}`}>
                       {verb.meaning}
                     </p>
                   </div>
-                  <ArrowRight className={`w-4 h-4 ${isSelected ? 'text-[#A94A62]' : 'text-stone-300'}`} />
+                  <ArrowRight className={`w-4 h-4 ${isSelected ? 'text-[#80142A]' : 'text-stone-300'}`} />
                 </button>
               );
             })}
@@ -147,9 +147,9 @@ export const ConjugationView: React.FC = () => {
                 </div>
                 <div className="flex flex-wrap items-center gap-2 mt-2">
                   <span className="text-xs px-2.5 py-0.5 rounded-full bg-slate-50 text-[#29354A] font-bold border border-slate-200/70">
-                    过去分词: <strong className="text-[#A94A62] font-serif">{selectedVerb.participle}</strong>
+                    过去分词: <strong className="text-[#80142A] font-serif">{selectedVerb.participle}</strong>
                   </span>
-                  <span className="text-xs px-2.5 py-0.5 rounded-full font-bold border bg-[#F3DDE2] text-[#A94A62] border-[#A94A62]/25">
+                  <span className="text-xs px-2.5 py-0.5 rounded-full font-bold border bg-[#FCECEF] text-[#80142A] border-[#80142A]/25">
                     助动词: <strong>{selectedVerb.auxiliary}</strong>
                   </span>
                   {selectedVerb.tags.map(t => (
@@ -162,9 +162,9 @@ export const ConjugationView: React.FC = () => {
 
               <button
                 onClick={() => playSpeech(selectedVerb.infinitive)}
-                className="self-start sm:self-auto flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-[#F3DDE2] text-[#A94A62] border border-slate-200/70 text-xs font-bold transition cursor-pointer"
+                className="self-start sm:self-auto flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-[#FCECEF] text-[#80142A] border border-slate-200/70 text-xs font-bold transition cursor-pointer"
               >
-                <Volume2 className="w-4 h-4 text-[#A94A62]" />
+                <Volume2 className="w-4 h-4 text-[#80142A]" />
                 <span>原形发音</span>
               </button>
             </div>
@@ -185,7 +185,7 @@ export const ConjugationView: React.FC = () => {
                       onClick={() => setSelectedTense(t.key)}
                       className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
                         isActive
-                          ? 'bg-[#A94A62] text-white shadow-xs'
+                          ? 'bg-[#80142A] text-white shadow-xs'
                           : hasThisTense
                           ? 'bg-slate-50 text-[#29354A] hover:bg-slate-100 border border-slate-200/80'
                           : 'bg-slate-100/50 text-stone-300 cursor-not-allowed border border-slate-200/40'
@@ -207,7 +207,7 @@ export const ConjugationView: React.FC = () => {
               </div>
               <p className="leading-relaxed text-[#29354A]/80 font-medium">
                 {currentTenseMeta.usage} <br />
-                <span className="font-mono font-bold text-[#A94A62]">公式：{currentTenseMeta.formula}</span>
+                <span className="font-mono font-bold text-[#80142A]">公式：{currentTenseMeta.formula}</span>
               </p>
             </div>
 
@@ -219,7 +219,7 @@ export const ConjugationView: React.FC = () => {
                   <div
                     key={p.key}
                     onClick={() => playSpeech(p.data.full)}
-                    className="p-4 rounded-2xl bg-slate-50/70 hover:bg-white border border-slate-200/80 hover:border-[#A94A62]/40 transition-all flex items-center justify-between cursor-pointer group shadow-2xs"
+                    className="p-4 rounded-2xl bg-slate-50/70 hover:bg-white border border-slate-200/80 hover:border-[#80142A]/40 transition-all flex items-center justify-between cursor-pointer group shadow-2xs"
                   >
                     <div className="space-y-0.5">
                       <span className="text-xs font-mono font-bold text-stone-400">
@@ -227,7 +227,7 @@ export const ConjugationView: React.FC = () => {
                       </span>
                       <div className="text-base sm:text-lg font-extrabold tracking-tight font-serif">
                         <span className="text-[#29354A]">{p.data.stem}</span>
-                        <span className="text-[#A94A62] bg-[#F3DDE2] px-1 py-0.5 rounded-md font-black">
+                        <span className="text-[#80142A] bg-[#FCECEF] px-1 py-0.5 rounded-md font-black">
                           {p.data.ending}
                         </span>
                       </div>
@@ -235,8 +235,8 @@ export const ConjugationView: React.FC = () => {
 
                     <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition ${
                       isPlaying 
-                        ? 'bg-[#A94A62] text-white' 
-                        : 'bg-white text-stone-400 group-hover:bg-[#A94A62] group-hover:text-white shadow-2xs border border-slate-200/70'
+                        ? 'bg-[#80142A] text-white' 
+                        : 'bg-white text-stone-400 group-hover:bg-[#80142A] group-hover:text-white shadow-2xs border border-slate-200/70'
                     }`}>
                       <Volume2 className="w-4 h-4" />
                     </div>
@@ -250,7 +250,7 @@ export const ConjugationView: React.FC = () => {
               <div className="text-xs font-bold text-stone-500">
                 实战例句应用场景
               </div>
-              <p className="text-sm font-serif font-bold text-[#A94A62]">
+              <p className="text-sm font-serif font-bold text-[#80142A]">
                 « {selectedVerb.sampleSentence.french} »
               </p>
               <p className="text-xs text-[#29354A]/80 font-medium">

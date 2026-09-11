@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   BookMarked, 
   Trash2, 
@@ -37,7 +37,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
       {/* Top Hero Banner */}
       <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-bold border border-[#80142A]/25">
             <BookMarked className="w-3.5 h-3.5 text-[#DDBF78]" />
             <span>智能错因沉淀与薄弱点抓取</span>
           </div>
@@ -52,7 +52,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
         {mistakes.length > 0 && (
           <button
             onClick={onClearAll}
-            className="self-start sm:self-auto flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#F3DDE2] hover:bg-[#F3DDE2]/80 text-[#A94A62] text-xs font-bold border border-[#A94A62]/25 transition cursor-pointer"
+            className="self-start sm:self-auto flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FCECEF] hover:bg-[#FCECEF]/80 text-[#80142A] text-xs font-bold border border-[#80142A]/25 transition cursor-pointer"
           >
             <Trash2 className="w-4 h-4" />
             <span>清空错题本</span>
@@ -76,7 +76,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
           </div>
           <button
             onClick={onNavigateToExam}
-            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-2xl bg-[#A94A62] hover:bg-[#933C52] text-white text-xs sm:text-sm font-bold shadow-xs active:scale-95 transition cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-2xl bg-[#80142A] hover:bg-[#680E20] text-white text-xs sm:text-sm font-bold shadow-xs active:scale-95 transition cursor-pointer"
           >
             <span>去真题机考刷题</span>
             <ArrowRight className="w-4 h-4" />
@@ -96,7 +96,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
                   onClick={() => setFilterTag(t!)}
                   className={`px-3 py-1 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
                     filterTag === t
-                      ? 'bg-[#A94A62] text-white shadow-xs'
+                      ? 'bg-[#80142A] text-white shadow-xs'
                       : 'bg-white text-[#29354A] hover:bg-slate-50 border border-slate-200/80'
                   }`}
                 >
@@ -116,7 +116,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200/80">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-md bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25 text-xs font-bold">
+                      <span className="px-2.5 py-0.5 rounded-md bg-[#FCECEF] text-[#80142A] border border-[#80142A]/25 text-xs font-bold">
                         {m.paperTitle}
                       </span>
                       {q.grammarTag && (
@@ -129,7 +129,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
                       <span className="text-xs text-stone-400">收录于 {m.date}</span>
                       <button
                         onClick={() => onRemoveMistake(m.id)}
-                        className="text-xs text-stone-400 hover:text-[#A94A62] font-bold transition cursor-pointer"
+                        className="text-xs text-stone-400 hover:text-[#80142A] font-bold transition cursor-pointer"
                       >
                         标记已攻克
                       </button>
@@ -148,13 +148,13 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
 
                       let style = 'bg-slate-50 border-slate-200/70 text-[#29354A]/80';
                       if (isCorrect) style = 'bg-emerald-50 border-emerald-300 text-emerald-900 font-bold';
-                      else if (isUserAns) style = 'bg-[#F3DDE2] border-[#A94A62]/40 text-[#A94A62] font-bold';
+                      else if (isUserAns) style = 'bg-[#FCECEF] border-[#80142A]/40 text-[#80142A] font-bold';
 
                       return (
                         <div key={oIdx} className={`p-2.5 rounded-xl border flex items-center justify-between ${style}`}>
                           <span>{String.fromCharCode(65 + oIdx)}. {opt}</span>
                           {isCorrect && <span className="text-[10px] bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded-sm font-bold">正确答案</span>}
-                          {isUserAns && !isCorrect && <span className="text-[10px] bg-[#A94A62] text-white px-1.5 py-0.5 rounded-sm font-bold">你的选择</span>}
+                          {isUserAns && !isCorrect && <span className="text-[10px] bg-[#80142A] text-white px-1.5 py-0.5 rounded-sm font-bold">你的选择</span>}
                         </div>
                       );
                     })}

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
 interface WallpaperBannerProps {
@@ -13,7 +13,7 @@ export const WallpaperBanner: React.FC<WallpaperBannerProps> = ({
   return (
     <div
       onClick={onOpenWallpaperModal}
-      className={`group relative bg-gradient-to-r from-[#F3DDE2]/40 via-slate-50 to-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 border border-slate-200/80 shadow-xs hover:shadow-md hover:border-[#A94A62]/50 transition-all duration-300 cursor-pointer overflow-hidden ${className}`}
+      className={`group relative bg-gradient-to-r from-[#FCECEF]/40 via-slate-50 to-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 border border-slate-200/80 shadow-xs hover:shadow-md hover:border-[#80142A]/50 transition-all duration-300 cursor-pointer overflow-hidden ${className}`}
     >
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3.5">
         
@@ -32,10 +32,10 @@ export const WallpaperBanner: React.FC<WallpaperBannerProps> = ({
 
           <div className="space-y-1 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-[#A94A62] to-[#BA5C74] text-white text-[10px] font-extrabold shadow-2xs">
+              <span className="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-[#80142A] to-[#9B1B36] text-white text-[10px] font-extrabold shadow-2xs">
                 🎁 学员美学福利
               </span>
-              <h3 className="text-base sm:text-lg font-black text-[#29354A] group-hover:text-[#A94A62] transition">
+              <h3 className="text-base sm:text-lg font-black text-[#29354A] group-hover:text-[#80142A] transition">
                 一子一木 4K 伴学治愈壁纸屋
               </h3>
             </div>
@@ -43,7 +43,7 @@ export const WallpaperBanner: React.FC<WallpaperBannerProps> = ({
               精选法式浪漫氛围感手机/iPad 高清学习壁纸 · 免费下载 · 每日打卡参与微信小程序积分抽大奖！
             </p>
             <div className="hidden sm:flex items-center gap-2 text-[11px] text-[#29354A]/70 font-mono">
-              <span className="bg-white/80 px-2 py-0.5 rounded-md border border-slate-200 font-semibold text-[#A94A62]">
+              <span className="bg-white/80 px-2 py-0.5 rounded-md border border-slate-200 font-semibold text-[#80142A]">
                 #小程序://一子一木/0JPDrt84ecI5Gwd
               </span>
               <span>微信扫码 / 口令秒开</span>
@@ -58,7 +58,7 @@ export const WallpaperBanner: React.FC<WallpaperBannerProps> = ({
               e.stopPropagation();
               if (onOpenWallpaperModal) onOpenWallpaperModal();
             }}
-            className="w-full sm:w-auto px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#A94A62] to-[#BA5C74] hover:from-[#933C52] hover:to-[#A94A62] text-white font-bold text-xs shadow-xs active:scale-98 transition flex items-center justify-center gap-1.5 group-hover:translate-x-0.5 cursor-pointer"
+            className="w-full sm:w-auto px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white font-bold text-xs shadow-xs active:scale-98 transition flex items-center justify-center gap-1.5 group-hover:translate-x-0.5 cursor-pointer"
           >
             <span>🎁 免费领取壁纸 / 抽奖</span>
             <ArrowRight className="w-3.5 h-3.5" />

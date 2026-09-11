@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+﻿import React, { useState, useMemo, useEffect } from 'react';
 import { 
   FileCheck2, 
   CheckCircle2, 
@@ -393,7 +393,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
       <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="px-2.5 py-0.5 rounded-full bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/20 text-xs font-bold">
+            <span className="px-2.5 py-0.5 rounded-full bg-[#FCECEF] text-[#80142A] border border-[#80142A]/20 text-xs font-bold">
               🏛️ 法国双轨全真机考考场
             </span>
             <span className="text-xs text-stone-500 font-medium">
@@ -410,17 +410,17 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
       </div>
 
       {/* 📌 双轨官方考纲权威说明横幅 */}
-      <div className="p-4 rounded-2xl bg-gradient-to-r from-[#F3DDE2]/40 via-slate-50 to-white border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+      <div className="p-4 rounded-2xl bg-gradient-to-r from-[#FCECEF]/40 via-slate-50 to-white border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
         <div className="flex items-start gap-2.5">
-          <span className={`w-2.5 h-2.5 rounded-full mt-1 shrink-0 animate-pulse ${activeTrack === 'kaoyan' ? 'bg-[#A94A62]' : 'bg-[#DDBF78]'}`} />
+          <span className={`w-2.5 h-2.5 rounded-full mt-1 shrink-0 animate-pulse ${activeTrack === 'kaoyan' ? 'bg-[#80142A]' : 'bg-[#DDBF78]'}`} />
           <div className="space-y-0.5">
             <div className="flex items-center gap-2 font-black text-[#29354A]">
-              <span className={activeTrack === 'kaoyan' ? 'text-[#A94A62]' : 'text-[#A94A62]'}>
+              <span className={activeTrack === 'kaoyan' ? 'text-[#80142A]' : 'text-[#80142A]'}>
                 {activeTrack === 'kaoyan' ? '🎓 考研二外法语 (241/242/243) 考纲指引' : '🌍 DELF 欧标国际认证 (A1-B2) 考纲指引'}
               </span>
               <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold ${
                 activeTrack === 'kaoyan'
-                  ? 'bg-[#F3DDE2] text-[#A94A62]'
+                  ? 'bg-[#FCECEF] text-[#80142A]'
                   : 'bg-white text-[#29354A] border border-[#DDBF78]/50'
               }`}>
                 {activeTrack === 'kaoyan' ? '全国名校自主命题 · 100分制' : '法国教育部官方标准 · 淘汰制'}
@@ -451,7 +451,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             }}
             className={`flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer ${
               activeTrack === 'kaoyan'
-                ? 'bg-[#A94A62] text-white shadow-xs font-black'
+                ? 'bg-[#80142A] text-white shadow-xs font-black'
                 : 'text-[#29354A] hover:bg-white/60'
             }`}
           >
@@ -480,7 +480,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
         {/* Sub-Filters: 高校或欧标级别 */}
         <div className="flex items-center gap-2 flex-wrap pt-1">
           <div className="flex items-center gap-1.5 text-xs font-black text-[#29354A] shrink-0">
-            <span className={`w-1.5 h-3.5 rounded-full ${activeTrack === 'kaoyan' ? 'bg-[#A94A62]' : 'bg-[#DDBF78]'}`} />
+            <span className={`w-1.5 h-3.5 rounded-full ${activeTrack === 'kaoyan' ? 'bg-[#80142A]' : 'bg-[#DDBF78]'}`} />
             <span>{activeTrack === 'kaoyan' ? '高校分类筛选:' : '欧标级别筛选:'}</span>
           </div>
 
@@ -498,7 +498,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                   onClick={() => setKaoyanFilter(f.id)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
                     kaoyanFilter === f.id
-                      ? 'bg-[#A94A62] text-white shadow-2xs font-black'
+                      ? 'bg-[#80142A] text-white shadow-2xs font-black'
                       : 'bg-slate-50 text-[#29354A] hover:bg-slate-100 border border-slate-200/70'
                   }`}
                 >
@@ -535,7 +535,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-200/80">
           <div className="flex items-center gap-2.5 flex-1 min-w-0">
             <div className="flex items-center gap-1.5 text-xs font-black text-slate-700 shrink-0">
-              <FileCheck2 className="w-4 h-4 text-[#A94A62]" />
+              <FileCheck2 className="w-4 h-4 text-[#80142A]" />
               <span>选择作答试卷 ({filteredPapers.length} 套):</span>
             </div>
 
@@ -554,7 +554,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                   setSelectedPaperId(targetId);
                   handleResetExam();
                 }}
-                className="w-full pl-3.5 pr-9 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/80 text-xs sm:text-sm font-black text-[#A94A62] focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-[#A94A62]/20 transition cursor-pointer appearance-none truncate shadow-2xs"
+                className="w-full pl-3.5 pr-9 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/80 text-xs sm:text-sm font-black text-[#80142A] focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/20 transition cursor-pointer appearance-none truncate shadow-2xs"
               >
                 {filteredPapers.map((p, idx) => {
                   const isFreeTrial = idx === 0 || p.isFreePreview;
@@ -575,7 +575,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
           <div className="flex items-center gap-2 text-xs font-bold text-stone-500 shrink-0">
             <span className={`px-2 py-0.5 rounded-md border ${
               activeTrack === 'kaoyan'
-                ? 'bg-[#F3DDE2] text-[#A94A62] border-[#A94A62]/20'
+                ? 'bg-[#FCECEF] text-[#80142A] border-[#80142A]/20'
                 : 'bg-white text-[#29354A] border-[#DDBF78]/50'
             }`}>
               {currentPaper?.level}
@@ -607,7 +607,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                       onClick={() => setCurrentQuestionIndex(tab.startIndex)}
                       className={`px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                         tab.isActive
-                          ? 'bg-[#A94A62] text-white shadow-xs font-black'
+                          ? 'bg-[#80142A] text-white shadow-xs font-black'
                           : 'bg-white text-[#29354A] hover:bg-slate-50 border border-slate-200/80'
                       }`}
                       title={`直接跳转到【${tab.name}】`}
@@ -625,7 +625,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               {/* Question Header */}
               <div className="flex items-center justify-between gap-2 pb-3 border-b border-slate-200/80">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="px-2.5 py-1 rounded-xl text-white font-mono text-xs font-black bg-[#A94A62]">
+                  <span className="px-2.5 py-1 rounded-xl text-white font-mono text-xs font-black bg-[#80142A]">
                     第 {currentQuestionIndex + 1} 题
                   </span>
                   <span className="px-2.5 py-0.5 rounded-full bg-slate-50 text-[#29354A] border border-slate-200/70 text-xs font-bold">
@@ -638,7 +638,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
                 <button
                   onClick={() => speakFrench(currentQuestion.contextText || currentQuestion.question)}
-                  className="p-1.5 rounded-lg bg-[#F3DDE2] text-[#A94A62] hover:bg-[#F3DDE2]/70 transition cursor-pointer"
+                  className="p-1.5 rounded-lg bg-[#FCECEF] text-[#80142A] hover:bg-[#FCECEF]/70 transition cursor-pointer"
                   title="朗读题目"
                 >
                 <Volume2 className="w-4 h-4" />
@@ -653,7 +653,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                     <BookOpen className="w-4 h-4 text-[#DDBF78]" />
                     <span>【读解分析 · 官方全真法文阅读文本材料】</span>
                   </span>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-white text-[#A94A62] border border-[#DDBF78]/40 shadow-2xs">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-white text-[#80142A] border border-[#DDBF78]/40 shadow-2xs">
                     法文原汁原味阅读材料
                   </span>
                 </div>
@@ -665,19 +665,19 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
             {/* Listening Audio Player if any */}
             {(currentQuestion.audioScript || currentQuestion.questionType === '听解原声') && (
-              <div className="p-4 rounded-2xl bg-slate-50/60 border border-[#A94A62]/30 shadow-2xs space-y-3">
+              <div className="p-4 rounded-2xl bg-slate-50/60 border border-[#80142A]/30 shadow-2xs space-y-3">
                 <div className="flex items-center justify-between flex-wrap gap-3">
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => currentQuestion.audioScript && handlePlayAudio(currentQuestion.audioScript)}
-                      className="w-10 h-10 rounded-full bg-[#A94A62] hover:bg-[#933C52] text-white flex items-center justify-center shadow-md shadow-[#A94A62]/25 transition cursor-pointer shrink-0"
+                      className="w-10 h-10 rounded-full bg-[#80142A] hover:bg-[#680E20] text-white flex items-center justify-center shadow-md shadow-[#80142A]/25 transition cursor-pointer shrink-0"
                       title={isPlayingAudio ? '暂停听力' : '播放原声听力'}
                     >
                       {isPlayingAudio ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
                     </button>
                     <div>
-                      <div className="text-xs font-bold text-[#A94A62] flex items-center gap-1.5">
-                        <Headphones className="w-3.5 h-3.5 text-[#A94A62]" />
+                      <div className="text-xs font-bold text-[#80142A] flex items-center gap-1.5">
+                        <Headphones className="w-3.5 h-3.5 text-[#80142A]" />
                         <span>考场原声听力播放器 (Compréhension orale)</span>
                       </div>
                       <p className="text-[11px] text-stone-600">
@@ -694,7 +694,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                           key={speed}
                           onClick={() => setAudioSpeed(speed)}
                           className={`px-1.5 py-0.5 rounded text-[10px] ${
-                            audioSpeed === speed ? 'bg-[#A94A62] text-white font-bold' : 'hover:bg-white'
+                            audioSpeed === speed ? 'bg-[#80142A] text-white font-bold' : 'hover:bg-white'
                           }`}
                         >
                           {speed}x
@@ -704,7 +704,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
                     <button
                       onClick={() => setShowListeningScript(prev => !prev)}
-                      className="px-2.5 py-1 rounded-xl text-[11px] font-bold bg-white text-[#A94A62] border border-[#A94A62]/30 hover:bg-[#F3DDE2]/40 transition cursor-pointer"
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-bold bg-white text-[#80142A] border border-[#80142A]/30 hover:bg-[#FCECEF]/40 transition cursor-pointer"
                     >
                       {showListeningScript ? '隐藏原文' : '查看原文大纲'}
                     </button>
@@ -713,7 +713,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
                 {/* Collapsible Listening Script */}
                 {showListeningScript && currentQuestion.audioScript && (
-                  <div className="pt-2 border-t border-[#A94A62]/20 text-xs font-serif italic text-[#29354A] leading-relaxed bg-white p-3 rounded-xl border border-slate-200/70">
+                  <div className="pt-2 border-t border-[#80142A]/20 text-xs font-serif italic text-[#29354A] leading-relaxed bg-white p-3 rounded-xl border border-slate-200/70">
                     <div className="font-bold text-[#29354A] text-[11px] not-italic pb-1">
                       【听力原声材料大纲】：
                     </div>
@@ -737,7 +737,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
                 let optStyle = 'bg-slate-50/70 hover:bg-white text-[#29354A] border-slate-200/80';
                 if (isSelected) {
-                  optStyle = 'bg-[#F3DDE2] border-[#A94A62] text-[#A94A62] shadow-2xs font-bold';
+                  optStyle = 'bg-[#FCECEF] border-[#80142A] text-[#80142A] shadow-2xs font-bold';
                 }
                 if (showResult) {
                   if (isCorrect) {
@@ -756,7 +756,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                     <div className="flex items-center gap-3">
                       <span className={`w-6 h-6 rounded-lg text-xs font-black flex items-center justify-center ${
                         isSelected && !showResult
-                          ? 'bg-[#A94A62] text-white'
+                          ? 'bg-[#80142A] text-white'
                           : 'bg-white border border-slate-200/80 text-[#29354A]'
                       }`}>
                         {String.fromCharCode(65 + optIdx)}
@@ -778,7 +778,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               {/* Instant Explanation Card */}
               {(isSubmitted || (showInstantExplanation && answers[currentQuestionIndex] !== undefined)) && (
                 <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-3 text-xs">
-                  <div className="flex items-center gap-1.5 text-[#A94A62] font-black">
+                  <div className="flex items-center gap-1.5 text-[#80142A] font-black">
                     <Sparkles className="w-4 h-4 text-[#DDBF78]" />
                     <span>考点权威名师解析</span>
                   </div>
@@ -852,7 +852,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
         <div className="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-xs space-y-4">
           <div className="flex items-center justify-between pb-2 border-b border-slate-200/80">
             <h4 className="text-sm font-black text-[#29354A] flex items-center gap-1.5">
-              <Target className="w-4 h-4 text-[#A94A62]" />
+              <Target className="w-4 h-4 text-[#80142A]" />
               <span>考场答题卡</span>
             </h4>
             <div className="flex items-center gap-2">
@@ -862,7 +862,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               {Object.keys(answers).length > 0 && !isSubmitted && (
                 <button
                   onClick={handleResetExam}
-                  className="text-[11px] text-stone-500 hover:text-[#A94A62] transition flex items-center gap-0.5 cursor-pointer font-bold px-1.5 py-0.5 rounded bg-slate-50 hover:bg-rose-50 border border-slate-200/70"
+                  className="text-[11px] text-stone-500 hover:text-[#80142A] transition flex items-center gap-0.5 cursor-pointer font-bold px-1.5 py-0.5 rounded bg-slate-50 hover:bg-rose-50 border border-slate-200/70"
                   title="清空当前试卷已选答案"
                 >
                   <RotateCcw className="w-3 h-3" />
@@ -881,12 +881,12 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
               let bubbleStyle = 'bg-slate-50 text-[#29354A] hover:bg-slate-100 border border-slate-200/80';
               if (isCurrent) {
-                bubbleStyle = 'ring-2 ring-[#A94A62] font-bold bg-white border-slate-200/80';
+                bubbleStyle = 'ring-2 ring-[#80142A] font-bold bg-white border-slate-200/80';
               }
               if (isSubmitted) {
                 bubbleStyle = isCorrect ? 'bg-emerald-500 text-white font-bold' : 'bg-rose-500 text-white font-bold';
               } else if (isAnswered) {
-                bubbleStyle = 'bg-[#A94A62] text-white font-bold';
+                bubbleStyle = 'bg-[#80142A] text-white font-bold';
               }
 
               return (
@@ -908,7 +908,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               onClick={() => setShowInstantExplanation(prev => !prev)}
               className={`w-10 h-6 rounded-full transition-colors relative cursor-pointer ${
                 showInstantExplanation
-                  ? 'bg-[#A94A62]'
+                  ? 'bg-[#80142A]'
                   : 'bg-stone-300'
               }`}
             >
@@ -922,7 +922,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
           {!isSubmitted ? (
             <button
               onClick={handleSubmitPaper}
-              className="w-full py-3 rounded-2xl bg-[#A94A62] hover:bg-[#933C52] shadow-[#A94A62]/25 text-white font-black text-sm shadow-md active:scale-98 transition cursor-pointer"
+              className="w-full py-3 rounded-2xl bg-[#80142A] hover:bg-[#680E20] shadow-[#80142A]/25 text-white font-black text-sm shadow-md active:scale-98 transition cursor-pointer"
             >
               提交答卷 · 生成成绩单
             </button>
@@ -942,8 +942,8 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             scoreReport.verdictType === 'pass'
               ? 'bg-white border-[#DDBF78]'
               : scoreReport.verdictType === 'section_fail'
-              ? 'bg-[#F3DDE2] border-[#A94A62]/50'
-              : 'bg-white border-[#A94A62]/30'
+              ? 'bg-[#FCECEF] border-[#80142A]/50'
+              : 'bg-white border-[#80142A]/30'
           }`}>
             {/* Card Header */}
             <div className="flex items-center justify-between">
@@ -955,7 +955,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                 scoreReport.verdictType === 'pass'
                   ? 'bg-[#DDBF78] text-[#29354A] font-black'
                   : scoreReport.verdictType === 'section_fail'
-                  ? 'bg-[#A94A62] text-white font-black'
+                  ? 'bg-[#80142A] text-white font-black'
                   : 'bg-rose-700 text-white font-black'
               }`}>
                 {scoreReport.verdictType === 'pass'
@@ -968,11 +968,11 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
             {/* Total Score */}
             <div className="text-center py-2 space-y-1 bg-white rounded-2xl p-3 border border-slate-200/80">
-              <p className="text-4xl font-black text-[#A94A62]">
+              <p className="text-4xl font-black text-[#80142A]">
                 {scoreReport.scaledScore} <span className="text-sm font-normal text-stone-500">/ 100 分</span>
               </p>
               <p className="text-xs text-stone-600 font-medium">
-                答对 {scoreReport.correctCount} / {scoreReport.totalQuestions} 题 · 本试卷及格线为 <strong className="text-[#A94A62]">{scoreReport.passThreshold} 分</strong>
+                答对 {scoreReport.correctCount} / {scoreReport.totalQuestions} 题 · 本试卷及格线为 <strong className="text-[#80142A]">{scoreReport.passThreshold} 分</strong>
               </p>
             </div>
 
@@ -1049,7 +1049,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                     🌟 <strong>恭喜合格！</strong>您的总分与各单项均已达到法国官方合格标准，具备冲击更高难度的扎实基础！
                   </p>
                 ) : (
-                  <p className={`${scoreReport.verdictType === 'section_fail' ? 'text-[#A94A62]' : 'text-rose-800'} font-medium leading-relaxed`}>
+                  <p className={`${scoreReport.verdictType === 'section_fail' ? 'text-[#80142A]' : 'text-rose-800'} font-medium leading-relaxed`}>
                     📌 <strong>官方诊断：</strong>{scoreReport.failReason}
                   </p>
                 )}

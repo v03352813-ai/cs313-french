@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   X, 
   KeyRound, 
@@ -83,7 +83,7 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
       >
         
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#A94A62] via-[#B8576E] to-[#933C52] text-white p-5 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-[#80142A] via-[#9B1B36] to-[#680E20] text-white p-5 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <KeyRound className="w-5 h-5 text-[#DDBF78]" />
             <h2 className="font-bold text-base">
@@ -116,12 +116,12 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
                 value={pinInput}
                 onChange={e => setPinInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleVerifyPin()}
-                className="w-full px-4 py-2 rounded-xl bg-slate-50 border border-slate-200/80 text-center text-sm focus:ring-2 focus:ring-[#A94A62]/20 text-[#29354A]"
+                className="w-full px-4 py-2 rounded-xl bg-slate-50 border border-slate-200/80 text-center text-sm focus:ring-2 focus:ring-[#80142A]/20 text-[#29354A]"
               />
-              {pinError && <p className="text-xs text-[#A94A62] font-bold">{pinError}</p>}
+              {pinError && <p className="text-xs text-[#80142A] font-bold">{pinError}</p>}
               <button
                 onClick={handleVerifyPin}
-                className="w-full py-2.5 rounded-xl bg-[#A94A62] hover:bg-[#933C52] text-white font-bold text-xs transition shadow-sm cursor-pointer"
+                className="w-full py-2.5 rounded-xl bg-[#80142A] hover:bg-[#680E20] text-white font-bold text-xs transition shadow-sm cursor-pointer"
               >
                 验证登录
               </button>
@@ -160,7 +160,7 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
 
               <button
                 onClick={handleGenerate}
-                className="w-full py-2.5 rounded-xl bg-[#A94A62] hover:bg-[#933C52] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer"
+                className="w-full py-2.5 rounded-xl bg-[#80142A] hover:bg-[#680E20] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>立即生成高熵加密卡密</span>
@@ -173,7 +173,7 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
                     <span className="font-bold text-[#29354A]">本次生成结果 ({generatedBatch.length} 条)</span>
                     <button
                       onClick={handleCopyAll}
-                      className="text-[#A94A62] font-bold hover:underline flex items-center gap-1 cursor-pointer"
+                      className="text-[#80142A] font-bold hover:underline flex items-center gap-1 cursor-pointer"
                     >
                       {copiedAll ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                       <span>{copiedAll ? '已全部复制' : '一键全部复制'}</span>
@@ -186,7 +186,7 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
                         <span className="text-[#29354A]">{k}</span>
                         <button
                           onClick={() => handleCopyOne(k, i)}
-                          className="text-[11px] text-stone-400 hover:text-[#A94A62] px-1.5 py-0.5 cursor-pointer"
+                          className="text-[11px] text-stone-400 hover:text-[#80142A] px-1.5 py-0.5 cursor-pointer"
                         >
                           {copiedIndex === i ? '已复制' : '复制'}
                         </button>

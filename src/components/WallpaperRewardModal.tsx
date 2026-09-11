@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { X, Copy, Check, Sparkles, Smartphone, Gift, ZoomIn } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -30,7 +30,7 @@ export const WallpaperRewardModal: React.FC<WallpaperRewardModalProps> = ({ isOp
       <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-200/80 overflow-hidden select-none">
         
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#A94A62] via-[#BA5C74] to-[#933C52] px-4 py-3.5 sm:px-5 sm:py-4 text-white relative flex items-center justify-between">
+        <div className="bg-gradient-to-r from-[#80142A] via-[#9B1B36] to-[#680E20] px-4 py-3.5 sm:px-5 sm:py-4 text-white relative flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <span className="w-8 h-8 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-white text-base shadow-inner shrink-0">
               🎁
@@ -92,15 +92,15 @@ export const WallpaperRewardModal: React.FC<WallpaperRewardModalProps> = ({ isOp
             {/* Right: Large High-Res Mini-Program QR Code Card */}
             <div 
               onClick={() => setIsZoomed(true)}
-              className="rounded-2xl border-2 border-[#DDBF78]/50 bg-gradient-to-b from-white to-slate-50 p-2 sm:p-3 flex flex-col items-center justify-between text-center min-h-[180px] sm:min-h-[200px] shadow-xs cursor-pointer group hover:border-[#A94A62]/60 transition"
+              className="rounded-2xl border-2 border-[#DDBF78]/50 bg-gradient-to-b from-white to-slate-50 p-2 sm:p-3 flex flex-col items-center justify-between text-center min-h-[180px] sm:min-h-[200px] shadow-xs cursor-pointer group hover:border-[#80142A]/60 transition"
               title="点击可放大二维码"
             >
               <div className="flex items-center justify-between w-full px-1 text-[10px] font-bold text-[#29354A]">
                 <span className="flex items-center gap-1">
-                  <Smartphone className="w-3 h-3 text-[#A94A62]" />
+                  <Smartphone className="w-3 h-3 text-[#80142A]" />
                   <span>微信长按/扫码</span>
                 </span>
-                <span className="text-[#A94A62] font-semibold flex items-center gap-0.5 group-hover:underline">
+                <span className="text-[#80142A] font-semibold flex items-center gap-0.5 group-hover:underline">
                   <ZoomIn className="w-2.5 h-2.5" />
                   <span>放大</span>
                 </span>
@@ -131,7 +131,7 @@ export const WallpaperRewardModal: React.FC<WallpaperRewardModalProps> = ({ isOp
 
             <button
               onClick={handleCopyCode}
-              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#A94A62] to-[#BA5C74] hover:from-[#933C52] hover:to-[#A94A62] text-white text-xs font-bold shadow-xs active:scale-98 transition flex items-center justify-center gap-1 shrink-0 cursor-pointer"
+              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-bold shadow-xs active:scale-98 transition flex items-center justify-center gap-1 shrink-0 cursor-pointer"
             >
               {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copied ? '已复制口令！' : '一键复制口令'}</span>
@@ -139,8 +139,8 @@ export const WallpaperRewardModal: React.FC<WallpaperRewardModalProps> = ({ isOp
           </div>
 
           {/* Bottom Incentive Note */}
-          <div className="p-2.5 rounded-xl bg-[#F3DDE2]/60 border border-[#A94A62]/20 text-[11px] text-[#29354A] flex items-center gap-2">
-            <Gift className="w-4 h-4 text-[#A94A62] shrink-0" />
+          <div className="p-2.5 rounded-xl bg-[#FCECEF]/60 border border-[#80142A]/20 text-[11px] text-[#29354A] flex items-center gap-2">
+            <Gift className="w-4 h-4 text-[#80142A] shrink-0" />
             <span className="leading-snug">
               每日在【一子一木】小程序打卡领积分，可<strong>免费兑换无水印原图</strong>并参与惊喜抽大奖！
             </span>
@@ -182,7 +182,7 @@ export const WallpaperRewardModal: React.FC<WallpaperRewardModalProps> = ({ isOp
 
               <button
                 onClick={() => setIsZoomed(false)}
-                className="w-full py-2.5 bg-gradient-to-r from-[#A94A62] to-[#BA5C74] hover:from-[#933C52] hover:to-[#A94A62] text-white font-bold rounded-xl text-xs transition cursor-pointer"
+                className="w-full py-2.5 bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white font-bold rounded-xl text-xs transition cursor-pointer"
               >
                 关闭大图
               </button>

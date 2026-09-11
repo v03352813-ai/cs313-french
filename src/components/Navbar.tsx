@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { 
   LayoutGrid, 
   Sparkles, 
@@ -122,17 +122,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                     className="flex items-center gap-1.5 cursor-pointer select-none group mr-1 shrink-0"
                     title="法语研习社 (点击刷新首页 / 连击5次开启管理员)"
                   >
-                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-gradient-to-br from-[#A94A62] via-[#BA5C74] to-[#933C52] flex items-center justify-center text-white shadow-xs font-black text-xs tracking-tight group-hover:scale-105 transition shrink-0">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-gradient-to-br from-[#80142A] via-[#9B1B36] to-[#680E20] flex items-center justify-center text-white shadow-xs font-black text-xs tracking-tight group-hover:scale-105 transition shrink-0">
                       FR
                     </div>
-                    <span className="font-black text-sm tracking-tight text-[#A94A62]">
+                    <span className="font-black text-sm tracking-tight text-[#80142A]">
                       法语研习社
                     </span>
                   </div>
 
                   {/* 平台定位与考期徽章 */}
                   <div className="flex items-center gap-1.5 shrink-0 flex-wrap">
-                    <span className="hidden xs:inline-block px-2 py-0.5 rounded-full bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/20 text-[10.5px] sm:text-[11px] font-bold whitespace-nowrap">
+                    <span className="hidden xs:inline-block px-2 py-0.5 rounded-full bg-[#FCECEF] text-[#80142A] border border-[#80142A]/20 text-[10.5px] sm:text-[11px] font-bold whitespace-nowrap">
                        French Pro · 自研平台
                     </span>
                     <span className="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-slate-50 text-[#29354A] border border-[#DDBF78]/40 text-[10.5px] sm:text-[11px] font-bold items-center gap-1 whitespace-nowrap">
@@ -141,11 +141,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                     {/* 动态考期倒计时模块 */}
                     <div
-                      className="px-2 py-0.5 rounded-full border border-[#A94A62]/25 bg-[#F3DDE2] text-[#A94A62] text-[10px] sm:text-[11px] font-black flex items-center gap-1.5 whitespace-nowrap shadow-2xs"
+                      className="px-2 py-0.5 rounded-full border border-[#80142A]/25 bg-[#FCECEF] text-[#80142A] text-[10px] sm:text-[11px] font-black flex items-center gap-1.5 whitespace-nowrap shadow-2xs"
                     >
                       <span className="relative flex h-2 w-2 shrink-0">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#A94A62] opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#A94A62]"></span>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#80142A] opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#80142A]"></span>
                       </span>
                       <span>{examCountdown.badgeText}</span>
                       <span className="text-[9px] sm:text-[9.5px] opacity-75 font-bold">指南&gt;</span>
@@ -167,18 +167,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="mobile-grid-5 sm:flex sm:items-center gap-1 sm:gap-2 w-full sm:w-auto min-w-0">
                   <button 
                     onClick={() => setActiveTab('conjugation')}
-                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-[#A94A62] hover:bg-[#933C52] text-white text-center cursor-pointer transition shadow-xs active:scale-98"
+                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-[#80142A] hover:bg-[#680E20] text-white text-center cursor-pointer transition shadow-xs active:scale-98"
                   >
                     <span className="hidden sm:block text-sm font-black text-white whitespace-nowrap">变位神器</span>
                     <span className="block sm:hidden text-[10px] font-black text-white truncate w-full">变位</span>
-                    <span className="hidden sm:block text-[9px] text-[#F3DDE2] font-medium whitespace-nowrap">7大时态</span>
-                    <span className="block sm:hidden text-[8px] text-[#F3DDE2] font-medium truncate w-full">7时态</span>
+                    <span className="hidden sm:block text-[9px] text-[#FCECEF] font-medium whitespace-nowrap">7大时态</span>
+                    <span className="block sm:hidden text-[8px] text-[#FCECEF] font-medium truncate w-full">7时态</span>
                   </button>
                   <button 
                     onClick={() => setActiveTab('exam')}
                     className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/80 text-center cursor-pointer hover:bg-slate-100 transition active:scale-98"
                   >
-                    <span className="hidden sm:block text-sm font-black text-[#29354A] hover:text-[#A94A62] whitespace-nowrap">全真卷</span>
+                    <span className="hidden sm:block text-sm font-black text-[#29354A] hover:text-[#80142A] whitespace-nowrap">全真卷</span>
                     <span className="block sm:hidden text-[10px] font-black text-[#29354A] truncate w-full">真题</span>
                     <span className="hidden sm:block text-[9px] text-slate-500 font-medium whitespace-nowrap">历届名校</span>
                     <span className="block sm:hidden text-[8px] text-slate-500 font-medium truncate w-full">真题</span>
@@ -187,20 +187,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                     onClick={() => setActiveTab('vocab')}
                     className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/80 text-center cursor-pointer hover:bg-slate-100 transition active:scale-98"
                   >
-                    <span className="hidden sm:block text-sm font-black text-[#29354A] hover:text-[#A94A62] whitespace-nowrap">5000+</span>
+                    <span className="hidden sm:block text-sm font-black text-[#29354A] hover:text-[#80142A] whitespace-nowrap">5000+</span>
                     <span className="block sm:hidden text-[10px] font-black text-[#29354A] truncate w-full">5000+</span>
                     <span className="hidden sm:block text-[9px] text-slate-500 font-medium whitespace-nowrap">性数词库</span>
                     <span className="block sm:hidden text-[8px] text-slate-500 font-medium truncate w-full">词库</span>
                   </button>
                   <button 
                     onClick={() => setActiveTab('exam')}
-                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#A94A62] to-[#BA5C74] hover:from-[#933C52] hover:to-[#A94A62] text-white text-center cursor-pointer transition shadow-xs active:scale-98 group"
+                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-center cursor-pointer transition shadow-xs active:scale-98 group"
                     title="2026 考研二外与 DELF 官方考期全景"
                   >
                     <span className="hidden sm:block text-sm font-black text-white whitespace-nowrap">📅 官方考期</span>
                     <span className="block sm:hidden text-[10px] font-black text-white truncate w-full">📅 考期</span>
-                    <span className="hidden sm:block text-[9px] text-[#F3DDE2] font-medium whitespace-nowrap">{examCountdown.buttonSubText}</span>
-                    <span className="block sm:hidden text-[8px] text-[#F3DDE2] font-medium truncate w-full">{examCountdown.days}天</span>
+                    <span className="hidden sm:block text-[9px] text-[#FCECEF] font-medium whitespace-nowrap">{examCountdown.buttonSubText}</span>
+                    <span className="block sm:hidden text-[8px] text-[#FCECEF] font-medium truncate w-full">{examCountdown.days}天</span>
                   </button>
                   <button 
                     onClick={onOpenWallpaperModal}
@@ -219,10 +219,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <div className="flex items-center justify-end gap-1.5 pt-1 sm:pt-0 sm:pl-2 border-t sm:border-t-0 sm:border-l border-slate-200">
                     <button
                       onClick={onOpenAdminModal}
-                      className="p-1.5 rounded-xl text-slate-600 hover:text-[#A94A62] hover:bg-slate-100 transition border border-slate-200/80 shrink-0 cursor-pointer flex items-center gap-1 text-xs font-bold"
+                      className="p-1.5 rounded-xl text-slate-600 hover:text-[#80142A] hover:bg-slate-100 transition border border-slate-200/80 shrink-0 cursor-pointer flex items-center gap-1 text-xs font-bold"
                       title="店主管理后台"
                     >
-                      <Settings2 className="w-3.5 h-3.5 text-[#A94A62]" />
+                      <Settings2 className="w-3.5 h-3.5 text-[#80142A]" />
                       <span className="hidden xl:inline text-[#29354A] font-bold">后台</span>
                     </button>
 
@@ -234,7 +234,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     ) : (
                       <button
                         onClick={onOpenVipModal}
-                        className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-[#A94A62] to-[#BA5C74] hover:from-[#933C52] hover:to-[#A94A62] text-white text-xs font-bold shadow-xs active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
+                        className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-bold shadow-xs active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
                       >
                         <KeyRound className="w-3.5 h-3.5 shrink-0" />
                         <span className="whitespace-nowrap">激活</span>
@@ -265,11 +265,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                       onClick={() => setActiveTab(item.id)}
                       className={`w-full flex items-center justify-center gap-1 py-1.5 px-0.5 rounded-lg text-xs lg:text-[13px] font-bold transition-all whitespace-nowrap select-none cursor-pointer ${
                         isActive
-                          ? 'bg-white text-[#A94A62] shadow-2xs shadow-slate-200/90 font-black'
+                          ? 'bg-white text-[#80142A] shadow-2xs shadow-slate-200/90 font-black'
                           : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                       }`}
                     >
-                      <Icon className={`w-3.5 h-3.5 shrink-0 hidden lg:inline ${isActive ? 'text-[#A94A62]' : 'text-slate-400'}`} />
+                      <Icon className={`w-3.5 h-3.5 shrink-0 hidden lg:inline ${isActive ? 'text-[#80142A]' : 'text-slate-400'}`} />
                       <span>{item.label}</span>
                     </button>
                   );
@@ -289,11 +289,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                         onClick={() => setActiveTab(item.id)}
                         className={`min-w-0 w-full flex items-center justify-center gap-0.5 py-1.5 px-0.5 rounded-xl text-[10.5px] font-bold transition whitespace-nowrap cursor-pointer select-none ${
                           isActive
-                            ? 'bg-white text-[#A94A62] shadow-xs font-black'
+                            ? 'bg-white text-[#80142A] shadow-xs font-black'
                             : 'text-slate-600 hover:text-slate-900'
                         }`}
                       >
-                        <Icon className={`w-3 h-3 shrink-0 ${isActive ? 'text-[#A94A62]' : 'text-slate-400'}`} />
+                        <Icon className={`w-3 h-3 shrink-0 ${isActive ? 'text-[#80142A]' : 'text-slate-400'}`} />
                         <span className="truncate">{item.shortLabel || item.label}</span>
                       </button>
                     );
@@ -311,11 +311,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                         onClick={() => setActiveTab(item.id)}
                         className={`min-w-0 w-full flex items-center justify-center gap-0.5 py-1.5 px-0.5 rounded-xl text-[10.5px] font-bold transition whitespace-nowrap cursor-pointer select-none ${
                           isActive
-                            ? 'bg-white text-[#A94A62] shadow-xs font-black'
+                            ? 'bg-white text-[#80142A] shadow-xs font-black'
                             : 'text-slate-600 hover:text-slate-900'
                         }`}
                       >
-                        <Icon className={`w-3 h-3 shrink-0 ${isActive ? 'text-[#A94A62]' : 'text-slate-400'}`} />
+                        <Icon className={`w-3 h-3 shrink-0 ${isActive ? 'text-[#80142A]' : 'text-slate-400'}`} />
                         <span className="truncate">{item.shortLabel || item.label}</span>
                       </button>
                     );
@@ -348,20 +348,20 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="flex items-center gap-2 cursor-pointer select-none shrink-0 group"
               title="法语研习社 (点击返回首页 / 连击5次开启管理员)"
             >
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#A94A62] via-[#BA5C74] to-[#933C52] flex items-center justify-center text-white shadow-sm shadow-[#A94A62]/20 font-black text-base sm:text-lg tracking-tight group-hover:scale-105 transition shrink-0">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#80142A] via-[#9B1B36] to-[#680E20] flex items-center justify-center text-white shadow-sm shadow-[#80142A]/20 font-black text-base sm:text-lg tracking-tight group-hover:scale-105 transition shrink-0">
                 FR
               </div>
               <div className="flex items-center gap-1.5 whitespace-nowrap shrink-0">
                 <span className="font-black text-sm sm:text-base tracking-tight text-[#29354A]">
                   法语研习社
                 </span>
-                <span className="text-[10px] font-black px-1.5 py-0.2 rounded-full bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25 hidden sm:inline">
+                <span className="text-[10px] font-black px-1.5 py-0.2 rounded-full bg-[#FCECEF] text-[#80142A] border border-[#80142A]/25 hidden sm:inline">
                   French Pro
                 </span>
                 {currentActiveItem && currentActiveItem.id !== 'home' && (
                   <div className="hidden lg:flex items-center gap-1.5 pl-2.5 ml-2 border-l border-slate-200">
                     <span className="text-xs text-slate-400 font-medium">当前模块:</span>
-                    <span className="px-2 py-0.5 rounded-lg bg-[#F3DDE2] text-[#A94A62] font-bold text-xs border border-[#A94A62]/25">
+                    <span className="px-2 py-0.5 rounded-lg bg-[#FCECEF] text-[#80142A] font-bold text-xs border border-[#80142A]/25">
                       {currentActiveItem.label}
                     </span>
                   </div>
@@ -373,7 +373,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 whitespace-nowrap">
               <button
                 onClick={() => setActiveTab('exam')}
-                className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-rose-500 to-[#A94A62] hover:from-rose-600 hover:to-[#933C52] text-white text-xs font-bold transition shrink-0 cursor-pointer shadow-2xs"
+                className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-rose-500 to-[#80142A] hover:from-rose-600 hover:to-[#680E20] text-white text-xs font-bold transition shrink-0 cursor-pointer shadow-2xs"
                 title="查看官方考期全景与避坑指南"
               >
                 <span>📅</span>
@@ -397,7 +397,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     className="p-1.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition border border-slate-200/80 shrink-0 cursor-pointer flex items-center gap-1 text-xs font-bold"
                     title="店主管理后台"
                   >
-                    <Settings2 className="w-3.5 h-3.5 text-[#A94A62]" />
+                    <Settings2 className="w-3.5 h-3.5 text-[#80142A]" />
                     <span className="hidden sm:inline text-slate-700 font-bold">管理后台</span>
                   </button>
 
@@ -442,11 +442,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center justify-center gap-1.5 py-2 px-1 rounded-xl text-xs lg:text-[13px] font-bold transition-all whitespace-nowrap select-none cursor-pointer ${
                     isActive
-                      ? 'bg-white text-[#A94A62] shadow-2xs shadow-slate-200/90 font-black ring-1 ring-[#A94A62]/20'
+                      ? 'bg-white text-[#80142A] shadow-2xs shadow-slate-200/90 font-black ring-1 ring-[#80142A]/20'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-white/70'
                   }`}
                 >
-                  <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-[#A94A62]' : 'text-slate-400'}`} />
+                  <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-[#80142A]' : 'text-slate-400'}`} />
                   <span>{item.label}</span>
                 </button>
               );
@@ -466,11 +466,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                     onClick={() => setActiveTab(item.id)}
                     className={`min-w-0 w-full flex items-center justify-center gap-0.5 py-1.5 px-0.5 rounded-lg transition whitespace-nowrap text-[10.5px] font-bold cursor-pointer select-none ${
                       isActive
-                        ? 'text-[#A94A62] font-black bg-[#F3DDE2] border border-[#A94A62]/30 shadow-2xs'
+                        ? 'text-[#80142A] font-black bg-[#FCECEF] border border-[#80142A]/30 shadow-2xs'
                         : 'text-slate-600 hover:text-slate-900 bg-slate-50'
                     }`}
                   >
-                    <Icon className={`w-3 h-3 shrink-0 ${isActive ? 'text-[#A94A62]' : 'text-slate-400'}`} />
+                    <Icon className={`w-3 h-3 shrink-0 ${isActive ? 'text-[#80142A]' : 'text-slate-400'}`} />
                     <span className="truncate">{item.shortLabel || item.label}</span>
                   </button>
                 );
@@ -488,11 +488,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                     onClick={() => setActiveTab(item.id)}
                     className={`min-w-0 w-full flex items-center justify-center gap-0.5 py-1.5 px-0.5 rounded-lg transition whitespace-nowrap text-[10.5px] font-bold cursor-pointer select-none ${
                       isActive
-                        ? 'text-[#A94A62] font-black bg-[#F3DDE2] border border-[#A94A62]/30 shadow-2xs'
+                        ? 'text-[#80142A] font-black bg-[#FCECEF] border border-[#80142A]/30 shadow-2xs'
                         : 'text-slate-600 hover:text-slate-900 bg-slate-50'
                     }`}
                   >
-                    <Icon className={`w-3 h-3 shrink-0 ${isActive ? 'text-[#A94A62]' : 'text-slate-400'}`} />
+                    <Icon className={`w-3 h-3 shrink-0 ${isActive ? 'text-[#80142A]' : 'text-slate-400'}`} />
                     <span className="truncate">{item.shortLabel || item.label}</span>
                   </button>
                 );
