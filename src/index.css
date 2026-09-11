@@ -38,6 +38,14 @@
   }
 }
 
+@media (max-width: 639px) {
+  .mobile-grid-5 {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    width: 100% !important;
+  }
+}
+
 /* Custom French Chic Aesthetics */
 .glass-card {
   background: rgba(255, 255, 255, 0.95);

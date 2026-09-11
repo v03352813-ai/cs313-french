@@ -164,7 +164,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {/* 快速直达统计徽章与管理员栏 */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full max-w-full lg:w-auto min-w-0">
-                <div className="grid grid-cols-6 sm:flex sm:items-center gap-1 sm:gap-1.5 w-full sm:w-auto min-w-0">
+                <div className="mobile-grid-5 sm:flex sm:items-center gap-1 sm:gap-2 w-full sm:w-auto min-w-0">
                   <button 
                     onClick={() => setActiveTab('conjugation')}
                     className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-[#A94A62] hover:bg-[#933C52] text-white text-center cursor-pointer transition shadow-xs active:scale-98"
@@ -211,16 +211,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span className="block sm:hidden text-[10px] font-black text-amber-900 truncate w-full">🎁 壁纸</span>
                     <span className="hidden sm:block text-[9px] text-amber-700 font-bold whitespace-nowrap">4K 伴学锁屏</span>
                     <span className="block sm:hidden text-[8px] text-amber-700 font-bold truncate w-full">伴学</span>
-                  </button>
-                  <button 
-                    onClick={onOpenVipModal}
-                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-[#F3DDE2]/30 border border-[#DDBF78]/50 text-center cursor-pointer transition active:scale-98 shadow-2xs"
-                    title="终身 VIP 特权"
-                  >
-                    <span className="hidden sm:block text-sm font-black text-[#A94A62] whitespace-nowrap">🎁 终身VIP</span>
-                    <span className="block sm:hidden text-[10px] font-black text-[#A94A62] truncate w-full">🎁 VIP</span>
-                    <span className="hidden sm:block text-[9px] text-[#DDBF78] font-black whitespace-nowrap">畅刷全卷</span>
-                    <span className="block sm:hidden text-[8px] text-[#DDBF78] font-black truncate w-full">特权</span>
                   </button>
                 </div>
 
