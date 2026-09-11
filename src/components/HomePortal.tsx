@@ -75,8 +75,8 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepNum: '01',
         stepLabel: '第 1 步 · 夯实语音',
         title: '35 音标体系与 4 大发音/联诵规则',
-        targetBadge: '攻克鼻化元音 · 小舌音[ʁ]',
-        badgeBg: 'bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/20',
+        targetBadge: '鼻化元音 · 小舌音[ʁ]',
+        badgeBg: 'bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25',
         desc: '15 元音（含 4 鼻化音）、3 半元音与 17 辅音，动画透视联诵 (Liaison)、CaReFuL 词尾不发音与省音规则。',
         actionText: '进入音标联诵实验室',
         targetTab: 'phonetics',
@@ -87,20 +87,20 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepNum: '02',
         stepLabel: '第 2 步 · 攻破变位',
         title: '动词变位可视化演练器 (Conjugaison)',
-        targetBadge: '7大时态 · 词尾高亮推导',
-        badgeBg: 'bg-white text-[#29354A] border border-[#DDBF78]/50',
+        targetBadge: '7大时态 · 词尾推导',
+        badgeBg: 'bg-amber-50 text-amber-900 border border-[#DDBF78]/60',
         desc: '第一组(-er)、第二组(-ir)与第三组不规则动词，一键对比直陈式现在时、复合过去时、未完成过去时与虚拟式。',
         actionText: '开启变位演练器',
         targetTab: 'conjugation',
         icon: RotateCcw,
-        buttonBg: 'bg-[#DDBF78] hover:bg-[#C9A95C] text-[#29354A] font-black shadow-xs'
+        buttonBg: 'bg-[#A94A62] hover:bg-[#933C52] text-white shadow-xs'
       },
       {
         stepNum: '03',
         stepLabel: '第 3 步 · 积累词汇',
         title: '5,000+ 核心高频词闪卡 (性数双标)',
         targetBadge: '♂阳性标 · ♀阴性标',
-        badgeBg: 'bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/20',
+        badgeBg: 'bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25',
         desc: '彻底解决背词不记阴阳性大忌！严格标定性别与定冠词配合，带艾宾浩斯抗遗忘记忆曲线与真人朗读。',
         actionText: '背诵核心分级词汇',
         targetTab: 'vocab',
@@ -111,8 +111,8 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepNum: '04',
         stepLabel: '第 4 步 · 搭建框架',
         title: '70+ 核心语法全景宝典',
-        targetBadge: '直宾COD/间宾COI · 避坑指南',
-        badgeBg: 'bg-white text-[#29354A] border border-[#DDBF78]/50',
+        targetBadge: 'COD/COI代词 · 避坑指南',
+        badgeBg: 'bg-amber-50 text-amber-900 border border-[#DDBF78]/60',
         desc: '冠词体系、代词语序、副代词 y/en 与复合过去时分词配合，每条语法均附带【考研/考级避坑指南】。',
         actionText: '查阅体系文法宝典',
         targetTab: 'grammar',
@@ -149,12 +149,12 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepLabel: '第 2 步 · 语感打卡',
         title: '每日早读原声金句打卡',
         targetBadge: '法式韵律 · 每日坚持',
-        badgeBg: 'bg-white text-[#29354A] border border-[#DDBF78]/50',
+        badgeBg: 'bg-amber-50 text-amber-900 border border-[#DDBF78]/60',
         desc: '每日精读一句地道法语原声名言，收听真人标准巴黎发音，连续打卡激活语言直觉。',
         actionText: '朗读今日金句',
         targetTab: 'home',
         icon: Calendar,
-        buttonBg: 'bg-[#DDBF78] hover:bg-[#C9A95C] text-[#29354A] font-black shadow-xs'
+        buttonBg: 'bg-[#A94A62] hover:bg-[#933C52] text-white shadow-xs'
       }
     ]
   },
@@ -174,7 +174,7 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepLabel: '第 1 步 · 模考查漏',
         title: '双轨历届全真大卷机考',
         targetBadge: '北外·上外·DELF真题',
-        badgeBg: 'bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/20',
+        badgeBg: 'bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25',
         desc: '全真还原考场倒计时，听力原声精析、即做即看与模考双模式，精准测出真实水平与薄弱项。',
         actionText: '进入全真真题大考场',
         targetTab: 'exam',
@@ -186,7 +186,7 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepLabel: '第 2 步 · 靶向消错',
         title: '艾宾浩斯智能错题消灭',
         targetBadge: '遗忘曲线重练',
-        badgeBg: 'bg-white text-[#29354A] border border-[#DDBF78]/50',
+        badgeBg: 'bg-amber-50 text-amber-900 border border-[#DDBF78]/60',
         desc: '真题考场做错的题目自动归集，按失分考点分类沉淀，靶向消除知识盲区。',
         actionText: '消灭待复习错题',
         targetTab: 'mistakes',
@@ -198,12 +198,12 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepLabel: '第 3 步 · 考点攻坚',
         title: '动词时态与虚拟式专题特训',
         targetBadge: '攻克y/en · 愈过去时',
-        badgeBg: 'bg-white text-[#29354A] border border-[#DDBF78]/50',
+        badgeBg: 'bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25',
         desc: '专攻未完成与复合过去时辨析、条件假设、虚拟式命令从句与双代词语序命题陷阱。',
         actionText: '开启时态专项突破',
         targetTab: 'conjugation',
         icon: Zap,
-        buttonBg: 'bg-[#DDBF78] hover:bg-[#C9A95C] text-[#29354A] font-black shadow-xs'
+        buttonBg: 'bg-[#A94A62] hover:bg-[#933C52] text-white shadow-xs'
       }
     ]
   }
@@ -556,12 +556,18 @@ export const HomePortal: React.FC<HomePortalProps> = ({
                   key={step.stepNum}
                   className="bg-slate-50/80 hover:bg-white rounded-2xl p-4 border border-slate-200/80 hover:border-[#A94A62]/40 hover:shadow-xs transition flex flex-col justify-between space-y-3 group"
                 >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-black font-mono px-2 py-0.5 rounded-lg bg-white border border-slate-200/80 text-[#A94A62]">
-                        {step.stepLabel}
+                  <div className="space-y-2.5">
+                    {/* Top row: STEP pill + target badge */}
+                    <div className="flex items-center justify-between gap-1.5">
+                      <span 
+                        className="px-2.5 py-0.5 rounded-lg bg-[#29354A] text-white font-mono text-[11px] font-black tracking-wider flex items-center gap-1 shadow-2xs shrink-0 select-none"
+                        title={step.stepLabel}
+                      >
+                        <span>STEP</span>
+                        <span className="text-[#DDBF78]">{step.stepNum}</span>
                       </span>
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${step.badgeBg}`}>
+
+                      <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border whitespace-nowrap shrink-0 shadow-2xs ${step.badgeBg}`}>
                         {step.targetBadge}
                       </span>
                     </div>
