@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  --color-wine-red: #8C3B4A;
-  --color-wine-red-hover: #752E3C;
-  --color-wine-red-light: #A5495B;
-  --color-warm-ivory: #F7F3EA;
-  --color-warm-ivory-card: #FCFAF6;
-  --color-warm-ivory-border: #E8DECE;
-  --color-charcoal: #292929;
-  --color-classic-gold: #C8A96B;
-  --color-classic-gold-hover: #B59556;
-  --color-classic-gold-light: #DFBA73;
+  --color-primary: #A94A62;
+  --color-primary-hover: #933C52;
+  --color-primary-light: #F3DDE2;
+  --color-page-bg: #FBF8F3;
+  --color-nav-bg: #F3EEE5;
+  --color-gold: #D8B15F;
+  --color-gold-hover: #C59F4E;
+  --color-text-main: #29354A;
+  --color-card-bg: #FCFAF6;
+  --color-card-border: #E8DECE;
 }
 
 @layer base {
   body {
-    background-color: #F7F3EA;
-    color: #292929;
+    background-color: #FBF8F3;
+    color: #29354A;
     font-family:
       -apple-system,
       BlinkMacSystemFont,
@@ -47,11 +47,11 @@
 }
 
 .french-wine-gradient {
-  background: linear-gradient(135deg, #8C3B4A 0%, #A5495B 50%, #752E3C 100%);
+  background: linear-gradient(135deg, #A94A62 0%, #BA5C74 50%, #933C52 100%);
 }
 
 .french-gold-gradient {
-  background: linear-gradient(135deg, #C8A96B 0%, #DFBA73 50%, #B59556 100%);
+  background: linear-gradient(135deg, #D8B15F 0%, #E5C782 50%, #C59F4E 100%);
 }
 
 /* 3D Flip Card for Vocab Flashcards */

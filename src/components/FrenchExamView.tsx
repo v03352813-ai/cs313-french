@@ -372,14 +372,14 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
       <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="px-2.5 py-0.5 rounded-full bg-[#8C3B4A]/10 text-[#8C3B4A] border border-[#8C3B4A]/20 text-xs font-bold">
+            <span className="px-2.5 py-0.5 rounded-full bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/20 text-xs font-bold">
               🏛️ 法国双轨全真机考考场
             </span>
             <span className="text-xs text-stone-500 font-medium">
               100分官方标准评分 · 词汇文法/读解/听解原声 · 考研二外与DELF同步
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-[#8C3B4A] tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
             法语历届官方考期真题与全真机考系统
           </h1>
           <p className="text-xs sm:text-sm text-stone-500">
@@ -389,18 +389,18 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
       </div>
 
       {/* 📌 双轨官方考纲权威说明横幅 */}
-      <div className="p-4 rounded-2xl bg-gradient-to-r from-[#8C3B4A]/10 via-[#C8A96B]/10 to-[#F7F3EA] border border-[#E8DECE] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+      <div className="p-4 rounded-2xl bg-gradient-to-r from-[#F3DDE2]/60 via-[#F3EEE5] to-[#FBF8F3] border border-[#E8DECE] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
         <div className="flex items-start gap-2.5">
-          <span className={`w-2.5 h-2.5 rounded-full mt-1 shrink-0 animate-pulse ${activeTrack === 'kaoyan' ? 'bg-[#8C3B4A]' : 'bg-[#C8A96B]'}`} />
+          <span className={`w-2.5 h-2.5 rounded-full mt-1 shrink-0 animate-pulse ${activeTrack === 'kaoyan' ? 'bg-[#A94A62]' : 'bg-[#D8B15F]'}`} />
           <div className="space-y-0.5">
-            <div className="flex items-center gap-2 font-black text-[#292929]">
-              <span className={activeTrack === 'kaoyan' ? 'text-[#8C3B4A]' : 'text-[#8C3B4A]'}>
+            <div className="flex items-center gap-2 font-black text-[#29354A]">
+              <span className={activeTrack === 'kaoyan' ? 'text-[#A94A62]' : 'text-[#A94A62]'}>
                 {activeTrack === 'kaoyan' ? '🎓 考研二外法语 (241/242/243) 考纲指引' : '🌍 DELF 欧标国际认证 (A1-B2) 考纲指引'}
               </span>
               <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold ${
                 activeTrack === 'kaoyan'
-                  ? 'bg-[#8C3B4A]/10 text-[#8C3B4A]'
-                  : 'bg-[#FAF5EB] text-[#8C3B4A] border border-[#C8A96B]/40'
+                  ? 'bg-[#F3DDE2] text-[#A94A62]'
+                  : 'bg-[#FCFAF6] text-[#29354A] border border-[#D8B15F]/40'
               }`}>
                 {activeTrack === 'kaoyan' ? '全国名校自主命题 · 100分制' : '法国教育部官方标准 · 淘汰制'}
               </span>
@@ -420,7 +420,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
       <div className="bg-[#FCFAF6] rounded-2xl p-4 border border-[#E8DECE] shadow-xs space-y-4">
         
         {/* Track Switcher Tabs (考研二外 vs DELF欧标) */}
-        <div className="grid grid-cols-2 gap-3 p-1.5 bg-[#F2ECE1] rounded-2xl border border-[#E5DAC8] max-w-md">
+        <div className="grid grid-cols-2 gap-3 p-1.5 bg-[#E5DFD4]/70 rounded-2xl border border-[#E0D8CB] max-w-md">
           <button
             onClick={() => {
               setActiveTrack('kaoyan');
@@ -429,8 +429,8 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             }}
             className={`flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer ${
               activeTrack === 'kaoyan'
-                ? 'bg-[#8C3B4A] text-white shadow-xs font-black'
-                : 'text-[#292929] hover:bg-white/60'
+                ? 'bg-[#A94A62] text-white shadow-xs font-black'
+                : 'text-[#29354A] hover:bg-white/60'
             }`}
           >
             <GraduationCap className="w-4 h-4" />
@@ -445,8 +445,8 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             }}
             className={`flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer ${
               activeTrack === 'delf'
-                ? 'bg-[#C8A96B] text-[#292929] shadow-xs font-black'
-                : 'text-[#292929] hover:bg-white/60'
+                ? 'bg-[#D8B15F] text-[#29354A] shadow-xs font-black'
+                : 'text-[#29354A] hover:bg-white/60'
             }`}
           >
             <Globe2 className="w-4 h-4" />
@@ -456,8 +456,8 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
         {/* Sub-Filters: 高校或欧标级别 */}
         <div className="flex items-center gap-2 flex-wrap pt-1">
-          <div className="flex items-center gap-1.5 text-xs font-black text-[#292929] shrink-0">
-            <span className={`w-1.5 h-3.5 rounded-full ${activeTrack === 'kaoyan' ? 'bg-[#8C3B4A]' : 'bg-[#C8A96B]'}`} />
+          <div className="flex items-center gap-1.5 text-xs font-black text-[#29354A] shrink-0">
+            <span className={`w-1.5 h-3.5 rounded-full ${activeTrack === 'kaoyan' ? 'bg-[#A94A62]' : 'bg-[#D8B15F]'}`} />
             <span>{activeTrack === 'kaoyan' ? '高校分类筛选:' : '欧标级别筛选:'}</span>
           </div>
 
@@ -475,8 +475,8 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                   onClick={() => setKaoyanFilter(f.id)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
                     kaoyanFilter === f.id
-                      ? 'bg-[#8C3B4A] text-white shadow-2xs font-black'
-                      : 'bg-[#F7F3EA] text-[#292929] hover:bg-[#EFE8DC] border border-[#E8DECE]'
+                      ? 'bg-[#A94A62] text-white shadow-2xs font-black'
+                      : 'bg-[#FBF8F3] text-[#29354A] hover:bg-[#F3DDE2]/40 border border-[#E8DECE]'
                   }`}
                 >
                   {f.label}
@@ -487,18 +487,18 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             <div className="flex items-center gap-1.5 flex-wrap">
               {[
                 { id: 'all', label: '全部级别' },
-                { id: 'A1', label: 'DELF A1 入门' },
-                { id: 'A2', label: 'DELF A2 初级' },
-                { id: 'B1', label: 'DELF B1 进阶' },
-                { id: 'B2', label: 'DELF B2 高级' }
+                { id: 'A1', label: 'DELF A1' },
+                { id: 'A2', label: 'DELF A2' },
+                { id: 'B1', label: 'DELF B1' },
+                { id: 'B2', label: 'DELF B2' }
               ].map(f => (
                 <button
                   key={f.id}
                   onClick={() => setDelfFilter(f.id)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
                     delfFilter === f.id
-                      ? 'bg-[#C8A96B] text-[#292929] shadow-2xs font-black'
-                      : 'bg-[#F7F3EA] text-[#292929] hover:bg-[#EFE8DC] border border-[#E8DECE]'
+                      ? 'bg-[#D8B15F] text-[#29354A] shadow-2xs font-black'
+                      : 'bg-[#FBF8F3] text-[#29354A] hover:bg-[#F3DDE2]/40 border border-[#E8DECE]'
                   }`}
                 >
                   {f.label}
@@ -512,7 +512,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#E8DECE]">
           <div className="flex items-center gap-2.5 flex-1 min-w-0">
             <div className="flex items-center gap-1.5 text-xs font-black text-slate-700 shrink-0">
-              <FileCheck2 className="w-4 h-4 text-[#8C3B4A]" />
+              <FileCheck2 className="w-4 h-4 text-[#A94A62]" />
               <span>选择作答试卷 ({filteredPapers.length} 套):</span>
             </div>
 
@@ -529,112 +529,112 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                     return;
                   }
                   setSelectedPaperId(targetId);
-                handleResetExam();
-              }}
-              className="w-full pl-3.5 pr-9 py-2 rounded-xl bg-[#F7F3EA] hover:bg-[#FAF6EE] border border-[#E8DECE] text-xs sm:text-sm font-black text-[#8C3B4A] focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-[#8C3B4A]/20 transition cursor-pointer appearance-none truncate shadow-2xs"
-            >
-              {filteredPapers.map((p, idx) => {
-                const isFreeTrial = idx === 0 || p.isFreePreview;
-                const statusLabel = isVip || isFreeTrial ? '✓ [可作答] ' : '🔒 [VIP专属] ';
-                return (
-                  <option key={p.id} value={p.id}>
-                    {statusLabel}[{idx + 1}/{filteredPapers.length}] {p.yearOrSession} · {p.title} ({p.questions.length}题 · {p.durationMinutes}分钟)
-                  </option>
-                );
-              })}
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-stone-400">
-              <ChevronDown className="w-4 h-4" />
+                  handleResetExam();
+                }}
+                className="w-full pl-3.5 pr-9 py-2 rounded-xl bg-[#FBF8F3] hover:bg-[#F3DDE2]/20 border border-[#E8DECE] text-xs sm:text-sm font-black text-[#A94A62] focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-[#A94A62]/20 transition cursor-pointer appearance-none truncate shadow-2xs"
+              >
+                {filteredPapers.map((p, idx) => {
+                  const isFreeTrial = idx === 0 || p.isFreePreview;
+                  const statusLabel = isVip || isFreeTrial ? '✓ [可作答] ' : '🔒 [VIP专属] ';
+                  return (
+                    <option key={p.id} value={p.id}>
+                      {statusLabel}[{idx + 1}/{filteredPapers.length}] {p.yearOrSession} · {p.title} ({p.questions.length}题 · {p.durationMinutes}分钟)
+                    </option>
+                  );
+                })}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-stone-400">
+                <ChevronDown className="w-4 h-4" />
+              </div>
             </div>
+          </div>
+
+          <div className="flex items-center gap-2 text-xs font-bold text-stone-500 shrink-0">
+            <span className={`px-2 py-0.5 rounded-md border ${
+              activeTrack === 'kaoyan'
+                ? 'bg-[#F3DDE2] text-[#A94A62] border-[#A94A62]/20'
+                : 'bg-[#FCFAF6] text-[#29354A] border-[#D8B15F]/40'
+            }`}>
+              {currentPaper?.level}
+            </span>
+            <span className="px-2 py-0.5 rounded-md bg-[#FBF8F3] text-stone-600 border border-[#E8DECE]">
+              {currentPaper?.questions.length} 道全真题目 · {currentPaper?.durationMinutes} 分钟
+            </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-bold text-stone-500 shrink-0">
-          <span className={`px-2 py-0.5 rounded-md border ${
-            activeTrack === 'kaoyan'
-              ? 'bg-[#8C3B4A]/10 text-[#8C3B4A] border-[#8C3B4A]/20'
-              : 'bg-[#FAF5EB] text-[#8C3B4A] border-[#C8A96B]/30'
-          }`}>
-            {currentPaper?.level}
-          </span>
-          <span className="px-2 py-0.5 rounded-md bg-[#F7F3EA] text-stone-600 border border-[#E8DECE]">
-            {currentPaper?.questions.length} 道全真题目 · {currentPaper?.durationMinutes} 分钟
-          </span>
-        </div>
       </div>
 
-    </div>
-
-    {/* Main Exam Arena: Left Question Area + Right Answer Sheet */}
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-      
-      {/* Left 8 Cols: Question Display */}
-      <div className="lg:col-span-8 bg-[#FCFAF6] rounded-3xl p-5 sm:p-7 border border-[#E8DECE] shadow-xs flex flex-col justify-between space-y-6">
+      {/* Main Exam Arena: Left Question Area + Right Answer Sheet */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         
-        {currentQuestion ? (
-          <div className="space-y-5">
-            
-            {/* 三大板块快速直达 (语法词汇 / 读解长文 / 听解原声) */}
-            {sectionTabs.length > 1 && (
-              <div className="flex items-center gap-1.5 p-1.5 bg-[#F2ECE1] rounded-2xl border border-[#E5DAC8] overflow-x-auto no-scrollbar">
-                <span className="text-[11px] font-bold text-stone-500 pl-2 shrink-0">题型直达:</span>
-                {sectionTabs.map((tab) => (
-                  <button
-                    key={tab.key}
-                    onClick={() => setCurrentQuestionIndex(tab.startIndex)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
-                      tab.isActive
-                        ? 'bg-[#8C3B4A] text-white shadow-xs font-black'
-                        : 'bg-[#FCFAF6] text-[#292929] hover:bg-white border border-[#E8DECE]'
-                    }`}
-                    title={`直接跳转到【${tab.name}】`}
-                  >
-                    <span>{tab.icon}</span>
-                    <span>{tab.name}</span>
-                    <span className={`text-[10px] px-1.5 py-0.2 rounded-md ${tab.isActive ? 'bg-white/25 text-white font-black' : 'bg-[#F7F3EA] text-stone-600'}`}>
-                      {tab.count}题
-                    </span>
-                  </button>
-                ))}
-              </div>
-            )}
+        {/* Left 8 Cols: Question Display */}
+        <div className="lg:col-span-8 bg-[#FCFAF6] rounded-3xl p-5 sm:p-7 border border-[#E8DECE] shadow-xs flex flex-col justify-between space-y-6">
+          
+          {currentQuestion ? (
+            <div className="space-y-5">
+              
+              {/* 三大板块快速直达 (语法词汇 / 读解长文 / 听解原声) */}
+              {sectionTabs.length > 1 && (
+                <div className="flex items-center gap-1.5 p-1.5 bg-[#E5DFD4]/70 rounded-2xl border border-[#E0D8CB] overflow-x-auto no-scrollbar">
+                  <span className="text-[11px] font-bold text-stone-500 pl-2 shrink-0">题型直达:</span>
+                  {sectionTabs.map((tab) => (
+                    <button
+                      key={tab.key}
+                      onClick={() => setCurrentQuestionIndex(tab.startIndex)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
+                        tab.isActive
+                          ? 'bg-[#A94A62] text-white shadow-xs font-black'
+                          : 'bg-[#FCFAF6] text-[#29354A] hover:bg-white border border-[#E8DECE]'
+                      }`}
+                      title={`直接跳转到【${tab.name}】`}
+                    >
+                      <span>{tab.icon}</span>
+                      <span>{tab.name}</span>
+                      <span className={`text-[10px] px-1.5 py-0.2 rounded-md ${tab.isActive ? 'bg-white/25 text-white font-black' : 'bg-[#FBF8F3] text-stone-600'}`}>
+                        {tab.count}题
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
 
-            {/* Question Header */}
-            <div className="flex items-center justify-between gap-2 pb-3 border-b border-[#E8DECE]">
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="px-2.5 py-1 rounded-xl text-white font-mono text-xs font-black bg-[#8C3B4A]">
-                  第 {currentQuestionIndex + 1} 题
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full bg-[#F7F3EA] text-[#292929] border border-[#E8DECE] text-xs font-bold">
-                  {currentQuestion.categoryTag}
-                </span>
-                <span className="text-xs text-stone-400 font-medium">
-                  分值: {currentQuestion.score} 分
-                </span>
-              </div>
+              {/* Question Header */}
+              <div className="flex items-center justify-between gap-2 pb-3 border-b border-[#E8DECE]">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-2.5 py-1 rounded-xl text-white font-mono text-xs font-black bg-[#A94A62]">
+                    第 {currentQuestionIndex + 1} 题
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#FBF8F3] text-[#29354A] border border-[#E8DECE] text-xs font-bold">
+                    {currentQuestion.categoryTag}
+                  </span>
+                  <span className="text-xs text-stone-400 font-medium">
+                    分值: {currentQuestion.score} 分
+                  </span>
+                </div>
 
-              <button
-                onClick={() => speakFrench(currentQuestion.contextText || currentQuestion.question)}
-                className="p-1.5 rounded-lg bg-[#8C3B4A]/10 text-[#8C3B4A] hover:bg-[#8C3B4A]/20 transition cursor-pointer"
-                title="朗读题目"
-              >
+                <button
+                  onClick={() => speakFrench(currentQuestion.contextText || currentQuestion.question)}
+                  className="p-1.5 rounded-lg bg-[#F3DDE2] text-[#A94A62] hover:bg-[#F3DDE2]/70 transition cursor-pointer"
+                  title="朗读题目"
+                >
                 <Volume2 className="w-4 h-4" />
               </button>
             </div>
 
             {/* Reading Passage if any */}
             {currentQuestion.contextText && (
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#FAF5EB] border-2 border-[#C8A96B]/40 space-y-2.5 select-text shadow-2xs relative">
-                <div className="flex items-center justify-between pb-2 border-b border-[#C8A96B]/30">
-                  <span className="text-xs font-black text-[#8C3B4A] flex items-center gap-1.5">
-                    <BookOpen className="w-4 h-4 text-[#C8A96B]" />
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#F3EEE5] border border-[#E8DECE] space-y-2.5 select-text shadow-2xs relative">
+                <div className="flex items-center justify-between pb-2 border-b border-[#E8DECE]">
+                  <span className="text-xs font-black text-[#29354A] flex items-center gap-1.5">
+                    <BookOpen className="w-4 h-4 text-[#D8B15F]" />
                     <span>【读解分析 · 官方全真法文阅读文本材料】</span>
                   </span>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-white text-[#8C3B4A] border border-[#C8A96B]/40 shadow-2xs">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-white text-[#A94A62] border border-[#D8B15F]/40 shadow-2xs">
                     法文原汁原味阅读材料
                   </span>
                 </div>
-                <div className="text-xs sm:text-sm text-[#292929] leading-relaxed font-medium whitespace-pre-line font-serif">
+                <div className="text-xs sm:text-sm text-[#29354A] leading-relaxed font-medium whitespace-pre-line font-serif">
                   {currentQuestion.contextText}
                 </div>
               </div>
@@ -642,19 +642,19 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
             {/* Listening Audio Player if any */}
             {(currentQuestion.audioScript || currentQuestion.questionType === '听解原声') && (
-              <div className="p-4 rounded-2xl bg-[#FCFAF6] border border-[#8C3B4A]/30 shadow-2xs space-y-3">
+              <div className="p-4 rounded-2xl bg-[#FCFAF6] border border-[#A94A62]/30 shadow-2xs space-y-3">
                 <div className="flex items-center justify-between flex-wrap gap-3">
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => currentQuestion.audioScript && handlePlayAudio(currentQuestion.audioScript)}
-                      className="w-10 h-10 rounded-full bg-[#8C3B4A] hover:bg-[#752E3C] text-white flex items-center justify-center shadow-md shadow-[#8C3B4A]/25 transition cursor-pointer shrink-0"
+                      className="w-10 h-10 rounded-full bg-[#A94A62] hover:bg-[#933C52] text-white flex items-center justify-center shadow-md shadow-[#A94A62]/25 transition cursor-pointer shrink-0"
                       title={isPlayingAudio ? '暂停听力' : '播放原声听力'}
                     >
                       {isPlayingAudio ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
                     </button>
                     <div>
-                      <div className="text-xs font-bold text-[#8C3B4A] flex items-center gap-1.5">
-                        <Headphones className="w-3.5 h-3.5 text-[#8C3B4A]" />
+                      <div className="text-xs font-bold text-[#A94A62] flex items-center gap-1.5">
+                        <Headphones className="w-3.5 h-3.5 text-[#A94A62]" />
                         <span>考场原声听力播放器 (Compréhension orale)</span>
                       </div>
                       <p className="text-[11px] text-stone-600">
@@ -664,14 +664,14 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-1 text-[11px] font-bold text-stone-600 bg-[#F7F3EA] px-2 py-1 rounded-xl border border-[#E8DECE]">
+                    <div className="flex items-center gap-1 text-[11px] font-bold text-stone-600 bg-[#FBF8F3] px-2 py-1 rounded-xl border border-[#E8DECE]">
                       <span>语速:</span>
                       {[0.8, 1.0, 1.2].map(speed => (
                         <button
                           key={speed}
                           onClick={() => setAudioSpeed(speed)}
                           className={`px-1.5 py-0.5 rounded text-[10px] ${
-                            audioSpeed === speed ? 'bg-[#8C3B4A] text-white font-bold' : 'hover:bg-white'
+                            audioSpeed === speed ? 'bg-[#A94A62] text-white font-bold' : 'hover:bg-white'
                           }`}
                         >
                           {speed}x
@@ -681,7 +681,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
                     <button
                       onClick={() => setShowListeningScript(prev => !prev)}
-                      className="px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#F7F3EA] text-[#8C3B4A] border border-[#8C3B4A]/30 hover:bg-[#8C3B4A]/10 transition cursor-pointer"
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#FBF8F3] text-[#A94A62] border border-[#A94A62]/30 hover:bg-[#F3DDE2]/50 transition cursor-pointer"
                     >
                       {showListeningScript ? '隐藏原文' : '查看原文大纲'}
                     </button>
@@ -690,8 +690,8 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
                 {/* Collapsible Listening Script */}
                 {showListeningScript && currentQuestion.audioScript && (
-                  <div className="pt-2 border-t border-[#8C3B4A]/20 text-xs font-serif italic text-stone-700 leading-relaxed bg-[#F7F3EA] p-3 rounded-xl">
-                    <div className="font-bold text-[#292929] text-[11px] not-italic pb-1">
+                  <div className="pt-2 border-t border-[#A94A62]/20 text-xs font-serif italic text-[#29354A] leading-relaxed bg-[#FBF8F3] p-3 rounded-xl">
+                    <div className="font-bold text-[#29354A] text-[11px] not-italic pb-1">
                       【听力原声材料大纲】：
                     </div>
                     {currentQuestion.audioScript}
@@ -701,7 +701,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             )}
 
             {/* Question Title */}
-            <h3 className="text-sm sm:text-base font-bold text-[#292929] whitespace-pre-line leading-relaxed">
+            <h3 className="text-sm sm:text-base font-bold text-[#29354A] whitespace-pre-line leading-relaxed">
               {currentQuestion.question}
             </h3>
 
@@ -712,9 +712,9 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                 const isCorrect = currentQuestion.correctAnswer === optIdx;
                 const showResult = isSubmitted || (showInstantExplanation && answers[currentQuestionIndex] !== undefined);
 
-                let optStyle = 'bg-[#F7F3EA] hover:bg-white text-[#292929] border-[#E8DECE]';
+                let optStyle = 'bg-[#FBF8F3] hover:bg-white text-[#29354A] border-[#E8DECE]';
                 if (isSelected) {
-                  optStyle = 'bg-[#FAF5EB] border-[#8C3B4A] text-[#8C3B4A] shadow-2xs font-bold';
+                  optStyle = 'bg-[#F3DDE2] border-[#A94A62] text-[#A94A62] shadow-2xs font-bold';
                 }
                 if (showResult) {
                   if (isCorrect) {
@@ -733,8 +733,8 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                     <div className="flex items-center gap-3">
                       <span className={`w-6 h-6 rounded-lg text-xs font-black flex items-center justify-center ${
                         isSelected && !showResult
-                          ? 'bg-[#8C3B4A] text-white'
-                          : 'bg-[#FCFAF6] border border-[#E8DECE] text-[#292929]'
+                          ? 'bg-[#A94A62] text-white'
+                          : 'bg-[#FCFAF6] border border-[#E8DECE] text-[#29354A]'
                       }`}>
                         {String.fromCharCode(65 + optIdx)}
                       </span>
@@ -754,31 +754,31 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
               {/* Instant Explanation Card */}
               {(isSubmitted || (showInstantExplanation && answers[currentQuestionIndex] !== undefined)) && (
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#FAF5EB] border border-[#C8A96B]/40 space-y-3 text-xs">
-                  <div className="flex items-center gap-1.5 text-[#8C3B4A] font-black">
-                    <Sparkles className="w-4 h-4 text-[#C8A96B]" />
+                <div className="p-4 sm:p-5 rounded-2xl bg-[#FCFAF6] border border-[#D8B15F]/40 space-y-3 text-xs">
+                  <div className="flex items-center gap-1.5 text-[#A94A62] font-black">
+                    <Sparkles className="w-4 h-4 text-[#D8B15F]" />
                     <span>考点权威名师解析</span>
                   </div>
-                  <p className="text-[#292929] leading-relaxed font-medium whitespace-pre-line">
+                  <p className="text-[#29354A] leading-relaxed font-medium whitespace-pre-line">
                     {currentQuestion.explanation}
                   </p>
 
                   {currentQuestion.translation && (
-                    <div className="pt-2 border-t border-[#C8A96B]/30 space-y-1">
-                      <span className="font-bold text-[#292929] block">全真法汉对照翻译：</span>
-                      <p className="text-stone-600 font-medium italic">
+                    <div className="pt-2 border-t border-[#E8DECE] space-y-1">
+                      <span className="font-bold text-[#29354A] block">全真法汉对照翻译：</span>
+                      <p className="text-[#29354A]/80 font-medium italic">
                         {currentQuestion.translation}
                       </p>
                     </div>
                   )}
 
                   {currentQuestion.vocabList && currentQuestion.vocabList.length > 0 && (
-                    <div className="pt-2 border-t border-[#C8A96B]/30 space-y-1.5">
-                      <span className="font-bold text-[#292929] block">核心考点词汇闪卡：</span>
+                    <div className="pt-2 border-t border-[#E8DECE] space-y-1.5">
+                      <span className="font-bold text-[#29354A] block">核心考点词汇闪卡：</span>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 pt-0.5">
                         {currentQuestion.vocabList.map((v, i) => (
                           <div key={i} className="p-2 rounded-xl bg-white border border-[#E8DECE] flex items-center justify-between text-[11px]">
-                            <span className="font-bold text-[#292929]">{v.word}</span>
+                            <span className="font-bold text-[#29354A]">{v.word}</span>
                             <span className="text-stone-500">{v.meaning}</span>
                           </div>
                         ))}
@@ -788,170 +788,170 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                 </div>
               )}
 
+            {/* Navigation Controls */}
+            <div className="flex items-center justify-between pt-4 border-t border-[#E8DECE]">
+              <button
+                onClick={() => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))}
+                disabled={currentQuestionIndex === 0}
+                className="px-4 py-2 rounded-xl bg-[#FBF8F3] hover:bg-[#F3DDE2]/40 border border-[#E8DECE] disabled:opacity-40 text-[#29354A] text-xs font-bold transition flex items-center gap-1 cursor-pointer"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                <span>上一题</span>
+              </button>
+
+              <span className="text-xs text-stone-500 font-mono">
+                {currentQuestionIndex + 1} / {currentPaper?.questions.length || 0}
+              </span>
+
+              <button
+                onClick={() => setCurrentQuestionIndex(prev => Math.min((currentPaper?.questions.length || 1) - 1, prev + 1))}
+                disabled={currentQuestionIndex === (currentPaper?.questions.length || 1) - 1}
+                className="px-4 py-2 rounded-xl bg-[#FBF8F3] hover:bg-[#F3DDE2]/40 border border-[#E8DECE] disabled:opacity-40 text-[#29354A] text-xs font-bold transition flex items-center gap-1 cursor-pointer"
+              >
+                <span>下一题</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
-          ) : (
-            <div className="text-center py-12 text-stone-400 text-sm">
-              暂无试卷题目
+
+          </div>
+        ) : (
+          <div className="text-center py-12 text-stone-400 text-sm">
+            暂无试卷题目
+          </div>
+        )}
+
+      </div>
+
+      {/* Right 4 Cols: Answer Sheet & Score Result */}
+      <div className="lg:col-span-4 space-y-4">
+        
+        {/* Answer Card */}
+        <div className="bg-[#FCFAF6] rounded-3xl p-5 border border-[#E8DECE] shadow-xs space-y-4">
+          <div className="flex items-center justify-between pb-2 border-b border-[#E8DECE]">
+            <h4 className="text-sm font-black text-[#29354A] flex items-center gap-1.5">
+              <Target className="w-4 h-4 text-[#A94A62]" />
+              <span>考场答题卡</span>
+            </h4>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-stone-400 font-mono">
+                已答 {Object.keys(answers).length} / {currentPaper?.questions.length || 0}
+              </span>
+              {Object.keys(answers).length > 0 && !isSubmitted && (
+                <button
+                  onClick={handleResetExam}
+                  className="text-[11px] text-stone-500 hover:text-[#A94A62] transition flex items-center gap-0.5 cursor-pointer font-bold px-1.5 py-0.5 rounded bg-[#FBF8F3] hover:bg-rose-50 border border-[#E8DECE]"
+                  title="清空当前试卷已选答案"
+                >
+                  <RotateCcw className="w-3 h-3" />
+                  <span>清空作答</span>
+                </button>
+              )}
             </div>
-          )}
+          </div>
 
-          {/* Navigation Controls */}
-          <div className="flex items-center justify-between pt-4 border-t border-[#E8DECE]">
+          {/* Answer Bubbles Grid */}
+          <div className="grid grid-cols-5 gap-2">
+            {currentPaper?.questions.map((q, idx) => {
+              const isAnswered = answers[idx] !== undefined;
+              const isCurrent = currentQuestionIndex === idx;
+              const isCorrect = answers[idx] === q.correctAnswer;
+
+              let bubbleStyle = 'bg-[#FBF8F3] text-[#29354A] hover:bg-[#F3DDE2]/40 border border-[#E8DECE]';
+              if (isCurrent) {
+                bubbleStyle = 'ring-2 ring-[#A94A62] font-bold bg-[#FCFAF6] border-[#E8DECE]';
+              }
+              if (isSubmitted) {
+                bubbleStyle = isCorrect ? 'bg-emerald-500 text-white font-bold' : 'bg-rose-500 text-white font-bold';
+              } else if (isAnswered) {
+                bubbleStyle = 'bg-[#A94A62] text-white font-bold';
+              }
+
+              return (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentQuestionIndex(idx)}
+                  className={`h-9 rounded-xl text-xs flex items-center justify-center transition cursor-pointer ${bubbleStyle}`}
+                >
+                  {idx + 1}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Instant Mode Toggle */}
+          <div className="pt-2 border-t border-[#E8DECE] flex items-center justify-between text-xs text-[#29354A]">
+            <span>做完即时显示解析</span>
             <button
-              onClick={() => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))}
-              disabled={currentQuestionIndex === 0}
-              className="px-4 py-2 rounded-xl bg-[#F7F3EA] hover:bg-[#EFE8DC] border border-[#E8DECE] disabled:opacity-40 text-[#292929] text-xs font-bold transition flex items-center gap-1 cursor-pointer"
+              onClick={() => setShowInstantExplanation(prev => !prev)}
+              className={`w-10 h-6 rounded-full transition-colors relative cursor-pointer ${
+                showInstantExplanation
+                  ? 'bg-[#A94A62]'
+                  : 'bg-stone-300'
+              }`}
             >
-              <ChevronLeft className="w-4 h-4" />
-              <span>上一题</span>
-            </button>
-
-            <span className="text-xs text-stone-500 font-mono">
-              {currentQuestionIndex + 1} / {currentPaper?.questions.length || 0}
-            </span>
-
-            <button
-              onClick={() => setCurrentQuestionIndex(prev => Math.min((currentPaper?.questions.length || 1) - 1, prev + 1))}
-              disabled={currentQuestionIndex === (currentPaper?.questions.length || 1) - 1}
-              className="px-4 py-2 rounded-xl bg-[#F7F3EA] hover:bg-[#EFE8DC] border border-[#E8DECE] disabled:opacity-40 text-[#292929] text-xs font-bold transition flex items-center gap-1 cursor-pointer"
-            >
-              <span>下一题</span>
-              <ChevronRight className="w-4 h-4" />
+              <div className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-transform ${
+                showInstantExplanation ? 'left-5' : 'left-1'
+              }`} />
             </button>
           </div>
 
+          {/* Submit Button */}
+          {!isSubmitted ? (
+            <button
+              onClick={handleSubmitPaper}
+              className="w-full py-3 rounded-2xl bg-[#A94A62] hover:bg-[#933C52] shadow-[#A94A62]/25 text-white font-black text-sm shadow-md active:scale-98 transition cursor-pointer"
+            >
+              提交答卷 · 生成成绩单
+            </button>
+          ) : (
+            <button
+              onClick={handleResetExam}
+              className="w-full py-2.5 rounded-2xl bg-[#FBF8F3] hover:bg-[#F3DDE2]/40 text-[#29354A] font-bold text-xs border border-[#E8DECE] transition cursor-pointer"
+            >
+              再考一次
+            </button>
+          )}
         </div>
 
-        {/* Right 4 Cols: Answer Sheet & Score Result */}
-        <div className="lg:col-span-4 space-y-4">
-          
-          {/* Answer Card */}
-          <div className="bg-[#FCFAF6] rounded-3xl p-5 border border-[#E8DECE] shadow-xs space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-[#E8DECE]">
-              <h4 className="text-sm font-black text-[#292929] flex items-center gap-1.5">
-                <Target className="w-4 h-4 text-[#8C3B4A]" />
-                <span>考场答题卡</span>
-              </h4>
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-stone-400 font-mono">
-                  已答 {Object.keys(answers).length} / {currentPaper?.questions.length || 0}
-                </span>
-                {Object.keys(answers).length > 0 && !isSubmitted && (
-                  <button
-                    onClick={handleResetExam}
-                    className="text-[11px] text-stone-500 hover:text-[#8C3B4A] transition flex items-center gap-0.5 cursor-pointer font-bold px-1.5 py-0.5 rounded bg-[#F7F3EA] hover:bg-rose-50 border border-[#E8DECE]"
-                    title="清空当前试卷已选答案"
-                  >
-                    <RotateCcw className="w-3 h-3" />
-                    <span>清空作答</span>
-                  </button>
-                )}
-              </div>
+        {/* Score Card when submitted */}
+        {scoreReport && (
+          <div className={`rounded-3xl p-5 border shadow-sm space-y-4 ${
+            scoreReport.verdictType === 'pass'
+              ? 'bg-[#FCFAF6] border-[#D8B15F]'
+              : scoreReport.verdictType === 'section_fail'
+              ? 'bg-[#F3DDE2] border-[#A94A62]/50'
+              : 'bg-[#FBF8F3] border-[#A94A62]/30'
+          }`}>
+            {/* Card Header */}
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-black uppercase tracking-wider text-[#29354A] flex items-center gap-1.5">
+                <Award className="w-4 h-4 text-[#D8B15F]" />
+                <span>{currentPaper.track === 'kaoyan' ? '考研二外成绩单' : 'DELF 欧标成绩单'}</span>
+              </span>
+              <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
+                scoreReport.verdictType === 'pass'
+                  ? 'bg-[#D8B15F] text-[#29354A] font-black'
+                  : scoreReport.verdictType === 'section_fail'
+                  ? 'bg-[#A94A62] text-white font-black'
+                  : 'bg-rose-700 text-white font-black'
+              }`}>
+                {scoreReport.verdictType === 'pass'
+                  ? '🎉 官方判定：合格 (Pass)'
+                  : scoreReport.verdictType === 'section_fail'
+                  ? '⚠️ 触发单科淘汰线'
+                  : '❌ 官方判定：未合格'}
+              </span>
             </div>
 
-            {/* Answer Bubbles Grid */}
-            <div className="grid grid-cols-5 gap-2">
-              {currentPaper?.questions.map((q, idx) => {
-                const isAnswered = answers[idx] !== undefined;
-                const isCurrent = currentQuestionIndex === idx;
-                const isCorrect = answers[idx] === q.correctAnswer;
-
-                let bubbleStyle = 'bg-[#F7F3EA] text-[#292929] hover:bg-[#EFE8DC] border border-[#E8DECE]';
-                if (isCurrent) {
-                  bubbleStyle = 'ring-2 ring-[#8C3B4A] font-bold bg-[#FCFAF6] border-[#E8DECE]';
-                }
-                if (isSubmitted) {
-                  bubbleStyle = isCorrect ? 'bg-emerald-500 text-white font-bold' : 'bg-rose-500 text-white font-bold';
-                } else if (isAnswered) {
-                  bubbleStyle = 'bg-[#8C3B4A] text-white font-bold';
-                }
-
-                return (
-                  <button
-                    key={idx}
-                    onClick={() => setCurrentQuestionIndex(idx)}
-                    className={`h-9 rounded-xl text-xs flex items-center justify-center transition cursor-pointer ${bubbleStyle}`}
-                  >
-                    {idx + 1}
-                  </button>
-                );
-              })}
+            {/* Total Score */}
+            <div className="text-center py-2 space-y-1 bg-white/90 rounded-2xl p-3 border border-[#E8DECE]">
+              <p className="text-4xl font-black text-[#A94A62]">
+                {scoreReport.scaledScore} <span className="text-sm font-normal text-stone-500">/ 100 分</span>
+              </p>
+              <p className="text-xs text-stone-600 font-medium">
+                答对 {scoreReport.correctCount} / {scoreReport.totalQuestions} 题 · 本试卷及格线为 <strong className="text-[#A94A62]">{scoreReport.passThreshold} 分</strong>
+              </p>
             </div>
-
-            {/* Instant Mode Toggle */}
-            <div className="pt-2 border-t border-[#E8DECE] flex items-center justify-between text-xs text-[#292929]">
-              <span>做完即时显示解析</span>
-              <button
-                onClick={() => setShowInstantExplanation(prev => !prev)}
-                className={`w-10 h-6 rounded-full transition-colors relative cursor-pointer ${
-                  showInstantExplanation
-                    ? 'bg-[#8C3B4A]'
-                    : 'bg-stone-300'
-                }`}
-              >
-                <div className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-transform ${
-                  showInstantExplanation ? 'left-5' : 'left-1'
-                }`} />
-              </button>
-            </div>
-
-            {/* Submit Button */}
-            {!isSubmitted ? (
-              <button
-                onClick={handleSubmitPaper}
-                className="w-full py-3 rounded-2xl bg-[#8C3B4A] hover:bg-[#752E3C] shadow-[#8C3B4A]/25 text-white font-black text-sm shadow-md active:scale-98 transition cursor-pointer"
-              >
-                提交答卷 · 生成成绩单
-              </button>
-            ) : (
-              <button
-                onClick={handleResetExam}
-                className="w-full py-2.5 rounded-2xl bg-[#F7F3EA] hover:bg-[#EFE8DC] text-[#292929] font-bold text-xs border border-[#E8DECE] transition cursor-pointer"
-              >
-                再考一次
-              </button>
-            )}
-          </div>
-
-          {/* Score Card when submitted */}
-          {scoreReport && (
-            <div className={`rounded-3xl p-5 border shadow-sm space-y-4 ${
-              scoreReport.verdictType === 'pass'
-                ? 'bg-[#FAF5EB] border-[#C8A96B]'
-                : scoreReport.verdictType === 'section_fail'
-                ? 'bg-[#8C3B4A]/10 border-[#8C3B4A]/50'
-                : 'bg-[#F7F3EA] border-[#8C3B4A]/30'
-            }`}>
-              {/* Card Header */}
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-black uppercase tracking-wider text-[#292929] flex items-center gap-1.5">
-                  <Award className="w-4 h-4 text-[#C8A96B]" />
-                  <span>{currentPaper.track === 'kaoyan' ? '考研二外成绩单' : 'DELF 欧标成绩单'}</span>
-                </span>
-                <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
-                  scoreReport.verdictType === 'pass'
-                    ? 'bg-[#C8A96B] text-[#292929] font-black'
-                    : scoreReport.verdictType === 'section_fail'
-                    ? 'bg-[#8C3B4A] text-white font-black'
-                    : 'bg-rose-700 text-white font-black'
-                }`}>
-                  {scoreReport.verdictType === 'pass'
-                    ? '🎉 官方判定：合格 (Pass)'
-                    : scoreReport.verdictType === 'section_fail'
-                    ? '⚠️ 触发单科淘汰线'
-                    : '❌ 官方判定：未合格'}
-                </span>
-              </div>
-
-              {/* Total Score */}
-              <div className="text-center py-2 space-y-1 bg-white/90 rounded-2xl p-3 border border-[#E8DECE]">
-                <p className="text-4xl font-black text-[#8C3B4A]">
-                  {scoreReport.scaledScore} <span className="text-sm font-normal text-stone-500">/ 100 分</span>
-                </p>
-                <p className="text-xs text-stone-600 font-medium">
-                  答对 {scoreReport.correctCount} / {scoreReport.totalQuestions} 题 · 本试卷及格线为 <strong className="text-[#8C3B4A]">{scoreReport.passThreshold} 分</strong>
-                </p>
-              </div>
 
               {/* Section Breakdown */}
               <div className="space-y-2 pt-1">
@@ -1026,7 +1026,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                     🌟 <strong>恭喜合格！</strong>您的总分与各单项均已达到法国官方合格标准，具备冲击更高难度的扎实基础！
                   </p>
                 ) : (
-                  <p className={`${scoreReport.verdictType === 'section_fail' ? 'text-[#8C3B4A]' : 'text-rose-800'} font-medium leading-relaxed`}>
+                  <p className={`${scoreReport.verdictType === 'section_fail' ? 'text-[#A94A62]' : 'text-rose-800'} font-medium leading-relaxed`}>
                     📌 <strong>官方诊断：</strong>{scoreReport.failReason}
                   </p>
                 )}

@@ -95,7 +95,7 @@ export const VipModal: React.FC<VipModalProps> = ({
       >
         
         {/* Header Ribbon */}
-        <div className="bg-gradient-to-r from-[#8C3B4A] via-[#A5495B] to-[#752E3C] text-white p-6 relative">
+        <div className="bg-gradient-to-r from-[#A94A62] via-[#B8576E] to-[#933C52] text-white p-6 relative">
           <button
             onClick={onClose}
             className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition cursor-pointer"
@@ -104,8 +104,8 @@ export const VipModal: React.FC<VipModalProps> = ({
           </button>
 
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#C8A96B] to-[#DFBA73] text-[#292929] flex items-center justify-center shadow-lg shadow-[#C8A96B]/25">
-              <Crown className="w-6 h-6 text-[#292929]" />
+            <div className="w-12 h-12 rounded-2xl bg-[#D8B15F] text-[#29354A] flex items-center justify-center shadow-lg shadow-[#D8B15F]/25">
+              <Crown className="w-6 h-6 text-[#29354A]" />
             </div>
             <div>
               <h2 className="text-xl font-black tracking-tight">
@@ -128,10 +128,10 @@ export const VipModal: React.FC<VipModalProps> = ({
                 <Check className="w-3.5 h-3.5" />
                 <span>已成功开通：{license.planName}</span>
               </div>
-              <p className="text-xs text-stone-600">
-                卡密授权码：<strong className="font-mono text-[#292929]">{license.cardKey}</strong>
+              <p className="text-xs text-[#29354A]">
+                卡密授权码：<strong className="font-mono text-[#29354A]">{license.cardKey}</strong>
               </p>
-              <div className="text-[11px] text-stone-500">
+              <div className="text-[11px] text-[#29354A]/70">
                 绑定设备上限：{license.boundDevicesCount || 1} / {license.maxDevices || 2} 台
               </div>
             </div>
@@ -141,8 +141,8 @@ export const VipModal: React.FC<VipModalProps> = ({
               
               {/* Input Card Key */}
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#292929] flex items-center gap-1">
-                  <KeyRound className="w-3.5 h-3.5 text-[#8C3B4A]" />
+                <label className="text-xs font-bold text-[#29354A] flex items-center gap-1">
+                  <KeyRound className="w-3.5 h-3.5 text-[#A94A62]" />
                   <span>输入您的专属 VIP 激活卡密</span>
                 </label>
                 <div className="flex gap-2">
@@ -151,19 +151,19 @@ export const VipModal: React.FC<VipModalProps> = ({
                     placeholder="格式：CS313-FR-XXXX-YYYY"
                     value={inputKey}
                     onChange={e => setInputKey(e.target.value)}
-                    className="flex-1 px-4 py-2.5 rounded-xl bg-[#F7F3EA] border border-[#E8DECE] font-mono text-xs sm:text-sm uppercase focus:outline-hidden focus:ring-2 focus:ring-[#8C3B4A]/20 focus:bg-white transition text-[#8C3B4A] font-bold"
+                    className="flex-1 px-4 py-2.5 rounded-xl bg-[#FCFAF6] border border-[#E8DECE] font-mono text-xs sm:text-sm uppercase focus:outline-hidden focus:ring-2 focus:ring-[#A94A62]/20 focus:bg-white transition text-[#A94A62] font-bold"
                   />
                   <button
                     onClick={handleActivate}
                     disabled={isLoading}
-                    className="px-5 py-2.5 rounded-xl bg-[#8C3B4A] hover:bg-[#752E3C] text-white text-xs sm:text-sm font-bold transition shadow-xs disabled:opacity-50 cursor-pointer"
+                    className="px-5 py-2.5 rounded-xl bg-[#A94A62] hover:bg-[#933C52] text-white text-xs sm:text-sm font-bold transition shadow-xs disabled:opacity-50 cursor-pointer"
                   >
                     {isLoading ? '核验中...' : '立即激活'}
                   </button>
                 </div>
 
                 {errorMsg && (
-                  <p className="text-xs text-[#8C3B4A] font-medium flex items-center gap-1">
+                  <p className="text-xs text-[#A94A62] font-medium flex items-center gap-1">
                     <AlertCircle className="w-3.5 h-3.5" />
                     <span>{errorMsg}</span>
                   </p>
@@ -178,18 +178,18 @@ export const VipModal: React.FC<VipModalProps> = ({
               </div>
 
               {/* Purchase from Xianyu Box */}
-              <div className="p-4 rounded-2xl bg-[#FAF5EB] border border-[#C8A96B]/40 space-y-3">
+              <div className="p-4 rounded-2xl bg-[#F3EEE5] border border-[#D8B15F]/40 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-[#8C3B4A] flex items-center gap-1">
-                    <Sparkles className="w-3.5 h-3.5 text-[#C8A96B]" />
+                  <span className="text-xs font-bold text-[#A94A62] flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-[#D8B15F]" />
                     <span>尚未获取卡密？前往闲鱼官方拍下</span>
                   </span>
-                  <span className="text-xs font-black text-[#8C3B4A]">
+                  <span className="text-xs font-black text-[#A94A62]">
                     ¥49.9 / 终身买断
                   </span>
                 </div>
                 
-                <p className="text-xs text-stone-600 leading-relaxed">
+                <p className="text-xs text-[#29354A]/80 leading-relaxed">
                   拍下后系统机器人 24 小时自动私信推送独立授权卡密，一次开通享全部模块，随新考期持续免费云端更新！
                 </p>
 
@@ -198,15 +198,15 @@ export const VipModal: React.FC<VipModalProps> = ({
                     href={XIANYU_ITEM_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#C8A96B] to-[#DFBA73] hover:from-[#B59556] hover:to-[#C8A96B] text-[#292929] font-black text-xs flex items-center justify-center gap-1.5 shadow-xs transition"
+                    className="flex-1 py-2.5 rounded-xl bg-[#D8B15F] hover:bg-[#C59F4E] text-[#29354A] font-black text-xs flex items-center justify-center gap-1.5 shadow-xs transition"
                   >
                     <span>前往闲鱼官方拍下</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-[#292929]" />
+                    <ExternalLink className="w-3.5 h-3.5 text-[#29354A]" />
                   </a>
 
                   <button
                     onClick={copyXianyuLink}
-                    className="px-3.5 py-2.5 rounded-xl bg-white hover:bg-[#F7F3EA] text-[#292929] font-bold text-xs border border-[#E8DECE] transition flex items-center gap-1 cursor-pointer"
+                    className="px-3.5 py-2.5 rounded-xl bg-white hover:bg-[#FAF6EE] text-[#29354A] font-bold text-xs border border-[#E8DECE] transition flex items-center gap-1 cursor-pointer"
                   >
                     {copiedXianyu ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedXianyu ? '已复制链接' : '复制链接'}</span>
@@ -215,7 +215,7 @@ export const VipModal: React.FC<VipModalProps> = ({
               </div>
 
               {/* Current Device Fingerprint Notice */}
-              <div className="p-3 rounded-xl bg-[#F7F3EA] border border-[#E8DECE] text-stone-500 text-[11px] flex items-center justify-between">
+              <div className="p-3 rounded-xl bg-[#F3EEE5] border border-[#E8DECE] text-[#29354A]/70 text-[11px] flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   {currentDevice.deviceType === 'Mobile Phone' ? <Smartphone className="w-4 h-4" /> : currentDevice.deviceType === 'iPad/Tablet' ? <Tablet className="w-4 h-4" /> : <Laptop className="w-4 h-4" />}
                   <span>当前识别设备：{currentDevice.deviceName} ({currentDevice.os})</span>

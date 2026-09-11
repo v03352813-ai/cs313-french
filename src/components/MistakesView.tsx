@@ -37,14 +37,14 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
       {/* Top Hero Banner */}
       <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#8C3B4A]/10 text-[#8C3B4A] text-xs font-bold border border-[#8C3B4A]/20">
-            <BookMarked className="w-3.5 h-3.5 text-[#C8A96B]" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
+            <BookMarked className="w-3.5 h-3.5 text-[#D8B15F]" />
             <span>智能错因沉淀与薄弱点抓取</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-[#8C3B4A] tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
             个性化专属错题本 (Cahier d'erreurs)
           </h1>
-          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-2xl">
+          <p className="text-xs sm:text-sm text-[#29354A]/80 leading-relaxed max-w-2xl">
             考研二外与 DELF 机考做错的客观题自动收录沉淀。只刷薄弱考点，提分效率倍增。
           </p>
         </div>
@@ -52,7 +52,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
         {mistakes.length > 0 && (
           <button
             onClick={onClearAll}
-            className="self-start sm:self-auto flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#8C3B4A]/10 hover:bg-[#8C3B4A]/20 text-[#8C3B4A] text-xs font-bold border border-[#8C3B4A]/20 transition cursor-pointer"
+            className="self-start sm:self-auto flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#F3DDE2] hover:bg-[#F3DDE2]/80 text-[#A94A62] text-xs font-bold border border-[#A94A62]/25 transition cursor-pointer"
           >
             <Trash2 className="w-4 h-4" />
             <span>清空错题本</span>
@@ -67,7 +67,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
             <CheckCircle2 className="w-8 h-8" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-lg font-black text-[#8C3B4A]">
+            <h3 className="text-lg font-black text-[#29354A]">
               错题本空空如也！
             </h3>
             <p className="text-xs text-stone-500">
@@ -76,7 +76,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
           </div>
           <button
             onClick={onNavigateToExam}
-            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-2xl bg-[#8C3B4A] hover:bg-[#752E3C] text-white text-xs sm:text-sm font-bold shadow-xs active:scale-95 transition cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-2xl bg-[#A94A62] hover:bg-[#933C52] text-white text-xs sm:text-sm font-bold shadow-xs active:scale-95 transition cursor-pointer"
           >
             <span>去真题机考刷题</span>
             <ArrowRight className="w-4 h-4" />
@@ -96,8 +96,8 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
                   onClick={() => setFilterTag(t!)}
                   className={`px-3 py-1 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
                     filterTag === t
-                      ? 'bg-[#8C3B4A] text-white shadow-xs'
-                      : 'bg-[#FCFAF6] text-[#292929] hover:bg-[#F7F3EA] border border-[#E8DECE]'
+                      ? 'bg-[#A94A62] text-white shadow-xs'
+                      : 'bg-[#FCFAF6] text-[#29354A] hover:bg-[#F3EEE5] border border-[#E8DECE]'
                   }`}
                 >
                   {t === 'all' ? '全部错题' : t}
@@ -116,11 +116,11 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#E8DECE]">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-md bg-[#8C3B4A]/10 text-[#8C3B4A] border border-[#8C3B4A]/20 text-xs font-bold">
+                      <span className="px-2.5 py-0.5 rounded-md bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25 text-xs font-bold">
                         {m.paperTitle}
                       </span>
                       {q.grammarTag && (
-                        <span className="px-2 py-0.5 rounded-md bg-[#F7F3EA] text-stone-700 border border-[#E8DECE] text-xs font-bold">
+                        <span className="px-2 py-0.5 rounded-md bg-[#F3EEE5] text-[#29354A] border border-[#E8DECE] text-xs font-bold">
                           考点：{q.grammarTag}
                         </span>
                       )}
@@ -129,14 +129,14 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
                       <span className="text-xs text-stone-400">收录于 {m.date}</span>
                       <button
                         onClick={() => onRemoveMistake(m.id)}
-                        className="text-xs text-stone-400 hover:text-[#8C3B4A] font-bold transition cursor-pointer"
+                        className="text-xs text-stone-400 hover:text-[#A94A62] font-bold transition cursor-pointer"
                       >
                         标记已攻克
                       </button>
                     </div>
                   </div>
 
-                  <h3 className="text-base font-bold text-[#292929] leading-snug">
+                  <h3 className="text-base font-bold text-[#29354A] leading-snug">
                     {q.question}
                   </h3>
 
@@ -146,27 +146,27 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
                       const isCorrect = q.correctAnswer === oIdx;
                       const isUserAns = m.userAnswer === oIdx;
 
-                      let style = 'bg-[#F7F3EA] border-[#E8DECE] text-stone-600';
+                      let style = 'bg-[#F3EEE5] border-[#E8DECE] text-[#29354A]/80';
                       if (isCorrect) style = 'bg-emerald-50 border-emerald-300 text-emerald-900 font-bold';
-                      else if (isUserAns) style = 'bg-[#8C3B4A]/10 border-[#8C3B4A]/40 text-[#8C3B4A] font-bold';
+                      else if (isUserAns) style = 'bg-[#F3DDE2] border-[#A94A62]/40 text-[#A94A62] font-bold';
 
                       return (
                         <div key={oIdx} className={`p-2.5 rounded-xl border flex items-center justify-between ${style}`}>
                           <span>{String.fromCharCode(65 + oIdx)}. {opt}</span>
                           {isCorrect && <span className="text-[10px] bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded-sm font-bold">正确答案</span>}
-                          {isUserAns && !isCorrect && <span className="text-[10px] bg-[#8C3B4A] text-white px-1.5 py-0.5 rounded-sm font-bold">你的选择</span>}
+                          {isUserAns && !isCorrect && <span className="text-[10px] bg-[#A94A62] text-white px-1.5 py-0.5 rounded-sm font-bold">你的选择</span>}
                         </div>
                       );
                     })}
                   </div>
 
                   {/* Explanation */}
-                  <div className="p-4 rounded-2xl bg-[#FAF5EB] border border-[#C8A96B]/40 text-xs leading-relaxed text-[#292929] space-y-1">
-                    <div className="font-bold text-[#8C3B4A] flex items-center gap-1">
-                      <Sparkles className="w-3.5 h-3.5 text-[#C8A96B]" />
+                  <div className="p-4 rounded-2xl bg-[#F3EEE5] border border-[#E8DECE] text-xs leading-relaxed text-[#29354A] space-y-1">
+                    <div className="font-bold text-[#29354A] flex items-center gap-1">
+                      <Sparkles className="w-3.5 h-3.5 text-[#D8B15F]" />
                       <span>名师深度解析：</span>
                     </div>
-                    <p className="whitespace-pre-line text-stone-700 font-medium">{q.explanation}</p>
+                    <p className="whitespace-pre-line text-[#29354A]/80 font-medium">{q.explanation}</p>
                   </div>
                 </div>
               );

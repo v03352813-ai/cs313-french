@@ -37,14 +37,14 @@ export const GrammarView: React.FC = () => {
       {/* Top Hero Banner */}
       <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#8C3B4A]/10 text-[#8C3B4A] text-xs font-bold border border-[#8C3B4A]/20">
-            <BookOpenCheck className="w-3.5 h-3.5 text-[#C8A96B]" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
+            <BookOpenCheck className="w-3.5 h-3.5 text-[#D8B15F]" />
             <span>法兰西学术院正统文法规范</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-[#8C3B4A] tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
             法语考研二外与 DELF 全能语法速查宝典
           </h1>
-          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-3xl">
+          <p className="text-xs sm:text-sm text-[#29354A]/80 leading-relaxed max-w-3xl">
             直击考研二外失分重灾区：副代词 y/en 深度解析、直接宾语提前过去分词配合、自反动词性数配合与虚拟式触发器，配独家【考研避坑指南】。
           </p>
         </div>
@@ -64,7 +64,7 @@ export const GrammarView: React.FC = () => {
               placeholder="检索考点 (如 直宾提前, y/en, 虚拟式...)"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#FCFAF6] border border-[#E8DECE] text-xs sm:text-sm text-[#292929] placeholder:text-stone-400 focus:outline-hidden focus:ring-2 focus:ring-[#8C3B4A]/20"
+              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#FCFAF6] border border-[#E8DECE] text-xs sm:text-sm text-[#29354A] placeholder:text-stone-400 focus:outline-hidden focus:ring-2 focus:ring-[#A94A62]/20"
             />
           </div>
 
@@ -76,8 +76,8 @@ export const GrammarView: React.FC = () => {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
                   activeCategory === cat.id
-                    ? 'bg-[#8C3B4A] text-white shadow-xs'
-                    : 'bg-[#FCFAF6] text-[#292929] hover:bg-[#F7F3EA] border border-[#E8DECE]'
+                    ? 'bg-[#A94A62] text-white shadow-xs'
+                    : 'bg-[#FCFAF6] text-[#29354A] hover:bg-[#F3EEE5] border border-[#E8DECE]'
                 }`}
               >
                 {cat.label}
@@ -95,24 +95,24 @@ export const GrammarView: React.FC = () => {
                   onClick={() => setSelectedPoint(point)}
                   className={`w-full p-3.5 rounded-2xl flex items-start justify-between text-left transition cursor-pointer ${
                     isSelected
-                      ? 'bg-[#FAF5EB] text-[#8C3B4A] border-2 border-[#8C3B4A] shadow-xs'
-                      : 'hover:bg-[#F7F3EA] border border-transparent text-[#292929]'
+                      ? 'bg-[#F3DDE2] text-[#A94A62] border-2 border-[#A94A62] shadow-xs'
+                      : 'hover:bg-[#F3EEE5] border border-transparent text-[#29354A]'
                   }`}
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <span className={`text-[10px] px-2 py-0.5 rounded-md font-bold ${
-                        isSelected ? 'bg-[#8C3B4A]/10 text-[#8C3B4A]' : 'bg-[#8C3B4A]/10 text-[#8C3B4A]'
+                        isSelected ? 'bg-[#A94A62] text-white' : 'bg-[#F3EEE5] text-[#29354A]'
                       }`}>
                         {point.level}
                       </span>
-                      <span className={`text-xs ${isSelected ? 'text-[#8C3B4A]/80' : 'text-stone-500'}`}>{point.category}</span>
+                      <span className={`text-xs ${isSelected ? 'text-[#A94A62]' : 'text-stone-500'}`}>{point.category}</span>
                     </div>
-                    <h3 className="font-bold text-xs sm:text-sm leading-snug">
+                    <h3 className={`font-bold text-xs sm:text-sm leading-snug ${isSelected ? 'text-[#A94A62]' : 'text-[#29354A]'}`}>
                       {point.title}
                     </h3>
                   </div>
-                  <ChevronRight className={`w-4 h-4 shrink-0 mt-2 ${isSelected ? 'text-[#8C3B4A]' : 'text-stone-300'}`} />
+                  <ChevronRight className={`w-4 h-4 shrink-0 mt-2 ${isSelected ? 'text-[#A94A62]' : 'text-stone-300'}`} />
                 </button>
               );
             })}
@@ -126,28 +126,28 @@ export const GrammarView: React.FC = () => {
             {/* Header of Grammar Point */}
             <div className="space-y-2 pb-4 border-b border-[#E8DECE]">
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-1 rounded-full bg-[#8C3B4A]/10 text-[#8C3B4A] text-xs font-bold">
+                <span className="px-2.5 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold">
                   {selectedPoint.level} · {selectedPoint.category}
                 </span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-black text-[#8C3B4A] tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-black text-[#29354A] tracking-tight">
                 {selectedPoint.title}
               </h2>
               <p className="text-xs font-serif italic text-stone-500">
                 {selectedPoint.frenchTitle}
               </p>
-              <p className="text-xs sm:text-sm text-stone-600 leading-relaxed pt-1">
+              <p className="text-xs sm:text-sm text-[#29354A]/80 leading-relaxed pt-1">
                 {selectedPoint.summary}
               </p>
             </div>
 
             {/* Formula Block */}
-            <div className="p-4 rounded-2xl bg-[#FAF5EB] border border-[#C8A96B]/40 space-y-1">
-              <div className="text-xs font-bold text-[#8C3B4A] flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-[#C8A96B]" />
+            <div className="p-4 rounded-2xl bg-[#F3EEE5] border border-[#E8DECE] space-y-1">
+              <div className="text-xs font-bold text-[#29354A] flex items-center gap-1.5">
+                <Sparkles className="w-4 h-4 text-[#D8B15F]" />
                 <span>核心文法公式 (Règle d'or)</span>
               </div>
-              <div className="text-sm font-mono font-bold text-[#292929]">
+              <div className="text-sm font-mono font-bold text-[#A94A62]">
                 {selectedPoint.formula}
               </div>
             </div>
@@ -158,21 +158,21 @@ export const GrammarView: React.FC = () => {
                 分项详解与实战例句
               </div>
               {selectedPoint.rules.map((rule, idx) => (
-                <div key={idx} className="p-4 rounded-2xl bg-[#F7F3EA] border border-[#E8DECE] space-y-2.5">
-                  <h4 className="font-bold text-sm text-[#292929] flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#8C3B4A] shrink-0" />
+                <div key={idx} className="p-4 rounded-2xl bg-[#F3EEE5] border border-[#E8DECE] space-y-2.5">
+                  <h4 className="font-bold text-sm text-[#29354A] flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#A94A62] shrink-0" />
                     <span>{rule.name}</span>
                   </h4>
-                  <p className="text-xs text-stone-600 leading-relaxed">
+                  <p className="text-xs text-[#29354A]/80 leading-relaxed">
                     {rule.description}
                   </p>
                   <div className="space-y-1.5 pt-1">
                     {rule.examples.map((ex, i) => (
                       <div key={i} className="p-2.5 rounded-xl bg-[#FCFAF6] border border-[#E8DECE] text-xs space-y-0.5">
-                        <div className="font-serif font-bold text-[#292929]">
+                        <div className="font-serif font-bold text-[#29354A]">
                           {ex.fr}
                         </div>
-                        <div className="text-stone-500">
+                        <div className="text-[#29354A]/70">
                           {ex.zh}
                         </div>
                       </div>
@@ -183,12 +183,12 @@ export const GrammarView: React.FC = () => {
             </div>
 
             {/* Critical Exam Trap Alert */}
-            <div className="p-4 rounded-2xl bg-[#FCEDEF] border border-[#8C3B4A]/30 text-[#8C3B4A] space-y-1.5">
-              <div className="flex items-center gap-2 font-bold text-xs text-[#8C3B4A]">
-                <AlertTriangle className="w-4 h-4 text-[#8C3B4A]" />
+            <div className="p-4 rounded-2xl bg-[#F3DDE2] border border-[#A94A62]/30 text-[#29354A] space-y-1.5">
+              <div className="flex items-center gap-2 font-bold text-xs text-[#A94A62]">
+                <AlertTriangle className="w-4 h-4 text-[#A94A62]" />
                 <span>考研二外 & 考级避坑指南 (Exam Trap)</span>
               </div>
-              <p className="text-xs leading-relaxed text-[#732231]">
+              <p className="text-xs leading-relaxed text-[#29354A]">
                 {selectedPoint.examTrap}
               </p>
             </div>
