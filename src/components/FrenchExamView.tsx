@@ -39,15 +39,36 @@ interface FrenchExamViewProps {
   isVip: boolean;
   onOpenVipModal: (reason?: string) => void;
   onSaveMistake: (record: WrongRecord) => void;
+  initialTrack?: ExamTrack;
+  onTrackChange?: (track: ExamTrack) => void;
 }
 
 export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
   isVip,
   onOpenVipModal,
-  onSaveMistake
+  onSaveMistake,
+  initialTrack = 'kaoyan',
+  onTrackChange
 }) => {
-  const [activeTrack, setActiveTrack] = useState<ExamTrack>('kaoyan');
-  const [selectedPaperId, setSelectedPaperId] = useState<string>('ky-2025-comprehensive-01');
+  const [activeTrack, setActiveTrack] = useState<ExamTrack>(initialTrack);
+
+  // Sync with initialTrack when changed from navigation
+  useEffect(() => {
+    if (initialTrack && initialTrack !== activeTrack) {
+      setActiveTrack(initialTrack);
+      if (initialTrack === 'delf') {
+        setSelectedPaperId('delf_a1_01');
+      } else {
+        setSelectedPaperId('ky-2025-comprehensive-01');
+      }
+      setCurrentQuestionIndex(0);
+      setAnswers({});
+      setIsSubmitted(false);
+    }
+  }, [initialTrack]);
+  const [selectedPaperId, setSelectedPaperId] = useState<string>(
+    initialTrack === 'delf' ? 'delf_a1_01' : 'ky-2025-comprehensive-01'
+  );
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
@@ -426,6 +447,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               setActiveTrack('kaoyan');
               setKaoyanFilter('all');
               handleResetExam();
+              onTrackChange?.('kaoyan');
             }}
             className={`flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer ${
               activeTrack === 'kaoyan'
@@ -442,6 +464,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               setActiveTrack('delf');
               setDelfFilter('all');
               handleResetExam();
+              onTrackChange?.('delf');
             }}
             className={`flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer ${
               activeTrack === 'delf'

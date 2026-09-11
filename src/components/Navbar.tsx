@@ -10,7 +10,9 @@ import {
   Crown, 
   KeyRound, 
   RotateCcw,
-  Settings2
+  Settings2,
+  GraduationCap,
+  Globe2
 } from 'lucide-react';
 import { checkAdminSession, LicenseInfo } from '../data/auth/cardKeys';
 import { getFrenchExamCountdown } from '../utils/examCountdown';
@@ -22,6 +24,7 @@ export type ActiveTab =
   | 'vocab' 
   | 'grammar' 
   | 'exam' 
+  | 'delf'
   | 'mistakes' 
   | 'cinema';
 
@@ -44,7 +47,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const examCountdown = getFrenchExamCountdown();
 
-  // 首页 + 7 大核心模块根据学员学习进阶排列
+  // 首页 + 8 大核心模块根据学员学习进阶排列
   const navItems = [
     { id: 'home' as ActiveTab, label: '首页', shortLabel: '首页', icon: LayoutGrid },
     { id: 'phonetics' as ActiveTab, label: '35音·联诵', shortLabel: '音标', icon: Sparkles },
@@ -53,7 +56,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'mistakes' as ActiveTab, label: '错题本', shortLabel: '错题', icon: BookMarked },
     { id: 'grammar' as ActiveTab, label: '语法宝典', shortLabel: '语法', icon: BookOpenCheck },
     { id: 'cinema' as ActiveTab, label: '法影精听', shortLabel: '精听', icon: Headphones },
-    { id: 'exam' as ActiveTab, label: '二外/DELF真题', shortLabel: '真题', icon: FileCheck2, isHero: true },
+    { id: 'exam' as ActiveTab, label: '考研二外', shortLabel: '二外', icon: GraduationCap },
+    { id: 'delf' as ActiveTab, label: 'DELF欧标', shortLabel: 'DELF', icon: Globe2, isHero: true },
   ];
 
   const [isAdmin, setIsAdmin] = useState<boolean>(() => {
@@ -247,9 +251,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
             </div>
 
-            {/* 2. 紧随其后的 8 大核心功能平铺导航条 */}
+            {/* 2. 紧随其后的 9 大核心功能平铺导航条 */}
             <div className="pt-0.5">
-              <nav className="hidden md:grid grid-cols-8 gap-1 bg-[#E5DFD4]/70 p-1 rounded-xl border border-[#E0D8CB] shadow-2xs">
+              <nav className="hidden md:grid grid-cols-9 gap-1 bg-[#E5DFD4]/70 p-1 rounded-xl border border-[#E0D8CB] shadow-2xs">
                 {navItems.map((item) => {
                   const Icon = item.icon;
                   const isActive = activeTab === item.id;

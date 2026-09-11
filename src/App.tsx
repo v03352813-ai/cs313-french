@@ -52,7 +52,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '') as ActiveTab;
-      if (['home', 'phonetics', 'conjugation', 'vocab', 'grammar', 'exam', 'mistakes', 'cinema'].includes(hash)) {
+      if (['home', 'phonetics', 'conjugation', 'vocab', 'grammar', 'exam', 'delf', 'mistakes', 'cinema'].includes(hash)) {
         setActiveTab(hash);
       }
     };
@@ -113,11 +113,17 @@ export const App: React.FC = () => {
         {activeTab === 'conjugation' && <ConjugationView />}
         {activeTab === 'vocab' && <VocabView />}
         {activeTab === 'grammar' && <GrammarView />}
-        {activeTab === 'exam' && (
+        {(activeTab === 'exam' || activeTab === 'delf') && (
           <FrenchExamView
             isVip={isVip}
             onOpenVipModal={() => setIsVipModalOpen(true)}
             onSaveMistake={handleSaveMistake}
+            initialTrack={activeTab === 'delf' ? 'delf' : 'kaoyan'}
+            onTrackChange={(track) => {
+              const newTab = track === 'delf' ? 'delf' : 'exam';
+              setActiveTab(newTab);
+              window.location.hash = newTab;
+            }}
           />
         )}
         {activeTab === 'mistakes' && (
