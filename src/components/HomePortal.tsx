@@ -31,7 +31,7 @@ import {
 } from '../data/cloudSync';
 import { speakFrench } from '../utils/speech';
 
-export type TrackId = 'beginner' | 'cinema' | 'exam';
+export type TrackId = 'beginner' | 'cinema' | 'kaoyan' | 'delf';
 
 interface TrackStep {
   stepNum: string;
@@ -155,28 +155,40 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         targetTab: 'home',
         icon: Calendar,
         buttonBg: 'bg-[#A94A62] hover:bg-[#933C52] text-white shadow-xs'
+      },
+      {
+        stepNum: '03',
+        stepLabel: '第 3 步 · 词汇积累',
+        title: '5,000+ 日常高频生活词汇闪卡',
+        targetBadge: '地道口语 · 场景词',
+        badgeBg: 'bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25',
+        desc: '精选法国人日常对话最高频词汇与习语，阴阳性清晰标定，搭配纯正巴黎真人朗读。',
+        actionText: '背诵日常核心词汇',
+        targetTab: 'vocab',
+        icon: Layers,
+        buttonBg: 'bg-[#A94A62] hover:bg-[#933C52] text-white shadow-xs'
       }
     ]
   },
-  exam: {
-    id: 'exam',
-    name: '考研二外 / DELF 冲刺',
-    targetAudience: '冲刺高校 241/242 · DELF 高分通关',
-    tag: '备考必选',
+  kaoyan: {
+    id: 'kaoyan',
+    name: '考研二外 241/242 冲刺',
+    targetAudience: '冲刺名校 241/242 · 高分通关',
+    tag: '考研必选',
     icon: '🎯',
     activeBorder: 'border-[#A94A62]',
     activeBg: 'bg-[#F3DDE2]/60 border-[#A94A62] text-[#A94A62]',
     activeRing: 'ring-2 ring-[#A94A62]/25 shadow-md',
-    desc: '专为考研二外与 DELF 考生打造的标准提分闭环：全真模考摸底 ➔ 错题遗忘曲线复盘 ➔ 核心时态与虚拟式专项攻坚！',
+    desc: '专为全国高校考研二外考生打造的标准提分闭环：高校历届全真大卷摸底 ➔ 错题遗忘曲线靶向复盘 ➔ 核心动词时态与虚拟式专项攻坚！',
     steps: [
       {
         stepNum: '01',
         stepLabel: '第 1 步 · 模考查漏',
-        title: '双轨历届全真大卷机考',
-        targetBadge: '北外·上外·DELF真题',
+        title: '双轨历届考研二外全真大卷',
+        targetBadge: '北外·上外·武大真题',
         badgeBg: 'bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25',
-        desc: '全真还原考场倒计时，听力原声精析、即做即看与模考双模式，精准测出真实水平与薄弱项。',
-        actionText: '进入全真真题大考场',
+        desc: '全真还原考场倒计时，涵盖全国各大名校统考原题，即做即看与全真模考双模式，精准测出薄弱项。',
+        actionText: '进入考研真题考场',
         targetTab: 'exam',
         icon: FileCheck2,
         buttonBg: 'bg-[#A94A62] hover:bg-[#933C52] text-white shadow-xs'
@@ -203,6 +215,55 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         actionText: '开启时态专项突破',
         targetTab: 'conjugation',
         icon: Zap,
+        buttonBg: 'bg-[#A94A62] hover:bg-[#933C52] text-white shadow-xs'
+      }
+    ]
+  },
+  delf: {
+    id: 'delf',
+    name: 'DELF 欧标考级 (A1-B2)',
+    targetAudience: '欧标 A1-B2 证书 · 留学移民',
+    tag: '国际认证',
+    icon: '🌍',
+    activeBorder: 'border-[#A94A62]',
+    activeBg: 'bg-[#F3DDE2]/60 border-[#A94A62] text-[#A94A62]',
+    activeRing: 'ring-2 ring-[#A94A62]/25 shadow-md',
+    desc: '专为 DELF A1/A2/B1/B2 考生打造的标准通关路径：官方历届模考大卷全真机考 ➔ 5,000+ 欧标分级核心词汇 ➔ 70+ 核心文法考点避坑！',
+    steps: [
+      {
+        stepNum: '01',
+        stepLabel: '第 1 步 · 欧标模考',
+        title: 'DELF 历届官方欧标模考大卷',
+        targetBadge: 'A1-B2机考 · 原声听力',
+        badgeBg: 'bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25',
+        desc: '全真还原 DELF 听力与阅读题型，官方正统法音音频，自动评分与答案详解，攻克备考瓶颈。',
+        actionText: '进入欧标全真考场',
+        targetTab: 'delf',
+        icon: Globe2,
+        buttonBg: 'bg-[#A94A62] hover:bg-[#933C52] text-white shadow-xs'
+      },
+      {
+        stepNum: '02',
+        stepLabel: '第 2 步 · 欧标词汇',
+        title: 'DELF 分级核心高频词闪卡',
+        targetBadge: '性数双标 · 抗遗忘',
+        badgeBg: 'bg-amber-50 text-amber-900 border border-[#DDBF78]/60',
+        desc: '严选 DELF A1-B2 必考核心词汇，严格标注阴阳性与搭配介词，结合艾宾浩斯抗遗忘记忆曲线。',
+        actionText: '背诵分级考纲词汇',
+        targetTab: 'vocab',
+        icon: Layers,
+        buttonBg: 'bg-[#A94A62] hover:bg-[#933C52] text-white shadow-xs'
+      },
+      {
+        stepNum: '03',
+        stepLabel: '第 3 步 · 体系文法',
+        title: '70+ 欧标核心语法全景宝典',
+        targetBadge: '时态配合 · 避坑指南',
+        badgeBg: 'bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/25',
+        desc: '冠词用法、复合过去时分词配合、条件式与虚拟式进阶规则，配独家欧标考级避坑指南。',
+        actionText: '查阅体系文法宝典',
+        targetTab: 'grammar',
+        icon: BookOpenCheck,
         buttonBg: 'bg-[#A94A62] hover:bg-[#933C52] text-white shadow-xs'
       }
     ]
@@ -233,15 +294,16 @@ export const HomePortal: React.FC<HomePortalProps> = ({
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState<number>(0);
   const quote: DailyQuote = DAILY_QUOTES_POOL[currentQuoteIndex];
 
-  // 学习主线选择器状态（默认首选第 3 主线：考研二外/DELF冲刺）
+  // 学习主线选择器状态（默认首选：考研二外冲刺）
   const [selectedTrack, setSelectedTrack] = useState<TrackId>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('cs313_fr_active_track');
-      if (saved === 'beginner' || saved === 'cinema' || saved === 'exam') {
+      if (saved === 'beginner' || saved === 'cinema' || saved === 'kaoyan' || saved === 'delf') {
         return saved as TrackId;
       }
+      if (saved === 'exam') return 'kaoyan';
     }
-    return 'exam';
+    return 'kaoyan';
   });
 
   const handleTrackChange = (track: TrackId) => {
@@ -492,9 +554,9 @@ export const HomePortal: React.FC<HomePortalProps> = ({
           </span>
         </div>
 
-        {/* 3 Large Pathway Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-          {(['beginner', 'cinema', 'exam'] as TrackId[]).map((trackKey) => {
+        {/* 4 Large Pathway Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          {(['beginner', 'cinema', 'kaoyan', 'delf'] as TrackId[]).map((trackKey) => {
             const config = TRACKS_CONFIG[trackKey];
             const isSelected = selectedTrack === trackKey;
             return (
@@ -536,7 +598,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
 
                 <div className="pt-2 border-t border-slate-200/70 flex items-center justify-between text-xs font-bold">
                   <span className={isSelected ? 'text-[#A94A62]' : 'text-slate-500 group-hover:text-slate-800'}>
-                    {isSelected ? '立即进入学习 (进入真题大卷)' : '点击切换此路线'}
+                    {isSelected ? `立即进入学习 (${config.steps[0].actionText.slice(0, 6)})` : '点击切换此路线'}
                   </span>
                   <ArrowRight className={`w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 ${
                     isSelected ? 'text-[#A94A62]' : 'text-slate-400'
@@ -549,7 +611,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
 
         {/* Roadmap Steps Container */}
         <div id="track-steps-roadmap" className="pt-2 space-y-3">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className={`grid grid-cols-1 ${currentTrackConfig.steps.length === 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-3`}>
             {currentTrackConfig.steps.map((step) => {
               return (
                 <div
