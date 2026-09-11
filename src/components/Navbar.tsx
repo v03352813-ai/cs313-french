@@ -133,8 +133,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span className="hidden xs:inline-block px-2 py-0.5 rounded-full bg-[#F3DDE2] text-[#A94A62] border border-[#A94A62]/20 text-[10.5px] sm:text-[11px] font-bold whitespace-nowrap">
                       French Pro · 自研平台
                     </span>
-                    <span className="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-[#FCFAF6] text-[#29354A] border border-[#D8B15F]/40 text-[10.5px] sm:text-[11px] font-bold items-center gap-1 whitespace-nowrap">
-                      <Sparkles className="w-2.5 h-2.5 text-[#D8B15F]" /> 考研二外/DELF双轨全真卷
+                    <span className="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-[#FCFAF6] text-[#29354A] border border-[#DDBF78]/40 text-[10.5px] sm:text-[11px] font-bold items-center gap-1 whitespace-nowrap">
+                      <Sparkles className="w-2.5 h-2.5 text-[#DDBF78]" /> 考研二外/DELF双轨全真卷
                     </span>
 
                     {/* 动态考期倒计时模块 */}
@@ -202,13 +202,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </button>
                   <button 
                     onClick={onOpenVipModal}
-                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-[#FCFAF6] hover:bg-[#F3DDE2]/30 border border-[#D8B15F]/50 text-center cursor-pointer transition active:scale-98 shadow-2xs"
+                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-[#FCFAF6] hover:bg-[#F3DDE2]/30 border border-[#DDBF78]/50 text-center cursor-pointer transition active:scale-98 shadow-2xs"
                     title="终身 VIP 特权"
                   >
                     <span className="hidden sm:block text-sm font-black text-[#A94A62] whitespace-nowrap">🎁 终身VIP</span>
                     <span className="block sm:hidden text-[10px] font-black text-[#A94A62] truncate w-full">🎁 VIP</span>
-                    <span className="hidden sm:block text-[9px] text-[#D8B15F] font-black whitespace-nowrap">畅刷全卷</span>
-                    <span className="block sm:hidden text-[8px] text-[#D8B15F] font-black truncate w-full">特权</span>
+                    <span className="hidden sm:block text-[9px] text-[#DDBF78] font-black whitespace-nowrap">畅刷全卷</span>
+                    <span className="block sm:hidden text-[8px] text-[#DDBF78] font-black truncate w-full">特权</span>
                   </button>
                 </div>
 
@@ -225,7 +225,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </button>
 
                     {isVip ? (
-                      <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-[#D8B15F] to-[#E5C782] text-[#29354A] text-xs font-black shadow-xs shrink-0 whitespace-nowrap">
+                      <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-[#DDBF78] to-[#E8CEA0] text-[#29354A] text-xs font-black shadow-xs shrink-0 whitespace-nowrap">
                         <Crown className="w-3.5 h-3.5 shrink-0" />
                         <span className="whitespace-nowrap">{license?.planName || 'VIP 终身卡'}</span>
                       </div>
@@ -355,14 +355,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Right VIP / Actions */}
           <div className="flex items-center gap-2">
             {isVip ? (
-              <div className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#D8B15F] text-[#29354A] text-xs font-black shadow-xs">
+              <div className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#DDBF78] text-[#29354A] text-xs font-black shadow-xs">
                 <Crown className="w-3.5 h-3.5" />
                 <span>{license?.planName || 'VIP 终身卡'}</span>
               </div>
             ) : (
               <button
                 onClick={onOpenVipModal}
-                className="flex items-center gap-1 px-3.5 py-1.5 rounded-xl bg-[#D8B15F] hover:bg-[#C59F4E] text-[#29354A] text-xs font-black shadow-xs active:scale-95 transition cursor-pointer"
+                className="flex items-center gap-1 px-3.5 py-1.5 rounded-xl bg-[#DDBF78] hover:bg-[#C9A95C] text-[#29354A] text-xs font-black shadow-xs active:scale-95 transition cursor-pointer"
               >
                 <KeyRound className="w-3.5 h-3.5 text-[#29354A]" />
                 <span>开通 VIP</span>

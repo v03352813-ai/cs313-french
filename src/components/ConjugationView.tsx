@@ -58,7 +58,7 @@ export const ConjugationView: React.FC = () => {
       <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
-            <RotateCcw className="w-3.5 h-3.5 text-[#D8B15F]" />
+            <RotateCcw className="w-3.5 h-3.5 text-[#DDBF78]" />
             <span>自研法语核心文法推导引擎</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
@@ -202,7 +202,7 @@ export const ConjugationView: React.FC = () => {
             {/* Tense Usage Guidance Card */}
             <div className="p-3.5 rounded-2xl bg-[#F3EEE5] border border-[#E8DECE] text-xs text-[#29354A] space-y-1">
               <div className="flex items-center gap-1.5 font-black text-[#29354A]">
-                <Info className="w-3.5 h-3.5 text-[#D8B15F]" />
+                <Info className="w-3.5 h-3.5 text-[#DDBF78]" />
                 <span>{currentTenseMeta.label} 语法法则：</span>
               </div>
               <p className="leading-relaxed text-[#29354A]/80 font-medium">

@@ -50,7 +50,7 @@ export const PhoneticsView: React.FC = () => {
       <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
-            <Sparkles className="w-3.5 h-3.5 text-[#D8B15F]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
             <span>法兰西语音纯正发音规范</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
@@ -123,7 +123,7 @@ export const PhoneticsView: React.FC = () => {
 
           {/* Quick Audio Hint */}
           <div className="p-3.5 rounded-2xl bg-[#F3EEE5] border border-[#E8DECE] flex items-center gap-2 text-xs text-[#29354A]">
-            <Volume2 className="w-4 h-4 text-[#D8B15F] shrink-0" />
+            <Volume2 className="w-4 h-4 text-[#DDBF78] shrink-0" />
             <span>点击上方任意卡片即可发音，右侧可查看嘴型口诀与高频例词。</span>
           </div>
         </div>
@@ -160,7 +160,7 @@ export const PhoneticsView: React.FC = () => {
             {/* Mouth Tips */}
             <div className="space-y-1.5">
               <div className="flex items-center gap-1.5 text-xs font-bold text-[#29354A]">
-                <HelpCircle className="w-4 h-4 text-[#D8B15F]" />
+                <HelpCircle className="w-4 h-4 text-[#DDBF78]" />
                 <span>发音嘴型与技巧指南</span>
               </div>
               <p className="text-xs sm:text-sm text-[#29354A] bg-[#F3EEE5] p-3.5 rounded-2xl border border-[#E8DECE] leading-relaxed font-medium">

@@ -412,7 +412,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
       {/* 📌 双轨官方考纲权威说明横幅 */}
       <div className="p-4 rounded-2xl bg-gradient-to-r from-[#F3DDE2]/60 via-[#F3EEE5] to-[#FBF8F3] border border-[#E8DECE] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
         <div className="flex items-start gap-2.5">
-          <span className={`w-2.5 h-2.5 rounded-full mt-1 shrink-0 animate-pulse ${activeTrack === 'kaoyan' ? 'bg-[#A94A62]' : 'bg-[#D8B15F]'}`} />
+          <span className={`w-2.5 h-2.5 rounded-full mt-1 shrink-0 animate-pulse ${activeTrack === 'kaoyan' ? 'bg-[#A94A62]' : 'bg-[#DDBF78]'}`} />
           <div className="space-y-0.5">
             <div className="flex items-center gap-2 font-black text-[#29354A]">
               <span className={activeTrack === 'kaoyan' ? 'text-[#A94A62]' : 'text-[#A94A62]'}>
@@ -421,7 +421,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold ${
                 activeTrack === 'kaoyan'
                   ? 'bg-[#F3DDE2] text-[#A94A62]'
-                  : 'bg-[#FCFAF6] text-[#29354A] border border-[#D8B15F]/40'
+                  : 'bg-[#FCFAF6] text-[#29354A] border border-[#DDBF78]/40'
               }`}>
                 {activeTrack === 'kaoyan' ? '全国名校自主命题 · 100分制' : '法国教育部官方标准 · 淘汰制'}
               </span>
@@ -468,7 +468,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             }}
             className={`flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer ${
               activeTrack === 'delf'
-                ? 'bg-[#D8B15F] text-[#29354A] shadow-xs font-black'
+                ? 'bg-[#DDBF78] text-[#29354A] shadow-xs font-black'
                 : 'text-[#29354A] hover:bg-white/60'
             }`}
           >
@@ -480,7 +480,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
         {/* Sub-Filters: 高校或欧标级别 */}
         <div className="flex items-center gap-2 flex-wrap pt-1">
           <div className="flex items-center gap-1.5 text-xs font-black text-[#29354A] shrink-0">
-            <span className={`w-1.5 h-3.5 rounded-full ${activeTrack === 'kaoyan' ? 'bg-[#A94A62]' : 'bg-[#D8B15F]'}`} />
+            <span className={`w-1.5 h-3.5 rounded-full ${activeTrack === 'kaoyan' ? 'bg-[#A94A62]' : 'bg-[#DDBF78]'}`} />
             <span>{activeTrack === 'kaoyan' ? '高校分类筛选:' : '欧标级别筛选:'}</span>
           </div>
 
@@ -520,7 +520,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                   onClick={() => setDelfFilter(f.id)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
                     delfFilter === f.id
-                      ? 'bg-[#D8B15F] text-[#29354A] shadow-2xs font-black'
+                      ? 'bg-[#DDBF78] text-[#29354A] shadow-2xs font-black'
                       : 'bg-[#FBF8F3] text-[#29354A] hover:bg-[#F3DDE2]/40 border border-[#E8DECE]'
                   }`}
                 >
@@ -576,7 +576,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             <span className={`px-2 py-0.5 rounded-md border ${
               activeTrack === 'kaoyan'
                 ? 'bg-[#F3DDE2] text-[#A94A62] border-[#A94A62]/20'
-                : 'bg-[#FCFAF6] text-[#29354A] border-[#D8B15F]/40'
+                : 'bg-[#FCFAF6] text-[#29354A] border-[#DDBF78]/40'
             }`}>
               {currentPaper?.level}
             </span>
@@ -650,10 +650,10 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               <div className="p-4 sm:p-5 rounded-2xl bg-[#F3EEE5] border border-[#E8DECE] space-y-2.5 select-text shadow-2xs relative">
                 <div className="flex items-center justify-between pb-2 border-b border-[#E8DECE]">
                   <span className="text-xs font-black text-[#29354A] flex items-center gap-1.5">
-                    <BookOpen className="w-4 h-4 text-[#D8B15F]" />
+                    <BookOpen className="w-4 h-4 text-[#DDBF78]" />
                     <span>【读解分析 · 官方全真法文阅读文本材料】</span>
                   </span>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-white text-[#A94A62] border border-[#D8B15F]/40 shadow-2xs">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-white text-[#A94A62] border border-[#DDBF78]/40 shadow-2xs">
                     法文原汁原味阅读材料
                   </span>
                 </div>
@@ -777,9 +777,9 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
               {/* Instant Explanation Card */}
               {(isSubmitted || (showInstantExplanation && answers[currentQuestionIndex] !== undefined)) && (
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#FCFAF6] border border-[#D8B15F]/40 space-y-3 text-xs">
+                <div className="p-4 sm:p-5 rounded-2xl bg-[#FCFAF6] border border-[#DDBF78]/40 space-y-3 text-xs">
                   <div className="flex items-center gap-1.5 text-[#A94A62] font-black">
-                    <Sparkles className="w-4 h-4 text-[#D8B15F]" />
+                    <Sparkles className="w-4 h-4 text-[#DDBF78]" />
                     <span>考点权威名师解析</span>
                   </div>
                   <p className="text-[#29354A] leading-relaxed font-medium whitespace-pre-line">
@@ -940,7 +940,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
         {scoreReport && (
           <div className={`rounded-3xl p-5 border shadow-sm space-y-4 ${
             scoreReport.verdictType === 'pass'
-              ? 'bg-[#FCFAF6] border-[#D8B15F]'
+              ? 'bg-[#FCFAF6] border-[#DDBF78]'
               : scoreReport.verdictType === 'section_fail'
               ? 'bg-[#F3DDE2] border-[#A94A62]/50'
               : 'bg-[#FBF8F3] border-[#A94A62]/30'
@@ -948,12 +948,12 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             {/* Card Header */}
             <div className="flex items-center justify-between">
               <span className="text-xs font-black uppercase tracking-wider text-[#29354A] flex items-center gap-1.5">
-                <Award className="w-4 h-4 text-[#D8B15F]" />
+                <Award className="w-4 h-4 text-[#DDBF78]" />
                 <span>{currentPaper.track === 'kaoyan' ? '考研二外成绩单' : 'DELF 欧标成绩单'}</span>
               </span>
               <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
                 scoreReport.verdictType === 'pass'
-                  ? 'bg-[#D8B15F] text-[#29354A] font-black'
+                  ? 'bg-[#DDBF78] text-[#29354A] font-black'
                   : scoreReport.verdictType === 'section_fail'
                   ? 'bg-[#A94A62] text-white font-black'
                   : 'bg-rose-700 text-white font-black'

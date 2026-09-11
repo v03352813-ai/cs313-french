@@ -6,8 +6,8 @@
   --color-primary-light: #F3DDE2;
   --color-page-bg: #FBF8F3;
   --color-nav-bg: #F3EEE5;
-  --color-gold: #D8B15F;
-  --color-gold-hover: #C59F4E;
+  --color-gold: #DDBF78;
+  --color-gold-hover: #C9A95C;
   --color-text-main: #29354A;
   --color-card-bg: #FCFAF6;
   --color-card-border: #E8DECE;
@@ -51,7 +51,7 @@
 }
 
 .french-gold-gradient {
-  background: linear-gradient(135deg, #D8B15F 0%, #E5C782 50%, #C59F4E 100%);
+  background: linear-gradient(135deg, #DDBF78 0%, #E8CEA0 50%, #C9A95C 100%);
 }
 
 /* 3D Flip Card for Vocab Flashcards */

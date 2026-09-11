@@ -85,7 +85,7 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
         {/* Header */}
         <div className="bg-gradient-to-r from-[#A94A62] via-[#B8576E] to-[#933C52] text-white p-5 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <KeyRound className="w-5 h-5 text-[#D8B15F]" />
+            <KeyRound className="w-5 h-5 text-[#DDBF78]" />
             <h2 className="font-bold text-base">
               CS313 法语研习社 · 店主发卡管理中枢
             </h2>
@@ -103,7 +103,7 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
           {!isAuthenticated ? (
             /* PIN authentication */
             <div className="space-y-4 py-4 max-w-xs mx-auto text-center">
-              <div className="w-12 h-12 rounded-full bg-[#F3EEE5] text-[#D8B15F] flex items-center justify-center mx-auto border border-[#D8B15F]/30">
+              <div className="w-12 h-12 rounded-full bg-[#F3EEE5] text-[#DDBF78] flex items-center justify-center mx-auto border border-[#DDBF78]/30">
                 <ShieldAlert className="w-6 h-6" />
               </div>
               <div>

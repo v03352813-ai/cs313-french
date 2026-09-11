@@ -38,7 +38,7 @@ export const GrammarView: React.FC = () => {
       <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
-            <BookOpenCheck className="w-3.5 h-3.5 text-[#D8B15F]" />
+            <BookOpenCheck className="w-3.5 h-3.5 text-[#DDBF78]" />
             <span>法兰西学术院正统文法规范</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
@@ -144,7 +144,7 @@ export const GrammarView: React.FC = () => {
             {/* Formula Block */}
             <div className="p-4 rounded-2xl bg-[#F3EEE5] border border-[#E8DECE] space-y-1">
               <div className="text-xs font-bold text-[#29354A] flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-[#D8B15F]" />
+                <Sparkles className="w-4 h-4 text-[#DDBF78]" />
                 <span>核心文法公式 (Règle d'or)</span>
               </div>
               <div className="text-sm font-mono font-bold text-[#A94A62]">

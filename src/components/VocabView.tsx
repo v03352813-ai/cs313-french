@@ -84,7 +84,7 @@ export const VocabView: React.FC = () => {
       <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
-            <Layers className="w-3.5 h-3.5 text-[#D8B15F]" />
+            <Layers className="w-3.5 h-3.5 text-[#DDBF78]" />
             <span>艾宾浩斯抗遗忘记忆曲线</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">

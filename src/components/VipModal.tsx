@@ -104,7 +104,7 @@ export const VipModal: React.FC<VipModalProps> = ({
           </button>
 
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-[#D8B15F] text-[#29354A] flex items-center justify-center shadow-lg shadow-[#D8B15F]/25">
+            <div className="w-12 h-12 rounded-2xl bg-[#DDBF78] text-[#29354A] flex items-center justify-center shadow-lg shadow-[#DDBF78]/25">
               <Crown className="w-6 h-6 text-[#29354A]" />
             </div>
             <div>
@@ -178,10 +178,10 @@ export const VipModal: React.FC<VipModalProps> = ({
               </div>
 
               {/* Purchase from Xianyu Box */}
-              <div className="p-4 rounded-2xl bg-[#F3EEE5] border border-[#D8B15F]/40 space-y-3">
+              <div className="p-4 rounded-2xl bg-[#F3EEE5] border border-[#DDBF78]/40 space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-[#A94A62] flex items-center gap-1">
-                    <Sparkles className="w-3.5 h-3.5 text-[#D8B15F]" />
+                    <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
                     <span>尚未获取卡密？前往闲鱼官方拍下</span>
                   </span>
                   <span className="text-xs font-black text-[#A94A62]">
@@ -198,7 +198,7 @@ export const VipModal: React.FC<VipModalProps> = ({
                     href={XIANYU_ITEM_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 py-2.5 rounded-xl bg-[#D8B15F] hover:bg-[#C59F4E] text-[#29354A] font-black text-xs flex items-center justify-center gap-1.5 shadow-xs transition"
+                    className="flex-1 py-2.5 rounded-xl bg-[#DDBF78] hover:bg-[#C9A95C] text-[#29354A] font-black text-xs flex items-center justify-center gap-1.5 shadow-xs transition"
                   >
                     <span>前往闲鱼官方拍下</span>
                     <ExternalLink className="w-3.5 h-3.5 text-[#29354A]" />

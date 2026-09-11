@@ -38,7 +38,7 @@ export const CinemaView: React.FC = () => {
       <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3DDE2] text-[#A94A62] text-xs font-bold border border-[#A94A62]/25">
-            <Headphones className="w-3.5 h-3.5 text-[#D8B15F]" />
+            <Headphones className="w-3.5 h-3.5 text-[#DDBF78]" />
             <span>法式浪漫原声 · 沉浸式听力跟读</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
@@ -92,7 +92,7 @@ export const CinemaView: React.FC = () => {
           
           <div className="absolute bottom-6 inset-x-6 sm:inset-x-8 text-white space-y-2">
             <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-white/20 text-white text-xs font-semibold backdrop-blur-md">
-              <Film className="w-3.5 h-3.5 text-[#D8B15F]" />
+              <Film className="w-3.5 h-3.5 text-[#DDBF78]" />
               <span>{selectedMovie.tag}</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black font-serif">

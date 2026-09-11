@@ -87,12 +87,12 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepLabel: '第 2 步 · 攻破变位',
         title: '动词变位可视化演练器 (Conjugaison)',
         targetBadge: '7大时态 · 词尾高亮推导',
-        badgeBg: 'bg-[#FCFAF6] text-[#29354A] border border-[#D8B15F]/40',
+        badgeBg: 'bg-[#FCFAF6] text-[#29354A] border border-[#DDBF78]/40',
         desc: '第一组(-er)、第二组(-ir)与第三组不规则动词，一键对比直陈式现在时、复合过去时、未完成过去时与虚拟式。',
         actionText: '开启变位演练器',
         targetTab: 'conjugation',
         icon: RotateCcw,
-        buttonBg: 'bg-[#D8B15F] hover:bg-[#C59F4E] text-[#29354A] font-black shadow-xs'
+        buttonBg: 'bg-[#DDBF78] hover:bg-[#C9A95C] text-[#29354A] font-black shadow-xs'
       },
       {
         stepNum: '03',
@@ -111,7 +111,7 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepLabel: '第 4 步 · 搭建框架',
         title: '70+ 核心语法全景宝典',
         targetBadge: '直宾COD/间宾COI · 避坑指南',
-        badgeBg: 'bg-[#FCFAF6] text-[#29354A] border border-[#D8B15F]/40',
+        badgeBg: 'bg-[#FCFAF6] text-[#29354A] border border-[#DDBF78]/40',
         desc: '冠词体系、代词语序、副代词 y/en 与复合过去时分词配合，每条语法均附带【考研/考级避坑指南】。',
         actionText: '查阅体系文法宝典',
         targetTab: 'grammar',
@@ -148,12 +148,12 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepLabel: '第 2 步 · 语感打卡',
         title: '每日早读原声金句打卡',
         targetBadge: '法式韵律 · 每日坚持',
-        badgeBg: 'bg-[#FCFAF6] text-[#29354A] border border-[#D8B15F]/40',
+        badgeBg: 'bg-[#FCFAF6] text-[#29354A] border border-[#DDBF78]/40',
         desc: '每日精读一句地道法语原声名言，收听真人标准巴黎发音，连续打卡激活语言直觉。',
         actionText: '朗读今日金句',
         targetTab: 'home',
         icon: Calendar,
-        buttonBg: 'bg-[#D8B15F] hover:bg-[#C59F4E] text-[#29354A] font-black shadow-xs'
+        buttonBg: 'bg-[#DDBF78] hover:bg-[#C9A95C] text-[#29354A] font-black shadow-xs'
       }
     ]
   },
@@ -185,7 +185,7 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepLabel: '第 2 步 · 靶向消错',
         title: '艾宾浩斯智能错题消灭',
         targetBadge: '遗忘曲线重练',
-        badgeBg: 'bg-[#FCFAF6] text-[#29354A] border border-[#D8B15F]/40',
+        badgeBg: 'bg-[#FCFAF6] text-[#29354A] border border-[#DDBF78]/40',
         desc: '真题考场做错的题目自动归集，按失分考点分类沉淀，靶向消除知识盲区。',
         actionText: '消灭待复习错题',
         targetTab: 'mistakes',
@@ -197,12 +197,12 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepLabel: '第 3 步 · 考点攻坚',
         title: '动词时态与虚拟式专题特训',
         targetBadge: '攻克y/en · 愈过去时',
-        badgeBg: 'bg-[#FCFAF6] text-[#29354A] border border-[#D8B15F]/40',
+        badgeBg: 'bg-[#FCFAF6] text-[#29354A] border border-[#DDBF78]/40',
         desc: '专攻未完成与复合过去时辨析、条件假设、虚拟式命令从句与双代词语序命题陷阱。',
         actionText: '开启时态专项突破',
         targetTab: 'conjugation',
         icon: Zap,
-        buttonBg: 'bg-[#D8B15F] hover:bg-[#C59F4E] text-[#29354A] font-black shadow-xs'
+        buttonBg: 'bg-[#DDBF78] hover:bg-[#C9A95C] text-[#29354A] font-black shadow-xs'
       }
     ]
   }
