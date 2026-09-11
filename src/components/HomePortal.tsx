@@ -357,7 +357,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 pt-2.5 sm:pt-3.5 pb-8 space-y-4 sm:space-y-5">
+    <div className="max-w-6xl mx-auto px-4 pt-2 sm:pt-2.5 pb-6 space-y-3 sm:space-y-3.5">
       
       {/* --- 1. 每日晨读打卡 & 持续更新动态跑马灯轮播专区 --- */}
       <div id="daily-quote-section" className="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
@@ -505,7 +505,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
       </div>
 
       {/* --- 2. 核心学习目标指引与 3 大主线选择器 --- */}
-      <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-xs space-y-4">
+      <div className="bg-white rounded-3xl p-4 sm:p-5 pb-3.5 sm:pb-4 border border-slate-200/80 shadow-xs space-y-3 sm:space-y-3.5">
         
         {/* Header with target badge */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-2">
@@ -598,7 +598,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
         </div>
 
         {/* Roadmap Steps Container */}
-        <div id="track-steps-roadmap" className="pt-2 space-y-3">
+        <div id="track-steps-roadmap" className="pt-1 space-y-2.5">
           <div className={`grid grid-cols-1 ${
             currentTrackConfig.steps.length === 2 
               ? 'sm:grid-cols-2' 

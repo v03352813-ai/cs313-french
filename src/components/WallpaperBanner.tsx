@@ -13,13 +13,13 @@ export const WallpaperBanner: React.FC<WallpaperBannerProps> = ({
   return (
     <div
       onClick={onOpenWallpaperModal}
-      className={`group relative bg-gradient-to-r from-[#F3DDE2]/40 via-slate-50 to-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:shadow-md hover:border-[#A94A62]/50 transition-all duration-300 cursor-pointer overflow-hidden space-y-3 ${className}`}
+      className={`group relative bg-gradient-to-r from-[#F3DDE2]/40 via-slate-50 to-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 border border-slate-200/80 shadow-xs hover:shadow-md hover:border-[#A94A62]/50 transition-all duration-300 cursor-pointer overflow-hidden ${className}`}
     >
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3.5">
         
         {/* Left Thumbnail & Text */}
-        <div className="flex items-center gap-4 w-full sm:w-auto">
-          <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden shrink-0 border border-[#DDBF78]/80 shadow-xs group-hover:scale-105 transition-transform duration-300">
+        <div className="flex items-center gap-3.5 w-full sm:w-auto">
+          <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden shrink-0 border border-[#DDBF78]/80 shadow-xs group-hover:scale-105 transition-transform duration-300">
             <img 
               src="/images/wallpaper/wallpaper_thumb.jpg" 
               alt="一子一木4K高清壁纸" 
