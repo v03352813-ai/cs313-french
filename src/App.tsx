@@ -105,7 +105,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main View Area */}
-      <main className={`flex-1 w-full mx-auto ${activeTab === 'home' ? 'pb-8' : 'max-w-7xl px-3 sm:px-6 pt-4 sm:pt-6'}`}>
+      <main className="flex-1 w-full pb-8">
         {activeTab === 'home' && (
           <HomePortal
             setActiveTab={handleTabChange}
@@ -114,37 +114,39 @@ export const App: React.FC = () => {
             onOpenWallpaperModal={() => setIsWallpaperModalOpen(true)}
           />
         )}
-        {activeTab === 'phonetics' && <PhoneticsView />}
-        {activeTab === 'conjugation' && <ConjugationView />}
-        {activeTab === 'vocab' && <VocabView />}
-        {activeTab === 'grammar' && <GrammarView />}
-        {(activeTab === 'exam' || activeTab === 'delf') && (
-          <FrenchExamView
-            isVip={isVip}
-            onOpenVipModal={() => setIsVipModalOpen(true)}
-            onSaveMistake={handleSaveMistake}
-            initialTrack={activeTab === 'delf' ? 'delf' : 'kaoyan'}
-            onTrackChange={(track) => {
-              const newTab = track === 'delf' ? 'delf' : 'exam';
-              setActiveTab(newTab);
-              window.location.hash = newTab;
-            }}
-          />
-        )}
-        {activeTab === 'mistakes' && (
-          <MistakesView
-            mistakes={mistakes}
-            onRemoveMistake={handleRemoveMistake}
-            onClearAll={handleClearAllMistakes}
-            onNavigateToExam={() => handleTabChange('exam')}
-          />
-        )}
-        {activeTab === 'cinema' && <CinemaView />}
-
-        {/* 🎁 学员美学福利 · 一子一木 4K 伴学治愈壁纸屋横幅 (二级页面底部展示) */}
         {activeTab !== 'home' && (
-          <div className="mt-8 pb-4">
-            <WallpaperBanner onOpenWallpaperModal={() => setIsWallpaperModalOpen(true)} />
+          <div className="max-w-6xl mx-auto px-4 pt-2.5 sm:pt-3.5 space-y-6">
+            {activeTab === 'phonetics' && <PhoneticsView />}
+            {activeTab === 'conjugation' && <ConjugationView />}
+            {activeTab === 'vocab' && <VocabView />}
+            {activeTab === 'grammar' && <GrammarView />}
+            {(activeTab === 'exam' || activeTab === 'delf') && (
+              <FrenchExamView
+                isVip={isVip}
+                onOpenVipModal={() => setIsVipModalOpen(true)}
+                onSaveMistake={handleSaveMistake}
+                initialTrack={activeTab === 'delf' ? 'delf' : 'kaoyan'}
+                onTrackChange={(track) => {
+                  const newTab = track === 'delf' ? 'delf' : 'exam';
+                  setActiveTab(newTab);
+                  window.location.hash = newTab;
+                }}
+              />
+            )}
+            {activeTab === 'mistakes' && (
+              <MistakesView
+                mistakes={mistakes}
+                onRemoveMistake={handleRemoveMistake}
+                onClearAll={handleClearAllMistakes}
+                onNavigateToExam={() => handleTabChange('exam')}
+              />
+            )}
+            {activeTab === 'cinema' && <CinemaView />}
+
+            {/* 🎁 学员美学福利 · 一子一木 4K 伴学治愈壁纸屋横幅 (二级页面底部统一展示) */}
+            <div className="pt-2 pb-2">
+              <WallpaperBanner onOpenWallpaperModal={() => setIsWallpaperModalOpen(true)} />
+            </div>
           </div>
         )}
       </main>

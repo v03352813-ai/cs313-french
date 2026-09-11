@@ -387,7 +387,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-4 sm:py-6 space-y-5 pb-20">
+    <div className="space-y-5 pb-16">
       
       {/* Top Hero Banner */}
       <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
