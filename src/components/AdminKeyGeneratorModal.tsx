@@ -83,7 +83,7 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
       >
         
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#243B5A] via-[#334F75] to-[#8C3B4A] text-white p-5 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-[#8C3B4A] via-[#A5495B] to-[#752E3C] text-white p-5 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <KeyRound className="w-5 h-5 text-[#DFBA73]" />
             <h2 className="font-bold text-base">
@@ -92,7 +92,7 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
           </div>
           <button 
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition"
+            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -103,12 +103,12 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
           {!isAuthenticated ? (
             /* PIN authentication */
             <div className="space-y-4 py-4 max-w-xs mx-auto text-center">
-              <div className="w-12 h-12 rounded-full bg-[#FAF5EB] text-[#C5A059] flex items-center justify-center mx-auto border border-[#C5A059]/30">
+              <div className="w-12 h-12 rounded-full bg-[#FAF5EB] text-[#C8A96B] flex items-center justify-center mx-auto border border-[#C8A96B]/30">
                 <ShieldAlert className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-bold text-[#243B5A] text-sm">请输入管理员口令</h3>
-                <p className="text-xs text-slate-500 mt-0.5">仅限店主操作卡密批量生成与库存导入</p>
+                <h3 className="font-bold text-[#8C3B4A] text-sm">请输入管理员口令</h3>
+                <p className="text-xs text-stone-500 mt-0.5">仅限店主操作卡密批量生成与库存导入</p>
               </div>
               <input
                 type="password"
@@ -116,12 +116,12 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
                 value={pinInput}
                 onChange={e => setPinInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleVerifyPin()}
-                className="w-full px-4 py-2 rounded-xl bg-[#F7F3EA] border border-[#E8DECE] text-center text-sm focus:ring-2 focus:ring-[#243B5A]"
+                className="w-full px-4 py-2 rounded-xl bg-[#F7F3EA] border border-[#E8DECE] text-center text-sm focus:ring-2 focus:ring-[#8C3B4A]/20 text-[#292929]"
               />
               {pinError && <p className="text-xs text-[#8C3B4A] font-bold">{pinError}</p>}
               <button
                 onClick={handleVerifyPin}
-                className="w-full py-2.5 rounded-xl bg-[#243B5A] hover:bg-[#1C2E46] text-white font-bold text-xs transition shadow-sm"
+                className="w-full py-2.5 rounded-xl bg-[#8C3B4A] hover:bg-[#752E3C] text-white font-bold text-xs transition shadow-sm cursor-pointer"
               >
                 验证登录
               </button>
@@ -132,11 +132,11 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
               
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-[#243B5A]">生成卡种类型</label>
+                  <label className="text-xs font-bold text-[#8C3B4A]">生成卡种类型</label>
                   <select
                     value={keyType}
                     onChange={e => setKeyType(e.target.value as any)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EA] border border-[#E8DECE] text-xs font-semibold text-slate-800"
+                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EA] border border-[#E8DECE] text-xs font-semibold text-[#292929]"
                   >
                     <option value="FR">CS313-FR- (法语单语种终身卡)</option>
                     <option value="ALL">CS313-ALL- (全语种黑金终身通卡)</option>
@@ -144,11 +144,11 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-[#243B5A]">批量生成数量</label>
+                  <label className="text-xs font-bold text-[#8C3B4A]">批量生成数量</label>
                   <select
                     value={generateCount}
                     onChange={e => setGenerateCount(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EA] border border-[#E8DECE] text-xs font-semibold text-slate-800"
+                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EA] border border-[#E8DECE] text-xs font-semibold text-[#292929]"
                   >
                     <option value={5}>5 张卡密</option>
                     <option value={10}>10 张卡密</option>
@@ -160,7 +160,7 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
 
               <button
                 onClick={handleGenerate}
-                className="w-full py-2.5 rounded-xl bg-[#243B5A] hover:bg-[#1C2E46] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition"
+                className="w-full py-2.5 rounded-xl bg-[#8C3B4A] hover:bg-[#752E3C] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>立即生成高熵加密卡密</span>
@@ -170,10 +170,10 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
               {generatedBatch.length > 0 && (
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-[#243B5A]">本次生成结果 ({generatedBatch.length} 条)</span>
+                    <span className="font-bold text-[#8C3B4A]">本次生成结果 ({generatedBatch.length} 条)</span>
                     <button
                       onClick={handleCopyAll}
-                      className="text-[#8C3B4A] font-bold hover:underline flex items-center gap-1"
+                      className="text-[#8C3B4A] font-bold hover:underline flex items-center gap-1 cursor-pointer"
                     >
                       {copiedAll ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                       <span>{copiedAll ? '已全部复制' : '一键全部复制'}</span>
@@ -183,10 +183,10 @@ export const AdminKeyGeneratorModal: React.FC<AdminKeyGeneratorModalProps> = ({
                   <div className="p-3 rounded-2xl bg-[#F7F3EA] border border-[#E8DECE] font-mono text-xs max-h-48 overflow-y-auto space-y-1">
                     {generatedBatch.map((k, i) => (
                       <div key={k} className="flex items-center justify-between hover:bg-white p-1 rounded-md">
-                        <span className="text-slate-800">{k}</span>
+                        <span className="text-[#292929]">{k}</span>
                         <button
                           onClick={() => handleCopyOne(k, i)}
-                          className="text-[11px] text-slate-400 hover:text-[#243B5A] px-1.5 py-0.5"
+                          className="text-[11px] text-stone-400 hover:text-[#8C3B4A] px-1.5 py-0.5 cursor-pointer"
                         >
                           {copiedIndex === i ? '已复制' : '复制'}
                         </button>

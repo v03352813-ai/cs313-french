@@ -512,7 +512,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#E8DECE]">
           <div className="flex items-center gap-2.5 flex-1 min-w-0">
             <div className="flex items-center gap-1.5 text-xs font-black text-slate-700 shrink-0">
-              <FileCheck2 className={`w-4 h-4 ${activeTrack === 'kaoyan' ? 'text-[#243B5A]' : 'text-[#8C3B4A]'}`} />
+              <FileCheck2 className="w-4 h-4 text-[#8C3B4A]" />
               <span>选择作答试卷 ({filteredPapers.length} 套):</span>
             </div>
 

@@ -46,17 +46,17 @@ export const PhoneticsView: React.FC = () => {
   return (
     <div className="space-y-8 pb-16">
       
-      {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-[#8C3B4A] via-[#A5495B] to-[#752E3C] text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-[#8C3B4A]/30">
-        <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-[#FAF5EB] text-xs font-bold mb-2 border border-white/20">
-            <Sparkles className="w-3.5 h-3.5 text-[#DFBA73]" />
+      {/* Top Hero Banner */}
+      <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#8C3B4A]/10 text-[#8C3B4A] text-xs font-bold border border-[#8C3B4A]/20">
+            <Sparkles className="w-3.5 h-3.5 text-[#C8A96B]" />
             <span>法兰西语音纯正发音规范</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#8C3B4A] tracking-tight">
             35 音标体系 & 联诵发音实验室
           </h1>
-          <p className="text-[#FAF5EB]/80 text-xs sm:text-sm mt-1 max-w-xl font-medium">
+          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-2xl font-medium">
             点击任意音标与例词即可收听正统巴黎真人发音，掌握鼻化元音、小舌音 [ʁ] 与连音联诵规则。
           </p>
         </div>

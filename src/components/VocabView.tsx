@@ -80,18 +80,18 @@ export const VocabView: React.FC = () => {
   return (
     <div className="space-y-8 pb-16">
       
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-[#8C3B4A] via-[#A5495B] to-[#752E3C] text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-[#8C3B4A]/30">
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-[#FAF5EB] text-xs font-bold mb-2 border border-white/20">
-            <Layers className="w-3.5 h-3.5 text-[#DFBA73]" />
+      {/* Top Hero Banner */}
+      <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#8C3B4A]/10 text-[#8C3B4A] text-xs font-bold border border-[#8C3B4A]/20">
+            <Layers className="w-3.5 h-3.5 text-[#C8A96B]" />
             <span>艾宾浩斯抗遗忘记忆曲线</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#8C3B4A] tracking-tight">
             法语核心考纲词汇闪卡 (阴阳性双标)
           </h1>
-          <p className="text-[#FAF5EB]/80 text-xs sm:text-sm mt-1 font-medium">
-            背法语单词最忌讳不记阴阳性！卡片严格标定 <strong className="text-white font-bold underline decoration-[#C8A96B]">阳性 (Masculin 标)</strong> 与 <strong className="text-[#FAF5EB] font-bold underline decoration-[#8C3B4A]">阴性 (Féminin 标)</strong>，点击正反翻转，原声朗读。
+          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-3xl font-medium">
+            背法语单词最忌讳不记阴阳性！卡片严格标定 <strong className="text-[#8C3B4A] font-bold">阳性 (Masculin 标)</strong> 与 <strong className="text-[#8C3B4A] font-bold">阴性 (Féminin 标)</strong>，点击正反翻转，原声朗读。
           </p>
         </div>
       </div>

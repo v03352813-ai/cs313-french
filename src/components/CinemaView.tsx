@@ -34,17 +34,17 @@ export const CinemaView: React.FC = () => {
   return (
     <div className="space-y-8 pb-16">
       
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-[#243B5A] via-[#334F75] to-[#8C3B4A] text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-[#243B5A]/40">
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-[#FAF5EB] text-xs font-semibold mb-2 backdrop-blur-xs border border-white/20">
-            <Headphones className="w-3.5 h-3.5 text-[#DFBA73]" />
+      {/* Top Hero Banner */}
+      <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#8C3B4A]/10 text-[#8C3B4A] text-xs font-bold border border-[#8C3B4A]/20">
+            <Headphones className="w-3.5 h-3.5 text-[#C8A96B]" />
             <span>法式浪漫原声 · 沉浸式听力跟读</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#8C3B4A] tracking-tight">
             法国高分经典电影原声精听 (Cinéma)
           </h1>
-          <p className="text-slate-200 text-xs sm:text-sm mt-1">
+          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-3xl">
             告别干瘪教材听力！甄选《放牛班的春天》《天使爱美丽》《触不可及》《小王子》经典切片，中法双语对照，逐句原声磨耳朵。
           </p>
         </div>
@@ -58,18 +58,18 @@ export const CinemaView: React.FC = () => {
             <button
               key={movie.id}
               onClick={() => setSelectedMovie(movie)}
-              className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between ${
+              className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
                 isSelected
-                  ? 'bg-[#8C3B4A] text-white border-[#8C3B4A] shadow-md scale-[1.02]'
-                  : 'bg-[#FCFAF6] hover:bg-[#F7F3EA] border-[#E8DECE] text-slate-800'
+                  ? 'bg-[#FAF5EB] text-[#8C3B4A] border-2 border-[#8C3B4A] shadow-xs scale-[1.01]'
+                  : 'bg-[#FCFAF6] hover:bg-[#F7F3EA] border-[#E8DECE] text-[#292929]'
               }`}
             >
               <div>
-                <div className="text-xs font-bold font-serif opacity-75">{movie.frenchTitle}</div>
+                <div className={`text-xs font-bold font-serif ${isSelected ? 'text-[#8C3B4A]/80' : 'text-stone-400'}`}>{movie.frenchTitle}</div>
                 <div className="font-extrabold text-sm sm:text-base mt-0.5">{movie.movieTitle}</div>
               </div>
               <span className={`text-[10px] mt-2 px-2 py-0.5 rounded-md font-medium truncate ${
-                isSelected ? 'bg-white/20 text-white' : 'bg-[#F7F3EA] text-slate-600'
+                isSelected ? 'bg-[#8C3B4A]/10 text-[#8C3B4A]' : 'bg-[#F7F3EA] text-stone-600'
               }`}>
                 {movie.year} · {movie.director}
               </span>
@@ -107,7 +107,7 @@ export const CinemaView: React.FC = () => {
         {/* Dialogues & Audio Shadowing */}
         <div className="p-6 sm:p-8 space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-bold text-[#243B5A] flex items-center gap-2">
+            <h3 className="text-lg font-bold text-[#292929] flex items-center gap-2">
               <Volume2 className="w-5 h-5 text-[#8C3B4A]" />
               <span>名场面原声台词逐句精练</span>
             </h3>
@@ -138,16 +138,16 @@ export const CinemaView: React.FC = () => {
                     </div>
                   </div>
 
-                  <p className="text-base sm:text-lg font-serif font-bold text-[#243B5A] leading-relaxed">
+                  <p className="text-base sm:text-lg font-serif font-bold text-[#292929] leading-relaxed">
                     « {dlg.fr} »
                   </p>
 
-                  <p className="text-xs sm:text-sm text-slate-600 font-medium">
+                  <p className="text-xs sm:text-sm text-stone-600 font-medium">
                     {dlg.zh}
                   </p>
 
                   {dlg.keyPoints && (
-                    <div className="pt-2 border-t border-[#E8DECE] text-xs text-[#243B5A] bg-[#FCFAF6] p-2.5 rounded-xl">
+                    <div className="pt-2 border-t border-[#E8DECE] text-xs text-[#292929] bg-[#FCFAF6] p-2.5 rounded-xl">
                       <span className="font-bold text-[#8C3B4A]">语法要点：</span>{dlg.keyPoints}
                     </div>
                   )}
@@ -158,7 +158,7 @@ export const CinemaView: React.FC = () => {
 
           {/* Vocabulary Highlight Section */}
           <div className="pt-4 border-t border-[#E8DECE] space-y-3">
-            <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+            <h4 className="text-xs font-bold text-stone-500 uppercase tracking-wider">
               本片高频考点生词
             </h4>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -168,7 +168,7 @@ export const CinemaView: React.FC = () => {
                   onClick={() => playSpeech(voc.word)}
                   className="p-3 rounded-xl bg-[#F7F3EA] hover:bg-[#FAF5EB] border border-[#E8DECE] cursor-pointer transition text-xs space-y-0.5"
                 >
-                  <div className="font-serif font-bold text-[#243B5A] flex items-center justify-between">
+                  <div className="font-serif font-bold text-[#292929] flex items-center justify-between">
                     <span>{voc.word}</span>
                     <Volume2 className="w-3.5 h-3.5 text-slate-400 hover:text-[#8C3B4A]" />
                   </div>

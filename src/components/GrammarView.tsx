@@ -34,17 +34,17 @@ export const GrammarView: React.FC = () => {
   return (
     <div className="space-y-8 pb-16">
       
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-[#243B5A] via-[#334F75] to-[#8C3B4A] text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-[#243B5A]/40">
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-[#FAF5EB] text-xs font-semibold mb-2 backdrop-blur-xs border border-white/20">
-            <BookOpenCheck className="w-3.5 h-3.5 text-[#DFBA73]" />
+      {/* Top Hero Banner */}
+      <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#8C3B4A]/10 text-[#8C3B4A] text-xs font-bold border border-[#8C3B4A]/20">
+            <BookOpenCheck className="w-3.5 h-3.5 text-[#C8A96B]" />
             <span>法兰西学术院正统文法规范</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#8C3B4A] tracking-tight">
             法语考研二外与 DELF 全能语法速查宝典
           </h1>
-          <p className="text-slate-200 text-xs sm:text-sm mt-1">
+          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-3xl">
             直击考研二外失分重灾区：副代词 y/en 深度解析、直接宾语提前过去分词配合、自反动词性数配合与虚拟式触发器，配独家【考研避坑指南】。
           </p>
         </div>
@@ -58,13 +58,13 @@ export const GrammarView: React.FC = () => {
           
           {/* Search */}
           <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
             <input
               type="text"
               placeholder="检索考点 (如 直宾提前, y/en, 虚拟式...)"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#FCFAF6] border border-[#E8DECE] text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-[#243B5A]"
+              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#FCFAF6] border border-[#E8DECE] text-xs sm:text-sm text-[#292929] placeholder:text-stone-400 focus:outline-hidden focus:ring-2 focus:ring-[#8C3B4A]/20"
             />
           </div>
 
@@ -74,10 +74,10 @@ export const GrammarView: React.FC = () => {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
                   activeCategory === cat.id
-                    ? 'bg-[#243B5A] text-white shadow-xs'
-                    : 'bg-[#FCFAF6] text-[#243B5A] hover:bg-[#F7F3EA] border border-[#E8DECE]'
+                    ? 'bg-[#8C3B4A] text-white shadow-xs'
+                    : 'bg-[#FCFAF6] text-[#292929] hover:bg-[#F7F3EA] border border-[#E8DECE]'
                 }`}
               >
                 {cat.label}
@@ -93,26 +93,26 @@ export const GrammarView: React.FC = () => {
                 <button
                   key={point.id}
                   onClick={() => setSelectedPoint(point)}
-                  className={`w-full p-3.5 rounded-2xl flex items-start justify-between text-left transition ${
+                  className={`w-full p-3.5 rounded-2xl flex items-start justify-between text-left transition cursor-pointer ${
                     isSelected
-                      ? 'bg-[#243B5A] text-white shadow-sm shadow-[#243B5A]/20'
-                      : 'hover:bg-[#F7F3EA] text-slate-800'
+                      ? 'bg-[#FAF5EB] text-[#8C3B4A] border-2 border-[#8C3B4A] shadow-xs'
+                      : 'hover:bg-[#F7F3EA] border border-transparent text-[#292929]'
                   }`}
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <span className={`text-[10px] px-2 py-0.5 rounded-md font-bold ${
-                        isSelected ? 'bg-white/20 text-white' : 'bg-[#243B5A]/10 text-[#243B5A]'
+                        isSelected ? 'bg-[#8C3B4A]/10 text-[#8C3B4A]' : 'bg-[#8C3B4A]/10 text-[#8C3B4A]'
                       }`}>
                         {point.level}
                       </span>
-                      <span className="text-xs opacity-75">{point.category}</span>
+                      <span className={`text-xs ${isSelected ? 'text-[#8C3B4A]/80' : 'text-stone-500'}`}>{point.category}</span>
                     </div>
                     <h3 className="font-bold text-xs sm:text-sm leading-snug">
                       {point.title}
                     </h3>
                   </div>
-                  <ChevronRight className={`w-4 h-4 shrink-0 mt-2 ${isSelected ? 'text-white' : 'text-slate-300'}`} />
+                  <ChevronRight className={`w-4 h-4 shrink-0 mt-2 ${isSelected ? 'text-[#8C3B4A]' : 'text-stone-300'}`} />
                 </button>
               );
             })}
@@ -121,58 +121,58 @@ export const GrammarView: React.FC = () => {
 
         {/* Right Column (7 cols): Detailed Grammar Card */}
         <div className="lg:col-span-7">
-          <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-sm p-6 sm:p-8 space-y-6">
+          <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-6 sm:p-8 space-y-6">
             
             {/* Header of Grammar Point */}
             <div className="space-y-2 pb-4 border-b border-[#E8DECE]">
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-1 rounded-full bg-[#243B5A]/10 text-[#243B5A] text-xs font-bold">
+                <span className="px-2.5 py-1 rounded-full bg-[#8C3B4A]/10 text-[#8C3B4A] text-xs font-bold">
                   {selectedPoint.level} · {selectedPoint.category}
                 </span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-[#243B5A] tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-black text-[#8C3B4A] tracking-tight">
                 {selectedPoint.title}
               </h2>
-              <p className="text-xs font-serif italic text-[#8C3B4A]">
+              <p className="text-xs font-serif italic text-stone-500">
                 {selectedPoint.frenchTitle}
               </p>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pt-1">
+              <p className="text-xs sm:text-sm text-stone-600 leading-relaxed pt-1">
                 {selectedPoint.summary}
               </p>
             </div>
 
             {/* Formula Block */}
-            <div className="p-4 rounded-2xl bg-[#FAF5EB] border border-[#C5A059]/40 space-y-1">
-              <div className="text-xs font-bold text-[#8F6F2E] flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-[#C5A059]" />
+            <div className="p-4 rounded-2xl bg-[#FAF5EB] border border-[#C8A96B]/40 space-y-1">
+              <div className="text-xs font-bold text-[#8C3B4A] flex items-center gap-1.5">
+                <Sparkles className="w-4 h-4 text-[#C8A96B]" />
                 <span>核心文法公式 (Règle d'or)</span>
               </div>
-              <div className="text-sm font-mono font-bold text-[#243B5A]">
+              <div className="text-sm font-mono font-bold text-[#292929]">
                 {selectedPoint.formula}
               </div>
             </div>
 
             {/* Rules and Examples List */}
             <div className="space-y-4">
-              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              <div className="text-xs font-bold text-stone-500 uppercase tracking-wider">
                 分项详解与实战例句
               </div>
               {selectedPoint.rules.map((rule, idx) => (
                 <div key={idx} className="p-4 rounded-2xl bg-[#F7F3EA] border border-[#E8DECE] space-y-2.5">
-                  <h4 className="font-bold text-sm text-[#243B5A] flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#243B5A] shrink-0" />
+                  <h4 className="font-bold text-sm text-[#292929] flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#8C3B4A] shrink-0" />
                     <span>{rule.name}</span>
                   </h4>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                  <p className="text-xs text-stone-600 leading-relaxed">
                     {rule.description}
                   </p>
                   <div className="space-y-1.5 pt-1">
                     {rule.examples.map((ex, i) => (
                       <div key={i} className="p-2.5 rounded-xl bg-[#FCFAF6] border border-[#E8DECE] text-xs space-y-0.5">
-                        <div className="font-serif font-bold text-slate-900">
+                        <div className="font-serif font-bold text-[#292929]">
                           {ex.fr}
                         </div>
-                        <div className="text-slate-500">
+                        <div className="text-stone-500">
                           {ex.zh}
                         </div>
                       </div>

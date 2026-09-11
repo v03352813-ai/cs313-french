@@ -34,32 +34,30 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
   return (
     <div className="space-y-6 pb-16">
       
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-[#8C3B4A] via-[#A5495B] to-[#752E3C] text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-[#8C3B4A]/30">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-[#FAF5EB] text-xs font-bold mb-2 border border-white/20">
-              <BookMarked className="w-3.5 h-3.5 text-[#DFBA73]" />
-              <span>智能错因沉淀与薄弱点抓取</span>
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
-              个性化专属错题本 (Cahier d'erreurs)
-            </h1>
-            <p className="text-[#FAF5EB]/80 text-xs sm:text-sm mt-1">
-              考研二外与 DELF 机考做错的客观题自动收录沉淀。只刷薄弱考点，提分效率倍增。
-            </p>
+      {/* Top Hero Banner */}
+      <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#8C3B4A]/10 text-[#8C3B4A] text-xs font-bold border border-[#8C3B4A]/20">
+            <BookMarked className="w-3.5 h-3.5 text-[#C8A96B]" />
+            <span>智能错因沉淀与薄弱点抓取</span>
           </div>
-
-          {mistakes.length > 0 && (
-            <button
-              onClick={onClearAll}
-              className="self-start sm:self-auto flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-[#FAF5EB] text-xs font-bold border border-white/20 transition cursor-pointer"
-            >
-              <Trash2 className="w-4 h-4" />
-              <span>清空错题本</span>
-            </button>
-          )}
+          <h1 className="text-2xl sm:text-3xl font-black text-[#8C3B4A] tracking-tight">
+            个性化专属错题本 (Cahier d'erreurs)
+          </h1>
+          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-2xl">
+            考研二外与 DELF 机考做错的客观题自动收录沉淀。只刷薄弱考点，提分效率倍增。
+          </p>
         </div>
+
+        {mistakes.length > 0 && (
+          <button
+            onClick={onClearAll}
+            className="self-start sm:self-auto flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#8C3B4A]/10 hover:bg-[#8C3B4A]/20 text-[#8C3B4A] text-xs font-bold border border-[#8C3B4A]/20 transition cursor-pointer"
+          >
+            <Trash2 className="w-4 h-4" />
+            <span>清空错题本</span>
+          </button>
+        )}
       </div>
 
       {mistakes.length === 0 ? (

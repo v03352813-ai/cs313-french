@@ -54,17 +54,17 @@ export const ConjugationView: React.FC = () => {
   return (
     <div className="space-y-8 pb-16">
       
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-[#8C3B4A] via-[#A5495B] to-[#752E3C] text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-[#8C3B4A]/30">
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-[#FAF5EB] text-xs font-bold mb-2 border border-white/20">
-            <RotateCcw className="w-3.5 h-3.5 text-[#DFBA73]" />
+      {/* Top Hero Banner */}
+      <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#8C3B4A]/10 text-[#8C3B4A] text-xs font-bold border border-[#8C3B4A]/20">
+            <RotateCcw className="w-3.5 h-3.5 text-[#C8A96B]" />
             <span>自研法语核心文法推导引擎</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#8C3B4A] tracking-tight">
             法语动词变位可视化演练器 (Conjugaison)
           </h1>
-          <p className="text-[#FAF5EB]/80 text-xs sm:text-sm mt-1">
+          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-3xl">
             动词变位不再是噩梦！选择任意动词与时态，系统一键分解「词根」与「人称后缀」，标红变位差异，带真人原声拼读。
           </p>
         </div>
@@ -83,7 +83,7 @@ export const ConjugationView: React.FC = () => {
               placeholder="搜索动词 (如 être, parler...)"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#FCFAF6] border border-[#E8DECE] text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#8C3B4A]/20 focus:bg-white transition text-[#8C3B4A] font-medium"
+              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#FCFAF6] border border-[#E8DECE] text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#8C3B4A]/20 focus:bg-white transition text-[#292929] font-medium"
             />
           </div>
 
@@ -97,8 +97,8 @@ export const ConjugationView: React.FC = () => {
                   onClick={() => setSelectedVerb(verb)}
                   className={`w-full p-3 rounded-2xl flex items-center justify-between text-left transition cursor-pointer ${
                     isSelected
-                      ? 'bg-[#8C3B4A] text-white shadow-xs'
-                      : 'hover:bg-[#F7F3EA] text-[#292929]'
+                      ? 'bg-[#FAF5EB] text-[#8C3B4A] border-2 border-[#8C3B4A] shadow-xs'
+                      : 'hover:bg-[#F7F3EA] border border-transparent text-[#292929]'
                   }`}
                 >
                   <div>
@@ -108,7 +108,7 @@ export const ConjugationView: React.FC = () => {
                       </span>
                       <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-bold ${
                         isSelected 
-                          ? 'bg-white/20 text-white' 
+                          ? 'bg-[#8C3B4A]/15 text-[#8C3B4A]' 
                           : verb.group === '1st_er' 
                           ? 'bg-emerald-100 text-emerald-800' 
                           : verb.group === '2nd_ir'
@@ -118,11 +118,11 @@ export const ConjugationView: React.FC = () => {
                         {verb.group === '1st_er' ? '第1组 -er' : verb.group === '2nd_ir' ? '第2组 -ir' : '第3组不规则'}
                       </span>
                     </div>
-                    <p className={`text-xs mt-0.5 truncate max-w-[200px] ${isSelected ? 'text-[#FAF5EB]' : 'text-stone-500'}`}>
+                    <p className={`text-xs mt-0.5 truncate max-w-[200px] ${isSelected ? 'text-[#8C3B4A]/80' : 'text-stone-500'}`}>
                       {verb.meaning}
                     </p>
                   </div>
-                  <ArrowRight className={`w-4 h-4 ${isSelected ? 'text-white' : 'text-stone-300'}`} />
+                  <ArrowRight className={`w-4 h-4 ${isSelected ? 'text-[#8C3B4A]' : 'text-stone-300'}`} />
                 </button>
               );
             })}
