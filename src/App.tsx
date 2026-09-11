@@ -88,7 +88,7 @@ export const App: React.FC = () => {
   const isVip = !!license?.isVip;
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-[#F7F3EA] flex flex-col selection:bg-[#243B5A] selection:text-white">
       
       {/* Top Navbar */}
       <Navbar
@@ -136,7 +136,7 @@ export const App: React.FC = () => {
         {activeTab !== 'home' && (
           <button
             onClick={() => handleTabChange('home')}
-            className="w-10 h-10 rounded-full bg-white/95 text-slate-700 shadow-md border border-slate-200/80 hover:bg-slate-50 flex items-center justify-center transition"
+            className="w-10 h-10 rounded-full bg-white/95 text-[#243B5A] shadow-md border border-[#E8DECE] hover:bg-[#FAF6EE] flex items-center justify-center transition cursor-pointer"
             title="返回首页"
           >
             <Home className="w-4 h-4" />
@@ -146,7 +146,7 @@ export const App: React.FC = () => {
         {showBackToTop && (
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="w-10 h-10 rounded-full bg-blue-700 text-white shadow-md hover:bg-blue-800 flex items-center justify-center transition"
+            className="w-10 h-10 rounded-full bg-[#243B5A] text-white shadow-md hover:bg-[#1C2E46] flex items-center justify-center transition cursor-pointer"
             title="回到顶部"
           >
             <ArrowUp className="w-4 h-4" />
@@ -169,8 +169,8 @@ export const App: React.FC = () => {
       />
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white/80 py-8 px-4 text-center text-xs text-slate-500 space-y-2">
-        <div className="flex items-center justify-center gap-2 text-slate-700 font-bold">
+      <footer className="border-t border-[#E8DECE] bg-[#FAF6EE]/90 py-8 px-4 text-center text-xs text-slate-500 space-y-2 mt-8">
+        <div className="flex items-center justify-center gap-2 text-[#243B5A] font-bold">
           <span>🇫🇷 CS313 法语研习社</span>
           <span>•</span>
           <span>考研二外与 DELF 全真机考系统</span>

@@ -55,16 +55,16 @@ export const ConjugationView: React.FC = () => {
     <div className="space-y-8 pb-16">
       
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-indigo-900 via-blue-900 to-slate-900 text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-indigo-800/40">
+      <div className="bg-gradient-to-r from-[#243B5A] via-[#334F75] to-[#8C3B4A] text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-[#8C3B4A]/30">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-200 text-xs font-semibold mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-rose-100 text-xs font-bold mb-2 border border-white/20">
             <RotateCcw className="w-3.5 h-3.5" />
             <span>自研法语核心文法推导引擎</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
             法语动词变位可视化演练器 (Conjugaison)
           </h1>
-          <p className="text-slate-300 text-xs sm:text-sm mt-1">
+          <p className="text-blue-100 text-xs sm:text-sm mt-1">
             动词变位不再是噩梦！选择任意动词与时态，系统一键分解「词根」与「人称后缀」，标红变位差异，带真人原声拼读。
           </p>
         </div>
@@ -83,22 +83,22 @@ export const ConjugationView: React.FC = () => {
               placeholder="搜索动词 (如 être, parler...)"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-slate-200/80 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#FCFAF6] border border-[#E8DECE] text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#243B5A]/20 focus:bg-white transition text-[#243B5A] font-medium"
             />
           </div>
 
           {/* Verb List */}
-          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-2 space-y-1 max-h-[520px] overflow-y-auto">
+          <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-2 space-y-1 max-h-[520px] overflow-y-auto">
             {filteredVerbs.map(verb => {
               const isSelected = selectedVerb.id === verb.id;
               return (
                 <button
                   key={verb.id}
                   onClick={() => setSelectedVerb(verb)}
-                  className={`w-full p-3 rounded-2xl flex items-center justify-between text-left transition ${
+                  className={`w-full p-3 rounded-2xl flex items-center justify-between text-left transition cursor-pointer ${
                     isSelected
-                      ? 'bg-blue-700 text-white shadow-sm shadow-blue-700/20'
-                      : 'hover:bg-slate-50 text-slate-800'
+                      ? 'bg-[#243B5A] text-white shadow-xs'
+                      : 'hover:bg-[#F7F3EA] text-slate-800'
                   }`}
                 >
                   <div>
@@ -112,8 +112,8 @@ export const ConjugationView: React.FC = () => {
                           : verb.group === '1st_er' 
                           ? 'bg-emerald-100 text-emerald-800' 
                           : verb.group === '2nd_ir'
-                          ? 'bg-blue-100 text-blue-800'
-                          : 'bg-rose-100 text-rose-800'
+                          ? 'bg-[#243B5A]/10 text-[#243B5A]' 
+                          : 'bg-[#8C3B4A]/10 text-[#8C3B4A]'
                       }`}>
                         {verb.group === '1st_er' ? '第1组 -er' : verb.group === '2nd_ir' ? '第2组 -ir' : '第3组不规则'}
                       </span>
@@ -133,31 +133,31 @@ export const ConjugationView: React.FC = () => {
         <div className="lg:col-span-8 space-y-5">
           
           {/* Current Verb Hero Header */}
-          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+          <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-6 space-y-4">
             
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E8DECE]">
               <div>
                 <div className="flex items-center gap-3">
-                  <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-serif">
+                  <h2 className="text-2xl sm:text-3xl font-black text-[#243B5A] font-serif">
                     {selectedVerb.infinitive}
                   </h2>
-                  <span className="text-xs sm:text-sm text-slate-600 font-medium">
+                  <span className="text-xs sm:text-sm text-slate-600 font-bold">
                     ({selectedVerb.meaning})
                   </span>
                 </div>
                 <div className="flex flex-wrap items-center gap-2 mt-2">
-                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-medium">
-                    过去分词: <strong className="text-slate-900 font-serif">{selectedVerb.participle}</strong>
+                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#F7F3EA] text-slate-700 font-bold border border-[#E8DECE]">
+                    过去分词: <strong className="text-[#243B5A] font-serif">{selectedVerb.participle}</strong>
                   </span>
-                  <span className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
+                  <span className={`text-xs px-2.5 py-0.5 rounded-full font-bold border ${
                     selectedVerb.auxiliary === 'être'
-                      ? 'bg-purple-100 text-purple-800'
-                      : 'bg-blue-100 text-blue-800'
+                      ? 'bg-[#8C3B4A]/10 text-[#8C3B4A] border-[#8C3B4A]/25'
+                      : 'bg-[#243B5A]/10 text-[#243B5A] border-[#243B5A]/25'
                   }`}>
                     助动词: <strong>{selectedVerb.auxiliary}</strong>
                   </span>
                   {selectedVerb.tags.map(t => (
-                    <span key={t} className="text-[11px] px-2 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200">
+                    <span key={t} className="text-[11px] px-2 py-0.5 rounded-full bg-[#F7F3EA] text-slate-500 border border-[#E8DECE]">
                       {t}
                     </span>
                   ))}
@@ -166,9 +166,9 @@ export const ConjugationView: React.FC = () => {
 
               <button
                 onClick={() => playSpeech(selectedVerb.infinitive)}
-                className="self-start sm:self-auto flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition"
+                className="self-start sm:self-auto flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F7F3EA] hover:bg-[#FAF6EE] text-[#243B5A] border border-[#E8DECE] text-xs font-bold transition cursor-pointer"
               >
-                <Volume2 className="w-4 h-4 text-blue-600" />
+                <Volume2 className="w-4 h-4 text-[#243B5A]" />
                 <span>原形发音</span>
               </button>
             </div>
@@ -187,16 +187,16 @@ export const ConjugationView: React.FC = () => {
                       key={t.key}
                       disabled={!hasThisTense}
                       onClick={() => setSelectedTense(t.key)}
-                      className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+                      className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
                         isActive
-                          ? 'bg-blue-700 text-white shadow-sm'
+                          ? 'bg-[#243B5A] text-white shadow-xs'
                           : hasThisTense
-                          ? 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                          : 'bg-slate-50 text-slate-300 cursor-not-allowed'
+                          ? 'bg-[#F7F3EA] text-slate-700 hover:bg-[#EFE8DC] border border-[#E8DECE]'
+                          : 'bg-[#F7F3EA]/50 text-slate-300 cursor-not-allowed border border-[#E8DECE]/40'
                       }`}
                     >
                       <span>{t.label}</span>
-                      <span className="text-[10px] opacity-70">({t.frenchLabel})</span>
+                      <span className="text-[10px] opacity-75">({t.frenchLabel})</span>
                     </button>
                   );
                 })}
@@ -204,14 +204,14 @@ export const ConjugationView: React.FC = () => {
             </div>
 
             {/* Tense Usage Guidance Card */}
-            <div className="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-200/60 text-xs text-blue-900 space-y-1">
-              <div className="flex items-center gap-1.5 font-bold">
-                <Info className="w-3.5 h-3.5 text-blue-700" />
+            <div className="p-3.5 rounded-2xl bg-[#FAF6EE] border border-[#C5A059]/40 text-xs text-slate-900 space-y-1">
+              <div className="flex items-center gap-1.5 font-black text-[#8F6F2E]">
+                <Info className="w-3.5 h-3.5 text-[#C5A059]" />
                 <span>{currentTenseMeta.label} 语法法则：</span>
               </div>
-              <p className="leading-relaxed text-blue-800">
+              <p className="leading-relaxed text-slate-700 font-medium">
                 {currentTenseMeta.usage} <br />
-                <span className="font-mono font-semibold text-blue-950">公式：{currentTenseMeta.formula}</span>
+                <span className="font-mono font-bold text-[#243B5A]">公式：{currentTenseMeta.formula}</span>
               </p>
             </div>
 
@@ -223,15 +223,15 @@ export const ConjugationView: React.FC = () => {
                   <div
                     key={p.key}
                     onClick={() => playSpeech(p.data.full)}
-                    className="p-4 rounded-2xl bg-slate-50 hover:bg-blue-50/70 border border-slate-200/80 hover:border-blue-300 transition-all flex items-center justify-between cursor-pointer group shadow-2xs"
+                    className="p-4 rounded-2xl bg-[#F7F3EA] hover:bg-white border border-[#E8DECE] hover:border-[#243B5A]/40 transition-all flex items-center justify-between cursor-pointer group shadow-2xs"
                   >
                     <div className="space-y-0.5">
                       <span className="text-xs font-mono font-bold text-slate-400">
                         {p.pronoun}
                       </span>
                       <div className="text-base sm:text-lg font-extrabold tracking-tight font-serif">
-                        <span className="text-slate-800">{p.data.stem}</span>
-                        <span className="text-rose-600 bg-rose-50 px-1 py-0.5 rounded-md font-black">
+                        <span className="text-slate-900">{p.data.stem}</span>
+                        <span className="text-[#8C3B4A] bg-[#8C3B4A]/10 px-1 py-0.5 rounded-md font-black">
                           {p.data.ending}
                         </span>
                       </div>
@@ -239,8 +239,8 @@ export const ConjugationView: React.FC = () => {
 
                     <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition ${
                       isPlaying 
-                        ? 'bg-blue-700 text-white' 
-                        : 'bg-white text-slate-400 group-hover:bg-blue-700 group-hover:text-white shadow-2xs'
+                        ? 'bg-[#243B5A] text-white' 
+                        : 'bg-white text-slate-400 group-hover:bg-[#243B5A] group-hover:text-white shadow-2xs border border-[#E8DECE]'
                     }`}>
                       <Volume2 className="w-4 h-4" />
                     </div>
@@ -250,14 +250,14 @@ export const ConjugationView: React.FC = () => {
             </div>
 
             {/* Sample Real-Life Context Sentence */}
-            <div className="p-4 rounded-2xl bg-slate-100/80 border border-slate-200/80 space-y-1">
+            <div className="p-4 rounded-2xl bg-[#F7F3EA] border border-[#E8DECE] space-y-1">
               <div className="text-xs font-bold text-slate-500">
                 实战例句应用场景
               </div>
-              <p className="text-sm font-serif font-bold text-slate-900">
+              <p className="text-sm font-serif font-bold text-[#243B5A]">
                 « {selectedVerb.sampleSentence.french} »
               </p>
-              <p className="text-xs text-slate-600">
+              <p className="text-xs text-slate-600 font-medium">
                 {selectedVerb.sampleSentence.chinese}
               </p>
             </div>

@@ -47,16 +47,16 @@ export const PhoneticsView: React.FC = () => {
     <div className="space-y-8 pb-16">
       
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-blue-900 to-indigo-900 text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-blue-800/40">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-[#243B5A] via-[#334F75] to-[#8C3B4A] text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-[#8C3B4A]/30">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-200 text-xs font-semibold mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-rose-100 text-xs font-bold mb-2 border border-white/20">
             <Sparkles className="w-3.5 h-3.5" />
             <span>法兰西语音纯正发音规范</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
             35 音标体系 & 联诵发音实验室
           </h1>
-          <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-xl">
+          <p className="text-blue-100 text-xs sm:text-sm mt-1 max-w-xl font-medium">
             点击任意音标与例词即可收听正统巴黎真人发音，掌握鼻化元音、小舌音 [ʁ] 与连音联诵规则。
           </p>
         </div>
@@ -74,10 +74,10 @@ export const PhoneticsView: React.FC = () => {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id as any)}
-                className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition ${
+                className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition cursor-pointer ${
                   activeCategory === cat.id
-                    ? 'bg-blue-700 text-white shadow-sm'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/80'
+                    ? 'bg-[#243B5A] text-white shadow-xs'
+                    : 'bg-[#FCFAF6] text-slate-700 hover:bg-[#F7F3EA] border border-[#E8DECE]'
                 }`}
               >
                 {cat.label}
@@ -99,22 +99,22 @@ export const PhoneticsView: React.FC = () => {
                       playSpeech(item.examples[0].word);
                     }
                   }}
-                  className={`relative p-3 rounded-2xl flex flex-col items-center justify-center transition-all duration-150 border ${
+                  className={`relative p-3 rounded-2xl flex flex-col items-center justify-center transition-all duration-150 border cursor-pointer ${
                     isSelected
-                      ? 'bg-blue-700 text-white border-blue-700 shadow-md scale-[1.04] z-10'
+                      ? 'bg-[#243B5A] text-white border-[#243B5A] shadow-md scale-[1.04] z-10'
                       : isNasal
-                      ? 'bg-rose-50/80 text-rose-950 border-rose-200/80 hover:bg-rose-100 hover:scale-[1.02]'
-                      : 'bg-white text-slate-800 border-slate-200/80 hover:bg-slate-50 hover:border-slate-300 hover:scale-[1.02]'
+                      ? 'bg-[#8C3B4A]/10 text-[#8C3B4A] border-[#8C3B4A]/25 hover:bg-[#8C3B4A]/20 hover:scale-[1.02]'
+                      : 'bg-[#FCFAF6] text-slate-800 border-[#E8DECE] hover:bg-[#F7F3EA] hover:border-[#243B5A]/30 hover:scale-[1.02]'
                   }`}
                 >
-                  <span className={`text-lg sm:text-xl font-black ${isSelected ? 'text-white' : 'text-blue-900'}`}>
+                  <span className={`text-lg sm:text-xl font-black ${isSelected ? 'text-white' : (isNasal ? 'text-[#8C3B4A]' : 'text-[#243B5A]')}`}>
                     {item.ipa}
                   </span>
-                  <span className={`text-[10px] mt-0.5 font-medium truncate max-w-full ${isSelected ? 'text-blue-100' : 'text-slate-500'}`}>
+                  <span className={`text-[10px] mt-0.5 font-bold truncate max-w-full ${isSelected ? 'text-blue-100' : 'text-slate-500'}`}>
                     {item.spellingRules.slice(0, 2).join(', ')}
                   </span>
                   {isNasal && !isSelected && (
-                    <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-rose-500" title="鼻化元音"></span>
+                    <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#8C3B4A]" title="鼻化元音"></span>
                   )}
                 </button>
               );
@@ -122,24 +122,24 @@ export const PhoneticsView: React.FC = () => {
           </div>
 
           {/* Quick Audio Hint */}
-          <div className="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-200/70 flex items-center gap-2 text-xs text-blue-900">
-            <Volume2 className="w-4 h-4 text-blue-700 shrink-0" />
+          <div className="p-3.5 rounded-2xl bg-[#FAF6EE] border border-[#C5A059]/40 flex items-center gap-2 text-xs text-slate-800">
+            <Volume2 className="w-4 h-4 text-[#C5A059] shrink-0" />
             <span>点击上方任意卡片即可发音，右侧可查看嘴型口诀与高频例词。</span>
           </div>
         </div>
 
         {/* Right 5 Cols: Detail Inspector */}
         <div className="lg:col-span-5">
-          <div className="sticky top-20 bg-white rounded-3xl border border-slate-200/80 shadow-md p-6 space-y-5">
+          <div className="sticky top-20 bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-xs p-6 space-y-5">
             
             {/* Header of Inspector */}
-            <div className="flex items-start justify-between pb-4 border-b border-slate-100">
+            <div className="flex items-start justify-between pb-4 border-b border-[#E8DECE]">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-3xl sm:text-4xl font-black text-blue-700 font-mono">
+                  <span className="text-3xl sm:text-4xl font-black text-[#243B5A] font-mono">
                     {selectedItem.ipa}
                   </span>
-                  <span className="px-2.5 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold">
+                  <span className="px-2.5 py-1 rounded-full bg-[#243B5A]/10 text-[#243B5A] border border-[#243B5A]/20 text-xs font-bold">
                     {selectedItem.name}
                   </span>
                 </div>
@@ -150,7 +150,7 @@ export const PhoneticsView: React.FC = () => {
 
               <button
                 onClick={() => playSpeech(selectedItem.examples.map(e => e.word).join(', '))}
-                className="w-11 h-11 rounded-2xl bg-blue-700 hover:bg-blue-800 text-white flex items-center justify-center shadow-md shadow-blue-700/20 hover:scale-105 transition"
+                className="w-11 h-11 rounded-2xl bg-[#243B5A] hover:bg-[#1C2E46] text-white flex items-center justify-center shadow-xs hover:scale-105 transition cursor-pointer"
                 title="朗读全部例词"
               >
                 <Volume2 className="w-5 h-5" />
@@ -159,11 +159,11 @@ export const PhoneticsView: React.FC = () => {
 
             {/* Mouth Tips */}
             <div className="space-y-1.5">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-700">
-                <HelpCircle className="w-4 h-4 text-amber-500" />
+              <div className="flex items-center gap-1.5 text-xs font-bold text-[#8F6F2E]">
+                <HelpCircle className="w-4 h-4 text-[#C5A059]" />
                 <span>发音嘴型与技巧指南</span>
               </div>
-              <p className="text-xs sm:text-sm text-slate-600 bg-amber-50/60 p-3.5 rounded-2xl border border-amber-200/60 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-700 bg-[#FAF6EE] p-3.5 rounded-2xl border border-[#C5A059]/40 leading-relaxed font-medium">
                 {selectedItem.mouthTips}
               </p>
             </div>
@@ -178,22 +178,22 @@ export const PhoneticsView: React.FC = () => {
                   <div
                     key={ex.word}
                     onClick={() => playSpeech(ex.word)}
-                    className="p-3 rounded-2xl bg-slate-50 hover:bg-blue-50 border border-slate-200/70 hover:border-blue-200 flex items-center justify-between cursor-pointer transition group"
+                    className="p-3 rounded-2xl bg-[#F7F3EA] hover:bg-white border border-[#E8DECE] hover:border-[#243B5A]/30 flex items-center justify-between cursor-pointer transition group"
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-bold text-slate-900 group-hover:text-blue-700">
+                        <span className="text-sm font-bold text-slate-900 group-hover:text-[#243B5A]">
                           {ex.word}
                         </span>
                         <span className="text-xs text-slate-400 font-mono">
                           {ex.phonetic}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-500 mt-0.5">
+                      <p className="text-xs text-slate-500 mt-0.5 font-medium">
                         {ex.meaning}
                       </p>
                     </div>
-                    <div className="w-8 h-8 rounded-xl bg-white group-hover:bg-blue-700 text-slate-400 group-hover:text-white flex items-center justify-center shadow-2xs transition">
+                    <div className="w-8 h-8 rounded-xl bg-white group-hover:bg-[#243B5A] text-slate-400 group-hover:text-white flex items-center justify-center shadow-2xs border border-[#E8DECE] transition">
                       <Volume2 className="w-4 h-4" />
                     </div>
                   </div>
@@ -207,13 +207,13 @@ export const PhoneticsView: React.FC = () => {
       </div>
 
       {/* 4 Major Pronunciation & Liaison Rules Section */}
-      <section className="space-y-4 pt-6 border-t border-slate-200/80">
+      <section className="space-y-4 pt-6 border-t border-[#E8DECE]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded-md bg-rose-100 text-rose-800 font-bold text-xs">
+            <span className="px-2 py-0.5 rounded-md bg-[#8C3B4A]/10 text-[#8C3B4A] border border-[#8C3B4A]/25 font-bold text-xs">
               重中之重
             </span>
-            <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="text-xl font-black text-[#243B5A] tracking-tight">
               4 大核心发音与联诵规则精析
             </h2>
           </div>
@@ -226,27 +226,27 @@ export const PhoneticsView: React.FC = () => {
           {PRONUNCIATION_RULES.map(rule => (
             <div
               key={rule.id}
-              className="p-5 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-3"
+              className="p-5 rounded-3xl bg-[#FCFAF6] border border-[#E8DECE] shadow-xs space-y-3"
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="text-base font-bold text-slate-900">
+                  <h3 className="text-base font-black text-slate-900">
                     {rule.title}
                   </h3>
-                  <span className="text-xs font-serif italic text-blue-700">
+                  <span className="text-xs font-serif italic text-[#8C3B4A] font-bold">
                     {rule.frenchTitle}
                   </span>
                 </div>
-                <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[11px] font-bold border border-blue-200/60">
+                <span className="px-2 py-0.5 rounded-full bg-[#243B5A]/10 text-[#243B5A] text-[11px] font-bold border border-[#243B5A]/20">
                   {rule.tag}
                 </span>
               </div>
 
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
                 {rule.summary}
               </p>
 
-              <div className="p-2.5 rounded-xl bg-slate-100 text-slate-800 font-mono text-xs font-bold">
+              <div className="p-2.5 rounded-xl bg-[#F7F3EA] text-slate-800 font-mono text-xs font-bold border border-[#E8DECE]">
                 {rule.formula}
               </div>
 
@@ -255,7 +255,7 @@ export const PhoneticsView: React.FC = () => {
                   <div 
                     key={ex.phrase}
                     onClick={() => playSpeech(ex.phrase)}
-                    className="p-2.5 rounded-xl bg-slate-50 hover:bg-blue-50/60 border border-slate-200/60 flex items-center justify-between cursor-pointer transition text-xs"
+                    className="p-2.5 rounded-xl bg-[#F7F3EA] hover:bg-white border border-[#E8DECE] flex items-center justify-between cursor-pointer transition text-xs"
                   >
                     <div>
                       <div className="flex items-center gap-2">
@@ -263,9 +263,9 @@ export const PhoneticsView: React.FC = () => {
                         <span className="text-slate-400 font-mono">{ex.ipa}</span>
                         <span className="text-slate-600">({ex.meaning})</span>
                       </div>
-                      <p className="text-[11px] text-blue-700 mt-0.5">{ex.explanation}</p>
+                      <p className="text-[11px] text-[#243B5A] mt-0.5 font-medium">{ex.explanation}</p>
                     </div>
-                    <Volume2 className="w-3.5 h-3.5 text-slate-400 hover:text-blue-600 shrink-0 ml-2" />
+                    <Volume2 className="w-3.5 h-3.5 text-slate-400 hover:text-[#243B5A] shrink-0 ml-2" />
                   </div>
                 ))}
               </div>

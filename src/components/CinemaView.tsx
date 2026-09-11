@@ -35,16 +35,16 @@ export const CinemaView: React.FC = () => {
     <div className="space-y-8 pb-16">
       
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-purple-950 via-slate-900 to-indigo-950 text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-purple-900/40">
+      <div className="bg-gradient-to-r from-[#243B5A] via-[#334F75] to-[#8C3B4A] text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-[#243B5A]/40">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/20 text-purple-200 text-xs font-semibold mb-2">
-            <Headphones className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-[#FAF5EB] text-xs font-semibold mb-2 backdrop-blur-xs border border-white/20">
+            <Headphones className="w-3.5 h-3.5 text-[#DFBA73]" />
             <span>法式浪漫原声 · 沉浸式听力跟读</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
             法国高分经典电影原声精听 (Cinéma)
           </h1>
-          <p className="text-slate-300 text-xs sm:text-sm mt-1">
+          <p className="text-slate-200 text-xs sm:text-sm mt-1">
             告别干瘪教材听力！甄选《放牛班的春天》《天使爱美丽》《触不可及》《小王子》经典切片，中法双语对照，逐句原声磨耳朵。
           </p>
         </div>
@@ -60,8 +60,8 @@ export const CinemaView: React.FC = () => {
               onClick={() => setSelectedMovie(movie)}
               className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between ${
                 isSelected
-                  ? 'bg-purple-700 text-white border-purple-700 shadow-md scale-[1.02]'
-                  : 'bg-white hover:bg-slate-50 border-slate-200/80 text-slate-800'
+                  ? 'bg-[#8C3B4A] text-white border-[#8C3B4A] shadow-md scale-[1.02]'
+                  : 'bg-[#FCFAF6] hover:bg-[#F7F3EA] border-[#E8DECE] text-slate-800'
               }`}
             >
               <div>
@@ -69,7 +69,7 @@ export const CinemaView: React.FC = () => {
                 <div className="font-extrabold text-sm sm:text-base mt-0.5">{movie.movieTitle}</div>
               </div>
               <span className={`text-[10px] mt-2 px-2 py-0.5 rounded-md font-medium truncate ${
-                isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
+                isSelected ? 'bg-white/20 text-white' : 'bg-[#F7F3EA] text-slate-600'
               }`}>
                 {movie.year} · {movie.director}
               </span>
@@ -79,26 +79,26 @@ export const CinemaView: React.FC = () => {
       </div>
 
       {/* Selected Movie Stage */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-md overflow-hidden">
+      <div className="bg-[#FCFAF6] rounded-3xl border border-[#E8DECE] shadow-sm overflow-hidden">
         
         {/* Cover + Summary Header */}
-        <div className="relative h-48 sm:h-64 bg-slate-900 overflow-hidden">
+        <div className="relative h-48 sm:h-64 bg-[#1C2E46] overflow-hidden">
           <img 
             src={selectedMovie.coverImage} 
             alt={selectedMovie.movieTitle}
             className="w-full h-full object-cover opacity-40 mix-blend-luminosity"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#162438] via-[#162438]/70 to-transparent"></div>
           
           <div className="absolute bottom-6 inset-x-6 sm:inset-x-8 text-white space-y-2">
             <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-white/20 text-white text-xs font-semibold backdrop-blur-md">
-              <Film className="w-3.5 h-3.5" />
+              <Film className="w-3.5 h-3.5 text-[#DFBA73]" />
               <span>{selectedMovie.tag}</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black font-serif">
               {selectedMovie.movieTitle} <span className="text-base sm:text-lg font-normal opacity-80 italic font-serif">({selectedMovie.frenchTitle})</span>
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 max-w-2xl line-clamp-2">
+            <p className="text-xs sm:text-sm text-slate-200 max-w-2xl line-clamp-2">
               {selectedMovie.sceneSummary}
             </p>
           </div>
@@ -107,8 +107,8 @@ export const CinemaView: React.FC = () => {
         {/* Dialogues & Audio Shadowing */}
         <div className="p-6 sm:p-8 space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <Volume2 className="w-5 h-5 text-purple-600" />
+            <h3 className="text-lg font-bold text-[#243B5A] flex items-center gap-2">
+              <Volume2 className="w-5 h-5 text-[#8C3B4A]" />
               <span>名场面原声台词逐句精练</span>
             </h3>
             <span className="text-xs text-slate-400">点击任意台词即可原声跟读</span>
@@ -123,22 +123,22 @@ export const CinemaView: React.FC = () => {
                   onClick={() => playSpeech(dlg.fr)}
                   className={`p-5 rounded-2xl border transition-all cursor-pointer space-y-2 ${
                     isPlaying
-                      ? 'bg-purple-50/90 border-purple-300 shadow-sm'
-                      : 'bg-slate-50 hover:bg-purple-50/50 border-slate-200/80'
+                      ? 'bg-[#FAF5EB] border-[#C5A059] shadow-sm'
+                      : 'bg-[#F7F3EA] hover:bg-[#FAF5EB]/60 border-[#E8DECE]'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-purple-800 bg-purple-100/80 px-2 py-0.5 rounded-md">
+                    <span className="text-xs font-bold text-[#8C3B4A] bg-[#8C3B4A]/10 px-2.5 py-0.5 rounded-md">
                       {dlg.character}
                     </span>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
-                      isPlaying ? 'bg-purple-700 text-white' : 'bg-white text-slate-400 shadow-2xs'
+                      isPlaying ? 'bg-[#8C3B4A] text-white shadow-xs' : 'bg-[#FCFAF6] text-slate-400 shadow-2xs'
                     }`}>
                       <Volume2 className="w-4 h-4" />
                     </div>
                   </div>
 
-                  <p className="text-base sm:text-lg font-serif font-bold text-slate-900 leading-relaxed">
+                  <p className="text-base sm:text-lg font-serif font-bold text-[#243B5A] leading-relaxed">
                     « {dlg.fr} »
                   </p>
 
@@ -147,8 +147,8 @@ export const CinemaView: React.FC = () => {
                   </p>
 
                   {dlg.keyPoints && (
-                    <div className="pt-2 border-t border-slate-200/60 text-xs text-purple-900 bg-white/60 p-2 rounded-xl">
-                      <span className="font-bold">语法要点：</span>{dlg.keyPoints}
+                    <div className="pt-2 border-t border-[#E8DECE] text-xs text-[#243B5A] bg-[#FCFAF6] p-2.5 rounded-xl">
+                      <span className="font-bold text-[#8C3B4A]">语法要点：</span>{dlg.keyPoints}
                     </div>
                   )}
                 </div>
@@ -157,7 +157,7 @@ export const CinemaView: React.FC = () => {
           </div>
 
           {/* Vocabulary Highlight Section */}
-          <div className="pt-4 border-t border-slate-100 space-y-3">
+          <div className="pt-4 border-t border-[#E8DECE] space-y-3">
             <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
               本片高频考点生词
             </h4>
@@ -166,11 +166,11 @@ export const CinemaView: React.FC = () => {
                 <div 
                   key={i} 
                   onClick={() => playSpeech(voc.word)}
-                  className="p-3 rounded-xl bg-slate-50 hover:bg-purple-50/60 border border-slate-200/70 cursor-pointer transition text-xs space-y-0.5"
+                  className="p-3 rounded-xl bg-[#F7F3EA] hover:bg-[#FAF5EB] border border-[#E8DECE] cursor-pointer transition text-xs space-y-0.5"
                 >
-                  <div className="font-serif font-bold text-slate-900 flex items-center justify-between">
+                  <div className="font-serif font-bold text-[#243B5A] flex items-center justify-between">
                     <span>{voc.word}</span>
-                    <Volume2 className="w-3.5 h-3.5 text-slate-400 hover:text-purple-600" />
+                    <Volume2 className="w-3.5 h-3.5 text-slate-400 hover:text-[#8C3B4A]" />
                   </div>
                   <div className="text-slate-500">{voc.meaning}</div>
                 </div>

@@ -81,17 +81,17 @@ export const VocabView: React.FC = () => {
     <div className="space-y-8 pb-16">
       
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-blue-900 to-indigo-900 text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-blue-800/40">
+      <div className="bg-gradient-to-r from-[#243B5A] via-[#334F75] to-[#8C3B4A] text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-[#8C3B4A]/30">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-200 text-xs font-semibold mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-rose-100 text-xs font-bold mb-2 border border-white/20">
             <Layers className="w-3.5 h-3.5" />
             <span>艾宾浩斯抗遗忘记忆曲线</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
             法语核心考纲词汇闪卡 (阴阳性双标)
           </h1>
-          <p className="text-slate-300 text-xs sm:text-sm mt-1">
-            背法语单词最忌讳不记阴阳性！卡片严格标定 <strong className="text-blue-300">阳性 (Masculin 蓝标)</strong> 与 <strong className="text-rose-300">阴性 (Féminin 粉标)</strong>，点击正反翻转，原声朗读。
+          <p className="text-blue-100 text-xs sm:text-sm mt-1 font-medium">
+            背法语单词最忌讳不记阴阳性！卡片严格标定 <strong className="text-white font-bold underline decoration-[#243B5A]">阳性 (Masculin 蓝标)</strong> 与 <strong className="text-rose-200 font-bold underline decoration-[#8C3B4A]">阴性 (Féminin 粉红标)</strong>，点击正反翻转，原声朗读。
           </p>
         </div>
       </div>
@@ -107,10 +107,10 @@ export const VocabView: React.FC = () => {
                 setCurrentIndex(0);
                 setIsFlipped(false);
               }}
-              className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition ${
+              className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition cursor-pointer ${
                 activeLevel === lvl.id
-                  ? 'bg-blue-700 text-white shadow-sm'
-                  : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/80'
+                  ? 'bg-[#243B5A] text-white shadow-xs'
+                  : 'bg-[#FCFAF6] text-slate-700 hover:bg-[#F7F3EA] border border-[#E8DECE]'
               }`}
             >
               {lvl.label}
@@ -129,7 +129,7 @@ export const VocabView: React.FC = () => {
               setCurrentIndex(0);
               setIsFlipped(false);
             }}
-            className="w-full pl-10 pr-4 py-2 rounded-xl bg-white border border-slate-200/80 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-2 rounded-xl bg-[#FCFAF6] border border-[#E8DECE] text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#243B5A]/20 focus:bg-white text-[#243B5A] font-medium transition"
           />
         </div>
       </div>
@@ -139,7 +139,7 @@ export const VocabView: React.FC = () => {
         <div className="max-w-xl mx-auto space-y-4">
           
           {/* Progress Indicator */}
-          <div className="flex items-center justify-between text-xs text-slate-500 font-medium px-2">
+          <div className="flex items-center justify-between text-xs text-slate-500 font-bold px-2">
             <span>当前进度: {currentIndex + 1} / {filteredVocab.length}</span>
             <span>已掌握: {learnedIds.size} 词</span>
           </div>
@@ -147,21 +147,21 @@ export const VocabView: React.FC = () => {
           {/* 3D Flip Card Container */}
           <div 
             onClick={() => setIsFlipped(!isFlipped)}
-            className="relative min-h-[320px] rounded-3xl bg-white border border-slate-200/90 shadow-md p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 hover:shadow-lg select-none group"
+            className="relative min-h-[320px] rounded-3xl bg-[#FCFAF6] border border-[#E8DECE] shadow-xs p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 hover:shadow-md select-none group"
           >
             {/* Top Badges */}
             <div className="absolute top-5 inset-x-6 flex items-center justify-between">
               <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
                 currentItem.gender === 'feminine'
-                  ? 'bg-rose-100 text-rose-800 border border-rose-200'
+                  ? 'bg-[#8C3B4A]/10 text-[#8C3B4A] border border-[#8C3B4A]/25'
                   : currentItem.gender === 'masculine'
-                  ? 'bg-blue-100 text-blue-800 border border-blue-200'
-                  : 'bg-slate-100 text-slate-700'
+                  ? 'bg-[#243B5A]/10 text-[#243B5A] border border-[#243B5A]/20'
+                  : 'bg-[#F7F3EA] text-slate-700 border border-[#E8DECE]'
               }`}>
                 {currentItem.gender === 'feminine' ? '♀ 阴性 Féminin' : currentItem.gender === 'masculine' ? '♂ 阳性 Masculin' : currentItem.pos}
               </span>
 
-              <span className="text-xs px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 font-semibold">
+              <span className="text-xs px-2 py-0.5 rounded-md bg-[#F7F3EA] text-slate-600 font-bold border border-[#E8DECE]">
                 {currentItem.level} · {currentItem.category}
               </span>
             </div>
@@ -170,16 +170,16 @@ export const VocabView: React.FC = () => {
             {!isFlipped ? (
               /* Front: French word + Phonetic */
               <div className="space-y-3 my-auto">
-                <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-serif tracking-tight">
+                <div className="text-3xl sm:text-4xl font-black text-slate-900 font-serif tracking-tight">
                   {currentItem.article && (
-                    <span className="text-blue-600 mr-2 font-normal opacity-80">{currentItem.article}</span>
+                    <span className="text-[#243B5A] mr-2 font-normal opacity-85">{currentItem.article}</span>
                   )}
                   {currentItem.french}
                 </div>
-                <div className="text-sm font-mono text-slate-500">
+                <div className="text-sm font-mono text-slate-500 font-bold">
                   {currentItem.phonetic}
                 </div>
-                <p className="text-xs text-slate-400 flex items-center justify-center gap-1">
+                <p className="text-xs text-slate-400 flex items-center justify-center gap-1 font-medium">
                   <RotateCw className="w-3.5 h-3.5" />
                   <span>点击翻转查看释义与例句</span>
                 </p>
@@ -187,15 +187,15 @@ export const VocabView: React.FC = () => {
             ) : (
               /* Back: Chinese meaning + Example Sentence */
               <div className="space-y-4 my-auto">
-                <div className="text-2xl font-bold text-blue-700">
+                <div className="text-2xl font-black text-[#243B5A]">
                   {currentItem.chinese}
                 </div>
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 text-left space-y-1 max-w-md">
-                  <div className="text-xs font-bold text-slate-400">实战例句：</div>
+                <div className="p-4 rounded-2xl bg-[#F7F3EA] border border-[#E8DECE] text-left space-y-1 max-w-md">
+                  <div className="text-xs font-bold text-slate-500">实战例句：</div>
                   <div className="text-sm font-serif font-bold text-slate-900">
                     « {currentItem.example.fr} »
                   </div>
-                  <div className="text-xs text-slate-600">
+                  <div className="text-xs text-slate-600 font-medium">
                     {currentItem.example.zh}
                   </div>
                 </div>
@@ -206,18 +206,18 @@ export const VocabView: React.FC = () => {
             <div className="absolute bottom-5 inset-x-6 flex items-center justify-between" onClick={e => e.stopPropagation()}>
               <button
                 onClick={() => playSpeech(`${currentItem.article || ''} ${currentItem.french}`)}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-700 text-xs font-semibold transition"
+                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#F7F3EA] hover:bg-white text-[#243B5A] border border-[#E8DECE] text-xs font-bold transition cursor-pointer"
               >
-                <Volume2 className="w-4 h-4 text-blue-600" />
+                <Volume2 className="w-4 h-4 text-[#243B5A]" />
                 <span>朗读</span>
               </button>
 
               <button
                 onClick={() => toggleLearned(currentItem.id)}
-                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold transition ${
+                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
                   learnedIds.has(currentItem.id)
-                    ? 'bg-emerald-100 text-emerald-800'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                    : 'bg-[#F7F3EA] text-slate-600 hover:bg-white border border-[#E8DECE]'
                 }`}
               >
                 <Check className="w-3.5 h-3.5" />
@@ -230,7 +230,7 @@ export const VocabView: React.FC = () => {
           <div className="flex items-center justify-between gap-3 pt-2">
             <button
               onClick={handlePrev}
-              className="flex-1 py-3 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200/80 text-slate-700 font-bold text-sm flex items-center justify-center gap-1 transition shadow-xs"
+              className="flex-1 py-3 rounded-2xl bg-[#FCFAF6] hover:bg-[#F7F3EA] border border-[#E8DECE] text-slate-700 font-bold text-sm flex items-center justify-center gap-1 transition shadow-xs cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" />
               <span>上一个</span>
@@ -238,7 +238,7 @@ export const VocabView: React.FC = () => {
 
             <button
               onClick={handleNext}
-              className="flex-1 py-3 rounded-2xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-sm flex items-center justify-center gap-1 transition shadow-sm shadow-blue-700/20"
+              className="flex-1 py-3 rounded-2xl bg-[#243B5A] hover:bg-[#1C2E46] text-white font-bold text-sm flex items-center justify-center gap-1 transition shadow-xs cursor-pointer active:scale-98"
             >
               <span>下一个</span>
               <ChevronRight className="w-4 h-4" />
