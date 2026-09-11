@@ -65,9 +65,9 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
     targetAudience: '从发音到中级 · 稳扎稳打',
     tag: '系统筑基',
     icon: '🌱',
-    activeBorder: 'border-emerald-500',
-    activeBg: 'bg-emerald-50/70 border-emerald-400 text-emerald-950',
-    activeRing: 'ring-2 ring-emerald-500/20 shadow-md',
+    activeBorder: 'border-blue-600',
+    activeBg: 'bg-blue-50/70 border-blue-400 text-blue-950',
+    activeRing: 'ring-2 ring-blue-600/20 shadow-md',
     desc: '初学者零压力科学路线：攻克 35 国际音标与 4 大连音联诵规则 ➔ 玩转三组动词 7 大时态变位演练器 ➔ 掌握 5,000+ 阴阳性核心词！',
     steps: [
       {
@@ -75,48 +75,48 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepLabel: '第 1 步 · 夯实语音',
         title: '35 音标体系与 4 大发音/联诵规则',
         targetBadge: '攻克鼻化元音 · 小舌音[ʁ]',
-        badgeBg: 'bg-emerald-100 text-emerald-800 border border-emerald-200/70',
+        badgeBg: 'bg-blue-100 text-blue-800 border border-blue-200/70',
         desc: '15 元音（含 4 鼻化音）、3 半元音与 17 辅音，动画透视联诵 (Liaison)、CaReFuL 词尾不发音与省音规则。',
         actionText: '进入音标联诵实验室',
         targetTab: 'phonetics',
         icon: Sparkles,
-        buttonBg: 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs'
+        buttonBg: 'bg-blue-700 hover:bg-blue-800 text-white shadow-xs'
       },
       {
         stepNum: '02',
         stepLabel: '第 2 步 · 攻破变位',
         title: '动词变位可视化演练器 (Conjugaison)',
         targetBadge: '7大时态 · 词尾高亮推导',
-        badgeBg: 'bg-blue-100 text-blue-800 border border-blue-200/70',
+        badgeBg: 'bg-indigo-100 text-indigo-800 border border-indigo-200/70',
         desc: '第一组(-er)、第二组(-ir)与第三组不规则动词，一键对比直陈式现在时、复合过去时、未完成过去时与虚拟式。',
         actionText: '开启变位演练器',
         targetTab: 'conjugation',
         icon: RotateCcw,
-        buttonBg: 'bg-blue-600 hover:bg-blue-700 text-white shadow-xs'
+        buttonBg: 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs'
       },
       {
         stepNum: '03',
         stepLabel: '第 3 步 · 积累词汇',
         title: '5,000+ 核心高频词闪卡 (性数双标)',
         targetBadge: '♂阳性蓝标 · ♀阴性粉标',
-        badgeBg: 'bg-orange-100 text-orange-800 border border-orange-200/70',
+        badgeBg: 'bg-sky-100 text-sky-800 border border-sky-200/70',
         desc: '彻底解决背词不记阴阳性大忌！严格标定性别与定冠词配合，带艾宾浩斯抗遗忘记忆曲线与真人朗读。',
         actionText: '背诵核心分级词汇',
         targetTab: 'vocab',
         icon: Layers,
-        buttonBg: 'bg-orange-500 hover:bg-orange-600 text-white shadow-xs'
+        buttonBg: 'bg-blue-700 hover:bg-blue-800 text-white shadow-xs'
       },
       {
         stepNum: '04',
         stepLabel: '第 4 步 · 搭建框架',
         title: '70+ 核心语法全景宝典',
         targetBadge: '直宾COD/间宾COI · 避坑指南',
-        badgeBg: 'bg-amber-100 text-amber-800 border border-amber-200/70',
+        badgeBg: 'bg-slate-100 text-slate-800 border border-slate-200/70',
         desc: '冠词体系、代词语序、副代词 y/en 与复合过去时分词配合，每条语法均附带【考研/考级避坑指南】。',
         actionText: '查阅体系文法宝典',
         targetTab: 'grammar',
         icon: BookOpenCheck,
-        buttonBg: 'bg-amber-600 hover:bg-amber-700 text-white shadow-xs'
+        buttonBg: 'bg-slate-800 hover:bg-slate-900 text-white shadow-xs'
       }
     ]
   },
@@ -126,9 +126,9 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
     targetAudience: '追剧看电影 · 突破哑巴法语',
     tag: '沉浸开口',
     icon: '🎙️',
-    activeBorder: 'border-amber-500',
-    activeBg: 'bg-amber-50/70 border-amber-400 text-amber-950',
-    activeRing: 'ring-2 ring-amber-500/20 shadow-md',
+    activeBorder: 'border-indigo-600',
+    activeBg: 'bg-indigo-50/70 border-indigo-400 text-indigo-950',
+    activeRing: 'ring-2 ring-indigo-600/20 shadow-md',
     desc: '告别死板背诵！甄选《放牛班的春天》《天使爱美丽》《触不可及》《小王子》经典高光名场面 ➔ 逐句盲听跟读 ➔ 每日早读养成纯正法兰西语感。',
     steps: [
       {
@@ -136,24 +136,24 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepLabel: '第 1 步 · 影视精听',
         title: '4 大法国高分经典电影台词精听',
         targetBadge: '原声磨耳朵 · 逐句解析',
-        badgeBg: 'bg-orange-100 text-orange-800 border border-orange-200/70',
+        badgeBg: 'bg-indigo-100 text-indigo-800 border border-indigo-200/70',
         desc: '原汁原味法国原声电影切片，支持逐句盲听、原声跟读与重点考点拆解，告别中式发音。',
         actionText: '进入法影精听',
         targetTab: 'cinema',
         icon: Headphones,
-        buttonBg: 'bg-orange-500 hover:bg-orange-600 text-white shadow-xs'
+        buttonBg: 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs'
       },
       {
         stepNum: '02',
         stepLabel: '第 2 步 · 语感打卡',
         title: '每日早读原声金句打卡',
         targetBadge: '法式韵律 · 每日坚持',
-        badgeBg: 'bg-emerald-100 text-emerald-800 border border-emerald-200/70',
+        badgeBg: 'bg-blue-100 text-blue-800 border border-blue-200/70',
         desc: '每日精读一句地道法语原声名言，收听真人标准巴黎发音，连续打卡激活语言直觉。',
         actionText: '朗读今日金句',
         targetTab: 'home',
         icon: Calendar,
-        buttonBg: 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs'
+        buttonBg: 'bg-blue-700 hover:bg-blue-800 text-white shadow-xs'
       }
     ]
   },
@@ -163,9 +163,9 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
     targetAudience: '冲刺高校 241/242 · DELF 高分通关',
     tag: '备考必选',
     icon: '🎯',
-    activeBorder: 'border-orange-500',
-    activeBg: 'bg-orange-50/70 border-orange-400 text-orange-950',
-    activeRing: 'ring-2 ring-orange-500/20 shadow-md',
+    activeBorder: 'border-blue-700',
+    activeBg: 'bg-blue-50/70 border-blue-500 text-blue-950',
+    activeRing: 'ring-2 ring-blue-700/20 shadow-md',
     desc: '专为考研二外与 DELF 考生打造的标准提分闭环：全真模考摸底 ➔ 错题遗忘曲线复盘 ➔ 核心时态与虚拟式专项攻坚！',
     steps: [
       {
@@ -173,36 +173,36 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         stepLabel: '第 1 步 · 模考查漏',
         title: '双轨历届全真大卷机考',
         targetBadge: '北外·上外·DELF真题',
-        badgeBg: 'bg-amber-100 text-amber-800 border border-amber-200/70',
+        badgeBg: 'bg-blue-100 text-blue-800 border border-blue-200/70',
         desc: '全真还原考场倒计时，听力原声精析、即做即看与模考双模式，精准测出真实水平与薄弱项。',
         actionText: '进入全真真题大考场',
         targetTab: 'exam',
         icon: FileCheck2,
-        buttonBg: 'bg-orange-500 hover:bg-orange-600 text-white shadow-orange-500/20'
+        buttonBg: 'bg-blue-700 hover:bg-blue-800 text-white shadow-blue-700/20'
       },
       {
         stepNum: '02',
         stepLabel: '第 2 步 · 靶向消错',
         title: '艾宾浩斯智能错题消灭',
         targetBadge: '遗忘曲线重练',
-        badgeBg: 'bg-amber-100 text-amber-800 border border-amber-200/70',
+        badgeBg: 'bg-indigo-100 text-indigo-800 border border-indigo-200/70',
         desc: '真题考场做错的题目自动归集，按失分考点分类沉淀，靶向消除知识盲区。',
         actionText: '消灭待复习错题',
         targetTab: 'mistakes',
         icon: BookOpen,
-        buttonBg: 'bg-amber-600 hover:bg-amber-700 text-white shadow-xs'
+        buttonBg: 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs'
       },
       {
         stepNum: '03',
         stepLabel: '第 3 步 · 考点攻坚',
         title: '动词时态与虚拟式专题特训',
         targetBadge: '攻克y/en · 愈过去时',
-        badgeBg: 'bg-orange-100 text-orange-800 border border-orange-200/70',
+        badgeBg: 'bg-sky-100 text-sky-800 border border-sky-200/70',
         desc: '专攻未完成与复合过去时辨析、条件假设、虚拟式命令从句与双代词语序命题陷阱。',
         actionText: '开启时态专项突破',
         targetTab: 'conjugation',
         icon: Zap,
-        buttonBg: 'bg-orange-500 hover:bg-orange-600 text-white shadow-xs'
+        buttonBg: 'bg-blue-700 hover:bg-blue-800 text-white shadow-xs'
       }
     ]
   }
@@ -306,7 +306,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
   return (
     <div className="max-w-6xl mx-auto px-4 py-4 sm:py-6 space-y-5 sm:space-y-6">
       
-      {/* --- 1. 每日晨读打卡 & 持续更新动态跑马灯轮播专区 (置顶首位 · 1:1 复刻韩语纯白旗舰卡片) --- */}
+      {/* --- 1. 每日晨读打卡 & 持续更新动态跑马灯轮播专区 (正统法兰西皇家蓝风格 · 优雅白底旗舰卡片) --- */}
       <div id="daily-quote-section" className="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
         
         {/* Compact Daily Morning Reading (8 cols) */}
@@ -315,13 +315,13 @@ export const HomePortal: React.FC<HomePortalProps> = ({
           {/* Header row */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="p-1.5 rounded-lg bg-orange-50 text-orange-600 font-bold text-xs flex items-center gap-1">
+              <span className="p-1.5 rounded-lg bg-blue-50 text-blue-700 font-bold text-xs flex items-center gap-1 border border-blue-100">
                 <Calendar className="w-3.5 h-3.5" /> 每日晨读
               </span>
               <span className="text-xs font-bold text-slate-800">
                 今日推荐 · 法语励志格言 · 每日自律
               </span>
-              <span className="text-[10px] text-amber-800 bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200/60 hidden sm:inline">
+              <span className="text-[10px] text-indigo-800 bg-indigo-50 px-1.5 py-0.2 rounded border border-indigo-200/60 hidden sm:inline">
                 考点: {quote.keyGrammar}
               </span>
             </div>
@@ -329,7 +329,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
             <div className="flex items-center gap-1.5">
               <button
                 onClick={handleNextQuote}
-                className="text-[11px] text-slate-500 hover:text-orange-600 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-slate-50 transition cursor-pointer"
+                className="text-[11px] text-slate-500 hover:text-blue-700 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-slate-50 transition cursor-pointer font-bold"
                 title="切换金句"
               >
                 <RefreshCw className="w-3 h-3" />
@@ -339,7 +339,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
           </div>
 
           {/* Quote Body - Single sleek container */}
-          <div className="bg-slate-50/80 p-3 rounded-xl border border-slate-100 flex items-center justify-between gap-3">
+          <div className="bg-slate-50/80 p-3.5 rounded-xl border border-slate-100 flex items-center justify-between gap-3">
             <div className="space-y-0.5 min-w-0">
               <p className="text-sm sm:text-base font-extrabold text-slate-900 truncate">
                 {quote.fr}
@@ -351,7 +351,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
 
             <button
               onClick={() => speakFrench(quote.audioText)}
-              className="p-2 rounded-full bg-white text-orange-600 hover:bg-orange-50 border border-slate-200 shadow-2xs shrink-0 transition cursor-pointer"
+              className="p-2 rounded-full bg-white text-blue-700 hover:bg-blue-50 border border-slate-200 shadow-2xs shrink-0 transition cursor-pointer"
               title="朗读金句"
             >
               <Volume2 className="w-4 h-4" />
@@ -361,17 +361,17 @@ export const HomePortal: React.FC<HomePortalProps> = ({
           {/* Footer CTA */}
           <div className="flex items-center justify-between pt-0.5 text-xs">
             <div className="flex items-center gap-1.5 text-slate-600 text-[11px]">
-              <Flame className="w-3.5 h-3.5 text-orange-500 fill-current" />
-              <span>已连续打卡 <strong className="text-orange-600 font-bold">{streak.count}</strong> 天</span>
+              <Flame className="w-3.5 h-3.5 text-rose-500 fill-current" />
+              <span>已连续打卡 <strong className="text-blue-700 font-bold">{streak.count}</strong> 天</span>
             </div>
 
             <button
               onClick={handleCheckIn}
               disabled={streak.isCheckedToday}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-2xs cursor-pointer ${
+              className={`px-4 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-2xs cursor-pointer ${
                 streak.isCheckedToday
                   ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-default'
-                  : 'bg-orange-500 hover:bg-orange-600 text-white shadow-orange-500/20 active:scale-95'
+                  : 'bg-blue-700 hover:bg-blue-800 text-white shadow-blue-700/20 active:scale-95'
               }`}
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
@@ -390,7 +390,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
           {/* Header */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900">
-              <Bell className="w-3.5 h-3.5 text-orange-500" />
+              <Bell className="w-3.5 h-3.5 text-blue-700" />
               <span>持续交付动态</span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -420,7 +420,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
                     <strong className="text-xs font-bold text-slate-800 truncate">
                       {log.title}
                     </strong>
-                    <span className="text-orange-600 font-semibold text-[10px] bg-orange-50 px-1.5 py-0.2 rounded shrink-0">
+                    <span className="text-blue-700 font-semibold text-[10px] bg-blue-50 px-1.5 py-0.2 rounded border border-blue-100 shrink-0">
                       {log.tag}
                     </span>
                   </div>
@@ -440,7 +440,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
                 <span
                   key={i}
                   className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                    i === activeLogIndex ? 'bg-orange-500 w-3' : 'bg-slate-200'
+                    i === activeLogIndex ? 'bg-blue-700 w-3' : 'bg-slate-200'
                   }`}
                 />
               ))}
@@ -451,14 +451,14 @@ export const HomePortal: React.FC<HomePortalProps> = ({
 
       </div>
 
-      {/* --- 2. 核心学习目标指引与 3 大主线选择器 (1:1 对标韩语研习社交互标准) --- */}
+      {/* --- 2. 核心学习目标指引与 3 大主线选择器 (纯正法兰西皇家蓝视觉交互体系) --- */}
       <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-xs space-y-4">
         
         {/* Header with target badge */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-2">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-50 text-orange-600 text-xs font-bold border border-orange-200/70">
-              <Compass className="w-3.5 h-3.5 text-orange-500" />
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200/70">
+              <Compass className="w-3.5 h-3.5 text-blue-600" />
               <span>新学员指引 · 学习主线向导</span>
               <span className="text-slate-400 font-normal hidden sm:inline">不知道从哪学起？点击下方选定你的目标：</span>
             </div>
@@ -469,14 +469,14 @@ export const HomePortal: React.FC<HomePortalProps> = ({
 
           <div className="flex items-center gap-1.5 self-start sm:self-auto px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/70 text-xs font-bold text-slate-700">
             <span className="text-slate-400 font-normal">当前主线:</span>
-            <span className="text-orange-600 font-black">{currentTrackConfig.name}</span>
+            <span className="text-blue-700 font-black">{currentTrackConfig.name}</span>
           </div>
         </div>
 
         {/* Selected Track Banner */}
-        <div className="p-3.5 rounded-2xl bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-slate-50 border border-orange-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+        <div className="p-3.5 rounded-2xl bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-slate-50 border border-blue-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-orange-500 shrink-0" />
+            <span className="w-2 h-2 rounded-full bg-blue-600 shrink-0" />
             <span className="font-black text-slate-900">
               【{currentTrackConfig.name}】闭环指引
             </span>
@@ -484,7 +484,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
               | {currentTrackConfig.desc}
             </span>
           </div>
-          <span className="px-2.5 py-0.5 rounded-full bg-white text-orange-700 border border-orange-200/80 text-[11px] font-bold self-start sm:self-auto shrink-0 shadow-2xs">
+          <span className="px-2.5 py-0.5 rounded-full bg-white text-blue-800 border border-blue-200/80 text-[11px] font-bold self-start sm:self-auto shrink-0 shadow-2xs">
             按顺序执行 {currentTrackConfig.steps.length} 步 ➔ 达成闭环
           </span>
         </div>
@@ -506,7 +506,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
               >
                 {/* Active checkmark */}
                 {isSelected && (
-                  <div className="absolute top-3 right-3 w-5 h-5 rounded-full bg-orange-500 text-white flex items-center justify-center shadow-xs">
+                  <div className="absolute top-3 right-3 w-5 h-5 rounded-full bg-blue-700 text-white flex items-center justify-center shadow-xs">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                   </div>
                 )}
@@ -523,7 +523,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
                     </span>
                   </div>
 
-                  <h3 className="text-base font-black text-slate-900 group-hover:text-orange-600 transition">
+                  <h3 className="text-base font-black text-slate-900 group-hover:text-blue-700 transition">
                     {config.name}
                   </h3>
                   <p className="text-xs text-slate-500 font-medium">
@@ -532,11 +532,11 @@ export const HomePortal: React.FC<HomePortalProps> = ({
                 </div>
 
                 <div className="pt-2 border-t border-slate-200/60 flex items-center justify-between text-xs font-bold">
-                  <span className={isSelected ? 'text-orange-600' : 'text-slate-500 group-hover:text-slate-800'}>
+                  <span className={isSelected ? 'text-blue-700' : 'text-slate-500 group-hover:text-slate-800'}>
                     {isSelected ? '立即进入学习 (进入真题大卷)' : '点击切换此路线'}
                   </span>
                   <ArrowRight className={`w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 ${
-                    isSelected ? 'text-orange-600' : 'text-slate-400'
+                    isSelected ? 'text-blue-700' : 'text-slate-400'
                   }`} />
                 </div>
               </div>
@@ -544,7 +544,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
           })}
         </div>
 
-        {/* Roadmap Steps Container (1-to-1 matching Korean steps cards) */}
+        {/* Roadmap Steps Container */}
         <div id="track-steps-roadmap" className="pt-2 space-y-3">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
             {currentTrackConfig.steps.map((step) => {
@@ -552,7 +552,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
               return (
                 <div
                   key={step.stepNum}
-                  className="bg-slate-50/70 hover:bg-white rounded-2xl p-4 border border-slate-200/70 hover:border-orange-300 hover:shadow-xs transition flex flex-col justify-between space-y-3 group"
+                  className="bg-slate-50/70 hover:bg-white rounded-2xl p-4 border border-slate-200/70 hover:border-blue-300 hover:shadow-xs transition flex flex-col justify-between space-y-3 group"
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
@@ -564,7 +564,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
                       </span>
                     </div>
 
-                    <h4 className="text-sm font-black text-slate-900 group-hover:text-orange-600 transition">
+                    <h4 className="text-sm font-black text-slate-900 group-hover:text-blue-700 transition">
                       {step.title}
                     </h4>
                     <p className="text-xs text-slate-500 leading-relaxed font-medium">

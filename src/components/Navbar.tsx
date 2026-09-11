@@ -98,7 +98,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     }, 2000);
   };
 
-  // 首页专属旗舰展台：将品牌、标语、统计卡片与导航无缝融合（1:1 复刻韩语研习社顶层架构）
+  // 首页专属旗舰展台：保留韩语版的顶级架构与布局，完全采用正统法兰西皇家蓝与白金高雅色系
   if (activeTab === 'home') {
     return (
       <header className="w-full pt-2.5 sm:pt-3 transition-all">
@@ -116,7 +116,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     className="flex items-center gap-1.5 cursor-pointer select-none group mr-1 shrink-0"
                     title="法语研习社 (点击刷新首页 / 连击5次开启管理员)"
                   >
-                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-gradient-to-br from-blue-600 via-indigo-600 to-rose-600 flex items-center justify-center text-white shadow-xs font-black text-xs tracking-tight group-hover:scale-105 transition shrink-0">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-gradient-to-br from-blue-700 via-indigo-600 to-blue-800 flex items-center justify-center text-white shadow-xs font-black text-xs tracking-tight group-hover:scale-105 transition shrink-0">
                       FR
                     </div>
                     <span className="font-black text-sm tracking-tight text-slate-900">
@@ -130,7 +130,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       French Pro · 自研平台
                     </span>
                     <span className="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-200/80 text-[10.5px] sm:text-[11px] font-bold items-center gap-1 whitespace-nowrap">
-                      <Sparkles className="w-2.5 h-2.5 text-blue-600" /> 考研二外/DELF已上线
+                      <Sparkles className="w-2.5 h-2.5 text-blue-600" /> 考研二外/DELF双轨全真卷
                     </span>
 
                     {/* 动态考期倒计时模块 */}
@@ -156,12 +156,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </p>
               </div>
 
-              {/* 快速直达统计徽章与管理员栏 */}
+              {/* 快速直达统计徽章与管理员栏 (纯正法兰西蓝灰金规范) */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full max-w-full lg:w-auto min-w-0">
                 <div className="grid grid-cols-5 sm:flex sm:items-center gap-1 sm:gap-2 w-full sm:w-auto min-w-0">
                   <button 
                     onClick={() => setActiveTab('conjugation')}
-                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-center cursor-pointer transition shadow-xs active:scale-98"
+                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-blue-700 hover:bg-blue-800 text-white text-center cursor-pointer transition shadow-xs active:scale-98"
                   >
                     <span className="hidden sm:block text-sm font-black text-white whitespace-nowrap">变位神器</span>
                     <span className="block sm:hidden text-[10px] font-black text-white truncate w-full">变位</span>
@@ -188,13 +188,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </button>
                   <button 
                     onClick={() => setActiveTab('exam')}
-                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 text-white text-center cursor-pointer transition shadow-xs active:scale-98 group"
+                    className="min-w-0 w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center px-1 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white text-center cursor-pointer transition shadow-xs active:scale-98 group"
                     title="2026 考研二外与 DELF 官方考期全景"
                   >
                     <span className="hidden sm:block text-sm font-black text-white whitespace-nowrap">📅 官方考期</span>
                     <span className="block sm:hidden text-[10px] font-black text-white truncate w-full">📅 考期</span>
-                    <span className="hidden sm:block text-[9px] text-rose-100 font-medium whitespace-nowrap">{examCountdown.buttonSubText}</span>
-                    <span className="block sm:hidden text-[8px] text-rose-100 font-medium truncate w-full">{examCountdown.days}天</span>
+                    <span className="hidden sm:block text-[9px] text-blue-100 font-medium whitespace-nowrap">{examCountdown.buttonSubText}</span>
+                    <span className="block sm:hidden text-[8px] text-blue-100 font-medium truncate w-full">{examCountdown.days}天</span>
                   </button>
                   <button 
                     onClick={onOpenVipModal}
@@ -216,19 +216,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                       className="p-1.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition border border-slate-200/80 shrink-0 cursor-pointer flex items-center gap-1 text-xs font-bold"
                       title="店主管理后台"
                     >
-                      <Settings2 className="w-3.5 h-3.5 text-blue-600" />
+                      <Settings2 className="w-3.5 h-3.5 text-blue-700" />
                       <span className="hidden xl:inline text-slate-700 font-bold">后台</span>
                     </button>
 
                     {isVip ? (
-                      <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-xs shrink-0 whitespace-nowrap">
+                      <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-700 text-white text-xs font-bold shadow-xs shrink-0 whitespace-nowrap">
                         <Crown className="w-3.5 h-3.5 shrink-0" />
                         <span className="whitespace-nowrap">{license?.planName || 'VIP 终身卡'}</span>
                       </div>
                     ) : (
                       <button
                         onClick={onOpenVipModal}
-                        className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-xs active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
+                        className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white text-xs font-bold shadow-xs active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
                       >
                         <KeyRound className="w-3.5 h-3.5 shrink-0" />
                         <span className="whitespace-nowrap">激活</span>
@@ -259,13 +259,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                       onClick={() => setActiveTab(item.id)}
                       className={`flex items-center justify-center gap-1.5 py-2 px-1 rounded-lg text-xs font-extrabold transition-all duration-150 cursor-pointer ${
                         isActive
-                          ? 'bg-white text-blue-600 shadow-xs border border-slate-200/90 font-black'
+                          ? 'bg-white text-blue-700 shadow-xs border border-slate-200/90 font-black'
                           : item.isHero
                           ? 'text-slate-800 hover:bg-white/80 hover:text-blue-700'
                           : 'text-slate-700 hover:bg-white/70 hover:text-slate-900'
                       }`}
                     >
-                      <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-blue-600' : 'text-slate-500'}`} />
+                      <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-blue-700' : 'text-slate-500'}`} />
                       <span className="truncate">{item.label}</span>
                     </button>
                   );
@@ -283,7 +283,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       onClick={() => setActiveTab(item.id)}
                       className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition cursor-pointer ${
                         isActive
-                          ? 'bg-blue-600 text-white shadow-xs'
+                          ? 'bg-blue-700 text-white shadow-xs'
                           : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                       }`}
                     >
@@ -313,7 +313,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-2.5 cursor-pointer select-none group shrink-0"
             title="点击5次开启管理后台"
           >
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 via-indigo-600 to-rose-600 flex items-center justify-center text-white shadow-xs font-black text-xs group-hover:scale-105 transition shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-700 via-indigo-600 to-blue-800 flex items-center justify-center text-white shadow-xs font-black text-xs group-hover:scale-105 transition shrink-0">
               FR
             </div>
             <div className="flex items-center gap-1.5">
@@ -337,7 +337,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => setActiveTab(item.id)}
                   className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
                     isActive
-                      ? 'bg-blue-600 text-white shadow-xs'
+                      ? 'bg-blue-700 text-white shadow-xs'
                       : 'text-slate-700 hover:bg-white hover:text-slate-900'
                   }`}
                 >
@@ -351,14 +351,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Right VIP / Actions */}
           <div className="flex items-center gap-2">
             {isVip ? (
-              <div className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-xs">
+              <div className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-700 text-white text-xs font-bold shadow-xs">
                 <Crown className="w-3.5 h-3.5" />
                 <span>{license?.planName || 'VIP 终身卡'}</span>
               </div>
             ) : (
               <button
                 onClick={onOpenVipModal}
-                className="flex items-center gap-1 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-xs shadow-blue-600/20 active:scale-95 transition cursor-pointer"
+                className="flex items-center gap-1 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white text-xs font-bold shadow-xs shadow-blue-700/20 active:scale-95 transition cursor-pointer"
               >
                 <KeyRound className="w-3.5 h-3.5" />
                 <span>开通 VIP</span>
@@ -371,7 +371,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="p-1.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition border border-slate-200/80"
                 title="店主管理后台"
               >
-                <Settings2 className="w-4 h-4 text-blue-600" />
+                <Settings2 className="w-4 h-4 text-blue-700" />
               </button>
             )}
           </div>
