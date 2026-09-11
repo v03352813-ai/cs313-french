@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Headphones, 
   FileCheck2, 
@@ -52,9 +52,26 @@ interface TrackConfig {
   targetAudience: string;
   tag: string;
   icon: string;
+  themeColorName: string;
+  // Unselected styles
+  cardBg: string;
+  cardBorder: string;
+  tagBg: string;
+  hoverBorder: string;
+  hoverTitle: string;
+  // Selected styles
   activeBorder: string;
   activeBg: string;
   activeRing: string;
+  activeCheckmarkBg: string;
+  activeTag: string;
+  activeTitle: string;
+  activeFooterText: string;
+  // Banner styles
+  bannerGrad: string;
+  bannerDot: string;
+  bannerBadgeBg: string;
+  bannerBadgeText: string;
   desc: string;
   steps: TrackStep[];
 }
@@ -66,9 +83,23 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
     targetAudience: '从发音到中级 · 稳扎稳打',
     tag: '系统筑基',
     icon: '🌱',
-    activeBorder: 'border-[#80142A]',
-    activeBg: 'bg-[#FCECEF]/60 border-[#80142A] text-[#80142A]',
-    activeRing: 'ring-2 ring-[#80142A]/25 shadow-md',
+    themeColorName: '奶油白',
+    cardBg: 'bg-gradient-to-b from-[#FFFDF9] via-[#FAF6EE] to-[#F5EFE4]',
+    cardBorder: 'border-[#E8DEC8]',
+    tagBg: 'bg-[#F4EADA] text-[#785E39] border-[#DFD0BA]',
+    hoverBorder: 'hover:border-[#C5A059]',
+    hoverTitle: 'group-hover:text-[#8C6D3B]',
+    activeBorder: 'border-[#C5A059]',
+    activeBg: 'bg-gradient-to-b from-[#FFFDF7] via-[#F8EFE0] to-[#EFE2CC]',
+    activeRing: 'ring-2 ring-[#C5A059]/35 shadow-md',
+    activeCheckmarkBg: 'bg-[#8C6D3B]',
+    activeTag: 'bg-white text-[#785E39] border-[#C5A059]/50 shadow-2xs',
+    activeTitle: 'text-[#684C1C]',
+    activeFooterText: 'text-[#8C6D3B]',
+    bannerGrad: 'bg-gradient-to-r from-[#FAF3E3] via-[#FAF6EE] to-white border-[#E8DEC8]',
+    bannerDot: 'bg-[#C5A059]',
+    bannerBadgeBg: 'bg-white text-[#785E39] border-[#C5A059]/40',
+    bannerBadgeText: 'text-[#785E39]',
     desc: '初学者零压力科学路线：攻克 35 国际音标与 4 大连音联诵规则 ➔ 玩转三组动词 7 大时态变位演练器 ➔ 掌握 5,000+ 阴阳性核心词！',
     steps: [
       {
@@ -127,9 +158,23 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
     targetAudience: '追剧看电影 · 突破哑巴法语',
     tag: '沉浸开口',
     icon: '🎙️',
+    themeColorName: '酒红',
+    cardBg: 'bg-gradient-to-b from-[#FFF9FA] via-[#FCF1F3] to-[#F7E5E9]',
+    cardBorder: 'border-[#80142A]/25',
+    tagBg: 'bg-[#FCECEF] text-[#80142A] border-[#80142A]/25',
+    hoverBorder: 'hover:border-[#80142A]',
+    hoverTitle: 'group-hover:text-[#80142A]',
     activeBorder: 'border-[#80142A]',
-    activeBg: 'bg-[#FCECEF]/60 border-[#80142A] text-[#80142A]',
-    activeRing: 'ring-2 ring-[#80142A]/25 shadow-md',
+    activeBg: 'bg-gradient-to-b from-[#FCECEF] via-[#F8DDE2] to-[#F1C9D2]',
+    activeRing: 'ring-2 ring-[#80142A]/35 shadow-md',
+    activeCheckmarkBg: 'bg-[#80142A]',
+    activeTag: 'bg-white text-[#80142A] border-[#80142A]/30 shadow-2xs',
+    activeTitle: 'text-[#80142A]',
+    activeFooterText: 'text-[#80142A]',
+    bannerGrad: 'bg-gradient-to-r from-[#FCECEF]/80 via-[#F8F9FA] to-white border-[#80142A]/25',
+    bannerDot: 'bg-[#80142A]',
+    bannerBadgeBg: 'bg-white text-[#80142A] border-[#80142A]/25',
+    bannerBadgeText: 'text-[#80142A]',
     desc: '告别死板背诵！甄选《放牛班的春天》《天使爱美丽》《触不可及》《小王子》经典高光名场面 ➔ 逐句盲听跟读 ➔ 每日早读养成纯正法兰西语感。',
     steps: [
       {
@@ -164,9 +209,23 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
     targetAudience: '冲刺名校 241/242 · 高分通关',
     tag: '考研必选',
     icon: '🎯',
-    activeBorder: 'border-[#80142A]',
-    activeBg: 'bg-[#FCECEF]/60 border-[#80142A] text-[#80142A]',
-    activeRing: 'ring-2 ring-[#80142A]/25 shadow-md',
+    themeColorName: '深蓝灰',
+    cardBg: 'bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#E2E8F0]',
+    cardBorder: 'border-[#CBD5E1]',
+    tagBg: 'bg-[#E2E8F0] text-[#1E293B] border-[#CBD5E1]',
+    hoverBorder: 'hover:border-[#1E293B]',
+    hoverTitle: 'group-hover:text-[#1E293B]',
+    activeBorder: 'border-[#1E293B]',
+    activeBg: 'bg-gradient-to-b from-[#EBF0F7] via-[#DCE5F1] to-[#CBD8E9]',
+    activeRing: 'ring-2 ring-[#1E293B]/35 shadow-md',
+    activeCheckmarkBg: 'bg-[#1E293B]',
+    activeTag: 'bg-white text-[#1E293B] border-[#94A3B8] shadow-2xs',
+    activeTitle: 'text-[#1E293B]',
+    activeFooterText: 'text-[#1E293B]',
+    bannerGrad: 'bg-gradient-to-r from-[#EBF0F7] via-[#F1F5F9] to-white border-[#CBD5E1]',
+    bannerDot: 'bg-[#1E293B]',
+    bannerBadgeBg: 'bg-white text-[#1E293B] border-[#CBD5E1]',
+    bannerBadgeText: 'text-[#1E293B]',
     desc: '专为全国高校考研二外考生打造的标准提分闭环：高校历届全真大卷摸底 ➔ 错题遗忘曲线靶向复盘 ➔ 核心动词时态与虚拟式专项攻坚！',
     steps: [
       {
@@ -213,9 +272,23 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
     targetAudience: '欧标 A1-B2 证书 · 留学移民',
     tag: '国际认证',
     icon: '🌍',
-    activeBorder: 'border-[#80142A]',
-    activeBg: 'bg-[#FCECEF]/60 border-[#80142A] text-[#80142A]',
-    activeRing: 'ring-2 ring-[#80142A]/25 shadow-md',
+    themeColorName: '艺术馆金色',
+    cardBg: 'bg-gradient-to-b from-[#FFFDF5] via-[#FAF4E2] to-[#F4E9C8]',
+    cardBorder: 'border-[#DDBF78]/60',
+    tagBg: 'bg-[#F6EDD0] text-[#8A6A1E] border-[#DDBF78]/70',
+    hoverBorder: 'hover:border-[#B89047]',
+    hoverTitle: 'group-hover:text-[#8C6D23]',
+    activeBorder: 'border-[#A67E28]',
+    activeBg: 'bg-gradient-to-b from-[#FAF1D6] via-[#F3E3B6] to-[#E8CF8C]',
+    activeRing: 'ring-2 ring-[#DDBF78]/55 shadow-md',
+    activeCheckmarkBg: 'bg-[#9B7722]',
+    activeTag: 'bg-white text-[#8A6A1E] border-[#DDBF78] shadow-2xs',
+    activeTitle: 'text-[#73530F]',
+    activeFooterText: 'text-[#8A6A1E]',
+    bannerGrad: 'bg-gradient-to-r from-[#FAF1D6] via-[#FAF4E2] to-white border-[#DDBF78]/60',
+    bannerDot: 'bg-[#A67E28]',
+    bannerBadgeBg: 'bg-white text-[#8A6A1E] border-[#DDBF78]/60',
+    bannerBadgeText: 'text-[#8A6A1E]',
     desc: '专为 DELF A1/A2/B1/B2 考生打造的标准通关路径：官方历届模考大卷全真机考 ➔ 5,000+ 欧标分级核心词汇 ➔ 70+ 核心文法考点避坑！',
     steps: [
       {
@@ -527,9 +600,9 @@ export const HomePortal: React.FC<HomePortalProps> = ({
         </div>
 
         {/* Selected Track Banner */}
-        <div className="p-3.5 rounded-2xl bg-gradient-to-r from-[#FCECEF]/60 via-[#F8F9FA] to-white border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+        <div className={`p-3.5 rounded-2xl ${currentTrackConfig.bannerGrad} border shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs transition-all duration-300`}>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#80142A] shrink-0" />
+            <span className={`w-2 h-2 rounded-full ${currentTrackConfig.bannerDot} shrink-0 animate-pulse`} />
             <span className="font-black text-[#29354A]">
               【{currentTrackConfig.name}】闭环指引
             </span>
@@ -537,7 +610,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
               | {currentTrackConfig.desc}
             </span>
           </div>
-          <span className="px-2.5 py-0.5 rounded-full bg-white text-[#80142A] border border-slate-200/80 text-[11px] font-bold self-start sm:self-auto shrink-0 shadow-2xs">
+          <span className={`px-2.5 py-0.5 rounded-full ${currentTrackConfig.bannerBadgeBg} border text-[11px] font-bold self-start sm:self-auto shrink-0 shadow-2xs`}>
             按顺序执行 {currentTrackConfig.steps.length} 步 ➔ 达成闭环
           </span>
         </div>
@@ -554,12 +627,12 @@ export const HomePortal: React.FC<HomePortalProps> = ({
                 className={`p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer relative flex flex-col justify-between space-y-3 group ${
                   isSelected
                     ? `${config.activeBorder} ${config.activeBg} ${config.activeRing}`
-                    : 'bg-slate-50/80 border-slate-200/80 hover:border-[#80142A]/40 hover:bg-white hover:shadow-xs'
+                    : `${config.cardBg} ${config.cardBorder} ${config.hoverBorder} hover:shadow-xs`
                 }`}
               >
                 {/* Active checkmark */}
                 {isSelected && (
-                  <div className="absolute top-3 right-3 w-5 h-5 rounded-full bg-[#80142A] text-white flex items-center justify-center shadow-xs">
+                  <div className={`absolute top-3 right-3 w-5 h-5 rounded-full ${config.activeCheckmarkBg} text-white flex items-center justify-center shadow-xs`}>
                     <CheckCircle2 className="w-3.5 h-3.5" />
                   </div>
                 )}
@@ -569,14 +642,18 @@ export const HomePortal: React.FC<HomePortalProps> = ({
                     <span className="text-2xl">{config.icon}</span>
                     <span className={`text-[10px] font-black px-2 py-0.5 rounded-full border ${
                       isSelected
-                        ? 'bg-white text-slate-800 border-slate-200/80'
-                        : 'bg-white text-slate-600 border-slate-200/80'
+                        ? config.activeTag
+                        : config.tagBg
                     }`}>
                       {config.tag}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-black text-[#29354A] group-hover:text-[#80142A] transition">
+                  <h3 className={`text-base font-black transition ${
+                    isSelected
+                      ? config.activeTitle
+                      : `text-[#29354A] ${config.hoverTitle}`
+                  }`}>
                     {config.name}
                   </h3>
                   <p className="text-xs text-slate-500 font-medium">
@@ -585,11 +662,11 @@ export const HomePortal: React.FC<HomePortalProps> = ({
                 </div>
 
                 <div className="pt-2 border-t border-slate-200/70 flex items-center justify-between text-xs font-bold">
-                  <span className={isSelected ? 'text-[#80142A]' : 'text-slate-500 group-hover:text-slate-800'}>
+                  <span className={isSelected ? config.activeFooterText : 'text-slate-500 group-hover:text-slate-800'}>
                     {isSelected ? `立即进入学习 (${config.steps[0].actionText.slice(0, 6)})` : '点击切换此路线'}
                   </span>
                   <ArrowRight className={`w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 ${
-                    isSelected ? 'text-[#80142A]' : 'text-slate-400'
+                    isSelected ? config.activeFooterText : 'text-slate-400'
                   }`} />
                 </div>
               </div>
