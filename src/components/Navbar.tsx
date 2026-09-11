@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   LayoutGrid, 
   Sparkles, 
@@ -373,7 +373,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 whitespace-nowrap">
               <button
                 onClick={() => setActiveTab('exam')}
-                className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-rose-500 to-[#80142A] hover:from-rose-600 hover:to-[#680E20] text-white text-xs font-bold transition shrink-0 cursor-pointer shadow-2xs"
+                className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-bold transition shrink-0 cursor-pointer shadow-2xs"
                 title="查看官方考期全景与避坑指南"
               >
                 <span>📅</span>
@@ -420,10 +420,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               ) : (
                 <button
                   onClick={onOpenVipModal}
-                  className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 hover:from-orange-600 hover:to-amber-600 text-white text-xs font-bold shadow-xs active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-gradient-to-r from-[#80142A] via-[#9B1B36] to-[#680E20] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-bold shadow-xs active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer border border-[#DDBF78]/30"
                   title="开通 CS313 法语单语种终身VIP"
                 >
-                  <Crown className="w-3.5 h-3.5 shrink-0" />
+                  <Crown className="w-3.5 h-3.5 text-[#DDBF78] shrink-0" />
                   <span className="whitespace-nowrap">CS313 法语单语种终身VIP</span>
                 </button>
               )}
