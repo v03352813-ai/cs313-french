@@ -105,7 +105,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main View Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 pt-6">
+      <main className={`flex-1 w-full mx-auto ${activeTab === 'home' ? 'pb-8' : 'max-w-7xl px-3 sm:px-6 pt-4 sm:pt-6'}`}>
         {activeTab === 'home' && (
           <HomePortal
             setActiveTab={handleTabChange}

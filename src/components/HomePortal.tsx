@@ -307,7 +307,7 @@ export const HomePortal: React.FC<HomePortalProps> = ({
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-4 sm:py-6 space-y-5 sm:space-y-6">
+    <div className="max-w-6xl mx-auto px-4 pt-2.5 sm:pt-3.5 pb-8 space-y-4 sm:space-y-5">
       
       {/* --- 1. 每日晨读打卡 & 持续更新动态跑马灯轮播专区 --- */}
       <div id="daily-quote-section" className="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
