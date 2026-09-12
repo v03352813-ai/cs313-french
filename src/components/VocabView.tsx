@@ -506,9 +506,9 @@ export const VocabView: React.FC<VocabViewProps> = ({
                   </button>
                 </div>
               </div>
-
             </div>
           </div>
+        )}
 
           {/* 底部翻页控制器 */}
           <div className="flex items-center justify-between gap-3 pt-2">
