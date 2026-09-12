@@ -8,6 +8,11 @@ export interface GrammarPoint {
   frenchTitle: string;
   level: 'A1-A2' | 'B1-B2' | 'KAOYAN';
   category: '冠词与名词' | '代词系统' | '时态与语态' | '从句与虚拟式';
+  tracks: ('kaoyan' | 'delf')[]; // 考研二外 vs DELF 归属赛道
+  trackNotes?: {
+    kaoyan?: string; // 考研二外踩分要点
+    delf?: string;   // DELF 欧标实战要点
+  };
   summary: string;
   formula: string;
   conjugationBridge?: {
@@ -30,6 +35,11 @@ export const FRENCH_GRAMMAR_LIST: GrammarPoint[] = [
     frenchTitle: 'Les Articles en français',
     level: 'A1-A2',
     category: '冠词与名词',
+    tracks: ['kaoyan', 'delf'],
+    trackNotes: {
+      kaoyan: '否定句中不定冠词与部分冠词绝对变 de 几乎每年各大高校二外考卷必设陷阱。',
+      delf: 'DELF A1-B1 写作中区分整体概念（定冠词）与具体数量/不可数（部分冠词 du/de la）的交际规范。'
+    },
     summary: '法语名词前几乎必带冠词，用来标明名词的“性”（阴/阳）、“数”（单/复）与“确指程度”。',
     formula: '冠词 + 名词 (严格性数配合)',
     conjugationBridge: {
@@ -71,6 +81,11 @@ export const FRENCH_GRAMMAR_LIST: GrammarPoint[] = [
     frenchTitle: 'Pronoms COD et COI',
     level: 'A1-A2',
     category: '代词系统',
+    tracks: ['kaoyan', 'delf'],
+    trackNotes: {
+      kaoyan: '考查单选与汉译法中代词提前位置，以及 COD 抢跑对过去分词的影响。',
+      delf: 'DELF B1/B2 避免机械重复上文提及的人与事物，提升口笔头表达流畅度的关键手段。'
+    },
     summary: '为了避免重复名词，法语使用代词代替名词，且代词通常必须提前置于相关动词之前！',
     formula: '主语 + COD/COI 代词 + 动词',
     conjugationBridge: {
@@ -104,6 +119,10 @@ export const FRENCH_GRAMMAR_LIST: GrammarPoint[] = [
     frenchTitle: 'Les pronoms adverbiaux Y et EN',
     level: 'B1-B2',
     category: '代词系统',
+    tracks: ['kaoyan'],
+    trackNotes: {
+      kaoyan: '【全国高校考研二外绝杀大题】几乎每所高校必考 1-2 道单选题，考查 penser à qn 与 penser à qch 的代词分歧。'
+    },
     summary: '【全国高校考研二外单选题常年必考大题】副代词 y 与 en 的置换规则极其严格，掌握即可轻松拿分。',
     formula: 'y 替代 à/地点；en 替代 de/数量词',
     conjugationBridge: {
@@ -137,6 +156,11 @@ export const FRENCH_GRAMMAR_LIST: GrammarPoint[] = [
     frenchTitle: 'L\'accord du participe passé au passé composé',
     level: 'A1-A2',
     category: '时态与语态',
+    tracks: ['kaoyan', 'delf'],
+    trackNotes: {
+      kaoyan: '考研改错题与汉译法扣分最凶考点！分词配合漏写一个 -e 或 -s 扣整整 1 分。',
+      delf: 'DELF A2-B1 写作必查项，考官衡量考生基本功严谨度的第一道红线。'
+    },
     summary: '复合过去时中，90% 动词用 avoir，少数位移动词与自反动词用 être。过去分词与谁配合是语法改错必考。',
     formula: '用 être ➔ 分词与主语配合；用 avoir ➔ 直宾提前才配合',
     conjugationBridge: {
@@ -170,6 +194,11 @@ export const FRENCH_GRAMMAR_LIST: GrammarPoint[] = [
     frenchTitle: 'Le Subjonctif présent',
     level: 'B1-B2',
     category: '从句与虚拟式',
+    tracks: ['kaoyan', 'delf'],
+    trackNotes: {
+      kaoyan: 'espérer que 与 vouloir que / il faut que 的对比每年必出选择题；汉译法必用 bien que + 虚拟式拿加分。',
+      delf: 'DELF B2 正式公函写作（Il est impératif que nous prenions...）与口试辩论表达观点的必备踩分语法。'
+    },
     summary: '虚拟式用来表达主观愿望、命令、情感态度、怀疑或必要性。在从属连词 que 引导的从句中强制使用。',
     formula: '主句表达主观意愿/情感/必须 + que + 虚拟式从句',
     conjugationBridge: {
@@ -210,6 +239,11 @@ export const FRENCH_GRAMMAR_LIST: GrammarPoint[] = [
     frenchTitle: 'Imparfait vs Passé Composé',
     level: 'B1-B2',
     category: '时态与语态',
+    tracks: ['kaoyan', 'delf'],
+    trackNotes: {
+      kaoyan: '单选填空题常年设置持续状态与突发事件的对比题，要求精准判断谓语时态。',
+      delf: 'DELF A2-B1 记叙文（叙述个人旅行、难忘经历、求职背景）最核心的篇章时态骨架。'
+    },
     summary: '复合过去时是“时间轴上的刀刻闪电”（动作完成、有明确起止）；未完成过去时是“持续的背景画卷、习惯描写或状态”。',
     formula: '持续状态/背景描写 ➔ 未完成过去时；突发动作/明确断点 ➔ 复合过去时',
     conjugationBridge: {
@@ -243,6 +277,10 @@ export const FRENCH_GRAMMAR_LIST: GrammarPoint[] = [
     frenchTitle: 'Les Verbes Pronominaux au passé composé',
     level: 'B1-B2',
     category: '时态与语态',
+    tracks: ['kaoyan'],
+    trackNotes: {
+      kaoyan: '【全国考研二外改错大题之王】区分 se 为间宾（se téléphoner）不配合与 se 为直宾配合的扣分雷区。'
+    },
     summary: '自反动词变位一律以 être 为助动词，但过去分词是否性数配合，严格取决于自反代词 se 到底充当直接宾语 (COD) 还是间接宾语 (COI)！',
     formula: '主语 + se/me/te + être变位 + 过去分词 (se 是直宾才配合！)',
     conjugationBridge: {
@@ -269,5 +307,76 @@ export const FRENCH_GRAMMAR_LIST: GrammarPoint[] = [
       }
     ],
     examTrap: '【全国考研二外超级高频错题】：Elle s\'est lavé les mains（她洗了手）。因为双手 les mains 是直接宾语且在动词后，se 是间接宾语（给自己洗手），因此分词 lavé 绝不能加 e！但如果是 Les mains qu\'elle s\'est lavées，直宾 les mains 抢跑到前面了，lavé 必须加 es！'
+  },
+  {
+    id: 'g_connecteurs_logiques',
+    title: '论证逻辑连接词体系 (Connecteurs Logiques)',
+    frenchTitle: 'Les Connecteurs Logiques pour l\'argumentation',
+    level: 'B1-B2',
+    category: '从句与虚拟式',
+    tracks: ['delf'],
+    trackNotes: {
+      delf: '【DELF B1/B2 写作与口试灵魂】考官评分量表中的 Cohérence et cohésion 核心评分项，直接决定能否突破 20 分。'
+    },
+    summary: '逻辑连接词是法语篇章论述的骨架。掌握起承转合、让步转折与因果推导，让文章与口语回答展现出清晰的法国人思辨结构。',
+    formula: '引题 (D\'abord) ➔ 递进 (De surcroît) ➔ 让步 (Certes... néanmoins) ➔ 结论 (En définitive)',
+    rules: [
+      {
+        name: '1. 递进与补充 (Addition & Progression)',
+        description: '取代单调的 et / aussi，使用更具学术质感的高级连接词。',
+        examples: [
+          { fr: 'En premier lieu, ... De plus / En outre, ...', zh: '首先……此外 / 更有甚者……' },
+          { fr: 'Non seulement c\'est économique, mais encore c\'est écologique.', zh: '这不仅经济实惠，而且非常环保。' }
+        ]
+      },
+      {
+        name: '2. 对立与让步 (Opposition & Concession)',
+        description: '展现 B2 级别的辩证思维（承认反方合理性后有力转折）。',
+        examples: [
+          { fr: 'Certes, cette solution est coûteuse. Néanmoins, elle est durable.', zh: '固然，该方案成本高昂。然而，它具有可持续性。' },
+          { fr: 'Il est indéniable que... Toutefois, ...', zh: '不可否认的是……然而……' }
+        ]
+      },
+      {
+        name: '3. 总结与导出 (Conclusion)',
+        description: '在尾段清晰亮明最终立场与建设性建议。',
+        examples: [
+          { fr: 'En définitive / Pour conclure, il convient de trouver un juste milieu.', zh: '总而言之，应当找到一个恰当的平衡点。' }
+        ]
+      }
+    ],
+    examTrap: '【DELF 考官扣分点】：切忌通篇重复使用 mais、et、parce que！在 B2 写作中，必须合理穿插 néanmoins、en revanche、par conséquent 等高级连接词。'
+  },
+  {
+    id: 'g_conditionnel_politesse',
+    title: '条件式现在时 (Conditionnel) 委婉表达与正式提议',
+    frenchTitle: 'Le Conditionnel présent : Politesse et suggestion',
+    level: 'B1-B2',
+    category: '从句与虚拟式',
+    tracks: ['delf', 'kaoyan'],
+    trackNotes: {
+      kaoyan: 'Si 从句虚拟假设时态呼应（Si + imparfait ➔ conditionnel présent）每年必考。',
+      delf: 'DELF B2 正式行政信函与面试向市长/考官提出建议时的标配时态（Il serait judicieux de...）。'
+    },
+    summary: '条件式不仅用于“如果……就会……”的假设，更是法语中表达极端礼貌、委婉批评、提出对策的核心语气。',
+    formula: '简单将来时词根 + 未完成过去时词尾 (-ais, -ais, -ait, -ions, -iez, -aient)',
+    rules: [
+      {
+        name: '1. 委婉礼貌请求 (Politesse)',
+        description: '用 pourrais-tu / pourriez-vous 代替直白的 peux-tu / pouvez-vous。',
+        examples: [
+          { fr: 'Pourriez-vous m\'accorder un entretien, s\'il vous plaît ?', zh: '您能赐予我一次面谈机会吗？' },
+          { fr: 'Je voudrais des renseignements sur cette formation.', zh: '我想咨询一下关于该培训的信息。' }
+        ]
+      },
+      {
+        name: '2. 正式建议与替代对策 (Suggestion formelle)',
+        description: '行政公函与议论文中委婉提出倡议。',
+        examples: [
+          { fr: 'Il serait préférable d\'aménager une voie cyclable.', zh: '修建一条自行车道将会是更明智的选择。' }
+        ]
+      }
+    ],
+    examTrap: '【时态搭配黄金定律】：Si 条件从句中【绝对不能直接出现条件式】！必须是 Si + imparfait（未完成过去时），主句才用条件式！例：S\'il faisait beau, je sortirais (绝不能写 *Si je sortirais)！'
   }
 ];
