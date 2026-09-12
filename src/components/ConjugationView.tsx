@@ -1,25 +1,190 @@
 import React, { useState } from 'react';
 import { 
-  RotateCcw, 
   Search, 
   Volume2, 
   Sparkles, 
-  Check, 
   BookOpen, 
-  Lightbulb, 
   ArrowRight, 
-  Info, 
   Lock, 
-  KeyRound,
-  ChevronDown,
-  ChevronUp,
-  Headphones,
-  Ear,
-  AlertCircle,
-  Layers,
-  X
+  ChevronDown, 
+  ChevronUp, 
+  Zap, 
+  X, 
+  Table
 } from 'lucide-react';
-import { FRENCH_VERBS, TENSES_METADATA, VerbItem, TenseKey, VerbGroup } from '../data/french/conjugation';
+import { 
+  FRENCH_VERBS, 
+  TENSES_METADATA, 
+  VerbItem, 
+  TenseKey, 
+  VerbGroup 
+} from '../data/french/conjugation';
+
+// 法语标准音真人朗读引擎
+const speakFrench = (text: string) => {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'fr-FR';
+    utterance.rate = 0.88;
+    const voices = window.speechSynthesis.getVoices();
+    const frVoice = voices.find(v => v.lang.startsWith('fr') || v.name.includes('French') || v.name.includes('France'));
+    if (frVoice) {
+      utterance.voice = frVoice;
+    }
+    window.speechSynthesis.speak(utterance);
+  } catch {
+    // 忽略语音引擎初始化异常
+  }
+};
+
+// 7 大时态宏观法则全景宝典数据库
+interface FrenchTenseRuleItem {
+  key: TenseKey;
+  tenseName: string;
+  frenchName: string;
+  usageDesc: string;
+  formula: string;
+  rules: {
+    group1: string; // 第 1 组 -er
+    group2: string; // 第 2 组 -ir
+    group3: string; // 四大天王与特异
+  };
+  sample: {
+    infinitive: string;
+    meaning: string;
+    conjugated: string;
+  }[];
+}
+
+const FRENCH_TENSE_RULES: FrenchTenseRuleItem[] = [
+  {
+    key: 'present',
+    tenseName: '直陈式现在时',
+    frenchName: "Présent de l'indicatif",
+    usageDesc: '描述当前发生的事实、客观真理或经常性习惯行为。',
+    formula: '词根 + 人称后缀 (-e, -es, -e, -ons, -ez, -ent)',
+    rules: {
+      group1: '摘掉 -er 换 -e, -es, -e, -ons, -ez, -ent (四个人称发音全同全静音)',
+      group2: '摘掉 -ir 换 -is, -is, -it, -issons, -issez, -issent (复数带双胞胎 -iss- [s]音)',
+      group3: '四大天王 (être, avoir, aller, faire) 完全异化，作为独立单词直接记忆'
+    },
+    sample: [
+      { infinitive: 'parler', meaning: '说', conjugated: 'je parle / nous parlons' },
+      { infinitive: 'finir', meaning: '结束', conjugated: 'je finis / nous finissons' },
+      { infinitive: 'être', meaning: '是', conjugated: 'je suis / vous êtes' },
+      { infinitive: 'avoir', meaning: '有', conjugated: "j'ai / nous avons" }
+    ]
+  },
+  {
+    key: 'passe_compose',
+    tenseName: '复合过去时',
+    frenchName: 'Passé composé',
+    usageDesc: '描述过去已经完成并对现在产生影响的动作，考级出现率第一。',
+    formula: '助动词 avoir / être (现在时) + 过去分词 (Participe passé)',
+    rules: {
+      group1: '过去分词去 -er 换 -é (如 parler ➔ parlé，aimer ➔ aimé)',
+      group2: '过去分词去 -ir 换 -i (如 finir ➔ fini，choisir ➔ choisi)',
+      group3: '四大天王特异分词 (été, eu, fait, allé)；位移动词助动词必须用 être 且性数配合'
+    },
+    sample: [
+      { infinitive: 'parler', meaning: '说', conjugated: "j'ai parlé" },
+      { infinitive: 'aller', meaning: '去', conjugated: 'je suis allé(e)' },
+      { infinitive: 'faire', meaning: '做', conjugated: "j'ai fait" },
+      { infinitive: 'avoir', meaning: '有', conjugated: "j'ai eu" }
+    ]
+  },
+  {
+    key: 'imparfait',
+    tenseName: '未完成过去时',
+    frenchName: 'Imparfait',
+    usageDesc: '描述过去持续的动作、背景状态、习惯或外貌环境描写。',
+    formula: '直陈式 nous 词根 + (-ais, -ais, -ait, -ions, -iez, -aient)',
+    rules: {
+      group1: 'parl- + -ais, -ais, -ait, -ions, -iez, -aient (注意单数及第三人称复数发音全同 [ε])',
+      group2: 'finiss- + -ais, -ais, -ait, -ions, -iez, -aient (全人称均带 -iss-)',
+      group3: '全法语唯一特例为 être 词根异化为 ét- (j\'étais, tu étais...)，其余动词全取 nous 词根'
+    },
+    sample: [
+      { infinitive: 'aimer', meaning: '喜欢', conjugated: "j'aimais" },
+      { infinitive: 'finir', meaning: '完成', conjugated: 'nous finissions' },
+      { infinitive: 'être', meaning: '在/是', conjugated: "j'étais" },
+      { infinitive: 'avoir', meaning: '有', conjugated: "j'avais" }
+    ]
+  },
+  {
+    key: 'futur_simple',
+    tenseName: '简单将来时',
+    frenchName: 'Futur simple',
+    usageDesc: '描述未来确定会发生的事情，语气肯定客观。',
+    formula: '动词原形/将来时词根 + (-ai, -as, -a, -ons, -ez, -ont)',
+    rules: {
+      group1: '以完整动词原形为词根 + ai, as, a, ons, ez, ont (如 je parlerai)',
+      group2: '以完整动词原形为词根 + ai, as, a, ons, ez, ont (如 je finirai)',
+      group3: '四大天王词根异化：ser- (être), aur- (avoir), ir- (aller), fer- (faire)'
+    },
+    sample: [
+      { infinitive: 'parler', meaning: '说', conjugated: 'je parlerai' },
+      { infinitive: 'aller', meaning: '去', conjugated: "j'irai" },
+      { infinitive: 'être', meaning: '是', conjugated: 'je serai' },
+      { infinitive: 'faire', meaning: '做', conjugated: 'je ferai' }
+    ]
+  },
+  {
+    key: 'conditionnel',
+    tenseName: '条件式现在时',
+    frenchName: 'Conditionnel présent',
+    usageDesc: '表达委婉礼貌请求、愿望、假想推测（如“我想请教您”）。',
+    formula: '简单将来时词根 + 未完成过去时词尾 (-ais, -ais, -ait, -ions, -iez, -aient)',
+    rules: {
+      group1: 'parler- + -ais, -ais, -ait, -ions, -iez, -aient (如 je parlerais)',
+      group2: 'finir- + -ais, -ais, -ait, -ions, -iez, -aient (如 je finirais)',
+      group3: '将来时特异词根 + 未完成过去时词尾 (serais, aurais, irais, ferais, voudrais)'
+    },
+    sample: [
+      { infinitive: 'aimer', meaning: '喜欢/想要', conjugated: "j'aimerais" },
+      { infinitive: 'vouloir', meaning: '想', conjugated: 'je voudrais' },
+      { infinitive: 'pouvoir', meaning: '能', conjugated: 'je pourrais' },
+      { infinitive: 'être', meaning: '是', conjugated: 'ce serait' }
+    ]
+  },
+  {
+    key: 'subjonctif',
+    tenseName: '虚拟式现在时',
+    frenchName: 'Subjonctif présent',
+    usageDesc: '表达主观情感、愿望、怀疑、必须（常用于 il faut que 等从句中）。',
+    formula: '现在时 ils 词根 + (-e, -es, -e, -ions, -iez, -ent)',
+    rules: {
+      group1: 'que je parle, que tu parles, qu\'il parle, que nous parlions, que vous parliez',
+      group2: 'que je finisse, que tu finisses, qu\'il finisse, que nous finissions...',
+      group3: '特异词根：sois/soit/soyons (être), aie/ait/ayons (avoir), fasse (faire), aille (aller)'
+    },
+    sample: [
+      { infinitive: 'faire', meaning: '做', conjugated: 'qu\'il fasse' },
+      { infinitive: 'aller', meaning: '去', conjugated: "que j'aille" },
+      { infinitive: 'être', meaning: '是', conjugated: 'que je sois' },
+      { infinitive: 'avoir', meaning: '有', conjugated: "que j'aie" }
+    ]
+  },
+  {
+    key: 'imperatif',
+    tenseName: '命令式',
+    frenchName: 'Impératif',
+    usageDesc: '向对方发出指令、建议或请求（仅 tu, nous, vous 三个人称）。',
+    formula: '省略主语代词，第 1 组动词 tu 形式通常去 -s',
+    rules: {
+      group1: 'Parle ! Parlons ! Parlez ! (注意第二人称单数 Parle 摘掉了字母 s)',
+      group2: 'Finis ! Finissons ! Finissez ! (保留 -s，复数带 -iss-)',
+      group3: '特异命令式：Sois/Soyons/Soyez (être), Aie/Ayons/Ayez (avoir), Fais/Faisons/Faites (faire)'
+    },
+    sample: [
+      { infinitive: 'parler', meaning: '说', conjugated: 'Parle ! Parlons ! Parlez !' },
+      { infinitive: 'aller', meaning: '去', conjugated: 'Va ! Allons ! Allez !' },
+      { infinitive: 'faire', meaning: '做', conjugated: 'Fais ! Faisons ! Faites !' }
+    ]
+  }
+];
 
 interface ConjugationViewProps {
   isVip?: boolean;
@@ -30,12 +195,17 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
   isVip = false,
   onOpenVipModal
 }) => {
+  // 核心视图模式：'workbench' (交互推导工作台) vs 'rules' (全景法则宝典)
+  const [viewMode, setViewMode] = useState<'workbench' | 'rules'>('workbench');
+  const [showHatGuide, setShowHatGuide] = useState<boolean>(true);
+  const [showFullMatrix, setShowFullMatrix] = useState<boolean>(true);
+
+  // 动词库筛选与搜索
   const [selectedVerb, setSelectedVerb] = useState<VerbItem>(FRENCH_VERBS[0]);
   const [selectedTense, setSelectedTense] = useState<TenseKey>('present');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [groupFilter, setGroupFilter] = useState<'all' | VerbGroup>('all');
   const [playingText, setPlayingText] = useState<string | null>(null);
-  const [showHatGuide, setShowHatGuide] = useState<boolean>(true);
 
   // 基础免费动词（前 4 大基石动词）
   const freeVerbIds = ['etre', 'avoir', 'aller', 'faire'];
@@ -55,19 +225,18 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
   const currentForms = selectedVerb.tenses[selectedTense] || selectedVerb.tenses['present']!;
 
   const playSpeech = (text: string) => {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
-    try {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'fr-FR';
-      utterance.rate = 0.9;
-      setPlayingText(text);
-      utterance.onend = () => setPlayingText(null);
-      utterance.onerror = () => setPlayingText(null);
-      window.speechSynthesis.speak(utterance);
-    } catch {
-      setPlayingText(null);
+    setPlayingText(text);
+    speakFrench(text);
+    setTimeout(() => setPlayingText(null), 1200);
+  };
+
+  const handleSelectVerb = (verb: VerbItem) => {
+    const isLockedVerb = !isVip && !freeVerbIds.includes(verb.id);
+    if (isLockedVerb) {
+      onOpenVipModal?.(`🔒【${verb.infinitive} (${verb.meaning})】为 VIP 终身卡专属核心动词！输入卡密即可解锁全量动词库！`);
+      return;
     }
+    setSelectedVerb(verb);
   };
 
   const persons = [
@@ -79,7 +248,7 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
     { key: 'ils_elles', pronoun: 'ils / elles', data: currentForms.ils_elles },
   ];
 
-  // 深度解析当前动词与上方【脱帽换衣法则看板】的具体因果关系链 (彻底讲透为什么这么变)
+  // 深度解析当前动词与上方【脱帽换衣法则】的具体因果关系链
   const getDynamicDerivation = () => {
     const is3rd = selectedVerb.group === '3rd_irregular';
     const is1st = selectedVerb.group === '1st_er';
@@ -94,7 +263,7 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
             ruleMapping: '对应上方说明【卡片 1 & 卡片 2：四大天王基石派 · 不脱帽换衣】',
             relationWhy: 'avoir (英语 have) 是全法语使用率前两名的超级基石！在数千年中保留了古拉丁语特异变色形态。它不脱帽、不套用常规 -e/-es，词根整体异化为 6 个专属形态！',
             step1Title: 'Step 1 · 判定门派',
-            step1Desc: '原形 avoir ➔ 判定为四大天王核心祖先词，不穿 -er 衣服',
+            step1Desc: '原形 avoir ➔ 判定为四大天王核心祖先词，不套常规外衣',
             step2Title: 'Step 2 · 专属形态装配',
             step2Desc: "单数：j'ai (遇元音省音) / tu as / il a；复数：nous avons / vous avez / ils ont",
             step3Title: 'Step 3 · 专属发音秘籍',
@@ -155,7 +324,6 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
           };
         }
 
-        // 其他第3组动词 (pouvoir, vouloir, venir)
         return {
           badge: '⚠️ 第 3 组不规则特异动词',
           badgeClass: 'bg-purple-50 text-purple-900 border-purple-200/80',
@@ -279,37 +447,66 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
   };
 
   return (
-    <div className="space-y-4 pb-0">
+    <div className="space-y-4 sm:space-y-6">
       
       {/* ========================================================================= */}
-      {/* 🎩 独家自研教学法 · 法语动词变位【脱帽换衣法则】1分钟秒懂看板 (浅色优雅高质感) */}
+      {/* 🎩 独家自研 · 动词变位推导中心 & 脱帽换衣法则速查 (浅色高质感统一顶栏) */}
       {/* ========================================================================= */}
-      <div className="bg-gradient-to-br from-white via-rose-50/35 to-amber-50/20 rounded-3xl p-5 sm:p-6 border border-rose-200/80 shadow-xs space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-gradient-to-br from-white via-rose-50/30 to-amber-50/20 rounded-3xl p-5 sm:p-6 border border-rose-200/80 shadow-xs space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div className="space-y-1">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="w-8 h-8 rounded-xl bg-rose-50 text-[#80142A] border border-rose-200/70 flex items-center justify-center text-base shadow-2xs">
                 🎩
               </span>
-              <h2 className="text-lg sm:text-xl font-black text-[#29354A] tracking-tight flex items-center gap-2">
-                <span>独家自研教学法 · 法语动词变位【脱帽换衣法则】</span>
+              <h2 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+                <span>动词活用推导 ·【脱帽换衣法则】速查指南</span>
               </h2>
               <span className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200/80 font-bold text-xs shadow-2xs">
-                彻底告别死记硬背 · 1分钟秒懂
+                独家自研教学法 · 1分钟秒懂
               </span>
             </div>
             <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
-              <strong className="text-[#80142A]">核心心法：</strong>85% 以上的法语动词都是极守规矩的<strong>【脱帽换衣派】</strong>！摘掉原形词尾帽子（-er / -ir），按人称换上新衣服！更有听力绝密：<strong>四个人称发音竟然完全一样！</strong>
+              <strong className="text-[#80142A]">核心心法：</strong>85% 以上的法语动词都是极守规矩的<strong>【脱帽换衣派】</strong>！摘掉原形词尾帽子（-er / -ir），按人称换上新衣服！四个人称发音完全一样！
             </p>
           </div>
 
-          <button
-            onClick={() => setShowHatGuide(!showHatGuide)}
-            className="px-3.5 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition flex items-center gap-1.5 shrink-0 self-start sm:self-auto cursor-pointer border border-slate-200/80 shadow-2xs"
-          >
-            {showHatGuide ? <ChevronUp className="w-3.5 h-3.5 text-slate-500" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-500" />}
-            <span>{showHatGuide ? '收起法则说明' : '展开法则说明'}</span>
-          </button>
+          <div className="flex items-center gap-2 self-start md:self-auto shrink-0 flex-wrap">
+            {/* 视图切换 (工作台 vs 法则宝典) */}
+            <div className="flex items-center bg-slate-100 p-1 rounded-2xl border border-slate-200/80 shrink-0">
+              <button
+                onClick={() => setViewMode('workbench')}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
+                  viewMode === 'workbench'
+                    ? 'bg-white text-[#80142A] shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <Zap className="w-3.5 h-3.5 text-[#80142A]" />
+                <span>交互推导工作台</span>
+              </button>
+              <button
+                onClick={() => setViewMode('rules')}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
+                  viewMode === 'rules'
+                    ? 'bg-white text-[#80142A] shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <BookOpen className="w-3.5 h-3.5 text-[#80142A]" />
+                <span>全景法则宝典</span>
+              </button>
+            </div>
+
+            {/* 收起 / 展开 说明 */}
+            <button
+              onClick={() => setShowHatGuide(!showHatGuide)}
+              className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition flex items-center gap-1 shrink-0 cursor-pointer border border-slate-200/80 shadow-2xs"
+            >
+              {showHatGuide ? <ChevronUp className="w-3.5 h-3.5 text-slate-500" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-500" />}
+              <span>{showHatGuide ? '收起法则' : '展开法则'}</span>
+            </button>
+          </div>
         </div>
 
         {showHatGuide && (
@@ -359,196 +556,172 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
         )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-        
-        {/* ========================================================================= */}
-        {/* Left Column (5 cols): 门派筛选器 + 搜索 + 丰富动词工作台 (告别左轻右重) */}
-        {/* ========================================================================= */}
-        <div className="lg:col-span-5 space-y-3">
-          
-          {/* 门派筛选 Tabs (直接呼应上方三大门派说明) */}
-          <div className="flex items-center gap-1 p-1 bg-slate-100/90 rounded-2xl border border-slate-200/80 text-[11px]">
-            {[
-              { key: 'all', label: `全部 (${FRENCH_VERBS.length})` },
-              { key: '1st_er', label: '第1组 -er' },
-              { key: '2nd_ir', label: '第2组 -ir' },
-              { key: '3rd_irregular', label: '四大天王' },
-            ].map(tab => (
-              <button
-                key={tab.key}
-                onClick={() => setGroupFilter(tab.key as any)}
-                className={`flex-1 py-1.5 px-1.5 rounded-xl font-bold transition cursor-pointer text-center truncate ${
-                  groupFilter === tab.key
-                    ? 'bg-white text-[#80142A] shadow-xs font-black'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+      {/* ========================================================================= */}
+      {/* 模式 1：交互推导工作台 (全新通栏对称架构 · 告别左轻右重) */}
+      {/* ========================================================================= */}
+      {viewMode === 'workbench' && (
+        <div className="space-y-4 sm:space-y-5">
 
-          {/* Search Box */}
-          <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
-            <input
-              type="text"
-              placeholder="搜索动词 (如 avoir, être, parler...)"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-8 py-2.5 rounded-2xl bg-white border border-slate-200/80 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/20 focus:bg-white transition text-[#29354A] font-medium shadow-2xs"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 p-0.5 cursor-pointer"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </div>
+          {/* ========================================================================= */}
+          {/* ① 顶部动词选控中心 (Symmetrical Verb Selection Deck) */}
+          {/* ========================================================================= */}
+          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-4 sm:p-5 space-y-3.5">
+            {/* 上排：搜索框与门派分类胶囊 */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+              <div className="relative flex-1 max-w-md">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="搜索动词 (如 avoir, être, parler, finir)..."
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-8 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm font-medium focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/20 focus:bg-white transition text-slate-800"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
 
-          {/* Verb List (丰富饱满，包含原形、释义、门派、分词、助动词预览) */}
-          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-2 space-y-1.5 max-h-[580px] overflow-y-auto">
-            {filteredVerbs.map(verb => {
-              const isSelected = selectedVerb.id === verb.id;
-              const isLockedVerb = !isVip && !freeVerbIds.includes(verb.id);
-              return (
-                <button
-                  key={verb.id}
-                  onClick={() => {
-                    if (isLockedVerb) {
-                      onOpenVipModal?.(`🔒【${verb.infinitive} (${verb.meaning})】为 VIP 终身卡专属核心动词！输入卡密即可解锁全量动词库！`);
-                      return;
-                    }
-                    setSelectedVerb(verb);
-                  }}
-                  className={`w-full p-3 rounded-2xl flex items-center justify-between text-left transition cursor-pointer ${
-                    isSelected
-                      ? 'bg-[#FCECEF] text-[#80142A] border-2 border-[#80142A] shadow-xs'
-                      : 'hover:bg-slate-50 border border-transparent text-[#29354A]'
-                  }`}
-                >
-                  <div className="space-y-1 min-w-0 flex-1 pr-2">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-bold text-base tracking-tight font-serif">
+              {/* 分类药丸组 */}
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-xs font-bold text-slate-400 mr-1 hidden sm:inline">门派分类：</span>
+                {[
+                  { key: 'all', label: `全部 (${FRENCH_VERBS.length})` },
+                  { key: '1st_er', label: '第1组 -er' },
+                  { key: '2nd_ir', label: '第2组 -ir' },
+                  { key: '3rd_irregular', label: '四大天王/特异' },
+                ].map(tab => (
+                  <button
+                    key={tab.key}
+                    onClick={() => setGroupFilter(tab.key as any)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+                      groupFilter === tab.key
+                        ? 'bg-slate-900 text-white shadow-2xs'
+                        : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 下排：动词选择卡片胶囊网格 (整齐对称排列，支持 2/4/6 列自适应) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2 pt-1">
+              {filteredVerbs.map(verb => {
+                const isSelected = selectedVerb.id === verb.id;
+                const isLockedVerb = !isVip && !freeVerbIds.includes(verb.id);
+
+                return (
+                  <button
+                    key={verb.id}
+                    onClick={() => handleSelectVerb(verb)}
+                    className={`p-2.5 rounded-2xl border text-left transition cursor-pointer flex flex-col justify-between gap-1 group relative overflow-hidden ${
+                      isSelected
+                        ? 'bg-[#80142A] text-white border-[#80142A] shadow-md ring-2 ring-rose-200'
+                        : 'bg-slate-50/70 hover:bg-slate-100 border-slate-200/80 text-slate-800'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-1">
+                      <span className={`text-base font-black tracking-tight font-serif ${isSelected ? 'text-white' : 'text-slate-900'}`}>
                         {verb.infinitive}
                       </span>
-                      <span className={`text-[10px] px-1.5 py-0.2 rounded font-bold ${
-                        isSelected 
-                          ? 'bg-[#80142A] text-white' 
-                          : verb.group === '1st_er' 
-                          ? 'bg-emerald-100 text-emerald-800' 
-                          : verb.group === '2nd_ir' 
-                          ? 'bg-sky-100 text-sky-800' 
-                          : 'bg-purple-100 text-purple-900 border border-purple-200/70'
-                      }`}>
-                        {verb.group === '1st_er' ? '第1组 · 脱帽' : verb.group === '2nd_ir' ? '第2组 · 双s' : '四大天王 · 特异'}
-                      </span>
                       {isLockedVerb ? (
-                        <span className="text-[9px] px-1 py-0.2 rounded bg-amber-100 text-amber-800 font-black">
-                          🔒 VIP
+                        <span className="px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 text-[9px] font-black flex items-center gap-0.5">
+                          <Lock className="w-2.5 h-2.5" /> VIP
                         </span>
                       ) : (
-                        <span className="text-[9px] px-1 py-0.2 rounded bg-emerald-100 text-emerald-800 font-bold">
-                          ✓ 免费
+                        <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded ${
+                          isSelected 
+                            ? 'bg-white/20 text-white' 
+                            : verb.group === '1st_er' 
+                            ? 'bg-emerald-100 text-emerald-800' 
+                            : verb.group === '2nd_ir' 
+                            ? 'bg-sky-100 text-sky-800' 
+                            : 'bg-purple-100 text-purple-900'
+                        }`}>
+                          {verb.group === '1st_er' ? '-er' : verb.group === '2nd_ir' ? '-ir' : '四大天王'}
                         </span>
                       )}
                     </div>
-
-                    <p className={`text-xs truncate ${isSelected ? 'text-[#80142A] font-semibold' : 'text-stone-500'}`}>
-                      {verb.meaning}
-                    </p>
-
-                    <div className="flex items-center gap-2 pt-0.5 text-[10px] text-stone-400 font-mono">
-                      <span>分词: <strong className={isSelected ? 'text-[#80142A]' : 'text-slate-600'}>{verb.participle}</strong></span>
-                      <span>•</span>
-                      <span>助动词: <strong className={isSelected ? 'text-[#80142A]' : 'text-slate-600'}>{verb.auxiliary}</strong></span>
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className={`font-medium truncate ${isSelected ? 'text-rose-100' : 'text-slate-600'}`}>
+                        {verb.meaning}
+                      </span>
                     </div>
-                  </div>
-
-                  <ArrowRight className={`w-4 h-4 shrink-0 transition ${isSelected ? 'text-[#80142A] translate-x-0.5' : 'text-stone-300'}`} />
-                </button>
-              );
-            })}
-          </div>
-
-          {/* 左侧常驻：三大门派对应速查锦囊卡片 (充实左侧下半部，完美消除左轻右重) */}
-          <div className="p-3.5 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-2">
-            <div className="flex items-center gap-1.5 text-xs font-bold text-[#29354A]">
-              <Lightbulb className="w-3.5 h-3.5 text-[#DDBF78]" />
-              <span>动词门派变位对应速查</span>
-            </div>
-            <div className="grid grid-cols-3 gap-1.5 text-[11px]">
-              <div className="p-2 rounded-xl bg-emerald-50/70 border border-emerald-100 space-y-0.5 text-center">
-                <span className="font-bold text-emerald-900 block text-xs">第 1 组 -er</span>
-                <p className="text-emerald-700/90 text-[10px]">占85% · 摘帽换衣</p>
-              </div>
-              <div className="p-2 rounded-xl bg-sky-50/70 border border-sky-100 space-y-0.5 text-center">
-                <span className="font-bold text-sky-900 block text-xs">第 2 组 -ir</span>
-                <p className="text-sky-700/90 text-[10px]">占10% · 双s家族</p>
-              </div>
-              <div className="p-2 rounded-xl bg-purple-50/70 border border-purple-100 space-y-0.5 text-center">
-                <span className="font-bold text-purple-900 block text-xs">四大天王</span>
-                <p className="text-purple-700/90 text-[10px]">特异派 · 独立记</p>
-              </div>
+                    <div className={`text-[10px] font-mono truncate pt-0.5 border-t ${
+                      isSelected ? 'border-white/20 text-white/80' : 'border-slate-200/60 text-slate-400'
+                    }`}>
+                      分词: {verb.participle}
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-        </div>
-
-        {/* ========================================================================= */}
-        {/* Right Column (7 cols): 动词核心展台 + 关系推导链 + 6人称实战 */}
-        {/* ========================================================================= */}
-        <div className="lg:col-span-7 space-y-4">
-          
-          {/* Current Verb Hero Header */}
+          {/* ========================================================================= */}
+          {/* ② 选中的动词大标头 + 7 大核心时态对称矩阵 */}
+          {/* ========================================================================= */}
           <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 space-y-4">
             
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-slate-200/80">
-              <div>
-                <div className="flex items-center gap-3">
-                  <h2 className="text-2xl sm:text-3xl font-black text-[#29354A] font-serif">
-                    {selectedVerb.infinitive}
-                  </h2>
-                  <span className="text-xs sm:text-sm text-[#29354A]/80 font-bold">
-                    ({selectedVerb.meaning})
-                  </span>
-                </div>
-                <div className="flex flex-wrap items-center gap-2 mt-2">
-                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-slate-50 text-[#29354A] font-bold border border-slate-200/70">
-                    过去分词: <strong className="text-[#80142A] font-serif">{selectedVerb.participle}</strong>
-                  </span>
-                  <span className="text-xs px-2.5 py-0.5 rounded-full font-bold border bg-[#FCECEF] text-[#80142A] border-[#80142A]/25">
-                    助动词: <strong>{selectedVerb.auxiliary}</strong>
-                  </span>
-                  {selectedVerb.tags.map(t => (
-                    <span key={t} className="text-[11px] px-2 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/70">
-                      {t}
+            {/* 动词大标头 */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-3 flex-wrap">
+                <span className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-serif">
+                  {selectedVerb.infinitive}
+                </span>
+                <div className="space-y-0.5">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-sm font-bold text-[#80142A]">
+                      ({selectedVerb.meaning})
                     </span>
-                  ))}
+                    <span className="px-2.5 py-0.5 rounded-full bg-rose-50 text-[#80142A] border border-rose-200 text-xs font-extrabold">
+                      {selectedVerb.group === '1st_er' ? '第 1 组 · 脱帽换衣派' : selectedVerb.group === '2nd_ir' ? '第 2 组 · 双 s 家族' : '第 3 组 · 四大天王/特异派'}
+                    </span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200/60">
+                      过去分词: <strong className="text-[#80142A] font-serif">{selectedVerb.participle}</strong>
+                    </span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200/60">
+                      助动词: <strong>{selectedVerb.auxiliary}</strong>
+                    </span>
+                  </div>
                 </div>
               </div>
 
               <button
                 onClick={() => playSpeech(selectedVerb.infinitive)}
-                className="self-start sm:self-auto flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-[#FCECEF] text-[#80142A] border border-slate-200/70 text-xs font-bold transition cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-[#80142A] border border-rose-200 text-xs font-black transition flex items-center gap-1.5 cursor-pointer shadow-2xs self-start sm:self-auto"
+                title="朗读原形发音"
               >
                 <Volume2 className="w-4 h-4 text-[#80142A]" />
-                <span>原形发音</span>
+                <span>朗读原形发音</span>
               </button>
             </div>
 
-            {/* Tense Switcher Tabs */}
+            {/* 7 大时态切换条 (对称网格) */}
             <div className="space-y-2">
-              <div className="text-xs font-bold text-stone-500 uppercase tracking-wider">
-                选择推导时态 (Tense)
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-extrabold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5 text-[#80142A]" />
+                  切换目标活用时态（点击即刻执行推导）
+                </span>
+                <span className="text-xs text-[#80142A] font-black">
+                  当前时态：{currentTenseMeta.label}
+                </span>
               </div>
-              <div className="flex flex-wrap items-center gap-2">
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
                 {TENSES_METADATA.map(t => {
                   const hasThisTense = !!selectedVerb.tenses[t.key];
                   const isActive = selectedTense === t.key;
                   const isLockedTense = !isVip && !freeTenseKeys.includes(t.key);
+
                   return (
                     <button
                       key={t.key}
@@ -560,24 +733,25 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
                         }
                         setSelectedTense(t.key);
                       }}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                      className={`p-2.5 rounded-2xl border text-left transition cursor-pointer flex flex-col justify-between gap-1 ${
                         isActive
-                          ? 'bg-[#80142A] text-white shadow-xs'
+                          ? 'bg-[#80142A] text-white border-[#80142A] shadow-md ring-2 ring-rose-200'
                           : isLockedTense
-                          ? 'bg-slate-50 text-slate-500 hover:bg-slate-100 border border-slate-200/80'
+                          ? 'bg-slate-50 text-slate-500 hover:bg-slate-100 border-slate-200/80'
                           : hasThisTense
-                          ? 'bg-slate-50 text-[#29354A] hover:bg-slate-100 border border-slate-200/80'
-                          : 'bg-slate-100/50 text-stone-300 cursor-not-allowed border border-slate-200/40'
+                          ? 'bg-slate-50/80 hover:bg-slate-100 text-slate-800 border-slate-200/80'
+                          : 'bg-slate-100/40 text-slate-300 border-slate-100 cursor-not-allowed'
                       }`}
                     >
-                      {isLockedTense && <Lock className="w-3 h-3 text-amber-600 shrink-0" />}
-                      <span>{t.label}</span>
-                      <span className="text-[10px] opacity-75">({t.frenchLabel})</span>
-                      {isLockedTense && (
-                        <span className="text-[9px] px-1 py-0.2 rounded bg-amber-100 text-amber-800 font-black">
-                          VIP
+                      <div className="flex items-center justify-between">
+                        <span className={`text-xs font-black ${isActive ? 'text-white' : 'text-slate-900'}`}>
+                          {t.label}
                         </span>
-                      )}
+                        {isLockedTense && <Lock className="w-3 h-3 text-amber-500 shrink-0" />}
+                      </div>
+                      <span className={`text-[10px] font-medium truncate ${isActive ? 'text-rose-100' : 'text-slate-400'}`}>
+                        {t.frenchLabel}
+                      </span>
                     </button>
                   );
                 })}
@@ -585,22 +759,22 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
             </div>
 
             {/* ===================================================================== */}
-            {/* 🔗 核心关系推导桥梁：【本词与上方脱帽换衣法则的关系链】 (直击用户痛点！) */}
+            {/* ③ 动态推导核心舞台：【本词与上方脱帽换衣法则的关系链】 */}
             {/* ===================================================================== */}
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-slate-50 via-rose-50/20 to-white border border-slate-200/80 text-xs text-[#29354A] space-y-3 shadow-2xs">
+            <div className="p-4 sm:p-5 rounded-3xl bg-gradient-to-br from-slate-50 via-rose-50/20 to-white border border-slate-200/80 text-xs text-[#29354A] space-y-3.5 shadow-2xs">
               
               {/* 1. 对应上方说明法则的明确锚点 */}
               <div className="space-y-1.5 pb-2.5 border-b border-slate-200/70">
                 <div className="flex items-center justify-between gap-2 flex-wrap">
                   <div className="flex items-center gap-1.5 font-black text-xs text-[#80142A]">
-                    <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                     <span>【{selectedVerb.infinitive}】与上方说明法则的关系：</span>
                   </div>
                   <span className={`px-2 py-0.5 rounded-full font-bold text-[11px] border ${derivation.badgeClass}`}>
                     {derivation.badge}
                   </span>
                 </div>
-                <p className="text-xs font-bold text-slate-900 bg-white/80 px-2.5 py-1 rounded-lg border border-slate-200/60 inline-block">
+                <p className="text-xs font-bold text-slate-900 bg-white/90 px-2.5 py-1 rounded-lg border border-slate-200/60 inline-block shadow-2xs">
                   📌 {derivation.ruleMapping}
                 </p>
                 <p className="text-[11px] leading-relaxed text-slate-600 font-medium">
@@ -608,35 +782,35 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
                 </p>
               </div>
 
-              {/* 2. 具体 3 步推导装配流 (精准针对当前动词，拒绝空洞！) */}
+              {/* 2. 具体 3 步推导装配流 (精准针对当前动词) */}
               <div className="space-y-1.5">
                 <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                   具体 3 步推导变位过程：
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                  <div className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs space-y-1">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  <div className="p-3 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-1">
                     <span className="text-[10px] font-black text-[#80142A] px-1.5 py-0.2 rounded bg-rose-50 border border-rose-200/60">
                       {derivation.step1Title}
                     </span>
-                    <p className="text-[11px] text-slate-700 leading-snug font-medium">
+                    <p className="text-xs text-slate-700 leading-snug font-medium">
                       {derivation.step1Desc}
                     </p>
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs space-y-1">
+                  <div className="p-3 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-1">
                     <span className="text-[10px] font-black text-sky-800 px-1.5 py-0.2 rounded bg-sky-50 border border-sky-200/60">
                       {derivation.step2Title}
                     </span>
-                    <p className="text-[11px] text-slate-700 leading-snug font-medium">
+                    <p className="text-xs text-slate-700 leading-snug font-medium">
                       {derivation.step2Desc}
                     </p>
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs space-y-1">
+                  <div className="p-3 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-1">
                     <span className="text-[10px] font-black text-emerald-800 px-1.5 py-0.2 rounded bg-emerald-50 border border-emerald-200/60">
                       {derivation.step3Title}
                     </span>
-                    <p className="text-[11px] text-slate-700 leading-snug font-medium">
+                    <p className="text-xs text-slate-700 leading-snug font-medium">
                       {derivation.step3Desc}
                     </p>
                   </div>
@@ -644,78 +818,220 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
               </div>
 
               {/* 3. 公式与预警小贴士 */}
-              <div className="p-2.5 rounded-xl bg-white/95 border border-slate-200/80 space-y-1">
-                <div className="text-[11px] text-slate-700">
+              <div className="p-3 rounded-2xl bg-white/95 border border-slate-200/80 space-y-1">
+                <div className="text-xs text-slate-700">
                   <span className="font-bold text-slate-500">变位公式：</span>
                   <span className="font-mono text-[#80142A] font-black">{derivation.formula}</span>
                 </div>
-                <div className="text-[11px] font-semibold text-amber-900 bg-amber-50/80 px-2 py-1 rounded-lg border border-amber-200/70">
+                <div className="text-[11px] font-semibold text-amber-900 bg-amber-50/80 px-2.5 py-1 rounded-lg border border-amber-200/70">
                   {derivation.warning}
                 </div>
               </div>
 
             </div>
 
-            {/* 6-Persons Conjugation Table (High visual impact with phonetic badges!) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-              {persons.map(p => {
-                const isPlaying = playingText === p.data.full;
-                const note = getPersonPhoneticNote(p.key);
-                return (
-                  <div
-                    key={p.key}
-                    onClick={() => playSpeech(p.data.full)}
-                    className="p-3.5 sm:p-4 rounded-2xl bg-slate-50/70 hover:bg-white border border-slate-200/80 hover:border-[#80142A]/40 transition-all flex items-center justify-between cursor-pointer group shadow-2xs"
-                  >
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-mono font-bold text-stone-400">
-                          {p.pronoun}
-                        </span>
-                        {note && (
-                          <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-50 text-amber-800 font-bold border border-amber-200/70">
-                            {note}
-                          </span>
-                        )}
-                      </div>
-                      <div className="text-base sm:text-lg font-extrabold tracking-tight font-serif">
-                        <span className="text-[#29354A]">{p.data.stem}</span>
-                        <span className="text-[#80142A] bg-[#FCECEF] px-1 py-0.5 rounded-md font-black">
-                          {p.data.ending}
-                        </span>
-                      </div>
-                    </div>
+            {/* ===================================================================== */}
+            {/* ④ 6 个人称变位实战卡片 (整齐划一的 2x3 / 3x2 对称网格) */}
+            {/* ========================================================================= */}
+            <div className="space-y-2">
+              <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                6 个人称变位实战拼读（点击整卡即刻原声朗读）
+              </div>
 
-                    <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition ${
-                      isPlaying 
-                        ? 'bg-[#80142A] text-white' 
-                        : 'bg-white text-stone-400 group-hover:bg-[#80142A] group-hover:text-white shadow-2xs border border-slate-200/70'
-                    }`}>
-                      <Volume2 className="w-4 h-4" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {persons.map(p => {
+                  const isPlaying = playingText === p.data.full;
+                  const note = getPersonPhoneticNote(p.key);
+                  return (
+                    <div
+                      key={p.key}
+                      onClick={() => playSpeech(p.data.full)}
+                      className="p-4 rounded-2xl bg-slate-50/70 hover:bg-white border border-slate-200/80 hover:border-[#80142A]/40 transition-all flex items-center justify-between cursor-pointer group shadow-2xs"
+                    >
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-mono font-bold text-slate-400">
+                            {p.pronoun}
+                          </span>
+                          {note && (
+                            <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-50 text-amber-800 font-bold border border-amber-200/70">
+                              {note}
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-lg font-extrabold tracking-tight font-serif">
+                          <span className="text-slate-800">{p.data.stem}</span>
+                          <span className="text-[#80142A] bg-rose-50 px-1.5 py-0.5 rounded-md font-black">
+                            {p.data.ending}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition ${
+                        isPlaying 
+                          ? 'bg-[#80142A] text-white' 
+                          : 'bg-white text-slate-400 group-hover:bg-[#80142A] group-hover:text-white shadow-2xs border border-slate-200/70'
+                      }`}>
+                        <Volume2 className="w-4 h-4" />
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
 
-            {/* Sample Real-Life Context Sentence */}
+            {/* ===================================================================== */}
+            {/* ⑤ 实战例句应用场景卡片 */}
+            {/* ===================================================================== */}
             <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 space-y-1">
-              <div className="text-xs font-bold text-stone-500">
+              <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                 实战例句应用场景
               </div>
               <p className="text-sm font-serif font-bold text-[#80142A]">
                 « {selectedVerb.sampleSentence.french} »
               </p>
-              <p className="text-xs text-[#29354A]/80 font-medium">
+              <p className="text-xs text-slate-600 font-medium">
                 {selectedVerb.sampleSentence.chinese}
               </p>
             </div>
 
           </div>
 
-        </div>
+          {/* ========================================================================= */}
+          {/* ⑥ 当前动词全部时态速查表 (Full Matrix Table 一键展开/收起) */}
+          {/* ========================================================================= */}
+          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Table className="w-4 h-4 text-[#80142A]" />
+                <h3 className="text-sm font-black text-slate-900">
+                  【{selectedVerb.infinitive}】全时态活用横向速查表 (Full Matrix)
+                </h3>
+              </div>
 
-      </div>
+              <button
+                onClick={() => setShowFullMatrix(!showFullMatrix)}
+                className="text-xs font-bold text-[#80142A] hover:underline flex items-center gap-1 cursor-pointer"
+              >
+                {showFullMatrix ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                <span>{showFullMatrix ? '收起速查表' : '展开速查表'}</span>
+              </button>
+            </div>
+
+            {showFullMatrix && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-2">
+                {TENSES_METADATA.map(t => {
+                  const forms = selectedVerb.tenses[t.key];
+                  if (!forms) return null;
+                  const isCurrent = t.key === selectedTense;
+
+                  return (
+                    <div
+                      key={t.key}
+                      onClick={() => setSelectedTense(t.key)}
+                      className={`p-3 rounded-2xl border text-left cursor-pointer transition space-y-1.5 ${
+                        isCurrent
+                          ? 'bg-rose-50/70 border-[#80142A] ring-1 ring-[#80142A]'
+                          : 'bg-slate-50/70 hover:bg-white border-slate-200/80'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black text-slate-900">
+                          {t.label}
+                        </span>
+                        <span className="text-[10px] text-slate-400 font-mono">
+                          {t.frenchLabel}
+                        </span>
+                      </div>
+                      <div className="space-y-0.5 text-[11px] font-mono">
+                        <div className="text-slate-600 truncate">je {forms.je.full}</div>
+                        <div className="text-slate-600 truncate">nous {forms.nous.full}</div>
+                        <div className="text-[#80142A] font-bold truncate">ils {forms.ils_elles.full}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 模式 2：全景法则宝典 (Global Rules Encyclopedia) */}
+      {/* ========================================================================= */}
+      {viewMode === 'rules' && (
+        <div className="space-y-4">
+          <div className="p-4 rounded-2xl bg-rose-50/70 border border-rose-200/80 text-rose-950 text-xs flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-[#80142A] shrink-0" />
+              <span className="font-bold">
+                7 大时态宏观法则表：横向对比第 1 组 -er、第 2 组 -ir、四大天王与特异动词的变化规律与变位公式。
+              </span>
+            </div>
+            <button
+              onClick={() => setViewMode('workbench')}
+              className="px-3 py-1 rounded-xl bg-white text-[#80142A] font-bold border border-rose-200 hover:bg-rose-50 transition shrink-0 cursor-pointer shadow-2xs"
+            >
+              返回交互推导工作台 ➔
+            </button>
+          </div>
+
+          <div className="space-y-3">
+            {FRENCH_TENSE_RULES.map(rule => (
+              <div key={rule.key} className="p-5 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-base font-black text-[#80142A]">
+                      {rule.tenseName}
+                    </h3>
+                    <span className="text-xs text-slate-400 font-mono">
+                      ({rule.frenchName})
+                    </span>
+                  </div>
+                  <span className="text-xs text-slate-500 font-medium">
+                    {rule.usageDesc}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
+                    <span className="font-bold text-emerald-900 block">第 1 组动词 (-er)</span>
+                    <p className="text-slate-600 text-[11px] leading-relaxed">{rule.rules.group1}</p>
+                  </div>
+                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
+                    <span className="font-bold text-sky-900 block">第 2 组动词 (-ir)</span>
+                    <p className="text-slate-600 text-[11px] leading-relaxed">{rule.rules.group2}</p>
+                  </div>
+                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
+                    <span className="font-bold text-purple-900 block">第 3 组 (四大天王/特异)</span>
+                    <p className="text-slate-600 text-[11px] leading-relaxed">{rule.rules.group3}</p>
+                  </div>
+                </div>
+
+                {/* Samples */}
+                <div className="pt-2 border-t border-slate-100 flex items-center gap-2 flex-wrap text-xs">
+                  <span className="text-slate-400 font-bold text-[11px]">经典演练范例：</span>
+                  {rule.sample.map((s, idx) => (
+                    <span
+                      key={idx}
+                      onClick={() => playSpeech(s.conjugated)}
+                      className="px-2.5 py-1 rounded-xl bg-rose-50 hover:bg-rose-100 text-[#80142A] border border-rose-200 font-semibold cursor-pointer transition flex items-center gap-1"
+                      title="点击朗读变形发音"
+                    >
+                      <span className="text-slate-400 line-through mr-0.5">{s.infinitive}</span>
+                      <ArrowRight className="w-2.5 h-2.5 text-[#80142A]" />
+                      <span className="font-bold">{s.conjugated}</span>
+                      <span className="text-[10px] text-slate-400">({s.meaning})</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
     </div>
   );
