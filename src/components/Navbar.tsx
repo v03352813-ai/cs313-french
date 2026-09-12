@@ -218,44 +218,26 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </button>
                 </div>
 
-                {/* VIP Status or Activation Button & Admin Trigger */}
-                <div className="flex items-center justify-end gap-1.5 pt-1 sm:pt-0 sm:pl-2 border-t sm:border-t-0 sm:border-l border-slate-200 shrink-0">
-                  {isAdmin && (
-                    <>
-                      <button
-                        onClick={onOpenAdminModal}
-                        className="p-1.5 rounded-xl text-slate-600 hover:text-[#80142A] hover:bg-slate-100 transition border border-slate-200/80 shrink-0 cursor-pointer flex items-center gap-1 text-xs font-bold"
-                        title="店主管理后台"
-                      >
-                        <Settings2 className="w-3.5 h-3.5 text-[#80142A]" />
-                        <span className="hidden xl:inline text-[#29354A] font-bold">后台</span>
-                      </button>
-                      <button
-                        onClick={() => setIsAdmin(false)}
-                        className="p-1.5 rounded-lg text-stone-400 hover:text-stone-600 text-xs font-bold cursor-pointer"
-                        title="关闭管理员控制栏"
-                      >
-                        ✕
-                      </button>
-                    </>
-                  )}
-
-                  {isVip ? (
-                    <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#DDBF78] to-[#E8CEA0] text-[#29354A] text-xs font-black shadow-xs shrink-0 whitespace-nowrap">
-                      <Crown className="w-3.5 h-3.5 shrink-0" />
-                      <span className="whitespace-nowrap">{license?.planName || 'VIP 终身卡'}</span>
-                    </div>
-                  ) : (
+                {/* Admin Status / Trigger (仅在管理员开启时显示，普通学员首页不显示卡密激活) */}
+                {isAdmin && (
+                  <div className="flex items-center justify-end gap-1.5 pt-1 sm:pt-0 sm:pl-2 border-t sm:border-t-0 sm:border-l border-slate-200 shrink-0">
                     <button
-                      onClick={onOpenVipModal}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-black shadow-xs shadow-[#80142A]/20 active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
-                      title="输入卡密激活 VIP 终身卡"
+                      onClick={onOpenAdminModal}
+                      className="p-1.5 rounded-xl text-slate-600 hover:text-[#80142A] hover:bg-slate-100 transition border border-slate-200/80 shrink-0 cursor-pointer flex items-center gap-1 text-xs font-bold"
+                      title="店主管理后台"
                     >
-                      <KeyRound className="w-3.5 h-3.5 shrink-0" />
-                      <span className="whitespace-nowrap">卡密激活</span>
+                      <Settings2 className="w-3.5 h-3.5 text-[#80142A]" />
+                      <span className="hidden xl:inline text-[#29354A] font-bold">后台</span>
                     </button>
-                  )}
-                </div>
+                    <button
+                      onClick={() => setIsAdmin(false)}
+                      className="p-1.5 rounded-lg text-stone-400 hover:text-stone-600 text-xs font-bold cursor-pointer"
+                      title="关闭管理员控制栏"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -417,16 +399,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </>
               )}
 
-              {/* VIP Status or Activation Button */}
+              {/* VIP Status or Activation Button (二级及其他页面分为激活和未激活) */}
               {isVip ? (
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-gradient-to-r from-[#DDBF78] to-[#C9A95C] text-[#29354A] text-xs font-black shadow-xs shrink-0 whitespace-nowrap">
-                  <Crown className="w-3.5 h-3.5 shrink-0" />
-                  <span className="whitespace-nowrap">{license?.planName || 'VIP 终身卡'}</span>
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] text-white text-xs font-bold shadow-xs shadow-[#80142A]/20 shrink-0 whitespace-nowrap">
+                  <Crown className="w-3.5 h-3.5 text-[#DDBF78] shrink-0" />
+                  <span className="whitespace-nowrap">{license?.planName || 'CS313 法语单语种终身VIP'}</span>
                 </div>
               ) : (
                 <button
                   onClick={onOpenVipModal}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-black shadow-xs shadow-[#80142A]/20 active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
+                  className="flex items-center gap-1 px-3 py-1 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-bold shadow-xs shadow-[#80142A]/20 active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
                   title="输入卡密激活 VIP 终身卡"
                 >
                   <KeyRound className="w-3.5 h-3.5 shrink-0" />

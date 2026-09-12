@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { 
   Sparkles, 
   Volume2, 
@@ -6,11 +5,20 @@ import {
   Layers, 
   Check, 
   ArrowRight,
-  BookOpen
+  BookOpen,
+  Lock
 } from 'lucide-react';
 import { FRENCH_PHONETICS, PRONUNCIATION_RULES, PhoneticItem } from '../data/french/phonetics';
 
-export const PhoneticsView: React.FC = () => {
+interface PhoneticsViewProps {
+  isVip?: boolean;
+  onOpenVipModal?: (reason?: string) => void;
+}
+
+export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
+  isVip = false,
+  onOpenVipModal
+}) => {
   const [activeCategory, setActiveCategory] = useState<'all' | 'oral_vowel' | 'nasal_vowel' | 'semi_vowel' | 'consonant'>('all');
   const [selectedItem, setSelectedItem] = useState<PhoneticItem>(FRENCH_PHONETICS[0]);
   const [playingWord, setPlayingWord] = useState<string | null>(null);
@@ -223,56 +231,103 @@ export const PhoneticsView: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {PRONUNCIATION_RULES.map(rule => (
-            <div
-              key={rule.id}
-              className="p-5 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-3"
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="text-base font-black text-[#29354A]">
-                    {rule.title}
-                  </h3>
-                  <span className="text-xs font-serif italic text-[#80142A] font-bold">
-                    {rule.frenchTitle}
+          {PRONUNCIATION_RULES.map((rule, idx) => {
+            const isLocked = !isVip && idx >= 2;
+            return (
+              <div
+                key={rule.id}
+                onClick={() => {
+                  if (isLocked) {
+                    onOpenVipModal?.(`🔒【${rule.title}】为考研二外重点发音避坑高频考点！输入卡密激活 VIP 终身卡即可解锁全部发音与联诵规则！`);
+                  }
+                }}
+                className={`p-5 rounded-3xl bg-white border shadow-xs space-y-3 transition relative ${
+                  isLocked 
+                    ? 'border-amber-200/80 hover:border-[#80142A]/40 cursor-pointer bg-slate-50/60' 
+                    : 'border-slate-200/80'
+                }`}
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="text-base font-black text-[#29354A] flex items-center gap-1.5">
+                      <span>{rule.title}</span>
+                      {isLocked && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-extrabold flex items-center gap-0.5">
+                          <Lock className="w-2.5 h-2.5" />
+                          <span>VIP专属</span>
+                        </span>
+                      )}
+                    </h3>
+                    <span className="text-xs font-serif italic text-[#80142A] font-bold">
+                      {rule.frenchTitle}
+                    </span>
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full bg-[#FCECEF] text-[#80142A] text-[11px] font-bold border border-[#80142A]/25">
+                    {rule.tag}
                   </span>
                 </div>
-                <span className="px-2 py-0.5 rounded-full bg-[#FCECEF] text-[#80142A] text-[11px] font-bold border border-[#80142A]/25">
-                  {rule.tag}
-                </span>
-              </div>
 
-              <p className="text-xs text-[#29354A]/80 leading-relaxed font-medium">
-                {rule.summary}
-              </p>
+                <p className="text-xs text-[#29354A]/80 leading-relaxed font-medium">
+                  {rule.summary}
+                </p>
 
-              <div className="p-2.5 rounded-xl bg-slate-50 text-[#29354A] font-mono text-xs font-bold border border-slate-200/70">
-                {rule.formula}
-              </div>
+                <div className="p-2.5 rounded-xl bg-slate-50 text-[#29354A] font-mono text-xs font-bold border border-slate-200/70">
+                  {rule.formula}
+                </div>
 
-              <div className="space-y-1.5 pt-1">
-                {rule.examples.map(ex => (
-                  <div 
-                    key={ex.phrase}
-                    onClick={() => playSpeech(ex.phrase)}
-                    className="p-2.5 rounded-xl bg-slate-50 hover:bg-white border border-slate-200/70 flex items-center justify-between cursor-pointer transition text-xs"
-                  >
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-[#29354A]">{ex.phrase}</span>
-                        <span className="text-stone-400 font-mono">{ex.ipa}</span>
-                        <span className="text-[#29354A]/70">({ex.meaning})</span>
+                <div className="space-y-1.5 pt-1">
+                  {rule.examples.map(ex => (
+                    <div 
+                      key={ex.phrase}
+                      onClick={(e) => {
+                        if (isLocked) {
+                          e.stopPropagation();
+                          onOpenVipModal?.(`🔒【${rule.title}】为考研二外重点发音避坑高频考点！输入卡密激活 VIP 终身卡即可解锁全部发音与联诵规则！`);
+                          return;
+                        }
+                        playSpeech(ex.phrase);
+                      }}
+                      className="p-2.5 rounded-xl bg-slate-50 hover:bg-white border border-slate-200/70 flex items-center justify-between cursor-pointer transition text-xs"
+                    >
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-[#29354A]">{ex.phrase}</span>
+                          <span className="text-stone-400 font-mono">{ex.ipa}</span>
+                          <span className="text-[#29354A]/70">({ex.meaning})</span>
+                        </div>
+                        <p className="text-[11px] text-[#80142A] mt-0.5 font-medium">{ex.explanation}</p>
                       </div>
-                      <p className="text-[11px] text-[#80142A] mt-0.5 font-medium">{ex.explanation}</p>
+                      <Volume2 className="w-3.5 h-3.5 text-stone-400 hover:text-[#80142A] shrink-0 ml-2" />
                     </div>
-                    <Volume2 className="w-3.5 h-3.5 text-stone-400 hover:text-[#80142A] shrink-0 ml-2" />
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
+
+      {/* 未激活学员提示横幅 (对齐日韩版二级页面底部 VIP 引导) */}
+      {!isVip && (
+        <div className="bg-gradient-to-r from-[#80142A] via-[#680E20] to-[#450914] rounded-2xl sm:rounded-3xl p-5 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg shadow-[#80142A]/20">
+          <div className="space-y-1 text-center sm:text-left">
+            <div className="flex items-center gap-1.5 justify-center sm:justify-start font-black text-sm">
+              <Sparkles className="w-4 h-4 text-[#DDBF78]" />
+              <span>当前正在体验【法语 35 音标与基础联诵 · 免费体验】</span>
+            </div>
+            <p className="text-xs text-white/90 leading-relaxed">
+              开通 VIP 终身卡（仅 ¥49.9），立享<strong>全部 4 大高阶联诵/省音规则</strong>、36套国家级模考全真大卷与 5000+ 性数精解词库！
+            </p>
+          </div>
+          <button
+            onClick={() => onOpenVipModal?.('🔒 开通 VIP 终身卡（仅 ¥49.9），即可解锁全部高阶联诵/省音避坑法则与全真机考大卷！')}
+            className="px-5 py-2.5 rounded-2xl bg-white text-[#80142A] hover:bg-[#FCECEF] font-black text-xs shadow-md transition active:scale-98 shrink-0 flex items-center gap-1.5 cursor-pointer"
+          >
+            <Lock className="w-3.5 h-3.5 text-[#80142A]" />
+            <span>输入卡密解锁全量特权 →</span>
+          </button>
+        </div>
+      )}
 
     </div>
   );

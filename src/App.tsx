@@ -120,7 +120,12 @@ export const App: React.FC = () => {
         )}
         {activeTab !== 'home' && (
           <div className="max-w-6xl mx-auto px-4 pt-1.5 sm:pt-2 space-y-2.5 sm:space-y-3">
-            {activeTab === 'phonetics' && <PhoneticsView />}
+            {activeTab === 'phonetics' && (
+              <PhoneticsView
+                isVip={isVip}
+                onOpenVipModal={() => setIsVipModalOpen(true)}
+              />
+            )}
             {activeTab === 'conjugation' && (
               <ConjugationView
                 isVip={isVip}
