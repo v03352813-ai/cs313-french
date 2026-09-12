@@ -61,12 +61,22 @@ export const FrenchWritingView: React.FC<FrenchWritingViewProps> = ({
   onOpenVipModal 
 }) => {
   const [activeTrack, setActiveTrack] = useState<FrenchWritingTrack>('delf');
-  const [selectedQuestionId, setSelectedQuestionId] = useState<string>('delf-w-b2-01');
+  const [selectedQuestionId, setSelectedQuestionId] = useState<string>(isVip ? 'delf-w-b2-01' : 'delf-w-b1-01');
   const [userInputText, setUserInputText] = useState<string>('');
   const [isEvaluating, setIsEvaluating] = useState<boolean>(false);
   const [evalResult, setEvalResult] = useState<AICorrectionResult | null>(null);
   const [activeTab, setActiveTab] = useState<'editor' | 'sample' | 'formulas'>('editor');
   const [copiedFormula, setCopiedFormula] = useState<string | null>(null);
+
+  // Free user safety check: non-VIP cannot access locked writing questions
+  useEffect(() => {
+    if (!isVip && selectedQuestionId !== 'delf-w-b1-01') {
+      if (activeTrack !== 'delf') {
+        setActiveTrack('delf');
+      }
+      setSelectedQuestionId('delf-w-b1-01');
+    }
+  }, [isVip]);
 
   // Filter questions by track
   const filteredQuestions = useMemo(() => {
@@ -107,11 +117,11 @@ export const FrenchWritingView: React.FC<FrenchWritingViewProps> = ({
   const handleAIEvaluation = () => {
     if (!userInputText.trim()) return;
 
-    if (!isVip && (currentQ.track === 'delf' && currentQ.type === 'delf_b2_formal')) {
-      if (onOpenVipModal) {
-        onOpenVipModal('DELF B2 正式公函批改需 VIP 特权');
-        return;
-      }
+    const isFree = currentQ.id === 'delf-w-b1-01';
+    const isLocked = !isVip && !isFree;
+    if (isLocked) {
+      onOpenVipModal?.(`🔒【${currentQ.title}】为 VIP 专属高阶写作！升级 VIP 终身卡（仅 ¥49.9），即可享受 AI 考官多维诊断精批与满分范文拆解！`);
+      return;
     }
 
     setIsEvaluating(true);
@@ -244,22 +254,40 @@ export const FrenchWritingView: React.FC<FrenchWritingViewProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {filteredQuestions.map(q => {
           const isSelected = q.id === currentQ.id;
+          const isFree = q.id === 'delf-w-b1-01';
+          const isLocked = !isVip && !isFree;
+
           return (
             <div
               key={q.id}
               onClick={() => {
+                if (isLocked) {
+                  onOpenVipModal?.(`🔒【${q.title}】为 VIP 专属高阶写作！升级 VIP 终身卡（仅 ¥49.9），即可解锁 DELF B2 正式公函、考研命题小论文与汉译法名师精批！`);
+                  return;
+                }
                 setSelectedQuestionId(q.id);
                 setEvalResult(null);
               }}
-              className={`p-4 rounded-2xl border transition-all cursor-pointer ${
+              className={`p-4 rounded-2xl border transition-all cursor-pointer group ${
                 isSelected
                   ? 'bg-[#FCECEF]/40 border-[#80142A] shadow-sm ring-1 ring-[#80142A]/30'
+                  : isLocked
+                  ? 'bg-slate-50/70 border-slate-200/80 hover:border-amber-300 hover:bg-white text-slate-700'
                   : 'bg-white border-slate-200/80 hover:border-slate-300 hover:shadow-xs'
               }`}
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2 flex-wrap">
+                    {isLocked ? (
+                      <span className="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300/80 flex items-center gap-0.5">
+                        <Lock className="w-2.5 h-2.5 text-amber-700" /> VIP专属
+                      </span>
+                    ) : (
+                      <span className="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300/80">
+                        免费体验
+                      </span>
+                    )}
                     <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-slate-100 text-slate-700">
                       {q.category}
                     </span>
@@ -603,6 +631,28 @@ export const FrenchWritingView: React.FC<FrenchWritingViewProps> = ({
           </div>
         )}
       </div>
+
+      {/* Free User Writing VIP Upsell Banner */}
+      {!isVip && (
+        <div className="bg-gradient-to-r from-[#80142A] via-[#9E1B32] to-[#80142A] rounded-3xl p-5 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl shadow-rose-900/20">
+          <div className="space-y-1 text-center sm:text-left">
+            <div className="flex items-center gap-1.5 justify-center sm:justify-start font-black text-sm">
+              <Sparkles className="w-4 h-4 text-[#DDBF78]" />
+              <span>当前正在体验【DELF B1 观点阐述 · 免费试写精批】</span>
+            </div>
+            <p className="text-xs text-white/90 leading-relaxed">
+              开通 VIP 终身卡（仅 ¥49.9），即可解锁 <strong>DELF B2 正式行政公函</strong>、考研二外高分命题作文与名校汉译法逐句深度精批！
+            </p>
+          </div>
+          <button
+            onClick={() => onOpenVipModal?.('✍️ 开通 VIP 终身卡（仅 ¥49.9），即可解锁 DELF B2 正式行政公函、考研二外高分命题作文与名校汉译法逐句深度精批！')}
+            className="px-5 py-2.5 rounded-2xl bg-white text-[#80142A] hover:bg-rose-50 font-black text-xs shadow-md transition active:scale-98 shrink-0 flex items-center gap-1.5 cursor-pointer"
+          >
+            <Lock className="w-3.5 h-3.5 text-[#80142A]" />
+            <span>解锁全部高分写作题库与 AI 精批 (¥49.9)</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

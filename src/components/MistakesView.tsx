@@ -6,7 +6,8 @@ import {
   CheckCircle2, 
   Sparkles, 
   AlertCircle,
-  ArrowRight
+  ArrowRight,
+  Lock
 } from 'lucide-react';
 import { WrongRecord } from './FrenchExamView';
 
@@ -15,13 +16,17 @@ interface MistakesViewProps {
   onRemoveMistake: (id: string) => void;
   onClearAll: () => void;
   onNavigateToExam: () => void;
+  isVip?: boolean;
+  onOpenVipModal?: (reason?: string) => void;
 }
 
 export const MistakesView: React.FC<MistakesViewProps> = ({
   mistakes,
   onRemoveMistake,
   onClearAll,
-  onNavigateToExam
+  onNavigateToExam,
+  isVip = false,
+  onOpenVipModal
 }) => {
   const [activeTrack, setActiveTrack] = useState<'all' | 'kaoyan' | 'delf'>('all');
   const [filterTag, setFilterTag] = useState<string>('all');
@@ -174,7 +179,36 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
           )}
 
           <div className="space-y-4">
-            {filteredMistakes.map(m => {
+            {filteredMistakes.map((m, idx) => {
+              const isLocked = !isVip && idx >= 3;
+              if (isLocked) {
+                if (idx === 3) {
+                  return (
+                    <div key="locked-barrier" className="p-8 rounded-3xl bg-[#FCECEF]/40 border-2 border-dashed border-[#80142A]/30 text-center space-y-3 animate-in fade-in duration-300">
+                      <div className="w-12 h-12 rounded-2xl bg-[#FCECEF] text-[#80142A] flex items-center justify-center mx-auto shadow-xs border border-[#80142A]/20">
+                        <BookMarked className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h4 className="font-extrabold text-sm text-slate-900">
+                          剩余 {filteredMistakes.length - 3} 道错题已进入 VIP 智能复习库
+                        </h4>
+                        <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto leading-relaxed">
+                          免费体验支持前 3 道错题靶向突破。升级 VIP 终身卡（仅 ¥49.9），即可解锁全部错题无限次重测、薄弱语法点雷达与多端云同步！
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => onOpenVipModal?.('🔒 升级 VIP 终身卡（仅 ¥49.9），即可解锁全部错题无限次重测与考点逐题精析！')}
+                        className="px-6 py-2.5 rounded-2xl bg-[#80142A] hover:bg-[#680E20] text-white text-xs font-black shadow-md shadow-[#80142A]/20 transition active:scale-98 cursor-pointer inline-flex items-center gap-1.5"
+                      >
+                        <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
+                        <span>立即解锁全部错题 (¥49.9)</span>
+                      </button>
+                    </div>
+                  );
+                }
+                return null;
+              }
+
               const q = m.question;
               return (
                 <div 

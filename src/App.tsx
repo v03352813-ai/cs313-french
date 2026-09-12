@@ -72,10 +72,16 @@ export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<ActiveTab>('home');
   const [license, setLicense] = useState<LicenseInfo | null>(() => getLocalLicense());
   const [isVipModalOpen, setIsVipModalOpen] = useState<boolean>(false);
+  const [vipModalReason, setVipModalReason] = useState<string>('');
   const [isAdminModalOpen, setIsAdminModalOpen] = useState<boolean>(false);
   const [isWallpaperModalOpen, setIsWallpaperModalOpen] = useState<boolean>(false);
   const [isExamModalOpen, setIsExamModalOpen] = useState<boolean>(false);
   const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
+
+  const handleOpenVipModal = (reason?: string) => {
+    setVipModalReason(reason || '');
+    setIsVipModalOpen(true);
+  };
 
   // Mistakes state stored in localStorage
   const [mistakes, setMistakes] = useState<WrongRecord[]>(() => {
@@ -153,7 +159,7 @@ export const App: React.FC = () => {
         setActiveTab={handleTabChange}
         isVip={isVip}
         license={license}
-        onOpenVipModal={() => setIsVipModalOpen(true)}
+        onOpenVipModal={handleOpenVipModal}
         onOpenAdminModal={() => setIsAdminModalOpen(true)}
         onOpenWallpaperModal={() => setIsWallpaperModalOpen(true)}
         onOpenExamModal={() => setIsExamModalOpen(true)}
@@ -166,7 +172,7 @@ export const App: React.FC = () => {
           <HomePortal
             setActiveTab={handleTabChange}
             isVip={isVip}
-            onOpenVipModal={() => setIsVipModalOpen(true)}
+            onOpenVipModal={handleOpenVipModal}
             onOpenWallpaperModal={() => setIsWallpaperModalOpen(true)}
           />
         )}
@@ -176,31 +182,31 @@ export const App: React.FC = () => {
               {activeTab === 'phonetics' && (
                 <PhoneticsView
                   isVip={isVip}
-                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                  onOpenVipModal={handleOpenVipModal}
                 />
               )}
               {activeTab === 'conjugation' && (
                 <ConjugationView
                   isVip={isVip}
-                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                  onOpenVipModal={handleOpenVipModal}
                 />
               )}
               {activeTab === 'vocab' && (
                 <VocabView
                   isVip={isVip}
-                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                  onOpenVipModal={handleOpenVipModal}
                 />
               )}
               {activeTab === 'grammar' && (
                 <GrammarView
                   isVip={isVip}
-                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                  onOpenVipModal={handleOpenVipModal}
                 />
               )}
               {(activeTab === 'exam' || activeTab === 'delf') && (
                 <FrenchExamView
                   isVip={isVip}
-                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                  onOpenVipModal={handleOpenVipModal}
                   onSaveMistake={handleSaveMistake}
                   initialTrack={activeTab === 'delf' ? 'delf' : 'kaoyan'}
                   onTrackChange={(track) => {
@@ -216,24 +222,26 @@ export const App: React.FC = () => {
                   onRemoveMistake={handleRemoveMistake}
                   onClearAll={handleClearAllMistakes}
                   onNavigateToExam={() => handleTabChange('exam')}
+                  isVip={isVip}
+                  onOpenVipModal={handleOpenVipModal}
                 />
               )}
               {activeTab === 'cinema' && (
                 <CinemaView
                   isVip={isVip}
-                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                  onOpenVipModal={handleOpenVipModal}
                 />
               )}
               {activeTab === 'speaking' && (
                 <AISpeakingView
                   isVip={isVip}
-                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                  onOpenVipModal={handleOpenVipModal}
                 />
               )}
               {activeTab === 'writing' && (
                 <FrenchWritingView
                   isVip={isVip}
-                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                  onOpenVipModal={handleOpenVipModal}
                 />
               )}
             </ErrorBoundary>
@@ -300,6 +308,7 @@ export const App: React.FC = () => {
         isVip={isVip}
         license={license}
         onActivated={lic => setLicense(lic)}
+        reason={vipModalReason}
       />
 
       <AdminKeyGeneratorModal

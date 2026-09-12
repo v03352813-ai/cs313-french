@@ -23,6 +23,7 @@ interface VipModalProps {
   isVip: boolean;
   license: LicenseInfo | null;
   onActivated: (lic: LicenseInfo) => void;
+  reason?: string;
 }
 
 export const VipModal: React.FC<VipModalProps> = ({
@@ -30,7 +31,8 @@ export const VipModal: React.FC<VipModalProps> = ({
   onClose,
   isVip,
   license,
-  onActivated
+  onActivated,
+  reason
 }) => {
   const [inputKey, setInputKey] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string>('');
@@ -121,6 +123,14 @@ export const VipModal: React.FC<VipModalProps> = ({
         {/* Modal Body */}
         <div className="p-6 space-y-5">
           
+          {/* Reason Alert Banner */}
+          {reason && (
+            <div className="p-3.5 rounded-2xl bg-[#FCECEF] border border-[#80142A]/30 flex items-start gap-2.5 text-xs text-[#80142A]">
+              <Sparkles className="w-4 h-4 text-[#80142A] shrink-0 mt-0.5" />
+              <div className="font-bold leading-relaxed">{reason}</div>
+            </div>
+          )}
+
           {/* If already VIP */}
           {isVip && license ? (
             <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-2">

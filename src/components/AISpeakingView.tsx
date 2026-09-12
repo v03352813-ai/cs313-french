@@ -83,6 +83,15 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
     return s.category === activeCategory;
   });
 
+  const userTurnsCount = messages.filter(m => m.sender === 'user').length;
+
+  // 免费用户安全防线：非VIP仅可体验首个免费场景 (fr_cafe_01)
+  useEffect(() => {
+    if (!isVip && selectedScenarioId !== 'fr_cafe_01') {
+      setSelectedScenarioId('fr_cafe_01');
+    }
+  }, [isVip]);
+
   // 初始化场景对话
   useEffect(() => {
     initScenario(currentScenario);
@@ -176,11 +185,10 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
     const text = (textToSend || inputText).trim();
     if (!text) return;
 
-    if (!isVip && currentScenario.category === 'delf_speaking' && messages.length >= 3) {
-      if (onOpenVipModal) {
-        onOpenVipModal('DELF 深度模拟面试需解锁 VIP');
-        return;
-      }
+    // 免费体验轮次上限检查（仅支持前 3 轮）
+    if (!isVip && userTurnsCount >= 3) {
+      onOpenVipModal?.('🎯 您的免费 AI 口语体验轮次已达上限（已体验 3 轮）！升级 VIP 终身卡（仅 ¥49.9），即可享受全站 8 大场景无限次 AI 自由畅聊与巴黎母语对练！');
+      return;
     }
 
     // 随机计算发音与流利度打分
@@ -342,26 +350,49 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {filteredScenarios.map(sc => {
           const isSelected = sc.id === currentScenario.id;
+          const isFree = sc.id === 'fr_cafe_01';
+          const isLocked = !isVip && !isFree;
+
           return (
             <div
               key={sc.id}
-              onClick={() => setSelectedScenarioId(sc.id)}
-              className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
+              onClick={() => {
+                if (isLocked) {
+                  onOpenVipModal?.(`🔒【${sc.title}】为 VIP 专属口语实训场景！升级 VIP 终身卡（仅 ¥49.9），即可畅享 DELF 欧标实战会话、巴黎生活实操、外企面试与经典影视名场面对戏！`);
+                  return;
+                }
+                setSelectedScenarioId(sc.id);
+              }}
+              className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between group ${
                 isSelected
                   ? 'bg-white border-[#80142A] shadow-md ring-2 ring-[#80142A]/20'
+                  : isLocked
+                  ? 'bg-slate-50/70 border-slate-200/80 hover:border-amber-300 hover:bg-white text-slate-700'
                   : 'bg-white border-slate-200/80 hover:border-slate-300 hover:shadow-xs'
               }`}
             >
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span className="text-xl">{sc.icon}</span>
-                  <span className={`text-[10px] px-2 py-0.5 rounded-md font-bold ${
-                    sc.levelTag.includes('B2') 
-                      ? 'bg-purple-100 text-purple-800' 
-                      : 'bg-amber-100 text-amber-800'
-                  }`}>
-                    {sc.levelTag}
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    {isLocked ? (
+                      <span className="text-[10px] px-2 py-0.5 rounded-md font-extrabold bg-amber-100 text-amber-900 border border-amber-300/80 flex items-center gap-0.5">
+                        <Lock className="w-2.5 h-2.5 text-amber-700" />
+                        <span>VIP专属</span>
+                      </span>
+                    ) : (
+                      <span className="text-[10px] px-2 py-0.5 rounded-md font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300/80">
+                        免费体验
+                      </span>
+                    )}
+                    <span className={`text-[10px] px-2 py-0.5 rounded-md font-bold ${
+                      sc.levelTag.includes('B2') 
+                        ? 'bg-purple-100 text-purple-800' 
+                        : 'bg-slate-100 text-slate-700'
+                    }`}>
+                      {sc.levelTag}
+                    </span>
+                  </div>
                 </div>
                 <h4 className={`text-xs sm:text-sm font-black leading-snug line-clamp-1 ${
                   isSelected ? 'text-[#80142A]' : 'text-slate-800'
@@ -374,7 +405,14 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
               </div>
               <div className="pt-2 flex items-center justify-between text-[10px] text-slate-400 font-medium border-t border-slate-100 mt-2">
                 <span>{sc.categoryLabel}</span>
-                <span className="text-[#80142A] font-bold">进入对练 ➜</span>
+                {isLocked ? (
+                  <span className="text-amber-700 font-bold flex items-center gap-0.5">
+                    <Lock className="w-3 h-3" />
+                    <span>去解锁</span>
+                  </span>
+                ) : (
+                  <span className="text-[#80142A] font-bold">进入对练 ➜</span>
+                )}
               </div>
             </div>
           );
@@ -520,7 +558,27 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
         </div>
 
         {/* 底部输入控制条 */}
-        <div className="p-3 sm:p-4 bg-white border-t border-slate-200">
+        <div className="p-3 sm:p-4 bg-white border-t border-slate-200 space-y-2">
+          {/* Free User Turn Counter Bar */}
+          {!isVip && (
+            <div className="flex items-center justify-between text-[11px] text-slate-500 font-bold px-1 pb-1 border-b border-slate-100">
+              <span>
+                免费体验剩余轮次：
+                <span className="text-[#80142A] font-black">{Math.max(0, 3 - userTurnsCount)} / 3 轮</span>
+              </span>
+              {userTurnsCount >= 3 ? (
+                <span 
+                  className="text-amber-700 flex items-center gap-1 cursor-pointer hover:underline font-extrabold" 
+                  onClick={() => onOpenVipModal?.('🎯 您的免费 AI 口语体验轮次已用完！升级 VIP 终身卡（仅 ¥49.9），即可享受全站无限轮次对练！')}
+                >
+                  <Lock className="w-3 h-3" /> 点击解锁无限轮次
+                </span>
+              ) : (
+                <span className="text-slate-400">已体验 {userTurnsCount} 轮</span>
+              )}
+            </div>
+          )}
+
           <div className="flex items-center gap-2">
             {/* 麦克风录音按钮 */}
             <button
@@ -563,6 +621,28 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Free User Speaking VIP Upsell Banner */}
+      {!isVip && (
+        <div className="bg-gradient-to-r from-[#80142A] via-[#9E1B32] to-[#80142A] rounded-3xl p-5 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl shadow-rose-900/20">
+          <div className="space-y-1 text-center sm:text-left">
+            <div className="flex items-center gap-1.5 justify-center sm:justify-start font-black text-sm">
+              <Sparkles className="w-4 h-4 text-[#DDBF78]" />
+              <span>当前正在体验【巴黎咖啡馆点餐 · 免费体验（限3轮）】</span>
+            </div>
+            <p className="text-xs text-white/90 leading-relaxed">
+              开通 VIP 终身卡（仅 ¥49.9），即可解锁 <strong>DELF 欧标全等级口语实战会话</strong>、法企职场面试及 24 小时随身巴黎语伴无限轮次沉浸对练！
+            </p>
+          </div>
+          <button
+            onClick={() => onOpenVipModal?.('🎙️ 开通 VIP 终身卡（仅 ¥49.9），即可解锁 DELF 欧标全等级口语会话实战、法企职场面试及 24 小时随身巴黎语伴无限轮次沉浸对练！')}
+            className="px-5 py-2.5 rounded-2xl bg-white text-[#80142A] hover:bg-rose-50 font-black text-xs shadow-md transition active:scale-98 shrink-0 flex items-center gap-1.5 cursor-pointer"
+          >
+            <Lock className="w-3.5 h-3.5 text-[#80142A]" />
+            <span>解锁全部口语剧本与无限畅聊 (¥49.9)</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };
