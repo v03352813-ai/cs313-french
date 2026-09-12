@@ -140,9 +140,24 @@ export const App: React.FC = () => {
         {activeTab !== 'home' && (
           <div className="max-w-6xl mx-auto px-4 pt-2 sm:pt-3 space-y-3 sm:space-y-3.5">
             {activeTab === 'phonetics' && <PhoneticsView />}
-            {activeTab === 'conjugation' && <ConjugationView />}
-            {activeTab === 'vocab' && <VocabView />}
-            {activeTab === 'grammar' && <GrammarView />}
+            {activeTab === 'conjugation' && (
+              <ConjugationView
+                isVip={isVip}
+                onOpenVipModal={() => setIsVipModalOpen(true)}
+              />
+            )}
+            {activeTab === 'vocab' && (
+              <VocabView
+                isVip={isVip}
+                onOpenVipModal={() => setIsVipModalOpen(true)}
+              />
+            )}
+            {activeTab === 'grammar' && (
+              <GrammarView
+                isVip={isVip}
+                onOpenVipModal={() => setIsVipModalOpen(true)}
+              />
+            )}
             {(activeTab === 'exam' || activeTab === 'delf') && (
               <FrenchExamView
                 isVip={isVip}
@@ -202,7 +217,31 @@ export const App: React.FC = () => {
         )}
       </div>
 
-      {/* Modals */}
+      {/* 🛠️ 测试身份便携切换器 (便携调试：点击在免费试学与VIP终身卡间快速切换) */}
+      <div className="fixed bottom-6 left-5 z-40">
+        <button
+          onClick={() => {
+            if (isVip) {
+              setLicense({ isVip: false });
+            } else {
+              setLicense({
+                isVip: true,
+                key: 'VIP-FR-2026-DEMO',
+                planType: 'lifetime',
+                planName: 'VIP 终身卡',
+                activatedAt: new Date().toISOString()
+              });
+            }
+          }}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/90 hover:bg-black text-white text-[11px] font-bold shadow-lg backdrop-blur-xs border border-white/20 transition active:scale-95 cursor-pointer"
+          title="点击切换测试身份：免费学员 vs VIP会员"
+        >
+          <span>{isVip ? '👑 测试身份: VIP会员' : '🆓 测试身份: 免费试学'}</span>
+          <span className="text-[10px] text-amber-300 font-normal">
+            (点此切换)
+          </span>
+        </button>
+      </div>
       <VipModal
         isOpen={isVipModalOpen}
         onClose={() => setIsVipModalOpen(false)}

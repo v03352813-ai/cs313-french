@@ -6,21 +6,31 @@ import {
   Sparkles, 
   CheckCircle2, 
   ChevronRight,
-  Info
+  Info,
+  Lock,
+  KeyRound
 } from 'lucide-react';
 import { FRENCH_GRAMMAR_LIST, GrammarPoint } from '../data/french/grammarData';
 
-export const GrammarView: React.FC = () => {
+interface GrammarViewProps {
+  isVip?: boolean;
+  onOpenVipModal?: (reason?: string) => void;
+}
+
+export const GrammarView: React.FC<GrammarViewProps> = ({
+  isVip = false,
+  onOpenVipModal
+}) => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedPoint, setSelectedPoint] = useState<GrammarPoint>(FRENCH_GRAMMAR_LIST[0]);
 
   const categories = [
-    { id: 'all', label: '全部语法' },
-    { id: '冠词与名词', label: '冠词与名词配合' },
-    { id: '代词系统', label: '直宾COD/间宾COI/副代词y en' },
-    { id: '时态与语态', label: '时态分词配合' },
-    { id: '从句与虚拟式', label: '从句与虚拟式Subjonctif' },
+    { id: 'all', label: '全部语法', isFree: true },
+    { id: '冠词与名词', label: '冠词与名词 · 免费试学', isFree: true },
+    { id: '代词系统', label: '直宾/间宾/副代词 y en', isFree: false },
+    { id: '时态与语态', label: '时态分词配合', isFree: false },
+    { id: '从句与虚拟式', label: '从句与虚拟式', isFree: false },
   ];
 
   const filteredPoints = FRENCH_GRAMMAR_LIST.filter(item => {
@@ -70,29 +80,53 @@ export const GrammarView: React.FC = () => {
 
           {/* Category Tabs */}
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-            {categories.map(cat => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
-                  activeCategory === cat.id
-                    ? 'bg-[#80142A] text-white shadow-xs'
-                    : 'bg-white text-[#29354A] hover:bg-slate-50 border border-slate-200/80'
-                }`}
-              >
-                {cat.label}
-              </button>
-            ))}
+            {categories.map(cat => {
+              const isLocked = !isVip && !cat.isFree;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => {
+                    if (isLocked) {
+                      onOpenVipModal?.(`🔒【${cat.label}】为考研二外重点攻坚专区！输入卡密即可解锁副代词 y/en、虚拟式等全量文法考点！`);
+                      return;
+                    }
+                    setActiveCategory(cat.id);
+                  }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer flex items-center gap-1.5 ${
+                    activeCategory === cat.id
+                      ? 'bg-[#80142A] text-white shadow-xs font-black'
+                      : isLocked
+                      ? 'bg-slate-50 text-slate-500 hover:bg-slate-100 border border-slate-200/80'
+                      : 'bg-white text-[#29354A] hover:bg-slate-50 border border-slate-200/80'
+                  }`}
+                >
+                  {isLocked && <Lock className="w-3 h-3 text-amber-600 shrink-0" />}
+                  <span>{cat.label}</span>
+                  {isLocked && (
+                    <span className="text-[9px] px-1 py-0.2 rounded bg-amber-100 text-amber-800 font-black">
+                      VIP
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
 
           {/* List of Grammar Points */}
           <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-2.5 space-y-1.5 max-h-[640px] overflow-y-auto scrollbar-thin">
-            {filteredPoints.map(point => {
+            {filteredPoints.map((point, idx) => {
               const isSelected = selectedPoint.id === point.id;
+              const isLockedPoint = !isVip && point.category !== '冠词与名词' && idx >= 2;
               return (
                 <button
                   key={point.id}
-                  onClick={() => setSelectedPoint(point)}
+                  onClick={() => {
+                    if (isLockedPoint) {
+                      onOpenVipModal?.(`🔒【${point.title}】为考研二外重点避坑指南（VIP专属）！输入卡密即可解锁全量文法解析！`);
+                      return;
+                    }
+                    setSelectedPoint(point);
+                  }}
                   className={`w-full p-3.5 rounded-2xl flex items-start justify-between text-left transition cursor-pointer ${
                     isSelected
                       ? 'bg-[#FCECEF] text-[#80142A] border-2 border-[#80142A] shadow-xs'
@@ -107,6 +141,15 @@ export const GrammarView: React.FC = () => {
                         {point.level}
                       </span>
                       <span className={`text-xs ${isSelected ? 'text-[#80142A]' : 'text-stone-500'}`}>{point.category}</span>
+                      {isLockedPoint ? (
+                        <span className="text-[9px] px-1 py-0.2 rounded bg-amber-100 text-amber-800 font-black">
+                          🔒 VIP
+                        </span>
+                      ) : (
+                        <span className="text-[9px] px-1 py-0.2 rounded bg-emerald-100 text-emerald-800 font-bold">
+                          ✓ 免费
+                        </span>
+                      )}
                     </div>
                     <h3 className={`font-bold text-xs sm:text-sm leading-snug ${isSelected ? 'text-[#80142A]' : 'text-[#29354A]'}`}>
                       {point.title}

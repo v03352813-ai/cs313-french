@@ -14,12 +14,23 @@ import {
   Pause,
   List,
   Grid,
-  CheckCircle2
+  CheckCircle2,
+  Lock,
+  KeyRound,
+  Crown
 } from 'lucide-react';
 import { FRENCH_VOCAB_LIST, FrenchVocab } from '../data/french/vocabData';
 import { speakFrench, stopFrenchSpeech } from '../utils/speech';
 
-export const VocabView: React.FC = () => {
+interface VocabViewProps {
+  isVip?: boolean;
+  onOpenVipModal?: (reason?: string) => void;
+}
+
+export const VocabView: React.FC<VocabViewProps> = ({
+  isVip = false,
+  onOpenVipModal
+}) => {
   const [activeLevel, setActiveLevel] = useState<string>('all');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
@@ -39,12 +50,12 @@ export const VocabView: React.FC = () => {
   });
 
   const levels = [
-    { id: 'all', label: '全部词库' },
-    { id: 'A1', label: 'A1 入门' },
-    { id: 'A2', label: 'A2 基础' },
-    { id: 'B1', label: 'B1 进阶' },
-    { id: 'B2', label: 'B2 提升' },
-    { id: 'KAOYAN', label: '考研二外高频' }
+    { id: 'all', label: '全部词库', isFree: true },
+    { id: 'A1', label: 'A1 入门 · 免费试学', isFree: true },
+    { id: 'A2', label: 'A2 基础', isFree: false },
+    { id: 'B1', label: 'B1 进阶', isFree: false },
+    { id: 'B2', label: 'B2 提升', isFree: false },
+    { id: 'KAOYAN', label: '考研二外高频', isFree: false }
   ];
 
   const filteredVocab = useMemo(() => {
@@ -234,23 +245,38 @@ export const VocabView: React.FC = () => {
       {/* 2. 词汇级别筛选条 & 搜索框 */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-          {levels.map(lvl => (
-            <button
-              key={lvl.id}
-              onClick={() => {
-                setActiveLevel(lvl.id);
-                setCurrentIndex(0);
-                setIsFlipped(false);
-              }}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
-                activeLevel === lvl.id
-                  ? 'bg-[#80142A] text-white shadow-xs font-black'
-                  : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-200/80'
-              }`}
-            >
-              {lvl.label}
-            </button>
-          ))}
+          {levels.map(lvl => {
+            const isLocked = !isVip && !lvl.isFree;
+            return (
+              <button
+                key={lvl.id}
+                onClick={() => {
+                  if (isLocked) {
+                    onOpenVipModal?.(`🔒【${lvl.label}】为 VIP 专属高频词库！拍下激活码（仅 ¥49.9），即可解锁全部 5,000+ 核心词库与磨耳朵循环精听！`);
+                    return;
+                  }
+                  setActiveLevel(lvl.id);
+                  setCurrentIndex(0);
+                  setIsFlipped(false);
+                }}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer flex items-center gap-1.5 ${
+                  activeLevel === lvl.id
+                    ? 'bg-[#80142A] text-white shadow-xs font-black'
+                    : isLocked
+                    ? 'bg-slate-50 text-slate-500 hover:bg-slate-100 border border-slate-200/80'
+                    : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-200/80'
+                }`}
+              >
+                {isLocked && <Lock className="w-3 h-3 text-amber-600 shrink-0" />}
+                <span>{lvl.label}</span>
+                {isLocked && (
+                  <span className="text-[9px] px-1 py-0.2 rounded bg-amber-100 text-amber-800 font-extrabold">
+                    VIP
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
 
         <div className="relative w-full sm:w-64">
@@ -284,14 +310,40 @@ export const VocabView: React.FC = () => {
             </span>
           </div>
 
-          {/* 3D Flip Container (空间立体翻转) */}
-          <div 
-            onClick={() => setIsFlipped(!isFlipped)}
-            className="relative w-full min-h-[340px] sm:min-h-[380px] cursor-pointer perspective-1000 select-none group"
-          >
-            <div className={`relative w-full h-full min-h-[340px] sm:min-h-[380px] duration-500 transform-style-3d transition-transform rounded-3xl ${
-              isFlipped ? 'rotate-y-180' : ''
-            }`}>
+          {/* 🌟 免费试学节点拦截：非VIP学员在进阶词库中体验第11词时显示锁卡 */}
+          {!isVip && activeLevel !== 'A1' && currentIndex >= 10 ? (
+            <div className="w-full min-h-[340px] sm:min-h-[380px] bg-gradient-to-br from-[#FCECEF]/40 via-white to-slate-50 rounded-3xl p-6 sm:p-8 border border-[#80142A]/30 shadow-md flex flex-col items-center justify-center text-center space-y-4">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#80142A] via-[#9B1B36] to-[#680E20] flex items-center justify-center text-white shadow-md shadow-[#80142A]/20">
+                <KeyRound className="w-7 h-7" />
+              </div>
+              <div className="space-y-1.5 max-w-md">
+                <span className="px-3 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-black border border-[#80142A]/20">
+                  ✨ 免费试学已达节点 (已体验前 10 词)
+                </span>
+                <h3 className="text-lg font-black text-[#29354A]">
+                  输入卡密解锁全部 5,000+ 核心词库
+                </h3>
+                <p className="text-xs text-stone-500 leading-relaxed">
+                  当前为【免费试学模式】。拍下激活码（仅 ¥49.9），立享欧标 A1-B2 & 考研二外全量词库、阴阳性全景图解与循环磨耳朵连读！
+                </p>
+              </div>
+              <button
+                onClick={() => onOpenVipModal?.('输入卡密解锁全量 5000+ 法语核心词库与考研精讲')}
+                className="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-black shadow-md shadow-sky-500/20 active:scale-98 transition cursor-pointer flex items-center gap-2"
+              >
+                <KeyRound className="w-4 h-4" />
+                <span>输入卡密立即解锁全部词库 →</span>
+              </button>
+            </div>
+          ) : (
+            /* 3D Flip Container (空间立体翻转) */
+            <div 
+              onClick={() => setIsFlipped(!isFlipped)}
+              className="relative w-full min-h-[340px] sm:min-h-[380px] cursor-pointer perspective-1000 select-none group"
+            >
+              <div className={`relative w-full h-full min-h-[340px] sm:min-h-[380px] duration-500 transform-style-3d transition-transform rounded-3xl ${
+                isFlipped ? 'rotate-y-180' : ''
+              }`}>
               
               {/* --- FRONT OF CARD (卡片正面: 法语单词 + 阴阳性 + 国际音标) --- */}
               <div className="absolute inset-0 w-full h-full bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-lg shadow-slate-200/40 flex flex-col justify-between backface-hidden">
@@ -491,7 +543,7 @@ export const VocabView: React.FC = () => {
         /* 4. 列表速查模式 (List View Mode) */
         <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden">
           <div className="divide-y divide-slate-100">
-            {filteredVocab.map((v, idx) => {
+            {( (!isVip && activeLevel !== 'A1') ? filteredVocab.slice(0, 12) : filteredVocab ).map((v, idx) => {
               const isMastered = masteredIds.includes(v.id);
               return (
                 <div 
@@ -541,6 +593,29 @@ export const VocabView: React.FC = () => {
                 </div>
               );
             })}
+
+            {/* 列表模式 VIP 试学节点提示条 */}
+            {!isVip && activeLevel !== 'A1' && filteredVocab.length > 12 && (
+              <div className="p-6 bg-gradient-to-r from-sky-50 via-indigo-50/50 to-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-center sm:text-left">
+                <div className="space-y-1">
+                  <div className="flex items-center justify-center sm:justify-start gap-2">
+                    <Lock className="w-4 h-4 text-sky-600" />
+                    <span className="text-xs font-black text-[#29354A]">
+                      当前仅展示前 12 条试学词汇 · 剩余 {filteredVocab.length - 12} 条已锁定
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-stone-500">
+                    拍下卡密激活 VIP 终身卡，立享全量 5,000+ 欧标与考研高频词库、原声连读与真题例句！
+                  </p>
+                </div>
+                <button
+                  onClick={() => onOpenVipModal?.('输入卡密解锁全量 5000+ 法语核心词库')}
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-black shadow-xs cursor-pointer shrink-0"
+                >
+                  🔑 输入卡密解锁全部 →
+                </button>
+              </div>
+            )}
           </div>
         </div>
       ) : (

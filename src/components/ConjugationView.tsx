@@ -7,16 +7,31 @@ import {
   Check, 
   BookOpen, 
   Lightbulb, 
-  ArrowRight,
-  Info
+  ArrowRight, 
+  Info,
+  Lock,
+  KeyRound
 } from 'lucide-react';
 import { FRENCH_VERBS, TENSES_METADATA, VerbItem, TenseKey } from '../data/french/conjugation';
 
-export const ConjugationView: React.FC = () => {
+interface ConjugationViewProps {
+  isVip?: boolean;
+  onOpenVipModal?: (reason?: string) => void;
+}
+
+export const ConjugationView: React.FC<ConjugationViewProps> = ({
+  isVip = false,
+  onOpenVipModal
+}) => {
   const [selectedVerb, setSelectedVerb] = useState<VerbItem>(FRENCH_VERBS[0]);
   const [selectedTense, setSelectedTense] = useState<TenseKey>('present');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [playingText, setPlayingText] = useState<string | null>(null);
+
+  // 基础免费动词（前 4 大基石动词）
+  const freeVerbIds = ['etre', 'avoir', 'aller', 'faire'];
+  // 基础免费时态（现在时、复合过去时）
+  const freeTenseKeys: TenseKey[] = ['present', 'passe_compose'];
 
   const filteredVerbs = FRENCH_VERBS.filter(v => 
     v.infinitive.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -91,10 +106,17 @@ export const ConjugationView: React.FC = () => {
           <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-2 space-y-1 max-h-[520px] overflow-y-auto">
             {filteredVerbs.map(verb => {
               const isSelected = selectedVerb.id === verb.id;
+              const isLockedVerb = !isVip && !freeVerbIds.includes(verb.id);
               return (
                 <button
                   key={verb.id}
-                  onClick={() => setSelectedVerb(verb)}
+                  onClick={() => {
+                    if (isLockedVerb) {
+                      onOpenVipModal?.(`🔒【${verb.infinitive} (${verb.meaning})】为 VIP 终身卡专属核心动词！输入卡密即可解锁全量动词库！`);
+                      return;
+                    }
+                    setSelectedVerb(verb);
+                  }}
                   className={`w-full p-3 rounded-2xl flex items-center justify-between text-left transition cursor-pointer ${
                     isSelected
                       ? 'bg-[#FCECEF] text-[#80142A] border-2 border-[#80142A] shadow-xs'
@@ -111,12 +133,21 @@ export const ConjugationView: React.FC = () => {
                           ? 'bg-[#80142A] text-white' 
                           : verb.group === '1st_er' 
                           ? 'bg-emerald-100 text-emerald-800' 
-                          : verb.group === '2nd_ir'
+                          : verb.group === '2nd_ir' 
                           ? 'bg-[#FCECEF] text-[#80142A]' 
                           : 'bg-slate-50 text-[#29354A] border border-slate-200/70'
                       }`}>
                         {verb.group === '1st_er' ? '第1组 -er' : verb.group === '2nd_ir' ? '第2组 -ir' : '第3组不规则'}
                       </span>
+                      {isLockedVerb ? (
+                        <span className="text-[9px] px-1 py-0.2 rounded bg-amber-100 text-amber-800 font-black">
+                          🔒 VIP
+                        </span>
+                      ) : (
+                        <span className="text-[9px] px-1 py-0.2 rounded bg-emerald-100 text-emerald-800 font-bold">
+                          ✓ 免费
+                        </span>
+                      )}
                     </div>
                     <p className={`text-xs mt-0.5 truncate max-w-[200px] ${isSelected ? 'text-[#80142A]' : 'text-stone-500'}`}>
                       {verb.meaning}
@@ -178,21 +209,36 @@ export const ConjugationView: React.FC = () => {
                 {TENSES_METADATA.map(t => {
                   const hasThisTense = !!selectedVerb.tenses[t.key];
                   const isActive = selectedTense === t.key;
+                  const isLockedTense = !isVip && !freeTenseKeys.includes(t.key);
                   return (
                     <button
                       key={t.key}
                       disabled={!hasThisTense}
-                      onClick={() => setSelectedTense(t.key)}
+                      onClick={() => {
+                        if (isLockedTense) {
+                          onOpenVipModal?.(`🔒【${t.label} (${t.frenchLabel})】为 VIP 专属高阶时态！输入卡密即可解锁虚拟式、条件式等全时态变位！`);
+                          return;
+                        }
+                        setSelectedTense(t.key);
+                      }}
                       className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
                         isActive
                           ? 'bg-[#80142A] text-white shadow-xs'
+                          : isLockedTense
+                          ? 'bg-slate-50 text-slate-500 hover:bg-slate-100 border border-slate-200/80'
                           : hasThisTense
                           ? 'bg-slate-50 text-[#29354A] hover:bg-slate-100 border border-slate-200/80'
                           : 'bg-slate-100/50 text-stone-300 cursor-not-allowed border border-slate-200/40'
                       }`}
                     >
+                      {isLockedTense && <Lock className="w-3 h-3 text-amber-600 shrink-0" />}
                       <span>{t.label}</span>
                       <span className="text-[10px] opacity-75">({t.frenchLabel})</span>
+                      {isLockedTense && (
+                        <span className="text-[9px] px-1 py-0.2 rounded bg-amber-100 text-amber-800 font-black">
+                          VIP
+                        </span>
+                      )}
                     </button>
                   );
                 })}
