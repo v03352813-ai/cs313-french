@@ -61,12 +61,12 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'phonetics' as ActiveTab, label: '35音·联诵', shortLabel: '音标', icon: Sparkles },
     { id: 'conjugation' as ActiveTab, label: '动词变位器', shortLabel: '变位', icon: RotateCcw },
     { id: 'vocab' as ActiveTab, label: '单词闪卡', shortLabel: '闪卡', icon: Layers },
-    { id: 'cinema' as ActiveTab, label: '法影精听', shortLabel: '精听', icon: Headphones },
+    { id: 'mistakes' as ActiveTab, label: '错题本', shortLabel: '错题', icon: BookMarked },
     { id: 'speaking' as ActiveTab, label: 'AI口语', shortLabel: '口语', icon: Mic, isHero: true },
     { id: 'writing' as ActiveTab, label: 'AI写作', shortLabel: '写作', icon: PenTool, isHero: true },
     { id: 'grammar' as ActiveTab, label: '语法宝典', shortLabel: '语法', icon: BookOpenCheck },
     { id: 'exam' as ActiveTab, label: '真题模考', shortLabel: '真题', icon: FileCheck2 },
-    { id: 'mistakes' as ActiveTab, label: '错题本', shortLabel: '错题', icon: BookMarked },
+    { id: 'cinema' as ActiveTab, label: '法影精听', shortLabel: '精听', icon: Headphones },
   ];
 
   const [isAdmin, setIsAdmin] = useState<boolean>(() => {
