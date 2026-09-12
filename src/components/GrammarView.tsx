@@ -549,26 +549,73 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
           </div>
         </div>
 
-        {/* Right Column (50%): 考点全景研习滑块详情看板 */}
-        <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col h-[560px] sm:h-[600px] overflow-hidden">
+        {/* Right Column (50%): 考点全景研习滑块详情看板 (随赛道动态切换样式与深度解析) */}
+        <div className={`bg-white rounded-3xl border-2 shadow-xs p-5 sm:p-6 flex flex-col h-[560px] sm:h-[600px] overflow-hidden transition-all ${
+          trackFilter === 'kaoyan' 
+            ? 'border-[#80142A]/30' 
+            : trackFilter === 'delf' 
+            ? 'border-[#B89047]/40' 
+            : 'border-slate-200/80'
+        }`}>
           
           {/* Top Point Title Header */}
-          <div className="pb-3.5 border-b border-slate-100 space-y-2 shrink-0">
-            <div className="flex items-center justify-between gap-2 flex-wrap">
+          <div className="pb-3.5 border-b border-slate-100 space-y-2.5 shrink-0">
+            {/* 顶栏：随赛道动态变化的身份横幅 */}
+            {trackFilter === 'kaoyan' && (
+              <div className="p-2.5 rounded-xl bg-gradient-to-r from-[#FCECEF] via-rose-50 to-white border border-[#80142A]/20 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm">🏛️</span>
+                  <span className="text-xs font-black text-[#80142A]">全国考研二外 (241/242) 定向深度剖析</span>
+                </div>
+                <span className="text-[10px] px-2 py-0.5 rounded-md bg-white text-[#80142A] font-bold border border-[#80142A]/20 shadow-2xs">
+                  自命题真题 · 语法改错踩分
+                </span>
+              </div>
+            )}
+            {trackFilter === 'delf' && (
+              <div className="p-2.5 rounded-xl bg-gradient-to-r from-amber-50 via-orange-50/40 to-white border border-amber-300 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm">🌍</span>
+                  <span className="text-xs font-black text-[#8A6A1E]">法国官方 DELF / DALF 欧标实战应用定向</span>
+                </div>
+                <span className="text-[10px] px-2 py-0.5 rounded-md bg-white text-[#8A6A1E] font-bold border border-amber-300 shadow-2xs">
+                  欧标写作 (PE) · 口试论辩 (PO)
+                </span>
+              </div>
+            )}
+            {trackFilter === 'all' && (
+              <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm">📚</span>
+                  <span className="text-xs font-black text-slate-800">法语全景文法总库研习模式</span>
+                </div>
+                <span className="text-[10px] px-2 py-0.5 rounded-md bg-white text-slate-600 font-bold border border-slate-200">
+                  包含考研与欧标全考点
+                </span>
+              </div>
+            )}
+
+            <div className="flex items-center justify-between gap-2 flex-wrap pt-0.5">
               <div className="flex items-center gap-2">
-                <span className="text-xs px-2.5 py-0.5 rounded-md bg-[#FCECEF] text-[#80142A] font-black border border-[#80142A]/20">
-                  {selectedPoint.level} · {selectedPoint.category}
+                <span className={`text-xs px-2.5 py-0.5 rounded-md font-black border ${
+                  trackFilter === 'delf'
+                    ? 'bg-amber-50 text-[#8A6A1E] border-[#DDBF78]/50'
+                    : 'bg-[#FCECEF] text-[#80142A] border-[#80142A]/20'
+                }`}>
+                  {trackFilter === 'delf' ? 'DELF ' + selectedPoint.level : selectedPoint.level} · {selectedPoint.category}
                 </span>
                 <span className="text-xs text-slate-400 font-mono">
                   {selectedPoint.frenchTitle}
                 </span>
               </div>
               <div className="text-[10px] text-slate-400 font-bold flex items-center gap-1">
-                <span>↕ 右侧内容可上下滑块滑动</span>
+                <span>↕ 内容可上下滑动</span>
               </div>
             </div>
 
-            <h2 className="text-lg sm:text-xl font-black text-[#29354A] leading-tight">
+            <h2 className={`text-lg sm:text-xl font-black leading-tight ${
+              trackFilter === 'delf' ? 'text-amber-950' : 'text-[#29354A]'
+            }`}>
               {selectedPoint.title}
             </h2>
 
@@ -611,17 +658,47 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
             ref={detailScrollRef}
             className="flex-1 overflow-y-auto py-4 space-y-4 pr-1.5 scrollbar-thin scroll-smooth"
           >
-            {/* 考研二外 vs DELF 欧标专属踩分侧重点 */}
-            {(selectedPoint.trackNotes?.kaoyan || selectedPoint.trackNotes?.delf) && (
+            {/* 赛道核心专属置顶大卡片 (根据所选赛道精准展示，绝不互相干扰掺杂) */}
+            {trackFilter === 'kaoyan' && (
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-[#FFF9FA] via-[#FCECEF]/80 to-white border-2 border-[#80142A]/30 space-y-2 shadow-xs">
+                <div className="flex items-center justify-between">
+                  <div className="font-black text-xs sm:text-sm text-[#80142A] flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-lg bg-[#80142A] text-white flex items-center justify-center text-[10px]">🏛️</span>
+                    <span>全国名校考研二外命题解密与扣分点</span>
+                  </div>
+                  <span className="text-[10px] font-black px-2 py-0.5 rounded-md bg-[#80142A] text-white shadow-2xs">
+                    单选 / 改错 / 汉译法必考
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-800 leading-relaxed font-medium bg-white/90 p-3 rounded-xl border border-rose-100 shadow-2xs">
+                  {selectedPoint.trackNotes?.kaoyan || selectedPoint.examTrap}
+                </p>
+              </div>
+            )}
+
+            {trackFilter === 'delf' && (
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-[#FFFDF7] via-amber-50 to-white border-2 border-[#B89047]/50 space-y-2 shadow-xs">
+                <div className="flex items-center justify-between">
+                  <div className="font-black text-xs sm:text-sm text-[#8A6A1E] flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-lg bg-[#B89047] text-white flex items-center justify-center text-[10px]">🌍</span>
+                    <span>DELF 欧标官方写作 (PE) 与口试 (PO) 实战指南</span>
+                  </div>
+                  <span className="text-[10px] font-black px-2 py-0.5 rounded-md bg-[#8A6A1E] text-white shadow-2xs">
+                    公函 / 论坛 / 论辩规范
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-800 leading-relaxed font-medium bg-white/90 p-3 rounded-xl border border-amber-100 shadow-2xs">
+                  {selectedPoint.trackNotes?.delf || selectedPoint.summary}
+                </p>
+              </div>
+            )}
+
+            {trackFilter === 'all' && (selectedPoint.trackNotes?.kaoyan || selectedPoint.trackNotes?.delf) && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
                 {selectedPoint.trackNotes?.kaoyan && (
-                  <div className={`p-3.5 rounded-2xl border text-xs space-y-1.5 ${
-                    trackFilter === 'kaoyan' 
-                      ? 'bg-[#FCECEF]/60 border-[#80142A]/30 ring-1 ring-[#80142A]/20 shadow-2xs' 
-                      : 'bg-rose-50/40 border-rose-100'
-                  }`}>
+                  <div className="p-3.5 rounded-2xl border border-[#80142A]/25 bg-[#FCECEF]/40 text-xs space-y-1">
                     <div className="font-black text-[#80142A] flex items-center gap-1.5">
-                      <span>🏛️ 考研二外命题踩分陷阱</span>
+                      <span>🏛️ 考研二外命题点</span>
                     </div>
                     <p className="text-xs text-slate-700 leading-relaxed font-medium">
                       {selectedPoint.trackNotes.kaoyan}
@@ -629,13 +706,9 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
                   </div>
                 )}
                 {selectedPoint.trackNotes?.delf && (
-                  <div className={`p-3.5 rounded-2xl border text-xs space-y-1.5 ${
-                    trackFilter === 'delf' 
-                      ? 'bg-amber-50/70 border-amber-300 ring-1 ring-amber-200 shadow-2xs' 
-                      : 'bg-amber-50/40 border-amber-100'
-                  }`}>
+                  <div className="p-3.5 rounded-2xl border border-amber-200 bg-amber-50/40 text-xs space-y-1">
                     <div className="font-black text-[#8A6A1E] flex items-center gap-1.5">
-                      <span>🌍 DELF 欧标写作与口试运用</span>
+                      <span>🌍 DELF 欧标运用点</span>
                     </div>
                     <p className="text-xs text-slate-700 leading-relaxed font-medium">
                       {selectedPoint.trackNotes.delf}
