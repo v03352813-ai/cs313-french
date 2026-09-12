@@ -102,12 +102,12 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
     bannerDot: 'bg-[#C5A059]',
     bannerBadgeBg: 'bg-white text-[#785E39] border-[#C5A059]/40',
     bannerBadgeText: 'text-[#785E39]',
-    desc: '初学者零压力科学路线：攻克 35 国际音标与 4 大连音联诵规则 ➔ 玩转三组动词 7 大时态变位演练器 ➔ 掌握 5,000+ 阴阳性核心词！',
+    desc: '初学者零压力科学路线：攻克 35 国际音标与 5 大连音联诵规则 ➔ 玩转三组动词 7 大时态变位演练器 ➔ 掌握 5,000+ 阴阳性核心词！',
     steps: [
       {
         stepNum: '01',
         stepLabel: '第 1 步 · 夯实语音',
-        title: '35 音标体系与 4 大发音/联诵规则',
+        title: '35 音标体系与 5 大发音/联诵规则',
         targetBadge: '鼻化元音 · 小舌音[ʁ]',
         badgeBg: 'bg-[#FCECEF] text-[#80142A] border border-[#80142A]/25',
         desc: '15 元音（含 4 鼻化音）、3 半元音与 17 辅音，动画透视联诵 (Liaison)、CaReFuL 词尾不发音与省音规则。',

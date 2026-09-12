@@ -1,5 +1,5 @@
 /**
- * 法语 35 个国际音标体系 & 4 大核心发音/联诵规则数据库
+ * 法语 35 个国际音标体系 & 5 大核心发音/联诵规则数据库
  */
 
 export interface PhoneticItem {
@@ -432,7 +432,7 @@ export const FRENCH_PHONETICS: PhoneticItem[] = [
   }
 ];
 
-// 2. 四大核心发音与联诵规则
+// 2. 五大核心发音与联诵规则
 export const PRONUNCIATION_RULES: PronunciationRule[] = [
   {
     id: 'liaison',

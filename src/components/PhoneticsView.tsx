@@ -111,7 +111,7 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
           )}
         </div>
 
-        {/* 模块 2: 4 大核心发音与联诵规则精析 */}
+        {/* 模块 2: 5 大核心发音与联诵规则精析 */}
         <div
           onClick={() => setActiveModule('rules')}
           className={`p-4 sm:p-5 rounded-2xl border-2 transition-all cursor-pointer flex items-start gap-4 relative ${
@@ -128,16 +128,16 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
           <div className="space-y-1 flex-1 min-w-0">
             <div className="flex items-center justify-between gap-2">
               <h3 className={`text-base sm:text-lg font-black ${activeModule === 'rules' ? 'text-[#8A6A1E]' : 'text-slate-800'}`}>
-                4 大核心发音与联诵规则精析
+                5 大核心发音与联诵规则精析
               </h3>
               <span className={`text-[11px] font-black px-2.5 py-0.5 rounded-full whitespace-nowrap ${
                 activeModule === 'rules' ? 'bg-[#8A6A1E] text-white shadow-2xs' : 'bg-slate-100 text-slate-600'
               }`}>
-                重中之重 · 4大规则
+                重中之重 · 5大规则
               </span>
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
-              搞清联诵 (Liaison)、词尾不发音与省音缩合规则，攻克考研二外与 DELF 听力口语丢分重灾区，告别中式发音。
+              搞清联诵 (Liaison)、哑音与嘘音h界限、词尾不发音与省音规则，攻克考研二外与 DELF 听力口语丢分重灾区，告别中式发音。
             </p>
           </div>
           {activeModule === 'rules' && (
@@ -303,11 +303,11 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
                 重中之重
               </span>
               <h2 className="text-xl sm:text-2xl font-black text-[#29354A] tracking-tight">
-                4 大核心发音与联诵规则精析
+                5 大核心发音与联诵规则精析
               </h2>
             </div>
             <p className="text-xs sm:text-sm text-stone-500 mt-1">
-              搞清联诵 (Liaison)、词尾不发音与省音规则，是告别中式发音的唯一法则
+              搞清联诵 (Liaison)、哑音/嘘音h界限、词尾不发音与省音规则，是告别中式发音的唯一法则
             </p>
           </div>
 
@@ -398,7 +398,7 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
               <span>当前正在体验【法语 35 音标与基础联诵 · 免费体验】</span>
             </div>
             <p className="text-xs text-white/90 leading-relaxed">
-              开通 VIP 终身卡（仅 ¥49.9），立享<strong>全部 4 大高阶联诵/省音规则</strong>、36套国家级模考全真大卷与 5000+ 性数精解词库！
+              开通 VIP 终身卡（仅 ¥49.9），立享<strong>全部 5 大高阶联诵/省音规则</strong>、36套国家级模考全真大卷与 5000+ 性数精解词库！
             </p>
           </div>
           <button
