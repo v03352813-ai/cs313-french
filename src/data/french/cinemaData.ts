@@ -18,6 +18,7 @@ export interface CinemaScene {
     zh: string;
     keyPoints?: string;
   }[];
+  isFreePreview?: boolean; // 是否免费试学
   vocabulary: {
     word: string;
     meaning: string;
@@ -147,6 +148,140 @@ export const FRENCH_CINEMA_LIST: CinemaScene[] = [
       { word: 'essentiel (adj. / n.m.)', meaning: '本质的 / 核心要务' },
       { word: 'rose (n.f.)', meaning: '玫瑰' },
       { word: 'invisible (adj.)', meaning: '看不见的 / 无形的' }
+    ]
+  },
+  {
+    id: 'film_leon',
+    movieTitle: '这个杀手不太冷',
+    frenchTitle: 'Léon',
+    year: 1994,
+    director: 'Luc Besson',
+    coverImage: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&auto=format&fit=crop&q=80',
+    tag: '吕克·贝松影史传世神作 · 铁血与纯真温情',
+    audioDuration: '02:05',
+    isFreePreview: false,
+    sceneSummary: '楼道里的少女玛蒂尔达与独行杀手莱昂的宿命相遇，那句关于生活本质的经典叩问。',
+    dialogues: [
+      {
+        character: 'Mathilda',
+        fr: 'La vie est-elle toujours aussi dure, ou seulement quand on est petit ?',
+        zh: '生活总是这么痛苦，还是只有小时候如此？',
+        keyPoints: 'toujours aussi...: 总是同样...；quand on est petit: 当人年幼的时候。'
+      },
+      {
+        character: 'Léon',
+        fr: 'Toujours aussi dure.',
+        zh: '总是如此痛苦。',
+        keyPoints: '经典的冷硬极简回应，体现法语口语中省略句的深沉语感。'
+      },
+      {
+        character: 'Mathilda',
+        fr: 'Je veux de l\'amour, ou la mort.',
+        zh: '我要么得到爱，要么死。',
+        keyPoints: 'de l\'amour: 部分冠词修饰抽象情感；ou: 连词“或者/要么”。'
+      }
+    ],
+    vocabulary: [
+      { word: 'dur / dure (adj.)', meaning: '艰难的 / 痛苦的' },
+      { word: 'amour (n.m.)', meaning: '爱情 / 关爱' },
+      { word: 'mort (n.f.)', meaning: '死亡' },
+      { word: 'protéger (v.)', meaning: '保护 / 庇护' }
+    ]
+  },
+  {
+    id: 'film_jeux_enfants',
+    movieTitle: '两小无猜',
+    frenchTitle: 'Jeux d\'enfants',
+    year: 2003,
+    director: 'Yann Samuell',
+    coverImage: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&auto=format&fit=crop&q=80',
+    tag: '极致法式浪漫狂想 · Cap ou pas cap',
+    audioDuration: '02:15',
+    isFreePreview: false,
+    sceneSummary: '朱利安与索菲从童年延续至成年的铁盒旋转木马游戏，用一生实践“敢不敢”的炽热爱情。',
+    dialogues: [
+      {
+        character: 'Sophie',
+        fr: 'Cap ou pas cap ? — Cap !',
+        zh: '敢，还是不敢？——敢！',
+        keyPoints: 'cap (être capable de): 法国年轻人极其经典的俚语挑战口头禅。'
+      },
+      {
+        character: 'Julien',
+        fr: 'Il y a trois choses que je n\'aurais jamais dû faire : rouler sur la ligne de chemin de fer, avaler un ver de terre, et aimer Sophie.',
+        zh: '有三件事我本不该做：在铁轨上疾驰、吞下一只蚯蚓，以及爱上索菲。',
+        keyPoints: 'je n\'aurais jamais dû + 不定式: 条件式过去时表“本不该做某事”之懊悔。'
+      }
+    ],
+    vocabulary: [
+      { word: 'capable (adj.)', meaning: '有能力的 / 敢于的' },
+      { word: 'oser (v.)', meaning: '敢于 / 斗胆' },
+      { word: 'pari (n.m.)', meaning: '打赌 / 赌注' },
+      { word: 'passion (n.f.)', meaning: '炽热激情' }
+    ]
+  },
+  {
+    id: 'film_grand_bleu',
+    movieTitle: '碧海蓝天',
+    frenchTitle: 'Le Grand Bleu',
+    year: 1988,
+    director: 'Luc Besson',
+    coverImage: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&auto=format&fit=crop&q=80',
+    tag: '蔚蓝深海的自由诗篇 · 影史诗意丰碑',
+    audioDuration: '02:40',
+    isFreePreview: false,
+    sceneSummary: '潜水员雅克凝视地中海幽暗深处，那是比陆地更纯粹、属于海豚与灵魂的归宿。',
+    dialogues: [
+      {
+        character: 'Jacques Mayol',
+        fr: 'Tu sais ce qu\'il faut faire pour rencontrer une sirène ? Tu descends au fond de la mer, là où l\'eau n\'est plus bleue...',
+        zh: '你知道怎样才能遇见美人鱼吗？你潜入海底深处，直到那里的海水不再是蓝色的...',
+        keyPoints: 'ce qu\'il faut faire: “所需要做的事”；au fond de: 在...底部。'
+      },
+      {
+        character: 'Jacques Mayol',
+        fr: 'Et là, tu décides que tu es prêt à mourir pour elles. Alors seulement, elles viennent.',
+        zh: '到了那里，你下定决心愿意为她们而死。只有那时，她们才会来到你身边。',
+        keyPoints: 'être prêt à + 不定式: 准备好做某事；alors seulement: 唯有此时。'
+      }
+    ],
+    vocabulary: [
+      { word: 'mer (n.f.)', meaning: '大海' },
+      { word: 'profond (adj.)', meaning: '深邃的 / 深刻的' },
+      { word: 'sirène (n.f.)', meaning: '美人鱼' },
+      { word: 'plonger (v.)', meaning: '潜水 / 沉浸' }
+    ]
+  },
+  {
+    id: 'film_la_mome',
+    movieTitle: '玫瑰人生',
+    frenchTitle: 'La Môme (La Vie en Rose)',
+    year: 2007,
+    director: 'Olivier Dahan',
+    coverImage: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&auto=format&fit=crop&q=80',
+    tag: '法兰西传奇香颂歌后 · 奥斯卡双料桂冠',
+    audioDuration: '02:20',
+    isFreePreview: false,
+    sceneSummary: '病痛缠身的法国歌后埃迪特·皮雅芙站在聚光灯下，用颤抖而坚定的歌喉唱出对生命与爱的无悔绝唱。',
+    dialogues: [
+      {
+        character: 'Édith Piaf',
+        fr: 'Non, rien de rien. Non, je ne regrette rien. Ni le bien qu\'on m\'a fait, ni le mal, tout ça m\'est bien égal !',
+        zh: '不，绝不。不，我绝不后悔。无论是给我的好，还是给我的坏，对我来说都全无所谓！',
+        keyPoints: 'ni... ni...: 既不...也不...；m\'est égal: 对我无所谓。'
+      },
+      {
+        character: 'Édith Piaf',
+        fr: 'Si je devais donner un conseil à une femme ? Aimez. À une jeune fille ? Aimez. À un enfant ? Aimez.',
+        zh: '如果要我给女人一个忠告？去爱吧。给年轻女孩？去爱吧。给孩子？去爱吧。',
+        keyPoints: 'si + 未完成过去时: 表示假设与建议；Aimez: 命令式“去爱”。'
+      }
+    ],
+    vocabulary: [
+      { word: 'regretter (v.)', meaning: '后悔 / 遗憾' },
+      { word: 'conseil (n.m.)', meaning: '建议 / 忠告' },
+      { word: 'chanson (n.f.)', meaning: '歌曲 / 香颂' },
+      { word: 'passionné (adj.)', meaning: '充满热情的' }
     ]
   }
 ];

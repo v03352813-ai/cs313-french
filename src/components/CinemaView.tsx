@@ -13,7 +13,15 @@ import {
 import { FRENCH_CINEMA_LIST, CinemaScene } from '../data/french/cinemaData';
 import { speakFrench, stopFrenchSpeech } from '../utils/speech';
 
-export const CinemaView: React.FC = () => {
+interface CinemaViewProps {
+  isVip?: boolean;
+  onOpenVipModal?: (reason?: string) => void;
+}
+
+export const CinemaView: React.FC<CinemaViewProps> = ({
+  isVip = false,
+  onOpenVipModal
+}) => {
   const [selectedMovie, setSelectedMovie] = useState<CinemaScene>(FRENCH_CINEMA_LIST[0]);
   const [activeDialogueIndex, setActiveDialogueIndex] = useState<number>(0);
   const [isPlayingAll, setIsPlayingAll] = useState<boolean>(false);
@@ -107,36 +115,66 @@ export const CinemaView: React.FC = () => {
       {/* Top Hero Banner */}
       <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-bold border border-[#80142A]/25">
-            <Headphones className="w-3.5 h-3.5 text-[#DDBF78]" />
-            <span>法式浪漫原声 · 沉浸式听力跟读</span>
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-bold border border-[#80142A]/25">
+              <Headphones className="w-3.5 h-3.5 text-[#DDBF78]" />
+              <span>法式浪漫原声 · 沉浸式听力跟读</span>
+            </div>
+            <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-600 border border-slate-200/70 font-bold">
+              共精选 8 部法国影史经典
+            </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
             法国高分经典电影原声精听 (Cinéma)
           </h1>
           <p className="text-xs sm:text-sm text-[#29354A]/80 leading-relaxed max-w-3xl">
-            告别干瘪教材听力！甄选《放牛班的春天》《天使爱美丽》《触不可及》《小王子》经典切片，中法双语对照，逐句原声磨耳朵。
+            告别干瘪教材听力！甄选《放牛班的春天》《天使爱美丽》《触不可及》《小王子》《这个杀手不太冷》《两小无猜》《碧海蓝天》《玫瑰人生》8大传世经典切片，中法双语对照，逐句原声磨耳朵。
           </p>
         </div>
       </div>
 
-      {/* Movie Switcher Bar */}
+      {/* Movie Switcher Bar - 8 Classic Movies */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {FRENCH_CINEMA_LIST.map(movie => {
+        {FRENCH_CINEMA_LIST.map((movie, idx) => {
           const isSelected = selectedMovie.id === movie.id;
+          const isFree = idx < 2 || movie.isFreePreview;
+          const isLocked = !isVip && !isFree;
           return (
             <button
               key={movie.id}
-              onClick={() => setSelectedMovie(movie)}
-              className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
+              onClick={() => {
+                if (isLocked) {
+                  onOpenVipModal?.(`🔒《${movie.movieTitle}》为 VIP 专属原声电影！升级 VIP 终身卡（仅 ¥49.9），即可解锁全部 8 部法国影史经典名场面逐句点读与跟读！`);
+                  return;
+                }
+                setSelectedMovie(movie);
+              }}
+              className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between cursor-pointer relative group ${
                 isSelected
                   ? 'bg-[#FCECEF] text-[#80142A] border-2 border-[#80142A] shadow-xs scale-[1.01]'
+                  : isLocked
+                  ? 'bg-slate-50/60 hover:bg-slate-100/80 border-slate-200/70 text-slate-600'
                   : 'bg-white hover:bg-slate-50 border-slate-200/80 text-[#29354A]'
               }`}
             >
               <div>
-                <div className={`text-xs font-bold font-serif ${isSelected ? 'text-[#80142A]' : 'text-stone-400'}`}>{movie.frenchTitle}</div>
-                <div className="font-extrabold text-sm sm:text-base mt-0.5">{movie.movieTitle}</div>
+                <div className="flex items-center justify-between gap-1 mb-1">
+                  <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-bold ${
+                    isFree 
+                      ? 'bg-emerald-100 text-emerald-800' 
+                      : isVip 
+                      ? 'bg-amber-100 text-amber-800' 
+                      : 'bg-slate-200 text-slate-600'
+                  }`}>
+                    {isFree ? '✓ 免费试听' : isVip ? '★ VIP专享' : '🔒 VIP专属'}
+                  </span>
+                </div>
+                <div className={`text-xs font-bold font-serif truncate ${isSelected ? 'text-[#80142A]' : 'text-stone-400'}`}>
+                  {movie.frenchTitle}
+                </div>
+                <div className="font-extrabold text-sm sm:text-base mt-0.5 truncate">
+                  {movie.movieTitle}
+                </div>
               </div>
               <span className={`text-[10px] mt-2 px-2 py-0.5 rounded-md font-medium truncate ${
                 isSelected ? 'bg-[#80142A] text-white' : 'bg-slate-100 text-[#29354A]'

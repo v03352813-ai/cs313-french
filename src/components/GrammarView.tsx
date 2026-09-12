@@ -50,11 +50,11 @@ export const GrammarView: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Two-Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      {/* Main Two-Column Layout (左右对称 50%/50% 布局，右侧滑块滑动面板) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 items-start">
         
-        {/* Left Column (5 cols): Grammar Points Navigator */}
-        <div className="lg:col-span-5 space-y-3">
+        {/* Left Column (50%): Grammar Points Navigator */}
+        <div className="space-y-3">
           
           {/* Search */}
           <div className="relative">
@@ -64,7 +64,7 @@ export const GrammarView: React.FC = () => {
               placeholder="检索考点 (如 直宾提前, y/en, 虚拟式...)"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-slate-200/80 text-xs sm:text-sm text-[#29354A] placeholder:text-stone-400 focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/20"
+              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-slate-200/80 text-xs sm:text-sm text-[#29354A] placeholder:text-stone-400 focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/20 shadow-2xs"
             />
           </div>
 
@@ -86,7 +86,7 @@ export const GrammarView: React.FC = () => {
           </div>
 
           {/* List of Grammar Points */}
-          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-2 space-y-1.5 max-h-[560px] overflow-y-auto">
+          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-2.5 space-y-1.5 max-h-[640px] overflow-y-auto scrollbar-thin">
             {filteredPoints.map(point => {
               const isSelected = selectedPoint.id === point.id;
               return (
@@ -119,15 +119,18 @@ export const GrammarView: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Column (7 cols): Detailed Grammar Card */}
-        <div className="lg:col-span-7">
-          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-6 sm:p-8 space-y-6">
+        {/* Right Column (50%): Detailed Grammar Card with Smooth Scroll Slider */}
+        <div className="space-y-3">
+          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 space-y-5 max-h-[710px] overflow-y-auto scrollbar-thin pr-2">
             
             {/* Header of Grammar Point */}
-            <div className="space-y-2 pb-4 border-b border-slate-200/80">
-              <div className="flex items-center gap-2">
-                <span className="px-2.5 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-bold">
+            <div className="space-y-2 pb-3.5 border-b border-slate-200/80">
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <span className="px-2.5 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-bold border border-[#80142A]/20">
                   {selectedPoint.level} · {selectedPoint.category}
+                </span>
+                <span className="text-[11px] text-stone-400 font-medium">
+                  ↕ 详情内容可向下滑动研读
                 </span>
               </div>
               <h2 className="text-xl sm:text-2xl font-black text-[#29354A] tracking-tight">

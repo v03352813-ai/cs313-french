@@ -218,42 +218,44 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </button>
                 </div>
 
-                {/* Admin Status / Trigger */}
-                {isAdmin && (
-                  <div className="flex items-center justify-end gap-1.5 pt-1 sm:pt-0 sm:pl-2 border-t sm:border-t-0 sm:border-l border-slate-200">
-                    <button
-                      onClick={onOpenAdminModal}
-                      className="p-1.5 rounded-xl text-slate-600 hover:text-[#80142A] hover:bg-slate-100 transition border border-slate-200/80 shrink-0 cursor-pointer flex items-center gap-1 text-xs font-bold"
-                      title="店主管理后台"
-                    >
-                      <Settings2 className="w-3.5 h-3.5 text-[#80142A]" />
-                      <span className="hidden xl:inline text-[#29354A] font-bold">后台</span>
-                    </button>
-
-                    {isVip ? (
-                      <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-[#DDBF78] to-[#E8CEA0] text-[#29354A] text-xs font-black shadow-xs shrink-0 whitespace-nowrap">
-                        <Crown className="w-3.5 h-3.5 shrink-0" />
-                        <span className="whitespace-nowrap">{license?.planName || 'VIP 终身卡'}</span>
-                      </div>
-                    ) : (
+                {/* VIP Status or Activation Button & Admin Trigger */}
+                <div className="flex items-center justify-end gap-1.5 pt-1 sm:pt-0 sm:pl-2 border-t sm:border-t-0 sm:border-l border-slate-200 shrink-0">
+                  {isAdmin && (
+                    <>
                       <button
-                        onClick={onOpenVipModal}
-                        className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-bold shadow-xs active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
+                        onClick={onOpenAdminModal}
+                        className="p-1.5 rounded-xl text-slate-600 hover:text-[#80142A] hover:bg-slate-100 transition border border-slate-200/80 shrink-0 cursor-pointer flex items-center gap-1 text-xs font-bold"
+                        title="店主管理后台"
                       >
-                        <KeyRound className="w-3.5 h-3.5 shrink-0" />
-                        <span className="whitespace-nowrap">激活</span>
+                        <Settings2 className="w-3.5 h-3.5 text-[#80142A]" />
+                        <span className="hidden xl:inline text-[#29354A] font-bold">后台</span>
                       </button>
-                    )}
+                      <button
+                        onClick={() => setIsAdmin(false)}
+                        className="p-1.5 rounded-lg text-stone-400 hover:text-stone-600 text-xs font-bold cursor-pointer"
+                        title="关闭管理员控制栏"
+                      >
+                        ✕
+                      </button>
+                    </>
+                  )}
 
+                  {isVip ? (
+                    <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#DDBF78] to-[#E8CEA0] text-[#29354A] text-xs font-black shadow-xs shrink-0 whitespace-nowrap">
+                      <Crown className="w-3.5 h-3.5 shrink-0" />
+                      <span className="whitespace-nowrap">{license?.planName || 'VIP 终身卡'}</span>
+                    </div>
+                  ) : (
                     <button
-                      onClick={() => setIsAdmin(false)}
-                      className="p-1.5 rounded-lg text-stone-400 hover:text-stone-600 text-xs font-bold cursor-pointer"
-                      title="关闭管理员控制栏"
+                      onClick={onOpenVipModal}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-black shadow-xs shadow-sky-500/20 active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
+                      title="输入卡密激活 VIP 终身卡"
                     >
-                      ✕
+                      <KeyRound className="w-3.5 h-3.5 shrink-0" />
+                      <span className="whitespace-nowrap">卡密激活</span>
                     </button>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
 
@@ -337,11 +339,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   // 获取当前正在浏览的模块信息
   const currentActiveItem = navItems.find(i => i.id === activeTab);
 
-  // 二级功能页面：对齐日韩版采用浮岛卡片上下分层舒展设计（上层：品牌+模块定位+考期/壁纸/终身VIP，下层：9大模块导航轨）
+  // 二级功能页面：采用顶部标准自然流设计（固定在最上端，不再悬浮跟随滚动），对齐日韩版采用上下分层舒展设计
   return (
-    <header className="sticky top-0 z-40 w-full pt-2.5 sm:pt-3 transition-all">
+    <header className="w-full pt-2.5 sm:pt-3 transition-all">
       <div className="max-w-6xl mx-auto px-4 w-full">
-        <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs px-3 sm:px-5 py-2.5 sm:py-3 w-full space-y-2.5 sm:space-y-3">
+        <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs px-3 sm:px-5 py-2.5 sm:py-3 w-full space-y-2.5 sm:space-y-3">
           
           {/* 上层：品牌标识、当前位置定位与右侧 VIP / 壁纸区 */}
           <div className="flex items-center justify-between gap-3">
@@ -424,11 +426,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               ) : (
                 <button
                   onClick={onOpenVipModal}
-                  className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-gradient-to-r from-[#80142A] via-[#9B1B36] to-[#680E20] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-bold shadow-xs active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer border border-[#DDBF78]/30"
-                  title="开通 CS313 法语单语种终身VIP"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-black shadow-xs shadow-sky-500/20 active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
+                  title="输入卡密激活 VIP 终身卡"
                 >
-                  <Crown className="w-3.5 h-3.5 text-[#DDBF78] shrink-0" />
-                  <span className="whitespace-nowrap">CS313 法语单语种终身VIP</span>
+                  <KeyRound className="w-3.5 h-3.5 shrink-0" />
+                  <span className="whitespace-nowrap">卡密激活</span>
                 </button>
               )}
             </div>
