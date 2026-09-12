@@ -12,10 +12,12 @@ import {
   KeyRound,
   Volume2,
   SlidersHorizontal,
-  ArrowRight
+  ArrowRight,
+  Network
 } from 'lucide-react';
 import { FRENCH_GRAMMAR_LIST, GrammarPoint } from '../data/french/grammarData';
 import { speakFrench } from '../utils/speech';
+import { FrenchGrammarVisualMindMap } from './FrenchGrammarVisualMindMap';
 
 interface GrammarViewProps {
   isVip?: boolean;
@@ -31,6 +33,7 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
   const [selectedPoint, setSelectedPoint] = useState<GrammarPoint>(FRENCH_GRAMMAR_LIST[0]);
   const [playingFr, setPlayingFr] = useState<string | null>(null);
 
+  const [showMindMap, setShowMindMap] = useState<boolean>(false);
   const [showBridgesGuide, setShowBridgesGuide] = useState<boolean>(true);
 
   const detailScrollRef = useRef<HTMLDivElement | null>(null);
@@ -114,10 +117,48 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
             法语核心文法高频考点演练场
           </h1>
           <p className="text-xs sm:text-sm text-stone-500 max-w-2xl">
-            直击考研二外失分重灾区：副代词 y/en 深度解析、直接宾语提前过去分词配合、自反动词性数配合与虚拟式触发器，配独家【考研避坑指南】。
+            直击考研二外失分重灾区：副代词 y/en 深度解析、直接宾语提前过去分词配合、自反动词性数配合与虚拟式触发器，配独家【考研避坑指南】与【全景思维导图】。
           </p>
         </div>
+
+        <div className="flex items-center gap-2 self-start md:self-auto shrink-0 flex-wrap">
+          <button
+            onClick={() => setShowMindMap(!showMindMap)}
+            className={`px-4 py-2.5 rounded-2xl text-xs font-black transition flex items-center gap-2 cursor-pointer shadow-2xs border ${
+              showMindMap
+                ? 'bg-[#80142A] text-white border-[#80142A] shadow-md shadow-rose-900/20 ring-2 ring-rose-200'
+                : 'bg-rose-50 hover:bg-rose-100 text-[#80142A] border-rose-200'
+            }`}
+            title="查看法语核心语法全景思维导图"
+          >
+            <Network className="w-4 h-4" />
+            <span>{showMindMap ? '收起思维导图' : '🌳 全景思维导图'}</span>
+            <span className={`text-[10px] px-1.5 py-0.2 rounded font-bold ${showMindMap ? 'bg-white/20 text-white' : 'bg-[#80142A] text-white'}`}>
+              46考点大树
+            </span>
+          </button>
+        </div>
       </div>
+
+      {/* 🌳 全景思维导图大树 (Visual Tree Graph) */}
+      {showMindMap && (
+        <FrenchGrammarVisualMindMap
+          onSelectGrammar={(id) => {
+            const pt = FRENCH_GRAMMAR_LIST.find(p => p.id === id);
+            if (pt) {
+              setSelectedPoint(pt);
+              setShowMindMap(false);
+              setTimeout(() => {
+                detailScrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+              }, 100);
+            }
+          }}
+          onNavigateConjugation={() => {
+            window.location.hash = '#conjugate';
+          }}
+          onClose={() => setShowMindMap(false)}
+        />
+      )}
 
       {/* 💡 破壁指南 · 动词变位与文法考点的 4 大灵魂纽带 */}
       <div className="bg-gradient-to-br from-white via-amber-50/20 to-rose-50/20 rounded-2xl sm:rounded-3xl border border-amber-200/80 shadow-xs p-5 sm:p-6 space-y-4">
@@ -285,6 +326,18 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
                   </button>
                 );
               })}
+              <button
+                onClick={() => setShowMindMap(true)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer flex items-center gap-1.5 ${
+                  showMindMap
+                    ? 'bg-[#80142A] text-white shadow-xs font-black'
+                    : 'bg-rose-50 text-[#80142A] hover:bg-rose-100 border border-rose-200'
+                }`}
+                title="查看4大主干全景思维导图"
+              >
+                <Network className="w-3.5 h-3.5" />
+                <span>全景导图大树</span>
+              </button>
             </div>
           </div>
 
