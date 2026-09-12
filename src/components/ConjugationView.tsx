@@ -15,9 +15,11 @@ import {
   ChevronUp,
   Headphones,
   Ear,
-  AlertCircle
+  AlertCircle,
+  Layers,
+  X
 } from 'lucide-react';
-import { FRENCH_VERBS, TENSES_METADATA, VerbItem, TenseKey } from '../data/french/conjugation';
+import { FRENCH_VERBS, TENSES_METADATA, VerbItem, TenseKey, VerbGroup } from '../data/french/conjugation';
 
 interface ConjugationViewProps {
   isVip?: boolean;
@@ -31,6 +33,7 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
   const [selectedVerb, setSelectedVerb] = useState<VerbItem>(FRENCH_VERBS[0]);
   const [selectedTense, setSelectedTense] = useState<TenseKey>('present');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [groupFilter, setGroupFilter] = useState<'all' | VerbGroup>('all');
   const [playingText, setPlayingText] = useState<string | null>(null);
   const [showHatGuide, setShowHatGuide] = useState<boolean>(true);
 
@@ -39,10 +42,14 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
   // 基础免费时态（现在时、复合过去时）
   const freeTenseKeys: TenseKey[] = ['present', 'passe_compose'];
 
-  const filteredVerbs = FRENCH_VERBS.filter(v => 
-    v.infinitive.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    v.meaning.includes(searchQuery)
-  );
+  const filteredVerbs = FRENCH_VERBS.filter(v => {
+    const matchesGroup = groupFilter === 'all' || v.group === groupFilter;
+    const q = searchQuery.trim().toLowerCase();
+    const matchesSearch = !q || 
+      v.infinitive.toLowerCase().includes(q) ||
+      v.meaning.toLowerCase().includes(q);
+    return matchesGroup && matchesSearch;
+  });
 
   const currentTenseMeta = TENSES_METADATA.find(t => t.key === selectedTense)!;
   const currentForms = selectedVerb.tenses[selectedTense] || selectedVerb.tenses['present']!;
@@ -72,7 +79,7 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
     { key: 'ils_elles', pronoun: 'ils / elles', data: currentForms.ils_elles },
   ];
 
-  // 动态分析当前动词与所选时态的变位推导机制 (告别公式与动词矛盾问题)
+  // 深度解析当前动词与上方【脱帽换衣法则看板】的具体因果关系链 (彻底讲透为什么这么变)
   const getDynamicDerivation = () => {
     const is3rd = selectedVerb.group === '3rd_irregular';
     const is1st = selectedVerb.group === '1st_er';
@@ -80,28 +87,88 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
 
     if (selectedTense === 'present') {
       if (is3rd) {
-        let irregularNote = "本词为古拉丁语核心基石动词，词根发生根本性变异，不套用常规 -e/-es 规则，请作为独立骨架熟记！";
-        if (selectedVerb.id === 'etre') {
-          irregularNote = "法语第 1 基石动词 (英语 be 动词)：je suis, tu es, il est, nous sommes, vous êtes, ils sont。全法语最高频核心，直接当独立形态记忆！";
-        } else if (selectedVerb.id === 'avoir') {
-          irregularNote = "法语第 2 基石动词 (英语 have)：j'ai, tu as, il a, nous avons, vous avez, ils ont。同时也是复合过去时最重要的助动词！";
-        } else if (selectedVerb.id === 'aller') {
-          irregularNote = "位移核心动词 (英语 go)：je vais, tu vas, il va, nous allons, vous allez, ils vont。常用于最近将来时 (aller + 原形)！";
-        } else if (selectedVerb.id === 'faire') {
-          irregularNote = "万能行动动词 (英语 do/make)：je fais, tu fais, il fait, nous faisons, vous faites, ils font。特别注意 vous 为 faites，ils 为 font！";
+        if (selectedVerb.id === 'avoir') {
+          return {
+            badge: '⚠️ 第 3 组四大天王 · 完全异化',
+            badgeClass: 'bg-purple-50 text-purple-900 border-purple-200/80',
+            ruleMapping: '对应上方说明【卡片 1 & 卡片 2：四大天王基石派 · 不脱帽换衣】',
+            relationWhy: 'avoir (英语 have) 是全法语使用率前两名的超级基石！在数千年中保留了古拉丁语特异变色形态。它不脱帽、不套用常规 -e/-es，词根整体异化为 6 个专属形态！',
+            step1Title: 'Step 1 · 判定门派',
+            step1Desc: '原形 avoir ➔ 判定为四大天王核心祖先词，不穿 -er 衣服',
+            step2Title: 'Step 2 · 专属形态装配',
+            step2Desc: "单数：j'ai (遇元音省音) / tu as / il a；复数：nous avons / vous avez / ils ont",
+            step3Title: 'Step 3 · 专属发音秘籍',
+            step3Desc: 'vous avez 必须连诵读 [vu-zave]；ils ont 读 [il-zõ] (严格区别于 ils sont 的 [s] 音)！',
+            formula: '四大天王古形态（独立记忆：j\'ai, as, a, avons, avez, ont）',
+            warning: '🚨 避坑重点：第一人称必须省音为 j\'ai；复数人称均带有高频 [z] 连音！'
+          };
         }
+
+        if (selectedVerb.id === 'etre') {
+          return {
+            badge: '⚠️ 第 3 组四大天王之首 · 完全异化',
+            badgeClass: 'bg-purple-50 text-purple-900 border-purple-200/80',
+            ruleMapping: '对应上方说明【卡片 1 & 卡片 2：四大天王之首 · 语言骨架】',
+            relationWhy: 'être (英语 be 动词) 是法语第 1 基石动词！词根发生根本性变异，完全不套用常规规则后缀，直接独立记忆 6 个人称形态。',
+            step1Title: 'Step 1 · 判定门派',
+            step1Desc: '原形 être ➔ 判定为四大天王第一基石，词根彻底变异',
+            step2Title: 'Step 2 · 专属形态装配',
+            step2Desc: '单数：je suis / tu es / il est；复数：nous sommes / vous êtes / ils sont',
+            step3Title: 'Step 3 · 专属发音秘籍',
+            step3Desc: 'vous êtes 中间字母 s 遇到元音 ê 必须连诵发 [z]，读作 [vu-zεt]！',
+            formula: '第一基石特异形态（独立记忆：suis, es, est, sommes, êtes, sont）',
+            warning: '🚨 避坑重点：vous êtes 必须连诵读成 [vu-zεt]；ils sont 发 [s] 音区别于 ils ont 的 [z]！'
+          };
+        }
+
+        if (selectedVerb.id === 'aller') {
+          return {
+            badge: '⚠️ 第 3 组四大天王 · 位移基石',
+            badgeClass: 'bg-purple-50 text-purple-900 border-purple-200/80',
+            ruleMapping: '对应上方说明【卡片 1 & 卡片 2：四大天王之位移词】',
+            relationWhy: 'aller (去/前往，英语 go) 虽以 -er 结尾，但它是四大天王特异动词！现在时呈现特异形态，用于构建“最近将来时 (aller + 原形)”。',
+            step1Title: 'Step 1 · 判定门派',
+            step1Desc: '原形 aller ➔ 貌似第1组实为四大天王特异词',
+            step2Title: 'Step 2 · 专属形态装配',
+            step2Desc: '单数：je vais / tu vas / il va；复数：nous allons / vous allez / ils vont',
+            step3Title: 'Step 3 · 专属发音秘籍',
+            step3Desc: 'nous allons [nuz-alõ]、vous allez [vuz-ale] 均发生强连诵！',
+            formula: '位移基石特异形态（vais, vas, va, allons, allez, vont）',
+            warning: '🚨 避坑重点：复合过去时助动词必须使用 être (je suis allé)！'
+          };
+        }
+
+        if (selectedVerb.id === 'faire') {
+          return {
+            badge: '⚠️ 第 3 组四大天王 · 行动万能词',
+            badgeClass: 'bg-purple-50 text-purple-900 border-purple-200/80',
+            ruleMapping: '对应上方说明【卡片 1 & 卡片 2：四大天王之行动词】',
+            relationWhy: 'faire (做/天气，英语 do/make) 为全法语句型出现率极高的四大天王之一！特别注意 vous 与 ils 的特异形态。',
+            step1Title: 'Step 1 · 判定门派',
+            step1Desc: '原形 faire ➔ 属于四大天王特异动词',
+            step2Title: 'Step 2 · 专属形态装配',
+            step2Desc: '单数：je fais / tu fais / il fait；复数：nous faisons / vous faites / ils font',
+            step3Title: 'Step 3 · 专属发音秘籍',
+            step3Desc: 'nous faisons 中 ai 弱化读作 [ə] (读作 [fə-zõ])；vous faites [fεt]！',
+            formula: '万能行动特异形态（fais, fais, fait, faisons, faites, font）',
+            warning: '🚨 考点大雷区：vous 的形式是 vous faites (不是 faisez)；ils 是 font！'
+          };
+        }
+
+        // 其他第3组动词 (pouvoir, vouloir, venir)
         return {
-          badge: '⚠️ 第 3 组基石特异动词 · 完全异化',
+          badge: '⚠️ 第 3 组不规则特异动词',
           badgeClass: 'bg-purple-50 text-purple-900 border-purple-200/80',
-          step1Title: '四大天王 · 古拉丁语基石',
-          step1Desc: `词根完全变异（如「${selectedVerb.infinitive}」➔ 独立形态），不穿常规外衣`,
-          formula: '古拉丁语特异形态变位（不套用规则 -e/-es 后缀，作为独立核心词牢记）',
-          explanation: irregularNote,
-          warning: selectedVerb.id === 'etre' 
-            ? '🚨 连音连诵预警：vous êtes 中间的 s 要与后面的 ê 连音连诵，发 [z] 音（读作 [vu-zεt]）！'
-            : selectedVerb.id === 'avoir'
-            ? '🚨 连音省音预警：第一人称遇元音省音为 j\'ai；vous avez [vu-zave]、ils ont [il-zõ] 均发生连诵！'
-            : '🚨 避坑提示：第 3 组动词日常使用频率达 70% 以上，作为独立基础词刻进记忆！'
+          ruleMapping: '对应上方说明【卡片 1：第 3 组特异动词派 (占 5%)】',
+          relationWhy: `动词 ${selectedVerb.infinitive} 属于第 3 组特异动词，词干在单复数间发生活用变异，请锁定当前卡片中的专属形态记忆！`,
+          step1Title: 'Step 1 · 判定门派',
+          step1Desc: `原形 ${selectedVerb.infinitive} ➔ 判定为第 3 组特异派，词干发生活用异化`,
+          step2Title: 'Step 2 · 词根异化装配',
+          step2Desc: '单数弱词干 与 复数强词干 发生对应异化（如 peux/pouvons, veux/voulons）',
+          step3Title: 'Step 3 · 发音与连诵',
+          step3Desc: '点击每张卡片右侧扬声器，即刻聆听法国标准音发音！',
+          formula: '第3组专属特异变位（锁定当前卡片形态）',
+          warning: '💡 重点：第 3 组动词在各类考题中占 80% 以上，作为独立重点单词掌握！'
         };
       }
 
@@ -110,11 +177,16 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
         return {
           badge: '✨ 第 1 组规则动词 · 脱帽换衣派',
           badgeClass: 'bg-emerald-50 text-emerald-900 border-emerald-200/80',
-          step1Title: '摘掉原形帽子 -er',
-          step1Desc: `原形「${selectedVerb.infinitive}」脱掉 -er ➔ 锁定词根「${stem}-」`,
-          formula: `词根 (${stem}-) + 6 件人称外衣 (-e, -es, -e, -ons, -ez, -ent)`,
-          explanation: `摘掉原形帽子 -er，保留词根「${stem}」，根据主语人称穿上新外衣：je ${stem}e, tu ${stem}es, il ${stem}e, nous ${stem}ons, vous ${stem}ez, ils ${stem}ent。`,
-          warning: '👂 听力破壁神技：je / tu / il / ils 四个人称词尾全部静音，发音 100% 一模一样！-ent 绝对不发音！'
+          ruleMapping: '对应上方说明【卡片 1 & 卡片 2：脱帽换衣法核心示范】',
+          relationWhy: `原形 ${selectedVerb.infinitive} 严格遵循【脱帽换衣法则】：原形帽子就是词尾 -er。变位分两步：① 砍掉帽子 -er 露出词干；② 按人称穿上 6 套新衣！`,
+          step1Title: 'Step 1 · 脱掉原形帽子',
+          step1Desc: `原形「${selectedVerb.infinitive}」砍掉 -er 帽子 ➔ 锁定词根「${stem}-」`,
+          step2Title: 'Step 2 · 穿上人称新衣',
+          step2Desc: `词根「${stem}」+ 6套外衣：-e, -es, -e, -ons, -ez, -ent`,
+          step3Title: 'Step 3 · 听力破壁绝密',
+          step3Desc: `je, tu, il, ils 词尾全部不发音！-ent 绝对静音！四个人称读音 100% 一模一样（全读 [${stem}]）！`,
+          formula: `词根 (${stem}-) + 人称新衣 (-e, -es, -e, -ons, -ez, -ent)`,
+          warning: '👂 听力秒杀：只有 nous [-on] 和 vous [-e] 发音不同，听觉上只有 3 种声音！'
         };
       }
 
@@ -123,11 +195,16 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
         return {
           badge: '✨ 第 2 组规则动词 · 双 s 家族',
           badgeClass: 'bg-sky-50 text-sky-900 border-sky-200/80',
-          step1Title: '摘掉原形帽子 -ir',
-          step1Desc: `原形「${selectedVerb.infinitive}」脱掉 -ir ➔ 锁定词根「${stem}-」`,
-          formula: `词根 (${stem}-) + 人称外衣 (-is, -is, -it, -issons, -issez, -issent)`,
-          explanation: `摘掉原形帽子 -ir，保留词根「${stem}」，单数穿 -is/-it，复数 nous/vous/ils 必须带上标志性的双胞胎 -iss- 家族外衣！`,
-          warning: '👂 发音秘诀：复数人称带 -iss-，nous finissons [-sõ], vous finissez [-se], ils finissent [-s]！'
+          ruleMapping: '对应上方说明【卡片 1 & 卡片 2：双 s 家族法则】',
+          relationWhy: `原形 ${selectedVerb.infinitive} 严格遵循【双 s 家族法则】：原形帽子为 -ir。变位时摘掉 -ir，单数穿 -is/-it，复数必须带上双胞胎 -iss- 家族外衣！`,
+          step1Title: 'Step 1 · 脱掉原形帽子',
+          step1Desc: `原形「${selectedVerb.infinitive}」砍掉 -ir 帽子 ➔ 锁定词根「${stem}-」`,
+          step2Title: 'Step 2 · 穿上双s新衣',
+          step2Desc: `词根「${stem}」+ 单数 (-is, -is, -it) 与 复数 (-issons, -issez, -issent)`,
+          step3Title: 'Step 3 · 专属发音特征',
+          step3Desc: '复数 nous/vous/ils 带有清晰的双 s [s] 咬音（finissons, finissez, finissent）！',
+          formula: `词根 (${stem}-) + 专属外衣 (-is, -is, -it, -issons, -issez, -issent)`,
+          warning: '👂 发音要点：复数标志性双胞胎 -iss- 发 [s] 音，极为响亮！'
         };
       }
     }
@@ -137,25 +214,37 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
       return {
         badge: '✨ 复合过去时推导法则',
         badgeClass: 'bg-rose-50 text-[#80142A] border-rose-200/80',
-        step1Title: `锁定助动词与分词`,
-        step1Desc: `助动词 ${selectedVerb.auxiliary} (现在时) + 过去分词「${selectedVerb.participle}」`,
-        formula: `助动词 ${selectedVerb.auxiliary} (直陈式现在时) + 过去分词 (${selectedVerb.participle})`,
-        explanation: isEtreAux
-          ? `⚠️ 本词为位移/状态核心动词，助动词必须使用 être！特别注意：过去分词必须随主语性数进行配合（如 allé / allée / allés / allées）！`
-          : `绝大多数动作及物动词统一采用 avoir 作为助动词，过去分词为「${selectedVerb.participle}」，通常不发生性数配合。`,
+        ruleMapping: '对应时态法则：复合过去时【助动词合成法】',
+        relationWhy: `复合过去时 = 助动词现在时 (avoir/être) + 过去分词 (${selectedVerb.participle})。相当于英语的 have + done。`,
+        step1Title: 'Step 1 · 选定助动词',
+        step1Desc: isEtreAux 
+          ? `本词为位移/状态变化核心词 ➔ 助动词必须使用 être！`
+          : `绝大多数动作及物动词 ➔ 统一采用 avoir 作为助动词。`,
+        step2Title: 'Step 2 · 合成过去分词',
+        step2Desc: `助动词 6 人称形态 + 过去分词「${selectedVerb.participle}」`,
+        step3Title: 'Step 3 · 配合避坑预警',
+        step3Desc: isEtreAux 
+          ? '⚠️ 考点大雷区：用 être 作助动词时，过去分词必须随主语性数配合 (阴性+e, 复数+s)！'
+          : '用 avoir 作助动词时，过去分词通常不发生性数配合。',
+        formula: `助动词 ${selectedVerb.auxiliary} (现在时) + 过去分词 (${selectedVerb.participle})`,
         warning: isEtreAux 
-          ? '🚨 考点大雷区：用 être 作助动词时，阴性加 -e，复数加 -s！'
-          : '💡 提示：助动词与主语代词常发生省音（如 j\'ai）或连音（如 vous avez）！'
+          ? '🚨 考点大雷区：用 être 作助动词时，分词必须随主语性数配合（如 allé / allée / allés / allées）！'
+          : '💡 提示：助动词与人称代词常发生省音（如 j\'ai）或连音（如 vous avez）！'
       };
     }
 
     return {
       badge: `✨ ${currentTenseMeta.label} 语法法则`,
       badgeClass: 'bg-slate-50 text-slate-800 border-slate-200/80',
-      step1Title: '提取时态词根',
-      step1Desc: `根据时态规则提取词根并装配人称词尾`,
+      ruleMapping: `对应时态法则：${currentTenseMeta.label}`,
+      relationWhy: currentTenseMeta.usage,
+      step1Title: 'Step 1 · 提取时态词根',
+      step1Desc: '根据该时态特定规则提取词根',
+      step2Title: 'Step 2 · 装配时态词尾',
+      step2Desc: `附加当前时态人称后缀：${currentTenseMeta.formula}`,
+      step3Title: 'Step 3 · 原声发音朗读',
+      step3Desc: '点击卡片右侧扬声器即可聆听真人发音',
       formula: currentTenseMeta.formula,
-      explanation: currentTenseMeta.usage,
       warning: '💡 提示：点击卡片右侧扬声器即可聆听标准真人拼读，重点感受词根与后缀发音！'
     };
   };
@@ -270,25 +359,57 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
         )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         
-        {/* Left Column (4 cols): Verb Selection List */}
-        <div className="lg:col-span-4 space-y-3">
+        {/* ========================================================================= */}
+        {/* Left Column (5 cols): 门派筛选器 + 搜索 + 丰富动词工作台 (告别左轻右重) */}
+        {/* ========================================================================= */}
+        <div className="lg:col-span-5 space-y-3">
           
+          {/* 门派筛选 Tabs (直接呼应上方三大门派说明) */}
+          <div className="flex items-center gap-1 p-1 bg-slate-100/90 rounded-2xl border border-slate-200/80 text-[11px]">
+            {[
+              { key: 'all', label: `全部 (${FRENCH_VERBS.length})` },
+              { key: '1st_er', label: '第1组 -er' },
+              { key: '2nd_ir', label: '第2组 -ir' },
+              { key: '3rd_irregular', label: '四大天王' },
+            ].map(tab => (
+              <button
+                key={tab.key}
+                onClick={() => setGroupFilter(tab.key as any)}
+                className={`flex-1 py-1.5 px-1.5 rounded-xl font-bold transition cursor-pointer text-center truncate ${
+                  groupFilter === tab.key
+                    ? 'bg-white text-[#80142A] shadow-xs font-black'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
           {/* Search Box */}
           <div className="relative">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
             <input
               type="text"
-              placeholder="搜索动词 (如 être, parler...)"
+              placeholder="搜索动词 (如 avoir, être, parler...)"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-slate-200/80 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/20 focus:bg-white transition text-[#29354A] font-medium"
+              className="w-full pl-10 pr-8 py-2.5 rounded-2xl bg-white border border-slate-200/80 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/20 focus:bg-white transition text-[#29354A] font-medium shadow-2xs"
             />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 p-0.5 cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
 
-          {/* Verb List */}
-          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-2 space-y-1 max-h-[520px] overflow-y-auto">
+          {/* Verb List (丰富饱满，包含原形、释义、门派、分词、助动词预览) */}
+          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-2 space-y-1.5 max-h-[580px] overflow-y-auto">
             {filteredVerbs.map(verb => {
               const isSelected = selectedVerb.id === verb.id;
               const isLockedVerb = !isVip && !freeVerbIds.includes(verb.id);
@@ -308,12 +429,12 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
                       : 'hover:bg-slate-50 border border-transparent text-[#29354A]'
                   }`}
                 >
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold text-sm sm:text-base tracking-tight font-serif">
+                  <div className="space-y-1 min-w-0 flex-1 pr-2">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-bold text-base tracking-tight font-serif">
                         {verb.infinitive}
                       </span>
-                      <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-bold ${
+                      <span className={`text-[10px] px-1.5 py-0.2 rounded font-bold ${
                         isSelected 
                           ? 'bg-[#80142A] text-white' 
                           : verb.group === '1st_er' 
@@ -322,7 +443,7 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
                           ? 'bg-sky-100 text-sky-800' 
                           : 'bg-purple-100 text-purple-900 border border-purple-200/70'
                       }`}>
-                        {verb.group === '1st_er' ? '第1组 -er' : verb.group === '2nd_ir' ? '第2组 -ir' : '第3组不规则'}
+                        {verb.group === '1st_er' ? '第1组 · 脱帽' : verb.group === '2nd_ir' ? '第2组 · 双s' : '四大天王 · 特异'}
                       </span>
                       {isLockedVerb ? (
                         <span className="text-[9px] px-1 py-0.2 rounded bg-amber-100 text-amber-800 font-black">
@@ -334,24 +455,57 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
                         </span>
                       )}
                     </div>
-                    <p className={`text-xs mt-0.5 truncate max-w-[200px] ${isSelected ? 'text-[#80142A]' : 'text-stone-500'}`}>
+
+                    <p className={`text-xs truncate ${isSelected ? 'text-[#80142A] font-semibold' : 'text-stone-500'}`}>
                       {verb.meaning}
                     </p>
+
+                    <div className="flex items-center gap-2 pt-0.5 text-[10px] text-stone-400 font-mono">
+                      <span>分词: <strong className={isSelected ? 'text-[#80142A]' : 'text-slate-600'}>{verb.participle}</strong></span>
+                      <span>•</span>
+                      <span>助动词: <strong className={isSelected ? 'text-[#80142A]' : 'text-slate-600'}>{verb.auxiliary}</strong></span>
+                    </div>
                   </div>
-                  <ArrowRight className={`w-4 h-4 ${isSelected ? 'text-[#80142A]' : 'text-stone-300'}`} />
+
+                  <ArrowRight className={`w-4 h-4 shrink-0 transition ${isSelected ? 'text-[#80142A] translate-x-0.5' : 'text-stone-300'}`} />
                 </button>
               );
             })}
           </div>
+
+          {/* 左侧常驻：三大门派对应速查锦囊卡片 (充实左侧下半部，完美消除左轻右重) */}
+          <div className="p-3.5 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-2">
+            <div className="flex items-center gap-1.5 text-xs font-bold text-[#29354A]">
+              <Lightbulb className="w-3.5 h-3.5 text-[#DDBF78]" />
+              <span>动词门派变位对应速查</span>
+            </div>
+            <div className="grid grid-cols-3 gap-1.5 text-[11px]">
+              <div className="p-2 rounded-xl bg-emerald-50/70 border border-emerald-100 space-y-0.5 text-center">
+                <span className="font-bold text-emerald-900 block text-xs">第 1 组 -er</span>
+                <p className="text-emerald-700/90 text-[10px]">占85% · 摘帽换衣</p>
+              </div>
+              <div className="p-2 rounded-xl bg-sky-50/70 border border-sky-100 space-y-0.5 text-center">
+                <span className="font-bold text-sky-900 block text-xs">第 2 组 -ir</span>
+                <p className="text-sky-700/90 text-[10px]">占10% · 双s家族</p>
+              </div>
+              <div className="p-2 rounded-xl bg-purple-50/70 border border-purple-100 space-y-0.5 text-center">
+                <span className="font-bold text-purple-900 block text-xs">四大天王</span>
+                <p className="text-purple-700/90 text-[10px]">特异派 · 独立记</p>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        {/* Right Column (8 cols): Visual Conjugation Canvas */}
-        <div className="lg:col-span-8 space-y-4">
+        {/* ========================================================================= */}
+        {/* Right Column (7 cols): 动词核心展台 + 关系推导链 + 6人称实战 */}
+        {/* ========================================================================= */}
+        <div className="lg:col-span-7 space-y-4">
           
           {/* Current Verb Hero Header */}
           <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 space-y-4">
             
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200/80">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-slate-200/80">
               <div>
                 <div className="flex items-center gap-3">
                   <h2 className="text-2xl sm:text-3xl font-black text-[#29354A] font-serif">
@@ -406,7 +560,7 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
                         }
                         setSelectedTense(t.key);
                       }}
-                      className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
                         isActive
                           ? 'bg-[#80142A] text-white shadow-xs'
                           : isLockedTense
@@ -430,73 +584,76 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
               </div>
             </div>
 
-            {/* 🎯 核心动词推导法则动态卡片 (动态匹配动词与时态，解决公式矛盾) */}
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-slate-50 via-rose-50/20 to-white border border-slate-200/80 text-xs text-[#29354A] space-y-2">
-              <div className="flex items-center justify-between gap-2 flex-wrap">
-                <div className="flex items-center gap-1.5 font-black text-[#29354A]">
-                  <Info className="w-3.5 h-3.5 text-[#DDBF78]" />
-                  <span>【{selectedVerb.infinitive}】{currentTenseMeta.label} 变位推导心法：</span>
+            {/* ===================================================================== */}
+            {/* 🔗 核心关系推导桥梁：【本词与上方脱帽换衣法则的关系链】 (直击用户痛点！) */}
+            {/* ===================================================================== */}
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-slate-50 via-rose-50/20 to-white border border-slate-200/80 text-xs text-[#29354A] space-y-3 shadow-2xs">
+              
+              {/* 1. 对应上方说明法则的明确锚点 */}
+              <div className="space-y-1.5 pb-2.5 border-b border-slate-200/70">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <div className="flex items-center gap-1.5 font-black text-xs text-[#80142A]">
+                    <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
+                    <span>【{selectedVerb.infinitive}】与上方说明法则的关系：</span>
+                  </div>
+                  <span className={`px-2 py-0.5 rounded-full font-bold text-[11px] border ${derivation.badgeClass}`}>
+                    {derivation.badge}
+                  </span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-full font-bold text-[11px] border ${derivation.badgeClass}`}>
-                  {derivation.badge}
-                </span>
+                <p className="text-xs font-bold text-slate-900 bg-white/80 px-2.5 py-1 rounded-lg border border-slate-200/60 inline-block">
+                  📌 {derivation.ruleMapping}
+                </p>
+                <p className="text-[11px] leading-relaxed text-slate-600 font-medium">
+                  {derivation.relationWhy}
+                </p>
               </div>
-              <p className="leading-relaxed text-slate-600 font-medium">
-                {derivation.explanation}
-              </p>
-              <div className="p-2.5 rounded-xl bg-white/90 border border-slate-200/80 flex flex-col gap-1">
-                <div className="text-[11px] font-bold text-slate-500">
-                  变位公式：<span className="font-mono text-[#80142A] text-xs font-black">{derivation.formula}</span>
+
+              {/* 2. 具体 3 步推导装配流 (精准针对当前动词，拒绝空洞！) */}
+              <div className="space-y-1.5">
+                <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  具体 3 步推导变位过程：
                 </div>
-                <div className="text-[11px] font-semibold text-amber-800 bg-amber-50/70 px-2 py-1 rounded-lg border border-amber-200/60">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <div className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs space-y-1">
+                    <span className="text-[10px] font-black text-[#80142A] px-1.5 py-0.2 rounded bg-rose-50 border border-rose-200/60">
+                      {derivation.step1Title}
+                    </span>
+                    <p className="text-[11px] text-slate-700 leading-snug font-medium">
+                      {derivation.step1Desc}
+                    </p>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs space-y-1">
+                    <span className="text-[10px] font-black text-sky-800 px-1.5 py-0.2 rounded bg-sky-50 border border-sky-200/60">
+                      {derivation.step2Title}
+                    </span>
+                    <p className="text-[11px] text-slate-700 leading-snug font-medium">
+                      {derivation.step2Desc}
+                    </p>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs space-y-1">
+                    <span className="text-[10px] font-black text-emerald-800 px-1.5 py-0.2 rounded bg-emerald-50 border border-emerald-200/60">
+                      {derivation.step3Title}
+                    </span>
+                    <p className="text-[11px] text-slate-700 leading-snug font-medium">
+                      {derivation.step3Desc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. 公式与预警小贴士 */}
+              <div className="p-2.5 rounded-xl bg-white/95 border border-slate-200/80 space-y-1">
+                <div className="text-[11px] text-slate-700">
+                  <span className="font-bold text-slate-500">变位公式：</span>
+                  <span className="font-mono text-[#80142A] font-black">{derivation.formula}</span>
+                </div>
+                <div className="text-[11px] font-semibold text-amber-900 bg-amber-50/80 px-2 py-1 rounded-lg border border-amber-200/70">
                   {derivation.warning}
                 </div>
               </div>
-            </div>
 
-            {/* 🔍 独家 4 步动态推导拆解流 (Derivation Pipeline) */}
-            <div className="p-3.5 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-[#29354A]">
-                <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
-                <span>变位 3 步可视化推导演练：</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <div className="p-2.5 rounded-xl bg-white border border-slate-200/70 shadow-2xs space-y-1">
-                  <span className="text-[10px] font-black text-[#80142A] px-1.5 py-0.2 rounded bg-rose-50 border border-rose-200/60">
-                    Step 1 · 锁定词干
-                  </span>
-                  <div className="text-xs font-bold text-slate-800 font-serif">
-                    {derivation.step1Title}
-                  </div>
-                  <p className="text-[11px] text-slate-500 leading-tight">
-                    {derivation.step1Desc}
-                  </p>
-                </div>
-
-                <div className="p-2.5 rounded-xl bg-white border border-slate-200/70 shadow-2xs space-y-1">
-                  <span className="text-[10px] font-black text-sky-800 px-1.5 py-0.2 rounded bg-sky-50 border border-sky-200/60">
-                    Step 2 · 缀饰人称
-                  </span>
-                  <div className="text-xs font-bold text-slate-800 font-serif">
-                    按 6 个人称装配
-                  </div>
-                  <p className="text-[11px] text-slate-500 leading-tight">
-                    单数 je/tu/il 与复数 nous/vous/ils 对应换装
-                  </p>
-                </div>
-
-                <div className="p-2.5 rounded-xl bg-white border border-slate-200/70 shadow-2xs space-y-1">
-                  <span className="text-[10px] font-black text-emerald-800 px-1.5 py-0.2 rounded bg-emerald-50 border border-emerald-200/60">
-                    Step 3 · 原声发音
-                  </span>
-                  <div className="text-xs font-bold text-slate-800 font-serif">
-                    词尾静音与连诵
-                  </div>
-                  <p className="text-[11px] text-slate-500 leading-tight">
-                    点击卡片即听发音，-ent 绝不发音
-                  </p>
-                </div>
-              </div>
             </div>
 
             {/* 6-Persons Conjugation Table (High visual impact with phonetic badges!) */}
@@ -508,7 +665,7 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
                   <div
                     key={p.key}
                     onClick={() => playSpeech(p.data.full)}
-                    className="p-4 rounded-2xl bg-slate-50/70 hover:bg-white border border-slate-200/80 hover:border-[#80142A]/40 transition-all flex items-center justify-between cursor-pointer group shadow-2xs"
+                    className="p-3.5 sm:p-4 rounded-2xl bg-slate-50/70 hover:bg-white border border-slate-200/80 hover:border-[#80142A]/40 transition-all flex items-center justify-between cursor-pointer group shadow-2xs"
                   >
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
