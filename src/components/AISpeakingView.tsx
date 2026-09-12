@@ -519,9 +519,15 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
       {/* 顶部标语 */}
       <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-5">
         <div className="space-y-1.5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-black border border-[#80142A]/20">
-            <Bot className="w-3.5 h-3.5 text-[#DDBF78]" />
-            <span>巴黎母语级真实语伴 · 1v1 智能对练</span>
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-black border border-[#80142A]/20">
+              <Bot className="w-3.5 h-3.5 text-[#DDBF78]" />
+              <span>巴黎母语级真实语伴 · 1v1 智能对练</span>
+            </div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-900 text-xs font-bold border border-amber-300/80">
+              <Sparkles className="w-3 h-3 text-[#B89047]" />
+              <span>🔥 每周持续扩充上新 (每周五更新)</span>
+            </div>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight flex items-center gap-3">
             <span>AI 口语对练室 (Parler Français)</span>
@@ -530,7 +536,7 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
             </span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
-            涵盖<strong>巴黎咖啡馆、地铁交通、法式面包房、DELF 考官辩驳与法企面试</strong>，支持跟读打分、双语对照与标准发音示范。
+            涵盖<strong>巴黎咖啡馆、地铁交通、法式面包房、DELF 考官辩驳与法企面试</strong>，支持跟读打分、双语对照与标准发音示范，<strong>每周五定期扩充全新高频场景</strong>。
           </p>
         </div>
 
@@ -611,7 +617,7 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
               key={sc.id}
               onClick={() => {
                 if (isLocked) {
-                  onOpenVipModal?.(`🔒【${cleanTitle}】为 VIP 专属口语实训场景！升级 VIP 终身卡（仅 ¥49.9），即可畅享 DELF 欧标实战会话、巴黎生活实操、外企面试与经典影视名场面对戏！`);
+                  onOpenVipModal?.(`🔒【${cleanTitle}】为 VIP 专属口语实训场景！升级 VIP 终身卡（仅 ¥49.9），即可畅享全部 24+ 口语实战场景、每周五持续扩充上新、DELF 欧标实战会话与外企面试！`);
                   return;
                 }
                 setSelectedScenarioId(sc.id);
