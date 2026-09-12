@@ -14,7 +14,57 @@ import { WallpaperRewardModal } from './components/WallpaperRewardModal';
 import { WallpaperBanner } from './components/WallpaperBanner';
 import { ExamRegistrationModal } from './components/ExamRegistrationModal';
 import { getLocalLicense, LicenseInfo } from './data/auth/cardKeys';
-import { ArrowUp, Home, ShieldCheck, Sparkles } from 'lucide-react';
+import { ArrowUp, Home, ShieldCheck, Sparkles, AlertTriangle } from 'lucide-react';
+
+interface ErrorBoundaryProps {
+  name: string;
+  children: React.ReactNode;
+  onReset?: () => void;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error(`[ErrorBoundary - ${this.props.name}] Caught error:`, error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="max-w-xl mx-auto my-12 p-6 bg-white rounded-3xl border border-slate-200 shadow-sm text-center space-y-3">
+          <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto">
+            <AlertTriangle className="w-6 h-6" />
+          </div>
+          <p className="font-bold text-slate-800 text-base">学习模块加载异常</p>
+          <p className="text-xs text-slate-500 font-mono">{this.state.error?.message}</p>
+          <button
+            onClick={() => {
+              this.setState({ hasError: false, error: null });
+              if (this.props.onReset) this.props.onReset();
+            }}
+            className="px-5 py-2 rounded-xl bg-[#80142A] text-white text-xs font-bold cursor-pointer hover:bg-[#680E20] transition shadow-xs"
+          >
+            返回首页重试
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<ActiveTab>('home');
@@ -120,57 +170,59 @@ export const App: React.FC = () => {
         )}
         {activeTab !== 'home' && (
           <div className="max-w-6xl mx-auto px-4 pt-1.5 sm:pt-2 space-y-2.5 sm:space-y-3">
-            {activeTab === 'phonetics' && (
-              <PhoneticsView
-                isVip={isVip}
-                onOpenVipModal={() => setIsVipModalOpen(true)}
-              />
-            )}
-            {activeTab === 'conjugation' && (
-              <ConjugationView
-                isVip={isVip}
-                onOpenVipModal={() => setIsVipModalOpen(true)}
-              />
-            )}
-            {activeTab === 'vocab' && (
-              <VocabView
-                isVip={isVip}
-                onOpenVipModal={() => setIsVipModalOpen(true)}
-              />
-            )}
-            {activeTab === 'grammar' && (
-              <GrammarView
-                isVip={isVip}
-                onOpenVipModal={() => setIsVipModalOpen(true)}
-              />
-            )}
-            {(activeTab === 'exam' || activeTab === 'delf') && (
-              <FrenchExamView
-                isVip={isVip}
-                onOpenVipModal={() => setIsVipModalOpen(true)}
-                onSaveMistake={handleSaveMistake}
-                initialTrack={activeTab === 'delf' ? 'delf' : 'kaoyan'}
-                onTrackChange={(track) => {
-                  const newTab = track === 'delf' ? 'delf' : 'exam';
-                  setActiveTab(newTab);
-                  window.location.hash = newTab;
-                }}
-              />
-            )}
-            {activeTab === 'mistakes' && (
-              <MistakesView
-                mistakes={mistakes}
-                onRemoveMistake={handleRemoveMistake}
-                onClearAll={handleClearAllMistakes}
-                onNavigateToExam={() => handleTabChange('exam')}
-              />
-            )}
-            {activeTab === 'cinema' && (
-              <CinemaView
-                isVip={isVip}
-                onOpenVipModal={() => setIsVipModalOpen(true)}
-              />
-            )}
+            <ErrorBoundary key={activeTab} name={activeTab} onReset={() => handleTabChange('home')}>
+              {activeTab === 'phonetics' && (
+                <PhoneticsView
+                  isVip={isVip}
+                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                />
+              )}
+              {activeTab === 'conjugation' && (
+                <ConjugationView
+                  isVip={isVip}
+                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                />
+              )}
+              {activeTab === 'vocab' && (
+                <VocabView
+                  isVip={isVip}
+                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                />
+              )}
+              {activeTab === 'grammar' && (
+                <GrammarView
+                  isVip={isVip}
+                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                />
+              )}
+              {(activeTab === 'exam' || activeTab === 'delf') && (
+                <FrenchExamView
+                  isVip={isVip}
+                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                  onSaveMistake={handleSaveMistake}
+                  initialTrack={activeTab === 'delf' ? 'delf' : 'kaoyan'}
+                  onTrackChange={(track) => {
+                    const newTab = track === 'delf' ? 'delf' : 'exam';
+                    setActiveTab(newTab);
+                    window.location.hash = newTab;
+                  }}
+                />
+              )}
+              {activeTab === 'mistakes' && (
+                <MistakesView
+                  mistakes={mistakes}
+                  onRemoveMistake={handleRemoveMistake}
+                  onClearAll={handleClearAllMistakes}
+                  onNavigateToExam={() => handleTabChange('exam')}
+                />
+              )}
+              {activeTab === 'cinema' && (
+                <CinemaView
+                  isVip={isVip}
+                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                />
+              )}
+            </ErrorBoundary>
 
             {/* 🎁 学员美学福利 · 一子一木 4K 伴学治愈壁纸屋横幅 (二级页面底部统一展示) */}
             <div className="pt-0 pb-0">
