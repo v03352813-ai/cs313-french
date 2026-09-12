@@ -57,13 +57,13 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
     if (initialTrack && initialTrack !== activeTrack) {
       setActiveTrack(initialTrack);
       if (initialTrack === 'cft4') {
-        setSelectedPaperId('paper_cft4_13');
+        setSelectedPaperId('paper_cft4_201');
       } else if (initialTrack === 'delf') {
-        setSelectedPaperId('paper_delf_19');
+        setSelectedPaperId('paper_delf_301');
       } else if (initialTrack === 'drill') {
-        setSelectedPaperId('paper_drill_29');
+        setSelectedPaperId('paper_drill_401');
       } else {
-        setSelectedPaperId('paper_kaoyan_1');
+        setSelectedPaperId('paper_kaoyan_101');
       }
       setCurrentQuestionIndex(0);
       setAnswers({});
@@ -72,10 +72,10 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
   }, [initialTrack]);
 
   const [selectedPaperId, setSelectedPaperId] = useState<string>(() => {
-    if (initialTrack === 'cft4') return 'paper_cft4_13';
-    if (initialTrack === 'delf') return 'paper_delf_19';
-    if (initialTrack === 'drill') return 'paper_drill_29';
-    return 'paper_kaoyan_1';
+    if (initialTrack === 'cft4') return 'paper_cft4_201';
+    if (initialTrack === 'delf') return 'paper_delf_301';
+    if (initialTrack === 'drill') return 'paper_drill_401';
+    return 'paper_kaoyan_101';
   });
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
@@ -95,6 +95,45 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
   // Countdown timer state
   const [secondsRemaining, setSecondsRemaining] = useState<number>(3600);
 
+  // 动态计算各赛道与各高校历年真题套数 (避免写死数量，实时反应真实试卷库体量)
+  const paperCounts = useMemo(() => {
+    const kaoyan = FRENCH_EXAM_PAPERS.filter(p => p.track === 'kaoyan');
+    const cft4 = FRENCH_EXAM_PAPERS.filter(p => p.track === 'cft4');
+    const delf = FRENCH_EXAM_PAPERS.filter(p => p.track === 'delf');
+    const drill = FRENCH_EXAM_PAPERS.filter(p => p.track === 'drill');
+
+    return {
+      kaoyan: {
+        all: kaoyan.length,
+        tongkao: kaoyan.filter(p => p.schoolOrOrg.includes('统考') || p.schoolOrOrg.includes('联考')).length,
+        beiwai: kaoyan.filter(p => p.schoolOrOrg.includes('北京外国语大学')).length,
+        shisu: kaoyan.filter(p => p.schoolOrOrg.includes('上海外国语大学')).length,
+        gdufs: kaoyan.filter(p => p.schoolOrOrg.includes('广东外语外贸大学')).length,
+        others: kaoyan.filter(p => p.schoolOrOrg.includes('南京大学') || p.schoolOrOrg.includes('武汉大学') || p.schoolOrOrg.includes('复旦') || p.schoolOrOrg.includes('中山大学')).length,
+      },
+      cft4: {
+        all: cft4.length,
+        full_mock: cft4.filter(p => p.title.includes('全真') || p.title.includes('模拟') || p.title.includes('大卷')).length,
+        grammar: cft4.filter(p => p.title.includes('语法') || p.title.includes('词汇')).length,
+        cloze_reading: cft4.filter(p => p.title.includes('完形') || p.title.includes('读解')).length,
+      },
+      delf: {
+        all: delf.length,
+        A1: delf.filter(p => p.level.includes('A1')).length,
+        A2: delf.filter(p => p.level.includes('A2')).length,
+        B1: delf.filter(p => p.level.includes('B1')).length,
+        B2: delf.filter(p => p.level.includes('B2')).length,
+      },
+      drill: {
+        all: drill.length,
+        pronoun: drill.filter(p => p.title.includes('代词')).length,
+        tense: drill.filter(p => p.title.includes('时态') || p.title.includes('过去') || p.title.includes('将来') || p.title.includes('虚拟式')).length,
+        cloze: drill.filter(p => p.title.includes('完形') || p.title.includes('介词')).length,
+        reading: drill.filter(p => p.title.includes('阅读')).length,
+      }
+    };
+  }, []);
+
   // Filter papers based on active track, sub-filters, and search
   const filteredPapers = useMemo(() => {
     return FRENCH_EXAM_PAPERS.filter(p => {
@@ -109,9 +148,9 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
       }
 
       if (activeTrack === 'cft4' && cft4Filter !== 'all') {
-        if (cft4Filter === 'full_mock' && !p.title.includes('全真冲刺模拟卷')) return false;
-        if (cft4Filter === 'grammar' && !p.title.includes('语法词汇')) return false;
-        if (cft4Filter === 'cloze_reading' && !p.title.includes('完形填空') && !p.title.includes('读解')) return false;
+        if (cft4Filter === 'full_mock' && !p.title.includes('全真') && !p.title.includes('模拟') && !p.title.includes('大卷')) return false;
+        if (cft4Filter === 'grammar' && !p.title.includes('语法') && !p.title.includes('词汇')) return false;
+        if (cft4Filter === 'cloze_reading' && !p.title.includes('完形') && !p.title.includes('读解')) return false;
       }
 
       if (activeTrack === 'delf' && delfFilter !== 'all') {
@@ -120,9 +159,9 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
       if (activeTrack === 'drill' && drillFilter !== 'all') {
         if (drillFilter === 'pronoun' && !p.title.includes('代词')) return false;
-        if (drillFilter === 'tense' && !p.title.includes('时态') && !p.title.includes('虚拟式')) return false;
-        if (drillFilter === 'cloze' && !p.title.includes('完形填空')) return false;
-        if (drillFilter === 'reading' && !p.title.includes('长篇阅读')) return false;
+        if (drillFilter === 'tense' && !p.title.includes('时态') && !p.title.includes('过去') && !p.title.includes('将来') && !p.title.includes('虚拟式')) return false;
+        if (drillFilter === 'cloze' && !p.title.includes('完形') && !p.title.includes('介词')) return false;
+        if (drillFilter === 'reading' && !p.title.includes('阅读')) return false;
       }
 
       if (searchQuery.trim()) {
@@ -440,14 +479,14 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               🏛️ 法国国家级与国际官方全真机考大卷库
             </span>
             <span className="text-xs text-stone-500 font-medium">
-              36套全卷 · 100分官方标准评分 · 词汇语法 / 动词变位 / 完形填空 / 实用告示 / 原声听解 / 社科长篇读解
+              77套全国名校历年全卷 · 1,848道官方全真试题 · 100分标准实测评分 · 词汇语法 / 动词变位 / 完形填空 / 实用告示 / 原声听解 / 社科长篇读解
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
             法语国家统考与国际认证全真机考大卷库
           </h1>
           <p className="text-xs sm:text-sm text-stone-500">
-            涵盖全国名校考研二外 (241/242/243)、大学法语四级 (CFT-4)、DELF 欧标 (A1~B2) 与四大考点专项突破卷，支持即做即看与考场全真计时实测！
+            涵盖全国名校考研二外 (北外242/上外241/广外243/南大/武大/复旦/中大历年真题)、大学法语四级 (CFT-4)、DELF 欧标 (A1~B2) 与四大考点专项突破卷！
           </p>
         </div>
       </div>
@@ -461,10 +500,10 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
           <div className="space-y-0.5">
             <div className="flex items-center gap-2 font-black text-[#29354A]">
               <span className={activeTrack === 'kaoyan' ? 'text-[#80142A]' : activeTrack === 'cft4' ? 'text-indigo-800' : activeTrack === 'delf' ? 'text-amber-800' : 'text-slate-800'}>
-                {activeTrack === 'kaoyan' ? '🎓 考研二外法语 (241/242/243) 考纲指南' 
-                  : activeTrack === 'cft4' ? '🏛️ 大学法语四级 (CFT-4) 全国统考大纲指南'
-                  : activeTrack === 'delf' ? '🌍 DELF 欧标国际认证 (A1-B2) 官方考纲指南'
-                  : '⚡ 考研二外 & DELF 四大重点考点专项突破指南'}
+                {activeTrack === 'kaoyan' ? `🎓 考研二外法语 (241/242/243) 历年名校大卷 (${paperCounts.kaoyan.all}套)` 
+                  : activeTrack === 'cft4' ? `🏛️ 大学法语四级 (CFT-4) 全国统考历年真题 (${paperCounts.cft4.all}套)`
+                  : activeTrack === 'delf' ? `🌍 DELF 欧标国际认证 (A1-B2) 官方考卷 (${paperCounts.delf.all}套)`
+                  : `⚡ 考研二外 & DELF 四大重点考点专项攻坚 (${paperCounts.drill.all}套)`}
               </span>
               <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#29354A] border border-slate-200">
                 {activeTrack === 'kaoyan' ? '全国高校自主命题 · 100分制' 
@@ -475,7 +514,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             </div>
             <p className="text-stone-600 leading-relaxed font-medium">
               {activeTrack === 'kaoyan' && (
-                <span>收录北外、上外、广外、南大、武大等名校真题，重点考察 <strong>【时态配合·代词语序·虚拟式触发】</strong> 与 <strong>【社科长文逻辑推理】</strong>，满分 100 分，及格线 60 分。</span>
+                <span>全面收录北外 242、上外 241、广外 243、南大、武大、复旦、中大等历年统考真题编年卷，重点考察 <strong>【时态配合·代词语序·虚拟式触发】</strong> 与 <strong>【社科长文逻辑推理】</strong>，满分 100 分。</span>
               )}
               {activeTrack === 'cft4' && (
                 <span>大学法语四级为全国高校公外二外最权威统一测试，全面考核 <strong>【听力理解·语法结构·完形填空·长篇读解】</strong>，精准检验 A2-B1 语言综合运用能力。</span>
@@ -500,7 +539,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             onClick={() => {
               setActiveTrack('kaoyan');
               setKaoyanFilter('all');
-              setSelectedPaperId('paper_kaoyan_1');
+              setSelectedPaperId('paper_kaoyan_beiwai_2024');
               handleResetExam();
               onTrackChange?.('kaoyan');
             }}
@@ -511,14 +550,14 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             }`}
           >
             <GraduationCap className="w-4 h-4" />
-            <span>🎓 考研二外 (12套)</span>
+            <span>🎓 考研二外 ({paperCounts.kaoyan.all}套)</span>
           </button>
 
           <button
             onClick={() => {
               setActiveTrack('cft4');
               setCft4Filter('all');
-              setSelectedPaperId('paper_cft4_13');
+              setSelectedPaperId('paper_cft4_201');
               handleResetExam();
               onTrackChange?.('cft4');
             }}
@@ -529,14 +568,14 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             }`}
           >
             <Award className="w-4 h-4" />
-            <span>🏛️ 大学法语四级 (6套)</span>
+            <span>🏛️ 大学法语四级 ({paperCounts.cft4.all}套)</span>
           </button>
 
           <button
             onClick={() => {
               setActiveTrack('delf');
               setDelfFilter('all');
-              setSelectedPaperId('paper_delf_19');
+              setSelectedPaperId('paper_delf_301');
               handleResetExam();
               onTrackChange?.('delf');
             }}
@@ -547,14 +586,14 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             }`}
           >
             <Globe2 className="w-4 h-4" />
-            <span>🌍 DELF 欧标 (10套)</span>
+            <span>🌍 DELF 欧标 ({paperCounts.delf.all}套)</span>
           </button>
 
           <button
             onClick={() => {
               setActiveTrack('drill');
               setDrillFilter('all');
-              setSelectedPaperId('paper_drill_29');
+              setSelectedPaperId('paper_drill_401');
               handleResetExam();
               onTrackChange?.('drill');
             }}
@@ -565,7 +604,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             }`}
           >
             <Target className="w-4 h-4" />
-            <span>⚡ 专项攻坚突破 (8套)</span>
+            <span>⚡ 专项攻坚突破 ({paperCounts.drill.all}套)</span>
           </button>
         </div>
 
@@ -581,12 +620,12 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
           {activeTrack === 'kaoyan' && (
             <div className="flex items-center gap-1.5 flex-wrap">
               {[
-                { id: 'all', label: '全部考研卷 (12)' },
-                { id: 'tongkao', label: '全国统考/冲刺 (5)' },
-                { id: 'beiwai', label: '北外 242 (2)' },
-                { id: 'shisu', label: '上外 241 (2)' },
-                { id: 'gdufs', label: '广外 243 (1)' },
-                { id: 'others', label: '南大/武大/复旦/中大 (4)' }
+                { id: 'all', label: `全部考研卷 (${paperCounts.kaoyan.all})` },
+                { id: 'tongkao', label: `全国统考/冲刺 (${paperCounts.kaoyan.tongkao})` },
+                { id: 'beiwai', label: `北外 242 (${paperCounts.kaoyan.beiwai})` },
+                { id: 'shisu', label: `上外 241 (${paperCounts.kaoyan.shisu})` },
+                { id: 'gdufs', label: `广外 243 (${paperCounts.gdufs})` },
+                { id: 'others', label: `南大/武大/复旦/中大 (${paperCounts.kaoyan.others})` }
               ].map(f => (
                 <button
                   key={f.id}
@@ -606,10 +645,10 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
           {activeTrack === 'cft4' && (
             <div className="flex items-center gap-1.5 flex-wrap">
               {[
-                { id: 'all', label: '全部四级大卷 (6)' },
-                { id: 'full_mock', label: '全真冲刺模拟卷 (3)' },
-                { id: 'grammar', label: '语法词汇专项 (1)' },
-                { id: 'cloze_reading', label: '完形读解强化 (2)' }
+                { id: 'all', label: `全部四级大卷 (${paperCounts.cft4.all})` },
+                { id: 'full_mock', label: `历年真题与模拟 (${paperCounts.cft4.full_mock})` },
+                { id: 'grammar', label: `语法词汇专项 (${paperCounts.cft4.grammar})` },
+                { id: 'cloze_reading', label: `完形读解强化 (${paperCounts.cft4.cloze_reading})` }
               ].map(f => (
                 <button
                   key={f.id}
@@ -629,11 +668,11 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
           {activeTrack === 'delf' && (
             <div className="flex items-center gap-1.5 flex-wrap">
               {[
-                { id: 'all', label: '全部欧标考卷 (10)' },
-                { id: 'A1', label: 'DELF A1 入门级 (2)' },
-                { id: 'A2', label: 'DELF A2 进阶级 (2)' },
-                { id: 'B1', label: 'DELF B1 独立级 (3)' },
-                { id: 'B2', label: 'DELF B2 精通级 (3)' }
+                { id: 'all', label: `全部欧标考卷 (${paperCounts.delf.all})` },
+                { id: 'A1', label: `DELF A1 入门级 (${paperCounts.delf.A1})` },
+                { id: 'A2', label: `DELF A2 进阶级 (${paperCounts.delf.A2})` },
+                { id: 'B1', label: `DELF B1 独立级 (${paperCounts.delf.B1})` },
+                { id: 'B2', label: `DELF B2 精通级 (${paperCounts.delf.B2})` }
               ].map(f => (
                 <button
                   key={f.id}
@@ -653,11 +692,11 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
           {activeTrack === 'drill' && (
             <div className="flex items-center gap-1.5 flex-wrap">
               {[
-                { id: 'all', label: '全部专项大卷 (8)' },
-                { id: 'pronoun', label: '代词系统与语序 (2)' },
-                { id: 'tense', label: '时态配合与虚拟式 (2)' },
-                { id: 'cloze', label: '完形填空与介词 (2)' },
-                { id: 'reading', label: '社科长篇深度阅读 (2)' }
+                { id: 'all', label: `全部专项大卷 (${paperCounts.drill.all})` },
+                { id: 'pronoun', label: `代词系统与语序 (${paperCounts.drill.pronoun})` },
+                { id: 'tense', label: `时态配合与虚拟式 (${paperCounts.drill.tense})` },
+                { id: 'cloze', label: `完形填空与介词 (${paperCounts.drill.cloze})` },
+                { id: 'reading', label: `社科长篇深度阅读 (${paperCounts.drill.reading})` }
               ].map(f => (
                 <button
                   key={f.id}
