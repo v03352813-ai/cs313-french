@@ -162,7 +162,7 @@ export const CinemaView: React.FC<CinemaViewProps> = ({
   };
 
   return (
-    <div className="space-y-3.5 sm:space-y-4 pb-0">
+    <div className="space-y-3 sm:space-y-3.5 pb-0">
       
       {/* Top Hero Banner with Weekly Update Commitment */}
       <div className="bg-gradient-to-r from-[#80142A] via-[#650E20] to-[#360811] rounded-2xl sm:rounded-3xl p-5 sm:p-6 text-white shadow-md relative overflow-hidden border border-[#80142A]/30">

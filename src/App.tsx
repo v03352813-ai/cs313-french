@@ -128,7 +128,7 @@ export const App: React.FC = () => {
       )}
 
       {/* Main View Area */}
-      <main className="flex-1 w-full pb-8">
+      <main className="flex-1 w-full pb-4 sm:pb-6">
         {activeTab === 'home' && (
           <HomePortal
             setActiveTab={handleTabChange}
@@ -138,7 +138,7 @@ export const App: React.FC = () => {
           />
         )}
         {activeTab !== 'home' && (
-          <div className="max-w-6xl mx-auto px-4 pt-2 sm:pt-3 space-y-3 sm:space-y-3.5">
+          <div className="max-w-6xl mx-auto px-4 pt-1.5 sm:pt-2 space-y-2.5 sm:space-y-3">
             {activeTab === 'phonetics' && <PhoneticsView />}
             {activeTab === 'conjugation' && (
               <ConjugationView
@@ -187,7 +187,7 @@ export const App: React.FC = () => {
             )}
 
             {/* 🎁 学员美学福利 · 一子一木 4K 伴学治愈壁纸屋横幅 (二级页面底部统一展示) */}
-            <div className="pt-0.5 pb-1">
+            <div className="pt-0 pb-0">
               <WallpaperBanner onOpenWallpaperModal={() => setIsWallpaperModalOpen(true)} />
             </div>
           </div>
@@ -267,7 +267,7 @@ export const App: React.FC = () => {
       />
 
       {/* Footer */}
-      <footer className="border-t border-slate-200/80 bg-white/90 py-8 px-4 text-center text-xs text-stone-600 space-y-2 mt-8">
+      <footer className="border-t border-slate-200/80 bg-white/90 py-6 px-4 text-center text-xs text-stone-600 space-y-1.5 mt-4 sm:mt-6">
         <div className="flex items-center justify-center gap-2 text-[#29354A] font-bold">
           <span className="text-[#80142A]">🇫🇷 CS313 法语研习社</span>
           <span>•</span>

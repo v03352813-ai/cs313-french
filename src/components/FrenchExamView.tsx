@@ -430,7 +430,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
   };
 
   return (
-    <div className="space-y-3.5 sm:space-y-4 pb-0">
+    <div className="space-y-3 sm:space-y-3.5 pb-0">
       
       {/* Top Hero Banner */}
       <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -740,7 +740,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         
         {/* Left 8 Cols: Question Display */}
-        <div className="lg:col-span-8 bg-white rounded-3xl p-5 sm:p-7 border border-slate-200/80 shadow-xs flex flex-col justify-between space-y-6">
+        <div className="lg:col-span-8 bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-xs space-y-4 sm:space-y-5">
           
           {currentQuestion ? (
             <div className="space-y-5">
@@ -1083,6 +1083,39 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             </button>
           )}
         </div>
+
+        {/* Exam Tips & Scoring Guidelines (填补右侧下方空白，使左右两列高度自然平衡对齐) */}
+        {!scoreReport && (
+          <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/80 shadow-xs space-y-3">
+            <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
+              <Sparkles className="w-4 h-4 text-[#DDBF78]" />
+              <h5 className="text-xs font-black text-[#29354A]">考场作答与评分基准</h5>
+            </div>
+            <div className="space-y-2 text-[11px] text-stone-600 leading-relaxed">
+              <div className="flex items-start gap-2">
+                <span className="text-[#80142A] font-bold">1.</span>
+                <span>
+                  <strong>官方合格线：</strong>
+                  {currentPaper?.track === 'delf' 
+                    ? 'DELF 欧标总分满 50/100 分合格，且单科成绩必须 ≥ 5/25 分（严禁触发单科淘汰线）。'
+                    : '考研二外 (241/242/243) 与大学法语四级总分 100 分，及格基准为 60 分。'}
+                </span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-[#80142A] font-bold">2.</span>
+                <span>
+                  <strong>即做即看模式：</strong>上方开关开启后，作答当前题后立即显现名师考点剖析与避坑指引。
+                </span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-[#80142A] font-bold">3.</span>
+                <span>
+                  <strong>错题自动归集：</strong>答错题目将实时沉淀至顶部「错题本」，考后可开启针对性专攻消灭！
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Score Card when submitted */}
         {scoreReport && (

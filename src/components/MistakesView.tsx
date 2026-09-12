@@ -32,7 +32,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
     : mistakes.filter(m => m.question.grammarTag === filterTag);
 
   return (
-    <div className="space-y-3.5 sm:space-y-4 pb-0">
+    <div className="space-y-3 sm:space-y-3.5 pb-0">
       
       {/* Top Hero Banner */}
       <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">

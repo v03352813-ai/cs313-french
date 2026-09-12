@@ -94,19 +94,23 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
   };
 
   return (
-    <div className="space-y-3.5 sm:space-y-4 pb-0">
+    <div className="space-y-3 sm:space-y-3.5 pb-0">
       
       {/* Top Hero Banner */}
       <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-bold border border-[#80142A]/25">
-            <BookOpenCheck className="w-3.5 h-3.5 text-[#DDBF78]" />
-            <span>法兰西学术院正统文法规范 · 左右对称滑块学习台</span>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="px-2.5 py-0.5 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-bold border border-[#80142A]/20">
+              考研二外重点突破
+            </span>
+            <span className="text-xs text-[#80142A] font-bold">
+              ★ 语法避坑体系库
+            </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
-            法语考研二外与 DELF 全能语法速查宝典
+            法语核心文法高频考点演练场
           </h1>
-          <p className="text-xs sm:text-sm text-[#29354A]/80 leading-relaxed max-w-3xl">
+          <p className="text-xs sm:text-sm text-stone-500 max-w-2xl">
             直击考研二外失分重灾区：副代词 y/en 深度解析、直接宾语提前过去分词配合、自反动词性数配合与虚拟式触发器，配独家【考研避坑指南】。
           </p>
         </div>
@@ -116,7 +120,7 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 items-stretch">
         
         {/* Left Column (50%): Grammar Points Navigator Card */}
-        <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-4 sm:p-5 flex flex-col h-[680px] sm:h-[720px]">
+        <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-4 sm:p-5 flex flex-col h-[540px] sm:h-[580px]">
           
           {/* Top: Search & Category Tabs */}
           <div className="space-y-2.5 pb-3 border-b border-slate-100 shrink-0">
@@ -218,7 +222,7 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
         </div>
 
         {/* Right Column (50%): Detailed Grammar Card with Smooth Scroll Slider */}
-        <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col h-[680px] sm:h-[720px] relative">
+        <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col h-[540px] sm:h-[580px] relative">
           
           {/* Top Header of Selected Grammar Point (Fixed Header) */}
           <div className="space-y-2 pb-3.5 border-b border-slate-200/80 shrink-0">
