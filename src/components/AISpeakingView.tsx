@@ -50,6 +50,249 @@ interface ChatMessage {
   feedback?: string;
 }
 
+const SCENARIO_REPLY_REGISTRY: Record<string, { replyFr: string; replyZh: string; grammarTip: string; nextSuggestions: string[] }> = {
+  fr_cafe_01: {
+    replyFr: 'C\'est bien noté ! Je vous apporte cela tout de suite. Voulez-vous également un verre d\'eau fraîche ou une petite douceur avec votre café ?',
+    replyZh: '记好啦！我马上为您送来。您还需要一杯冰水或者配咖啡的法式小甜点吗？',
+    grammarTip: '习惯表达：Je vous apporte cela tout de suite. (我马上给您端上来)',
+    nextSuggestions: [
+      'Non merci, ce sera tout pour le moment.',
+      'Oui, une carafe d\'eau s\'il vous plaît, et l\'addition quand vous pourrez.',
+      'Qu\'avez-vous comme petites douceurs ?'
+    ]
+  },
+  fr_boulangerie_01: {
+    replyFr: 'Et voilà une belle baguette bien dorée ! Et avec ceci, vous laisserez-vous tenter par nos éclairs au chocolat ou nos chouquettes ?',
+    replyZh: '给您拿了一根金黄诱人的法棍！除此之外，要不要来点我们的法式巧克力闪电泡芙或者小糖粒泡芙？',
+    grammarTip: '面包房点单高频：Et avec ceci ? (除此之外还需要别的吗？)',
+    nextSuggestions: [
+      'Trois chouquettes pour la route, s\'il vous plaît !',
+      'Non merci, ce sera tout. Combien je vous dois en tout ?',
+      'Acceptez-vous la carte bancaire sans contact ?'
+    ]
+  },
+  fr_pharmacie_01: {
+    replyFr: 'D\'accord. Je vous conseille ce sirop pour calmer la toux et du paracétamol. Attention à bien respecter 4 heures d\'intervalle entre chaque prise, jamais plus de 3 grammes par jour !',
+    replyZh: '明白了。我建议您用这款糖浆止咳，再配合扑热息痛退烧。请务必注意每次服药间隔至少 4 小时，一天绝对不要超过 3 克！',
+    grammarTip: '服药注意事项：respecter un intervalle de 4 heures (保持4小时用药间隔)',
+    nextSuggestions: [
+      'Merci beaucoup pour la posologie. Faut-il prendre ces comprimés avant ou après les repas ?',
+      'Combien coûte l\'ensemble, s\'il vous plaît ?',
+      'Avez-vous aussi des pastilles pour adoucir la gorge ?'
+    ]
+  },
+  fr_shopping_01: {
+    replyFr: 'La cabine numéro 2 est libre juste au fond à droite ! Je vous apporte également la taille au-dessus au cas où. N\'hésitez pas à m\'appeler pour voir ce que ça donne !',
+    replyZh: '最里面右手边的 2 号试衣间空着！我也顺便帮您拿了一件大一码的备用。穿好后尽管叫我帮您看看上身效果！',
+    grammarTip: '试穿效果交流：voir ce que ça donne (看看穿上身效果如何)',
+    nextSuggestions: [
+      'Merci beaucoup ! Je vais essayer les deux tailles.',
+      'Est-ce que cette matière rétrécit au lavage ?',
+      'Finalement, la coupe me va à merveille ! Je la prends.'
+    ]
+  },
+  fr_marche_01: {
+    replyFr: 'Voici votre morceau de Comté bien affiné ! Je vous ajoute une petite grappe de raisin offerte par la maison. Ce sera tout ou souhaitez-vous un saucisson artisanal ?',
+    replyZh: '这是给您切好的陈年孔泰奶酪！我再赠送您一小串新鲜葡萄。还要来点别的吗，或者尝尝我们自制的手工萨拉米香肠？',
+    grammarTip: '集市热情招待：offerte par la maison (店家附赠/掌柜请客)',
+    nextSuggestions: [
+      'C\'est adorable, merci ! Un saucisson aux noisettes, s\'il vous plaît.',
+      'Non merci Thierry, ce sera parfait. Je vous paie par carte.',
+      'Quel vin me conseillez-vous pour accompagner ce fromage ?'
+    ]
+  },
+  fr_delf_b1_b2_01: {
+    replyFr: 'Votre argumentation est solidement étayée. Cependant, ne craignez-vous pas qu\'une interdiction brutale ne suscite de vives protestations de la part des commerçants du centre-ville ?',
+    replyZh: '您的论述论据非常充分。然而，您难道不担心一刀切的禁令会引发市中心商户的强烈抗议吗？',
+    grammarTip: '考官反驳质疑：Ne craignez-vous pas que + subjonctif ?',
+    nextSuggestions: [
+      'On pourrait prévoir des créneaux de livraison spécifiques pour les professionnels le matin.',
+      'Des compensations financières temporaires permettraient d\'amortir le choc pour les commerces.',
+      'Au contraire, la piétonnisation attire davantage de promeneurs et stimule la fréquentation commerciale.'
+    ]
+  },
+  fr_delf_teletravail_02: {
+    replyFr: 'C\'est un constat très lucide. Mais d\'après vous, l\'entreprise n\'a-t-elle pas aussi un devoir de vigilance pour éviter le surmenage ou le burn-out de ses employés à domicile ?',
+    replyZh: '这一剖析非常清醒客观。但在您看来，雇主企业是否也应当履行监管职责，以避免员工在家办公时过度劳累乃至职业倦怠？',
+    grammarTip: '身心健康词汇：le surmenage (过度劳累), le burn-out (职业倦怠/崩溃)',
+    nextSuggestions: [
+      'Absolument, l\'instauration d\'un droit effectif à la déconnexion après 18h est indispensable.',
+      'Les managers doivent être formés pour évaluer les résultats réels plutôt que les heures de connexion.',
+      'Des bilans réguliers avec la médecine du travail permettent de détecter les signaux faibles d\'épuisement.'
+    ]
+  },
+  fr_delf_ia_03: {
+    replyFr: 'C\'est une perspective passionnante. Toutefois, si l\'IA rédige des dissertations en quelques secondes, comment les enseignants peuvent-ils encore évaluer le mérite intellectuel individuel ?',
+    replyZh: '这是一个引人入胜的视角。然而，倘若 AI 几秒钟内就能写出一篇论文，教师们今后该如何评估学生的个人真实学术水平呢？',
+    grammarTip: '教育改革探讨：évaluer le mérite intellectuel (评估智识造诣)',
+    nextSuggestions: [
+      'Il faudra privilégier les examens oraux et les débats spontanés en classe.',
+      'On peut demander aux élèves de critiquer les erreurs et les biais contenus dans les textes générés par l\'IA.',
+      'L\'évaluation doit désormais porter sur la pertinence des questions posées plutôt que sur la mémorisation passive.'
+    ]
+  },
+  fr_delf_reseaux_04: {
+    replyFr: 'Vous soulevez un enjeu psychologique capital. Mais ne pensez-vous pas que la pression sociale et la peur de rater quelque chose (le syndrome FOMO) rendent cette déconnexion presque insurmontable ?',
+    replyZh: '您提出了一个关键的心理学命题。但您难道不觉得，同伴社交压力与“唯恐错失综合症（FOMO）”使得这种数字断联在现实中几乎难以逾越吗？',
+    grammarTip: '现代心理学术语：la peur de rater quelque chose (错失恐惧症 FOMO)',
+    nextSuggestions: [
+      'C\'est pourquoi cette démarche doit être collective, par exemple au sein d\'une classe ou d\'une famille.',
+      'Il faut encourager des activités physiques et manuelles captivantes pour remplacer l\'écran.',
+      'En prenant conscience de la manipulation des algorithmes, les jeunes retrouvent le désir de liberté.'
+    ]
+  },
+  fr_delf_tourisme_05: {
+    replyFr: 'Votre proposition d\'écotaxe est intéressante. Néanmoins, ne risque-t-elle pas de transformer le voyage en un privilège réservé aux classes les plus fortunées ?',
+    replyZh: '您提出的生态税方案很有新意。然而，这难道不会冒着将旅行演变成唯有富裕阶层才能独享的特权风险吗？',
+    grammarTip: '社会公平反问：un privilège réservé aux plus fortunés (富人特权)',
+    nextSuggestions: [
+      'L\'écotaxe peut être modulée selon les revenus ou compensée par des chèques vacances écologiques.',
+      'Le tourisme de proximité permet à chacun de voyager de manière accessible sans dégrader des sites fragiles.',
+      'La gratuité peut être préservée pour les scolaires et les résidents de la région.'
+    ]
+  },
+  fr_metro_01: {
+    replyFr: 'Pour Saint-Michel, c\'est très simple : prenez la ligne 4 direction Porte d\'Orléans. Il y a environ 6 stations. Vous pouvez acheter un ticket dématérialisé directement sur votre smartphone à la borne automatique !',
+    replyZh: '去圣米歇尔广场非常简单：乘坐 4 号线往奥尔良门方向。大约有 6 站路。您可以在自动售票机上直接把电子票刷进手机里！',
+    grammarTip: '交通指路词汇：direction (行车方向), ticket dématérialisé (电子虚拟车票)',
+    nextSuggestions: [
+      'Merci beaucoup ! Combien de temps dure le trajet environ ?',
+      'Est-ce que le ticket de métro est valable pour le RER B ?',
+      'Où se trouve la borne pour payer en espèces ?'
+    ]
+  },
+  fr_aeroport_02: {
+    replyFr: 'Votre déclaration est enregistrée sous le numéro CDGAF8832. Le système indique que votre valise est localisée à Amsterdam et arrivera ce soir par le vol de 22h. Nous vous la livrerons directement à votre hôtel demain matin avant 11h !',
+    replyZh: '您的挂失申请已登记，跟踪编号为 CDGAF8832。系统显示您的箱子已在阿姆斯特丹找到，将随今晚 10 点的航班抵达。我们明天上午 11 点前会直接派专人送到您的酒店前台！',
+    grammarTip: '行李追踪高频：livrer directement à l\'hôtel (直接配送至酒店)',
+    nextSuggestions: [
+      'Quel soulagement, merci ! Dois-je être présent(e) en personne pour la réception ?',
+      'Existe-t-il une indemnité pour mes achats de première nécessité en attendant ?',
+      'Pouvez-vous m\'envoyer un SMS de confirmation dès que le chauffeur part ?'
+    ]
+  },
+  fr_tgv_03: {
+    replyFr: 'Bonne nouvelle ! Il me reste une place côté fenêtre au pont supérieur sur le TGV de 15h42. Avec les conditions de votre tarif pro, l\'échange est totalement sans frais ! Voici votre nouveau titre de transport imprimé.',
+    replyZh: '好消息！15 点 42 分开往阿维尼翁的 TGV 上层靠窗位刚好还剩一张座席。鉴于您的商务票条款，本次改签完全免费！这是给您重新打印的乘车凭证。',
+    grammarTip: '双层高铁术语：pont supérieur (TGV 双层列车的上层车厢)',
+    nextSuggestions: [
+      'Super, merci infiniment Laurent ! De quel quai part ce train ?',
+      'Combien de temps avant le départ doit-on se présenter pour le compostage ?',
+      'Y a-t-il une voiture-bar pour déjeuner à bord ?'
+    ]
+  },
+  fr_hotel_04: {
+    replyFr: 'C\'est un immense plaisir ! Comme vous séjournez parmi nous pour la première fois, nous sommes ravis de vous surclasser gracieusement en chambre Privilège avec balcon et vue panoramique sur la Tour Eiffel ! Voici vos clés électroniques au 5ème étage.',
+    replyZh: '非常荣幸！鉴于您是首次下榻我们酒店，我们特别乐意为您免费升房至带有观景阳台、可饱览埃菲尔铁塔的尊贵客房！这是您位于 5 层的电子房卡。',
+    grammarTip: '升房惊喜礼遇：surclasser gracieusement (免费尊荣升房)',
+    nextSuggestions: [
+      'C\'est une merveilleuse surprise, merci du fond du cœur !',
+      'Le petit-déjeuner est-il inclus dans cette formule ?',
+      'Pouvez-vous nous réserver un taxi pour l\'aéroport mercredi matin ?'
+    ]
+  },
+  fr_musee_05: {
+    replyFr: 'Voici vos deux audioguides interactifs configurés en chinois ! Pour la Joconde, traversez la Grande Galerie dans l\'Aile Denon jusqu\'à la salle numéro 711. N\'hésitez pas à suivre le parcours des Chefs-d\'œuvre sur l\'écran !',
+    replyZh: '这是为您调设好中文界面的两台互动语音导览！观赏蒙娜丽莎请穿过德农翼楼的大画廊一直走到 711 号展厅。屏幕上贴心标注了“镇馆之宝”路线，跟着走即可！',
+    grammarTip: '展馆导引：Aile Denon (德农翼楼); parcours des Chefs-d\'œuvre (杰作经典路线)',
+    nextSuggestions: [
+      'Merci beaucoup ! Les photos sont-elles autorisées dans cette salle ?',
+      'Combien de temps nous conseillez-vous pour cette visite essentielle ?',
+      'Où devons-nous restituer les appareils à la fin ?'
+    ]
+  },
+  fr_entretien_01: {
+    replyFr: 'Votre parcours démontre une grande adaptabilité. Pouvez-vous me citer un exemple concret où vous avez dû surmonter un désaccord majeur au sein d\'une équipe pluridisciplinaire ?',
+    replyZh: '您的履历展现出极强的适应能力。您能否举出一个具体实例，谈谈您过去是如何在跨职能团队中化解一次重大分歧的？',
+    grammarTip: '行为面试核心：surmonter un désaccord majeur (化解一次重大分歧)',
+    nextSuggestions: [
+      'Lors de notre projet précédent, j\'ai instauré un atelier de design thinking pour aligner les priorités des développeurs et du marketing.',
+      'Face aux divergences d\'opinions, j\'ai favorisé une approche par les faits et les métriques utilisateurs.',
+      'J\'ai appris que l\'écoute active et l\'empathie sont les meilleurs leviers pour désamorcer les tensions.'
+    ]
+  },
+  fr_reunion_02: {
+    replyFr: 'Ces chiffres sont particulièrement encourageants pour la suite du déploiement ! Quelles sont selon vous les deux principales priorités opérationnelles pour sécuriser le lancement du second semestre ?',
+    replyZh: '这些数据对接下来的全面部署极具鼓舞性！在您看来，为了确保下半年上线稳操胜券，当前最重要的两大运营攻坚点是什么？',
+    grammarTip: '高管决策关注：sécuriser le lancement (为上线筑牢安全底座)',
+    nextSuggestions: [
+      'La première priorité est de renforcer le support client bilingue pour fluidifier l\'onboarding.',
+      'Le second volet concerne l\'optimisation de l\'infrastructure serveur pour absorber les pics de trafic.',
+      'Nous prévoyons également une campagne marketing ciblée avec des influenceurs de renom.'
+    ]
+  },
+  fr_negociation_03: {
+    replyFr: 'Votre proposition d\'un contrat pluriannuel et d\'un acompte de 40% change effectivement la donne. Nous acceptons la remise de 8% sous réserve d\'un délai d\'approvisionnement de 4 semaines au lieu de 3. Est-ce acceptable pour votre calendrier de production ?',
+    replyZh: '您提出的多年期合作与 40% 首付款确实很有诚意。我们同意给予 8% 的让利，但备料交付期需由 3 周调整为 4 周。这是否能契合您方的生产日程？',
+    grammarTip: '商务妥协：changer la donne (改变局面/扭转筹码); sous réserve de... (以……为前提条件)',
+    nextSuggestions: [
+      'Quatre semaines restent gérables pour nous si la première livraison partielle intervient dès la 3ème semaine.',
+      'Marché conclu ! Pouvez-vous nous adresser le projet de contrat paraphé d\'ici vendredi ?',
+      'Nous apprécions cet esprit de partenariat constructif et nous réjouissons de cette collaboration.'
+    ]
+  },
+  fr_stagiaire_04: {
+    replyFr: 'Parfait ! Pour ta première semaine, je te propose d\'analyser les retours d\'expérience de nos bêta-testeurs et de rédiger une synthèse. On fera un point tous les matins à 10h pour répondre à tes questions. Prends un café et installe-toi confortablement !',
+    replyZh: '太好啦！首周工作我建议你先梳理公测用户的体验反馈并撰写一份提要。每天上午 10 点我们都会有碰头会解答你的疑问。先去冲杯咖啡，放松入座吧！',
+    grammarTip: '导师带教日常：faire un point (碰头梳理进展); synthèse (工作小结提要)',
+    nextSuggestions: [
+      'C\'est très clair Camille, merci ! Je m\'attelle à l\'analyse des données dès maintenant.',
+      'Où puis-je trouver le guide de style de l\'entreprise pour la mise en page de la synthèse ?',
+      'Très heureux(se) de rejoindre l\'aventure, à tout à l\'heure pour le café !'
+    ]
+  },
+  fr_demission_05: {
+    replyFr: 'J\'apprécie ta franchise et tes arguments factuels sont incontestables. Je vais soumettre à la direction générale une revalorisation de 7% avec effet rétroactif au 1er janvier, accompagnée d\'une prime d\'objectifs. Cela te convient-il ?',
+    replyZh: '我很欣赏你的坦率，你列举的事实依据无可挑剔。我将向集团总管理层呈报一份上调 7%、并追溯至 1 月 1 日生效的调薪申请，外加绩效奖金包。这样安排你满意吗？',
+    grammarTip: '加薪条款专业词：avec effet rétroactif (具有追溯既往生效力)',
+    nextSuggestions: [
+      'Je vous remercie sincèrement pour cette reconnaissance qui renforce ma motivation au sein de l\'équipe.',
+      'Cet accord me paraît équitable et m\'encourage à relever les nouveaux défis de l\'année.',
+      'Merci Grégoire pour ton soutien constant et ta confiance renouvelée.'
+    ]
+  },
+  fr_dinner_01: {
+    replyFr: 'À la vôtre ! Le bœuf a mijoté pendant quatre heures dans un vin de Bourgogne avec des petits lardons et des champignons sauvages. Servez-vous généreusement, il y a du rab dans la cocotte en fonte !',
+    replyZh: '干杯！这锅红酒牛肉用勃艮第葡萄酒配培根小肉块和野生蘑菇足足文火慢炖了四个钟头。快多盛点，铸铁锅里还有好大一份备着呢！',
+    grammarTip: '家宴亲切俗语：avoir du rab (锅里还有大把存货/再添一碗)',
+    nextSuggestions: [
+      'La viande est d\'une tendreté incroyable, elle fond littéralement en bouche !',
+      'C\'est un chef-d\'œuvre culinaire ! Auriez-vous le secret de cette sauce onctueuse ?',
+      'Je reprendrais bien un petit morceau avec un peu de sauce, c\'est un délice !'
+    ]
+  },
+  fr_soiree_02: {
+    replyFr: 'Ah Thomas est un ami génial ! Tu tombes à pic, on s\'apprêtait à lancer un blind test de musique française des années 80 à nos jours. Tu es plutôt variété rétro ou électro parisienne ?',
+    replyZh: '啊，托马斯是我哥们儿，人超棒！你来得正是时候，我们正打算开始玩法国 80 年代至今流行金曲的盲听猜歌接龙呢。你更喜欢法式复古民谣还是巴黎电子乐？',
+    grammarTip: '派对俚语：Tu tombes à pic ! (你来得真巧/正当其时！)',
+    nextSuggestions: [
+      'J\'adore la musique française ! Je connais bien Stromae, Angèle et Édith Piaf.',
+      'Je suis plutôt curieux(se) de découvrir vos pépites d\'électro parisienne !',
+      'Je me lance dans le blind test avec vous, attention je suis redoutable !'
+    ]
+  },
+  fr_voisin_03: {
+    replyFr: 'Des raviolis faits maison ! Quelle merveilleuse délicatesse ! Venez, je vous présente Monsieur Bernard, le gardien de notre immeuble, et la famille Leroy du 4ème. Tout le monde va se régaler !',
+    replyZh: '手作中式饺子！太用心、太精致了吧！快来，我带你引见我们大楼热心的门房老伯伯贝尔纳先生，还有 4 楼的勒鲁瓦一家。大家今天可有口福啦！',
+    grammarTip: '分享美食赞叹：Tout le monde va se régaler ! (大家都要大饱口福啦！)',
+    nextSuggestions: [
+      'Enchanté Monsieur Bernard, ravi de faire votre connaissance !',
+      'Servez-vous pendant que c\'est bien chaud avec un peu de sauce soja.',
+      'Cette convivialité me fait chaud au cœur, la vie d\'immeuble à Paris est charmante !'
+    ]
+  },
+  fr_professeur_04: {
+    replyFr: 'Ce thé vert de printemps est un présent d\'un raffinement exquis, je vous en remercie chaleureusement ! Quant à votre soutenance, concentrez-vous sur la méthodologie et l\'originalité de vos corpus. Vous avez toute ma confiance pour briller devant le jury !',
+    replyZh: '这罐春茶清香淡雅，实在是一份极尽雅致的珍贵礼物，我向您致以由衷的谢意！关于接下来的论文答辩，请聚焦于您的研究方法论与文献语料的独创性。我相信您在答辩委员会面前必定能大放异彩！',
+    grammarTip: '学术赠礼致谢：un présent d\'un raffinement exquis (一份高雅精致的礼物)',
+    nextSuggestions: [
+      'Vos encouragements me touchent profondément, Monsieur le Professeur.',
+      'Je vais peaufiner ma présentation en suivant scrupuleusement vos recommandations méthodologiques.',
+      'Je vous tiendrai informé(e) des résultats dès la proclamation de la mention par le jury.'
+    ]
+  }
+};
+
 export const AISpeakingView: React.FC<AISpeakingViewProps> = ({ 
   isVip = false, 
   onOpenVipModal 
@@ -229,24 +472,12 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
       let nextSuggestions: string[] = [];
       let grammarTip = '';
 
-      if (currentScenario.id === 'fr_cafe_01') {
-        replyFr = 'C\'est bien noté ! Je vous apporte cela tout de suite. Voulez-vous également un verre d\'eau fraîche ou une petite douceur avec votre café ?';
-        replyZh = '记好啦！我马上为您送来。您还需要一杯冰水或者配咖啡的法式小甜点吗？';
-        grammarTip = '习惯表达：Je vous apporte cela tout de suite. (我马上给您端上来)';
-        nextSuggestions = [
-          'Non merci, ce sera tout pour le moment.',
-          'Oui, une carafe d\'eau s\'il vous plaît, et l\'addition quand vous pourrez.',
-          'Qu\'avez-vous comme petites douceurs ?'
-        ];
-      } else if (currentScenario.id === 'fr_delf_b1_b2_01') {
-        replyFr = 'Votre argument est tout à fait pertinent. Cependant, ne pensez-vous pas que la transition écologique risque d\'accentuer les inégalités sociales si les transports alternatifs restent trop onéreux pour les ménages modestes ?';
-        replyZh = '您的论点非常有见地。然而，您难道不认为，如果替代性公共交通对低收入家庭而言仍然过于昂贵的话，生态转型可能会加剧社会不平等吗？';
-        grammarTip = 'DELF 考官高频追问：Ne pensez-vous pas que + subjonctif / indicatif ?';
-        nextSuggestions = [
-          'C\'est précisément pour cela que je préconise la gratuité des transports ciblée.',
-          'En effet, l\'État doit impérativement subventionner l\'achat de véhicules propres.',
-          'Il est vrai qu\'il faut veiller à la justice sociale tout en accélérant les réformes.'
-        ];
+      const customReply = SCENARIO_REPLY_REGISTRY[currentScenario.id];
+      if (customReply) {
+        replyFr = customReply.replyFr;
+        replyZh = customReply.replyZh;
+        grammarTip = customReply.grammarTip;
+        nextSuggestions = customReply.nextSuggestions;
       } else {
         replyFr = 'Parfait ! J\'ai bien compris votre demande. Avez-vous besoin d\'un autre renseignement ou puis-je faire autre chose pour vous aider ?';
         replyZh = '太好了！我完全理解了您的诉求。您还需要其他信息吗，或者我还能帮您做点什么？';
@@ -331,19 +562,31 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
 
       {/* 场景分类胶囊条 */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-        {categories.map(cat => (
-          <button
-            key={cat.id}
-            onClick={() => setActiveCategory(cat.id)}
-            className={`shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
-              activeCategory === cat.id
-                ? 'bg-[#80142A] text-white shadow-xs'
-                : 'bg-white border border-slate-200/80 text-slate-600 hover:bg-slate-50'
-            }`}
-          >
-            {cat.label}
-          </button>
-        ))}
+        {categories.map(cat => {
+          const count = cat.id === 'all'
+            ? AI_SCENARIOS_DATA.length
+            : AI_SCENARIOS_DATA.filter(s => s.category === cat.id).length;
+          return (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className={`shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
+                activeCategory === cat.id
+                  ? 'bg-[#80142A] text-white shadow-xs'
+                  : 'bg-white border border-slate-200/80 text-slate-600 hover:bg-slate-50'
+              }`}
+            >
+              <span>{cat.label}</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-black ${
+                activeCategory === cat.id
+                  ? 'bg-white/20 text-white'
+                  : 'bg-slate-100 text-slate-500'
+              }`}>
+                {count}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       {/* 场景卡片横向轮播或选择 */}
