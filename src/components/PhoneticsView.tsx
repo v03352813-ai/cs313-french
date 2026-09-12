@@ -5,6 +5,7 @@ import {
   HelpCircle, 
   Layers, 
   Check, 
+  CheckCircle2,
   ArrowRight,
   BookOpen,
   Lock
@@ -20,6 +21,7 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
   isVip = false,
   onOpenVipModal
 }) => {
+  const [activeModule, setActiveModule] = useState<'soundboard' | 'rules'>('soundboard');
   const [activeCategory, setActiveCategory] = useState<'all' | 'oral_vowel' | 'nasal_vowel' | 'semi_vowel' | 'consonant'>('all');
   const [selectedItem, setSelectedItem] = useState<PhoneticItem>(FRENCH_PHONETICS[0]);
   const [playingWord, setPlayingWord] = useState<string | null>(null);
@@ -71,8 +73,84 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
         </div>
       </div>
 
-      {/* Main Grid: Interactive Soundboard + Detail Inspector */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      {/* 关键：两大核心发音模块选择卡片（对齐第三张图双赛道卡片设计，直观切换 35 音标实验室 与 4 大联诵规则） */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+        {/* 模块 1: 35 音标体系 & 联诵发音实验室 */}
+        <div
+          onClick={() => setActiveModule('soundboard')}
+          className={`p-4 sm:p-5 rounded-2xl border-2 transition-all cursor-pointer flex items-start gap-4 relative ${
+            activeModule === 'soundboard'
+              ? 'bg-gradient-to-br from-[#FFF9FA] via-[#FCF1F3] to-[#FCECEF]/70 border-[#80142A] shadow-md ring-2 ring-[#80142A]/20'
+              : 'bg-white border-slate-200/80 hover:border-slate-300 hover:bg-slate-50/50'
+          }`}
+        >
+          <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 text-2xl shadow-2xs ${
+            activeModule === 'soundboard' ? 'bg-[#80142A] text-white' : 'bg-slate-100 text-slate-700'
+          }`}>
+            🎙️
+          </div>
+          <div className="space-y-1 flex-1 min-w-0">
+            <div className="flex items-center justify-between gap-2">
+              <h3 className={`text-base sm:text-lg font-black ${activeModule === 'soundboard' ? 'text-[#80142A]' : 'text-slate-800'}`}>
+                35 音标体系 & 联诵发音实验室
+              </h3>
+              <span className={`text-[11px] font-black px-2.5 py-0.5 rounded-full whitespace-nowrap ${
+                activeModule === 'soundboard' ? 'bg-[#80142A] text-white shadow-2xs' : 'bg-slate-100 text-slate-600'
+              }`}>
+                35 国际音标全收录
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              点击任意音标与例词即可收听正统巴黎真人发音，掌握 11 个口元音、4 个鼻化元音、3 个半元音与 17 个辅音。
+            </p>
+          </div>
+          {activeModule === 'soundboard' && (
+            <div className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full bg-[#80142A] text-white flex items-center justify-center shadow-xs">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+            </div>
+          )}
+        </div>
+
+        {/* 模块 2: 4 大核心发音与联诵规则精析 */}
+        <div
+          onClick={() => setActiveModule('rules')}
+          className={`p-4 sm:p-5 rounded-2xl border-2 transition-all cursor-pointer flex items-start gap-4 relative ${
+            activeModule === 'rules'
+              ? 'bg-gradient-to-br from-[#FFFDF7] via-[#FAF4E2] to-[#F6EDD0]/70 border-[#B89047] shadow-md ring-2 ring-[#B89047]/20'
+              : 'bg-white border-slate-200/80 hover:border-slate-300 hover:bg-slate-50/50'
+          }`}
+        >
+          <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 text-2xl shadow-2xs ${
+            activeModule === 'rules' ? 'bg-[#B89047] text-white' : 'bg-slate-100 text-slate-700'
+          }`}>
+            📖
+          </div>
+          <div className="space-y-1 flex-1 min-w-0">
+            <div className="flex items-center justify-between gap-2">
+              <h3 className={`text-base sm:text-lg font-black ${activeModule === 'rules' ? 'text-[#8A6A1E]' : 'text-slate-800'}`}>
+                4 大核心发音与联诵规则精析
+              </h3>
+              <span className={`text-[11px] font-black px-2.5 py-0.5 rounded-full whitespace-nowrap ${
+                activeModule === 'rules' ? 'bg-[#8A6A1E] text-white shadow-2xs' : 'bg-slate-100 text-slate-600'
+              }`}>
+                重中之重 · 4大规则
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              搞清联诵 (Liaison)、词尾不发音与省音缩合规则，攻克考研二外与 DELF 听力口语丢分重灾区，告别中式发音。
+            </p>
+          </div>
+          {activeModule === 'rules' && (
+            <div className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full bg-[#B89047] text-white flex items-center justify-center shadow-xs">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* 模块 1 呈现区: Interactive Soundboard + Detail Inspector */}
+      {activeModule === 'soundboard' && (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-in fade-in duration-300">
         
         {/* Left 8 Cols: Soundboard */}
         <div className="lg:col-span-7 space-y-4">
@@ -214,22 +292,24 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
         </div>
 
       </div>
+      )}
 
-      {/* 4 Major Pronunciation & Liaison Rules Section */}
-      <section className="space-y-4 pt-6 border-t border-slate-200/80">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded-md bg-[#FCECEF] text-[#80142A] border border-[#80142A]/25 font-bold text-xs">
-              重中之重
-            </span>
-            <h2 className="text-xl font-black text-[#29354A] tracking-tight">
-              4 大核心发音与联诵规则精析
-            </h2>
+      {/* 模块 2 呈现区: 4 Major Pronunciation & Liaison Rules Section */}
+      {activeModule === 'rules' && (
+        <section className="space-y-4 animate-in fade-in duration-300">
+          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded-md bg-[#FCECEF] text-[#80142A] border border-[#80142A]/25 font-bold text-xs">
+                重中之重
+              </span>
+              <h2 className="text-xl sm:text-2xl font-black text-[#29354A] tracking-tight">
+                4 大核心发音与联诵规则精析
+              </h2>
+            </div>
+            <p className="text-xs sm:text-sm text-stone-500 mt-1">
+              搞清联诵 (Liaison)、词尾不发音与省音规则，是告别中式发音的唯一法则
+            </p>
           </div>
-          <p className="text-xs sm:text-sm text-stone-500 mt-1">
-            搞清联诵 (Liaison)、词尾不发音与省音规则，是告别中式发音的唯一法则
-          </p>
-        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {PRONUNCIATION_RULES.map((rule, idx) => {
@@ -307,6 +387,7 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
           })}
         </div>
       </section>
+      )}
 
       {/* 未激活学员提示横幅 (对齐日韩版二级页面底部 VIP 引导) */}
       {!isVip && (
