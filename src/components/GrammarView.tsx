@@ -28,6 +28,7 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
   isVip = false,
   onOpenVipModal
 }) => {
+  const [trackFilter, setTrackFilter] = useState<'all' | 'kaoyan' | 'delf'>('all');
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedPoint, setSelectedPoint] = useState<GrammarPoint>(FRENCH_GRAMMAR_LIST[0]);
@@ -51,11 +52,17 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
   ];
 
   const filteredPoints = FRENCH_GRAMMAR_LIST.filter(item => {
+    let matchTrack = true;
+    if (trackFilter === 'kaoyan') {
+      matchTrack = item.level === 'KAOYAN' || item.level === 'B1-B2' || item.examTrap.includes('考研') || item.category === '从句与虚拟式' || item.category === '代词系统';
+    } else if (trackFilter === 'delf') {
+      matchTrack = item.level === 'A1-A2' || item.level === 'B1-B2' || item.examTrap.includes('DELF') || item.category === '冠词与名词' || item.category === '时态与语态';
+    }
     const matchCat = activeCategory === 'all' || item.category === activeCategory;
     const matchSearch = item.title.includes(searchQuery) ||
                         item.frenchTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
                         item.summary.includes(searchQuery);
-    return matchCat && matchSearch;
+    return matchTrack && matchCat && matchSearch;
   });
 
   const currentIndex = filteredPoints.findIndex(p => p.id === selectedPoint.id);
@@ -292,6 +299,40 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
                 onChange={e => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200/80 text-xs sm:text-sm text-[#29354A] placeholder:text-stone-400 focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/20 transition"
               />
+            </div>
+
+            {/* 考研二外 vs DELF 欧标 双轨快速分流 */}
+            <div className="flex items-center gap-1.5 p-1 bg-slate-100/90 rounded-xl border border-slate-200/80">
+              <button
+                onClick={() => setTrackFilter('all')}
+                className={`flex-1 py-1 px-2 rounded-lg text-xs font-bold transition cursor-pointer text-center ${
+                  trackFilter === 'all'
+                    ? 'bg-white text-[#80142A] shadow-xs font-black'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                全部考点
+              </button>
+              <button
+                onClick={() => setTrackFilter('kaoyan')}
+                className={`flex-1 py-1 px-2 rounded-lg text-xs font-bold transition cursor-pointer text-center ${
+                  trackFilter === 'kaoyan'
+                    ? 'bg-gradient-to-r from-[#80142A] to-[#9E1B32] text-white shadow-xs font-black'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                🏛️ 考研二外
+              </button>
+              <button
+                onClick={() => setTrackFilter('delf')}
+                className={`flex-1 py-1 px-2 rounded-lg text-xs font-bold transition cursor-pointer text-center ${
+                  trackFilter === 'delf'
+                    ? 'bg-gradient-to-r from-[#80142A] to-[#9E1B32] text-white shadow-xs font-black'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                🌍 DELF 欧标
+              </button>
             </div>
 
             {/* Category Tabs */}

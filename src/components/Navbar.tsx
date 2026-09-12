@@ -12,7 +12,9 @@ import {
   RotateCcw,
   Settings2,
   GraduationCap,
-  Globe2
+  Globe2,
+  Mic,
+  PenTool
 } from 'lucide-react';
 import { checkAdminSession, LicenseInfo } from '../data/auth/cardKeys';
 import { getFrenchExamCountdown } from '../utils/examCountdown';
@@ -22,11 +24,13 @@ export type ActiveTab =
   | 'phonetics' 
   | 'conjugation' 
   | 'vocab' 
+  | 'cinema'
+  | 'speaking'
+  | 'writing'
   | 'grammar' 
   | 'exam' 
   | 'delf'
-  | 'mistakes' 
-  | 'cinema';
+  | 'mistakes';
 
 interface NavbarProps {
   activeTab: ActiveTab;
@@ -51,17 +55,18 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const examCountdown = getFrenchExamCountdown();
 
-  // 首页 + 8 大核心模块根据学员学习进阶排列
+  // 首页 + 9 大核心模块 (通用基础 4 项 + 王牌实战 3 项 + 备考双轨 3 项)
   const navItems = [
     { id: 'home' as ActiveTab, label: '首页', shortLabel: '首页', icon: LayoutGrid },
     { id: 'phonetics' as ActiveTab, label: '35音·联诵', shortLabel: '音标', icon: Sparkles },
     { id: 'conjugation' as ActiveTab, label: '动词变位器', shortLabel: '变位', icon: RotateCcw },
     { id: 'vocab' as ActiveTab, label: '单词闪卡', shortLabel: '闪卡', icon: Layers },
-    { id: 'mistakes' as ActiveTab, label: '错题本', shortLabel: '错题', icon: BookMarked },
-    { id: 'grammar' as ActiveTab, label: '语法宝典', shortLabel: '语法', icon: BookOpenCheck },
     { id: 'cinema' as ActiveTab, label: '法影精听', shortLabel: '精听', icon: Headphones },
-    { id: 'exam' as ActiveTab, label: '考研二外', shortLabel: '二外', icon: GraduationCap },
-    { id: 'delf' as ActiveTab, label: 'DELF欧标', shortLabel: 'DELF', icon: Globe2, isHero: true },
+    { id: 'speaking' as ActiveTab, label: 'AI口语', shortLabel: '口语', icon: Mic, isHero: true },
+    { id: 'writing' as ActiveTab, label: 'AI写作', shortLabel: '写作', icon: PenTool, isHero: true },
+    { id: 'grammar' as ActiveTab, label: '语法宝典', shortLabel: '语法', icon: BookOpenCheck },
+    { id: 'exam' as ActiveTab, label: '真题模考', shortLabel: '真题', icon: FileCheck2 },
+    { id: 'mistakes' as ActiveTab, label: '错题本', shortLabel: '错题', icon: BookMarked },
   ];
 
   const [isAdmin, setIsAdmin] = useState<boolean>(() => {
@@ -241,9 +246,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
             </div>
 
-            {/* 2. 紧随其后的 9 大核心功能平铺导航条 */}
+            {/* 2. 紧随其后的 10 大核心功能平铺导航条 */}
             <div className="pt-0.5">
-              <nav className="hidden md:grid grid-cols-9 gap-1 bg-slate-100/90 p-1 rounded-xl border border-slate-200/70 shadow-2xs">
+              <nav className="hidden md:grid grid-cols-10 gap-1 bg-slate-100/90 p-1 rounded-xl border border-slate-200/70 shadow-2xs">
                 {navItems.map((item) => {
                   const Icon = item.icon;
                   const isActive = activeTab === item.id;
@@ -251,7 +256,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <button
                       key={item.id}
                       onClick={() => setActiveTab(item.id)}
-                      className={`w-full flex items-center justify-center gap-1 py-1.5 px-0.5 rounded-lg text-xs lg:text-[13px] font-bold transition-all whitespace-nowrap select-none cursor-pointer ${
+                      className={`w-full flex items-center justify-center gap-1 py-1.5 px-0.5 rounded-lg text-xs lg:text-[12.5px] font-bold transition-all whitespace-nowrap select-none cursor-pointer ${
                         isActive
                           ? 'bg-white text-[#80142A] shadow-2xs shadow-slate-200/90 font-black'
                           : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
@@ -259,12 +264,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                     >
                       <Icon className={`w-3.5 h-3.5 shrink-0 hidden lg:inline ${isActive ? 'text-[#80142A]' : 'text-slate-400'}`} />
                       <span>{item.label}</span>
+                      {item.isHero && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#80142A] hidden xl:inline" />
+                      )}
                     </button>
                   );
                 })}
               </nav>
 
-              {/* Mobile All-in-One 2-Row Visible Navigation Bar */}
+              {/* Mobile All-in-One 2-Row Visible Navigation Bar (5+5) */}
               <div className="md:hidden space-y-1 bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200/70 shadow-2xs min-w-0">
                 {/* Top Row: 5 Core Items */}
                 <div className="grid grid-cols-5 gap-1 min-w-0">
@@ -288,8 +296,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   })}
                 </div>
 
-                {/* Bottom Row: 4 Advanced Items */}
-                <div className="grid grid-cols-4 gap-1 min-w-0">
+                {/* Bottom Row: 5 Advanced Items */}
+                <div className="grid grid-cols-5 gap-1 min-w-0">
                   {navItems.slice(5).map((item) => {
                     const Icon = item.icon;
                     const isActive = activeTab === item.id;
@@ -419,8 +427,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           </div>
 
-          {/* 下层：电脑端独立全宽 9 大核心功能导航轨 (彻底舒展展开，无挤压碰撞) */}
-          <nav className="hidden md:grid grid-cols-9 gap-1.5 bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200/70 shadow-2xs">
+          {/* 下层：电脑端独立全宽 10 大核心功能导航轨 (彻底舒展展开，无挤压碰撞) */}
+          <nav className="hidden md:grid grid-cols-10 gap-1.5 bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200/70 shadow-2xs">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -428,7 +436,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`w-full flex items-center justify-center gap-1.5 py-2 px-1 rounded-xl text-xs lg:text-[13px] font-bold transition-all whitespace-nowrap select-none cursor-pointer ${
+                  className={`w-full flex items-center justify-center gap-1.5 py-2 px-1 rounded-xl text-xs lg:text-[12.5px] font-bold transition-all whitespace-nowrap select-none cursor-pointer ${
                     isActive
                       ? 'bg-white text-[#80142A] shadow-2xs shadow-slate-200/90 font-black ring-1 ring-[#80142A]/20'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-white/70'
@@ -436,12 +444,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                 >
                   <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-[#80142A]' : 'text-slate-400'}`} />
                   <span>{item.label}</span>
+                  {item.isHero && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#80142A] hidden xl:inline" />
+                  )}
                 </button>
               );
             })}
           </nav>
 
-          {/* 手机端：2 行平铺紧凑导航栏 */}
+          {/* 手机端：2 行平铺紧凑导航栏 (5+5) */}
           <div className="md:hidden space-y-1 border-t border-slate-100 pt-2 min-w-0">
             {/* Top Row: 5 Core Items */}
             <div className="grid grid-cols-5 gap-1 min-w-0">
@@ -465,8 +476,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               })}
             </div>
 
-            {/* Bottom Row: 4 Advanced Items */}
-            <div className="grid grid-cols-4 gap-1 min-w-0">
+            {/* Bottom Row: 5 Advanced Items */}
+            <div className="grid grid-cols-5 gap-1 min-w-0">
               {navItems.slice(5).map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;

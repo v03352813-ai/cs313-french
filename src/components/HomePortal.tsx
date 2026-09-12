@@ -17,7 +17,9 @@ import {
   Globe2,
   ArrowRight,
   BookOpen,
-  Zap
+  Zap,
+  Mic,
+  PenTool
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { ActiveTab } from './Navbar';
@@ -200,6 +202,18 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         targetTab: 'home',
         icon: Calendar,
         buttonBg: 'bg-[#80142A] hover:bg-[#680E20] text-white shadow-xs'
+      },
+      {
+        stepNum: '03',
+        stepLabel: '第 3 步 · AI实战',
+        title: '巴黎母语级 1v1 AI 口语对练室',
+        targetBadge: '8大场景 · 智能打分',
+        badgeBg: 'bg-[#FCECEF] text-[#80142A] border border-[#80142A]/20',
+        desc: '花神咖啡馆点单、地铁问路、DELF 口试面试，与巴黎 AI 真实模拟对话，即时评估发音与流利度。',
+        actionText: '进入 AI 口语对练',
+        targetTab: 'speaking',
+        icon: Mic,
+        buttonBg: 'bg-[#80142A] hover:bg-[#680E20] text-white shadow-xs'
       }
     ]
   },
@@ -226,7 +240,7 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
     bannerDot: 'bg-[#1E293B]',
     bannerBadgeBg: 'bg-white text-[#1E293B] border-[#CBD5E1]',
     bannerBadgeText: 'text-[#1E293B]',
-    desc: '专为全国高校考研二外考生打造的标准提分闭环：高校历届全真大卷摸底 ➔ 错题遗忘曲线靶向复盘 ➔ 核心动词时态与虚拟式专项攻坚！',
+    desc: '专为全国高校考研二外考生打造的标准提分闭环：高校历届全真大卷摸底 ➔ 错题遗忘曲线靶向复盘 ➔ 核心动词时态与虚拟式专项攻坚 ➔ 命题作文逐句精批！',
     steps: [
       {
         stepNum: '01',
@@ -262,6 +276,18 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         actionText: '开启时态专项突破',
         targetTab: 'conjugation',
         icon: Zap,
+        buttonBg: 'bg-[#80142A] hover:bg-[#680E20] text-white shadow-xs'
+      },
+      {
+        stepNum: '04',
+        stepLabel: '第 4 步 · 写作提分',
+        title: '考研二外命题短文与汉译法工坊',
+        targetBadge: '名校题库 · 逐句批改',
+        badgeBg: 'bg-emerald-50 text-emerald-900 border border-emerald-200',
+        desc: '覆盖全国名校命题短文与高频汉译法长难句，AI 考官多维雷达打分，指出变位与性数配合漏洞。',
+        actionText: '进入考研写作工坊',
+        targetTab: 'writing',
+        icon: PenTool,
         buttonBg: 'bg-[#80142A] hover:bg-[#680E20] text-white shadow-xs'
       }
     ]
@@ -325,6 +351,18 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
         actionText: '查阅体系文法宝典',
         targetTab: 'grammar',
         icon: BookOpenCheck,
+        buttonBg: 'bg-[#80142A] hover:bg-[#680E20] text-white shadow-xs'
+      },
+      {
+        stepNum: '04',
+        stepLabel: '第 4 步 · 欧标写作',
+        title: 'DELF B1/B2 观点阐述与正式公函',
+        targetBadge: '信函规范 · 论证逻辑',
+        badgeBg: 'bg-purple-50 text-purple-900 border border-purple-200',
+        desc: 'DELF B2 致市长正式行政公函与 B1 论坛观点表达，提供标准信头骨架、万能逻辑词与范文精析。',
+        actionText: '进入 DELF 写作工坊',
+        targetTab: 'writing',
+        icon: PenTool,
         buttonBg: 'bg-[#80142A] hover:bg-[#680E20] text-white shadow-xs'
       }
     ]

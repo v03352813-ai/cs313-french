@@ -8,6 +8,8 @@ import { GrammarView } from './components/GrammarView';
 import { FrenchExamView, WrongRecord } from './components/FrenchExamView';
 import { MistakesView } from './components/MistakesView';
 import { CinemaView } from './components/CinemaView';
+import { AISpeakingView } from './components/AISpeakingView';
+import { FrenchWritingView } from './components/FrenchWritingView';
 import { VipModal } from './components/VipModal';
 import { AdminKeyGeneratorModal } from './components/AdminKeyGeneratorModal';
 import { WallpaperRewardModal } from './components/WallpaperRewardModal';
@@ -107,7 +109,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '') as ActiveTab;
-      if (['home', 'phonetics', 'conjugation', 'vocab', 'grammar', 'exam', 'delf', 'mistakes', 'cinema'].includes(hash)) {
+      if (['home', 'phonetics', 'conjugation', 'vocab', 'grammar', 'exam', 'delf', 'mistakes', 'cinema', 'speaking', 'writing'].includes(hash)) {
         setActiveTab(hash);
       }
     };
@@ -218,6 +220,18 @@ export const App: React.FC = () => {
               )}
               {activeTab === 'cinema' && (
                 <CinemaView
+                  isVip={isVip}
+                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                />
+              )}
+              {activeTab === 'speaking' && (
+                <AISpeakingView
+                  isVip={isVip}
+                  onOpenVipModal={() => setIsVipModalOpen(true)}
+                />
+              )}
+              {activeTab === 'writing' && (
+                <FrenchWritingView
                   isVip={isVip}
                   onOpenVipModal={() => setIsVipModalOpen(true)}
                 />

@@ -23,13 +23,35 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
   onClearAll,
   onNavigateToExam
 }) => {
+  const [activeTrack, setActiveTrack] = useState<'all' | 'kaoyan' | 'delf'>('all');
   const [filterTag, setFilterTag] = useState<string>('all');
 
-  const tags = ['all', ...Array.from(new Set(mistakes.map(m => m.question.grammarTag).filter(Boolean)))];
+  const isKaoyanMistake = (m: WrongRecord) => {
+    const id = m.paperId.toLowerCase();
+    const title = m.paperTitle.toLowerCase();
+    return id.includes('ky') || title.includes('考研') || title.includes('二外') || title.includes('241') || title.includes('242');
+  };
+
+  const isDelfMistake = (m: WrongRecord) => {
+    const id = m.paperId.toLowerCase();
+    const title = m.paperTitle.toLowerCase();
+    return id.includes('delf') || id.includes('cft4') || title.includes('delf') || title.includes('四级') || title.includes('欧标');
+  };
+
+  const kaoyanCount = mistakes.filter(isKaoyanMistake).length;
+  const delfCount = mistakes.filter(isDelfMistake).length;
+
+  const trackFilteredMistakes = mistakes.filter(m => {
+    if (activeTrack === 'kaoyan') return isKaoyanMistake(m);
+    if (activeTrack === 'delf') return isDelfMistake(m);
+    return true;
+  });
+
+  const tags = ['all', ...Array.from(new Set(trackFilteredMistakes.map(m => m.question.grammarTag).filter(Boolean)))];
 
   const filteredMistakes = filterTag === 'all'
-    ? mistakes
-    : mistakes.filter(m => m.question.grammarTag === filterTag);
+    ? trackFilteredMistakes
+    : trackFilteredMistakes.filter(m => m.question.grammarTag === filterTag);
 
   return (
     <div className="space-y-3 sm:space-y-3.5 pb-0">
@@ -41,23 +63,68 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
             <BookMarked className="w-3.5 h-3.5 text-[#DDBF78]" />
             <span>智能错因沉淀与薄弱点抓取</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
-            个性化专属错题本 (Cahier d'erreurs)
+          <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight flex items-center gap-2">
+            <span>个性化专属错题本 (Cahier d'erreurs)</span>
           </h1>
           <p className="text-xs sm:text-sm text-[#29354A]/80 leading-relaxed max-w-2xl">
-            考研二外与 DELF 机考做错的客观题自动收录沉淀。只刷薄弱考点，提分效率倍增。
+            考研二外与 DELF 机考做错的客观题自动收录沉淀。支持双轨独立分流，针对薄弱题型重点突破。
           </p>
         </div>
 
         {mistakes.length > 0 && (
-          <button
-            onClick={onClearAll}
-            className="self-start sm:self-auto flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FCECEF] hover:bg-[#FCECEF]/80 text-[#80142A] text-xs font-bold border border-[#80142A]/25 transition cursor-pointer"
-          >
-            <Trash2 className="w-4 h-4" />
-            <span>清空错题本</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onClearAll}
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FCECEF] hover:bg-[#FCECEF]/80 text-[#80142A] text-xs font-bold border border-[#80142A]/25 transition cursor-pointer"
+            >
+              <Trash2 className="w-4 h-4" />
+              <span>清空错题本</span>
+            </button>
+          </div>
         )}
+      </div>
+
+      {/* 双轨分流大药丸切换 */}
+      <div className="flex items-center gap-2 bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200/80 shadow-2xs self-start">
+        <button
+          onClick={() => {
+            setActiveTrack('all');
+            setFilterTag('all');
+          }}
+          className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+            activeTrack === 'all'
+              ? 'bg-white text-[#80142A] shadow-xs font-black'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          全部错题 ({mistakes.length})
+        </button>
+        <button
+          onClick={() => {
+            setActiveTrack('kaoyan');
+            setFilterTag('all');
+          }}
+          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+            activeTrack === 'kaoyan'
+              ? 'bg-gradient-to-r from-[#80142A] to-[#9E1B32] text-white shadow-xs font-black'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <span>🏛️ 考研二外错题 ({kaoyanCount})</span>
+        </button>
+        <button
+          onClick={() => {
+            setActiveTrack('delf');
+            setFilterTag('all');
+          }}
+          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+            activeTrack === 'delf'
+              ? 'bg-gradient-to-r from-[#80142A] to-[#9E1B32] text-white shadow-xs font-black'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <span>🌍 DELF 欧标错题 ({delfCount})</span>
+        </button>
       </div>
 
       {mistakes.length === 0 ? (
