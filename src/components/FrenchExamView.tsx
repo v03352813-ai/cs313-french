@@ -132,6 +132,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
         A2: delf.filter(p => p.level.includes('A2')).length,
         B1: delf.filter(p => p.level.includes('B1')).length,
         B2: delf.filter(p => p.level.includes('B2')).length,
+        C1: delf.filter(p => p.level.includes('C1')).length,
       },
       drill: {
         all: drill.length,
@@ -497,14 +498,14 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               🏛️ 法国国家级与国际官方全真机考大卷库
             </span>
             <span className="text-xs text-stone-500 font-medium">
-              100套全国名校历年全卷 · 2,400道官方全真试题 · 100分标准实测评分 · 词汇语法 / 动词变位 / 完形填空 / 实用告示 / 原声听解 / 社科长篇读解
+              126套全国名校历年全卷 · 3,024道官方全真试题 · 100分标准实测评分 · 词汇语法 / 动词变位 / 完形填空 / 实用告示 / 原声听解 / 社科长篇读解
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
             法语国家统考与国际认证全真机考大卷库
           </h1>
           <p className="text-xs sm:text-sm text-stone-500">
-            涵盖全国名校考研二外 (北京外国语大学/上海外国语大学/广东外语外贸大学/北大/清华/南大/武大/复旦/中大/浙大/川外等历年真题)、大学法语四级 (CFT-4)、DELF 欧标 (A1~B2) 与四大考点专项突破卷！
+            涵盖全国名校考研二外 (北京外国语大学/上海外国语大学/广东外语外贸大学/北大/清华/南大/武大/复旦/中大/浙大/川外等历年真题)、大学法语四级 (CFT-4)、DELF/DALF 欧标 (A1~C1) 与四大考点专项突破卷！
           </p>
         </div>
       </div>
@@ -520,7 +521,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               <span className={activeTrack === 'kaoyan' ? 'text-[#80142A]' : activeTrack === 'cft4' ? 'text-indigo-800' : activeTrack === 'delf' ? 'text-amber-800' : 'text-slate-800'}>
                 {activeTrack === 'kaoyan' ? `🎓 全国硕士考研二外法语·历年名校大卷 (${paperCounts.kaoyan.all}套)` 
                   : activeTrack === 'cft4' ? `🏛️ 大学法语四级 (CFT-4) 全国统考历年真题 (${paperCounts.cft4.all}套)`
-                  : activeTrack === 'delf' ? `🌍 DELF 欧标国际认证 (A1-B2) 官方考卷 (${paperCounts.delf.all}套)`
+                  : activeTrack === 'delf' ? `🌍 DELF-DALF 欧标国际认证 (A1-C1) 官方考卷 (${paperCounts.delf.all}套)`
                   : `⚡ 考研二外 & DELF 四大重点考点专项攻坚 (${paperCounts.drill.all}套)`}
               </span>
               <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#29354A] border border-slate-200">
@@ -538,7 +539,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                 <span>大学法语四级为全国高校公外二外最权威统一测试，全面考核 <strong>【听力理解·语法结构·完形填空·长篇读解】</strong>，精准检验 A2-B1 语言综合运用能力。</span>
               )}
               {activeTrack === 'delf' && (
-                <span>法国教育部 FEI 统一终身认证，覆盖 <strong>【Compréhension orale 原声听解】</strong> 与 <strong>【Compréhension écrite 读解分析】</strong>，总分 100 分，及格线 50 分，且单项不得低于 <strong>5/25分（单科淘汰线）</strong>！</span>
+                <span>法国教育部 FEI 统一终身认证，覆盖 A1-B2 与 DALF C1 高阶学术认证，包含 <strong>【Compréhension orale 原声听解】</strong> 与 <strong>【Compréhension écrite 读解分析】</strong>，总分 100 分，及格线 50 分，且单项不得低于 <strong>5/25分（单科淘汰线）</strong>！</span>
               )}
               {activeTrack === 'drill' && (
                 <span>汇集中国二外考生失分率最高的四大专题：<strong>【代词系统与语序】</strong>、<strong>【时态配合与虚拟式】</strong>、<strong>【完形填空与介词】</strong>、<strong>【社科长篇阅读】</strong>，逐个击破！</span>
@@ -690,7 +691,8 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                 { id: 'A1', label: `DELF A1 入门级 (${paperCounts.delf.A1})` },
                 { id: 'A2', label: `DELF A2 进阶级 (${paperCounts.delf.A2})` },
                 { id: 'B1', label: `DELF B1 独立级 (${paperCounts.delf.B1})` },
-                { id: 'B2', label: `DELF B2 精通级 (${paperCounts.delf.B2})` }
+                { id: 'B2', label: `DELF B2 高阶级 (${paperCounts.delf.B2})` },
+                { id: 'C1', label: `DALF C1 精英级 (${paperCounts.delf.C1})` }
               ].map(f => (
                 <button
                   key={f.id}

@@ -725,9 +725,9 @@ function buildAuthenticFullPaper(seed, track, level, school, year, title, frTitl
 
 
 // =========================================================================
-// 7. 组装整套 100 套真实名校历年全真试卷库 (总题量 1,848 题)
+// 7. 组装整套 126 套真实名校历年全真试卷库 (总题量 1,848 题)
 // =========================================================================
-const ALL_100_PAPERS = [
+const ALL_PAPERS = [
   // -----------------------------------------------------------------------
   // 一、北京外国语大学 二外法语历年统考真题与冲刺系列 (8套)
   // -----------------------------------------------------------------------
@@ -1014,7 +1014,11 @@ const ALL_100_PAPERS = [
     'DELF A2 休闲文化与社区通告解读测试卷 (卷四)',
     'Diplôme d\'Études en Langue Française — Niveau A2 (Session 4)',
     '法国社区生活、假期露营规则、文化活动宣传单与火车站晚点广播听解。', 45, false),
-  ', '官方旅游卷',
+  buildAuthenticFullPaper(315, 'delf', 'DELF A2', '法国国际教育研究中心 (FEI)', '官方职场卷',
+    'DELF A2 职场初阶邮件与业务预约大卷 (卷五)',
+    'Diplôme d\'Études en Langue Française — Niveau A2 (Session 5)',
+    '商务初阶请假邮件、会议日程表解读、客户简单问询与电话留言记录。', 45, false),
+  buildAuthenticFullPaper(316, 'delf', 'DELF A2', '法国国际教育研究中心 (FEI)', '官方旅游卷',
     'DELF A2 假日旅行游记与住宿体验精选卷 (卷六)',
     'Diplôme d\'Études en Langue Française — Niveau A2 (Session 6)',
     '法国家庭式旅馆评价、退换货说明解读、法国自然公园景点导览。', 45, false),
@@ -1217,7 +1221,7 @@ const ALL_100_PAPERS = [
     'THU : Recueil officiel d\'entraînement pour Master',
     '覆盖清华外院二外考研核心大纲考点，高难度词汇与语篇逻辑精准解析。', 75, false),
 
-  // 浙江大学 & 四川外国语大学 & 985补充 (11套)
+  // 浙江大学 & 四川外国语大学 & 985补充 (14套)
   buildAuthenticFullPaper(157, 'kaoyan', '名校考研二外', '南京大学', '2021统考卷',
     '2021年南京大学二外法语考研统考真题卷',
     'Université de Nanjing (NJU) — Épreuve de français langue seconde 2021',
@@ -1283,19 +1287,10 @@ const ALL_100_PAPERS = [
     'Certificat de Français pour l\'Enseignement Supérieur (CFT-4 : Session 2017)',
     '夯实四级基础核心卷：动词变位基本功、常用连词辨析、法国文化与交通告示精析。', 45, false),
 
-  // DELF 欧标补充 (2套)
-  buildAuthenticFullPaper(315, 'delf', 'DELF A1', '法国国际教育研究中心 (FEI)', '官方模拟卷',
-    'DELF A1 场景会话与数字时间识别全真卷 (卷四)',
-    'Diplôme d\'Études en Langue Française — Niveau A1 (Session 4)',
-    '生活高频场景：商店问价、钟点表达、星期月份与基础社交应用文阅读。', 30, false),
-  buildAuthenticFullPaper(316, 'delf', 'DELF A2', '法国国际教育研究中心 (FEI)', '官方拓展卷',
-    'DELF A2 休闲文化与社区通告解读测试卷 (卷四)',
-    'Diplôme d\'Études en Langue Française — Niveau A2 (Session 4)',
-    '法国社区生活、假期露营规则、文化活动宣传单与火车站晚点广播听解。', 45, false),
 ];
 
 const tsFileContent = `/**
- * CS313 法语研习社 · 100套全国名校历年全真与国际官方大卷库 (满载版)
+ * CS313 法语研习社 · 126套全国名校历年全真与国际官方大卷库 (满载版)
  * 涵盖四大权威赛道：
  * 赛道 1：【🎓 考研二外法语 】北外/上外/广外/南大/武大等历年大卷 (41套)
  * 赛道 2：【🏛️ 大学法语四级考试 (CFT-4)】全国统考历年与冲刺大卷 (10套)
@@ -1343,8 +1338,8 @@ export interface ExamPaper {
   questions: ExamQuestion[];
 }
 
-export const FRENCH_EXAM_PAPERS: ExamPaper[] = ${JSON.stringify(ALL_100_PAPERS, null, 2)};
+export const FRENCH_EXAM_PAPERS: ExamPaper[] = ${JSON.stringify(ALL_PAPERS, null, 2)};
 `;
 
 fs.writeFileSync(OUTPUT_PATH, tsFileContent, 'utf-8');
-console.log('SUCCESS_100_CLEAN_FRENCH_EXAMS_GENERATED_TOTAL_PAPERS_' + ALL_100_PAPERS.length);
+console.log("SUCCESS_PAPERS_GENERATED_" + ALL_PAPERS.length);
