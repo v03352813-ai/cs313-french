@@ -6,7 +6,7 @@ const os = require('node:os');
 const { exec } = require('node:child_process');
 
 const PRIMARY_PORT = parseInt(process.env.WEB_PORT || '5175', 10);
-const FALLBACK_PORTS = [5173, 5174, 80];
+const FALLBACK_PORTS = [80];
 const DIST_DIR = path.resolve(__dirname, '../dist');
 
 const MIMES = {
