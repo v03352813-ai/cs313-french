@@ -248,7 +248,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   ) : (
                     <button
                       onClick={onOpenVipModal}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-black shadow-xs shadow-sky-500/20 active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-black shadow-xs shadow-[#80142A]/20 active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
                       title="输入卡密激活 VIP 终身卡"
                     >
                       <KeyRound className="w-3.5 h-3.5 shrink-0" />
@@ -426,7 +426,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               ) : (
                 <button
                   onClick={onOpenVipModal}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-black shadow-xs shadow-sky-500/20 active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-black shadow-xs shadow-[#80142A]/20 active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
                   title="输入卡密激活 VIP 终身卡"
                 >
                   <KeyRound className="w-3.5 h-3.5 shrink-0" />

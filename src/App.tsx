@@ -107,25 +107,6 @@ export const App: React.FC = () => {
         onOpenExamModal={() => setIsExamModalOpen(true)}
       />
 
-      {/* 🌟 免费试学模式提示横幅 (未激活状态全局常驻，与日韩版完全统一) */}
-      {!isVip && (
-        <div className="max-w-6xl mx-auto px-4 pt-2.5 sm:pt-3 w-full min-w-0">
-          <div className="bg-gradient-to-r from-sky-600 via-indigo-600 to-sky-700 text-white py-2.5 px-4 sm:px-6 rounded-2xl text-xs font-semibold shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 border border-sky-400/30 min-w-0">
-            <div className="flex items-start sm:items-center gap-2 min-w-0">
-              <Sparkles className="w-4 h-4 shrink-0 text-sky-200 mt-0.5 sm:mt-0" />
-              <span className="leading-snug break-words min-w-0">
-                当前为【免费试学模式】· 拍下激活码即享 考研二外 241/242 名校全真机考大卷（每年考后持续同步更新）、DELF 欧标模考库、5,000+ 核心词库与影视高光名台词原声精听
-              </span>
-            </div>
-            <button
-              onClick={() => setIsVipModalOpen(true)}
-              className="w-full sm:w-auto px-4 py-2 sm:py-1 rounded-xl bg-white text-sky-700 font-extrabold hover:bg-sky-50 transition shadow-xs text-xs cursor-pointer shrink-0 text-center whitespace-nowrap"
-            >
-              输入卡密解锁 →
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* Main View Area */}
       <main className="flex-1 w-full pb-4 sm:pb-6">

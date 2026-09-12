@@ -329,7 +329,7 @@ export const VocabView: React.FC<VocabViewProps> = ({
               </div>
               <button
                 onClick={() => onOpenVipModal?.('输入卡密解锁全量 5000+ 法语核心词库与考研精讲')}
-                className="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-black shadow-md shadow-sky-500/20 active:scale-98 transition cursor-pointer flex items-center gap-2"
+                className="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-black shadow-md shadow-[#80142A]/20 active:scale-98 transition cursor-pointer flex items-center gap-2"
               >
                 <KeyRound className="w-4 h-4" />
                 <span>输入卡密立即解锁全部词库 →</span>
@@ -596,10 +596,10 @@ export const VocabView: React.FC<VocabViewProps> = ({
 
             {/* 列表模式 VIP 试学节点提示条 */}
             {!isVip && activeLevel !== 'A1' && filteredVocab.length > 12 && (
-              <div className="p-6 bg-gradient-to-r from-sky-50 via-indigo-50/50 to-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-center sm:text-left">
+              <div className="p-6 bg-gradient-to-r from-[#FCECEF]/80 via-[#FFF9F9] to-white border-t border-[#80142A]/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-center sm:text-left">
                 <div className="space-y-1">
                   <div className="flex items-center justify-center sm:justify-start gap-2">
-                    <Lock className="w-4 h-4 text-sky-600" />
+                    <Lock className="w-4 h-4 text-[#80142A]" />
                     <span className="text-xs font-black text-[#29354A]">
                       当前仅展示前 12 条试学词汇 · 剩余 {filteredVocab.length - 12} 条已锁定
                     </span>
@@ -610,7 +610,7 @@ export const VocabView: React.FC<VocabViewProps> = ({
                 </div>
                 <button
                   onClick={() => onOpenVipModal?.('输入卡密解锁全量 5000+ 法语核心词库')}
-                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white text-xs font-black shadow-xs cursor-pointer shrink-0"
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-black shadow-xs shadow-[#80142A]/20 cursor-pointer shrink-0"
                 >
                   🔑 输入卡密解锁全部 →
                 </button>
