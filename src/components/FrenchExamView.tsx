@@ -56,24 +56,34 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
   useEffect(() => {
     if (initialTrack && initialTrack !== activeTrack) {
       setActiveTrack(initialTrack);
-      if (initialTrack === 'delf') {
-        setSelectedPaperId('delf_a1_01');
+      if (initialTrack === 'cft4') {
+        setSelectedPaperId('paper_cft4_13');
+      } else if (initialTrack === 'delf') {
+        setSelectedPaperId('paper_delf_19');
+      } else if (initialTrack === 'drill') {
+        setSelectedPaperId('paper_drill_29');
       } else {
-        setSelectedPaperId('ky-2025-comprehensive-01');
+        setSelectedPaperId('paper_kaoyan_1');
       }
       setCurrentQuestionIndex(0);
       setAnswers({});
       setIsSubmitted(false);
     }
   }, [initialTrack]);
-  const [selectedPaperId, setSelectedPaperId] = useState<string>(
-    initialTrack === 'delf' ? 'delf_a1_01' : 'ky-2025-comprehensive-01'
-  );
+
+  const [selectedPaperId, setSelectedPaperId] = useState<string>(() => {
+    if (initialTrack === 'cft4') return 'paper_cft4_13';
+    if (initialTrack === 'delf') return 'paper_delf_19';
+    if (initialTrack === 'drill') return 'paper_drill_29';
+    return 'paper_kaoyan_1';
+  });
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [kaoyanFilter, setKaoyanFilter] = useState<string>('all');
+  const [cft4Filter, setCft4Filter] = useState<string>('all');
   const [delfFilter, setDelfFilter] = useState<string>('all');
+  const [drillFilter, setDrillFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showInstantExplanation, setShowInstantExplanation] = useState<boolean>(true);
   
@@ -93,12 +103,26 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
       if (activeTrack === 'kaoyan' && kaoyanFilter !== 'all') {
         if (kaoyanFilter === 'beiwai' && !p.schoolOrOrg.includes('北京外国语大学')) return false;
         if (kaoyanFilter === 'shisu' && !p.schoolOrOrg.includes('上海外国语大学')) return false;
-        if (kaoyanFilter === 'zonghe' && !p.title.includes('综合') && !p.title.includes('统考')) return false;
-        if (kaoyanFilter === 'zhuanxiang' && !p.title.includes('专项') && !p.title.includes('时态')) return false;
+        if (kaoyanFilter === 'gdufs' && !p.schoolOrOrg.includes('广东外语外贸大学')) return false;
+        if (kaoyanFilter === 'others' && !p.schoolOrOrg.includes('南京大学') && !p.schoolOrOrg.includes('武汉大学') && !p.schoolOrOrg.includes('复旦') && !p.schoolOrOrg.includes('中山大学')) return false;
+        if (kaoyanFilter === 'tongkao' && !p.schoolOrOrg.includes('统考') && !p.schoolOrOrg.includes('名校联考')) return false;
+      }
+
+      if (activeTrack === 'cft4' && cft4Filter !== 'all') {
+        if (cft4Filter === 'full_mock' && !p.title.includes('全真冲刺模拟卷')) return false;
+        if (cft4Filter === 'grammar' && !p.title.includes('语法词汇')) return false;
+        if (cft4Filter === 'cloze_reading' && !p.title.includes('完形填空') && !p.title.includes('读解')) return false;
       }
 
       if (activeTrack === 'delf' && delfFilter !== 'all') {
         if (!p.level.includes(delfFilter)) return false;
+      }
+
+      if (activeTrack === 'drill' && drillFilter !== 'all') {
+        if (drillFilter === 'pronoun' && !p.title.includes('代词')) return false;
+        if (drillFilter === 'tense' && !p.title.includes('时态') && !p.title.includes('虚拟式')) return false;
+        if (drillFilter === 'cloze' && !p.title.includes('完形填空')) return false;
+        if (drillFilter === 'reading' && !p.title.includes('长篇阅读')) return false;
       }
 
       if (searchQuery.trim()) {
@@ -108,7 +132,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
 
       return true;
     });
-  }, [activeTrack, kaoyanFilter, delfFilter, searchQuery]);
+  }, [activeTrack, kaoyanFilter, cft4Filter, delfFilter, drillFilter, searchQuery]);
 
   // Keep selected paper synchronized when switching filters
   useEffect(() => {
@@ -159,10 +183,13 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
     let listeningStart = -1, listeningCount = 0;
 
     currentPaper.questions.forEach((q, idx) => {
-      if (q.questionType === '读解分析' || q.categoryTag.includes('读解') || q.categoryTag.includes('阅读')) {
+      const isReading = q.questionType === '读解分析' || q.questionType === '图表告示' || q.categoryTag.includes('读解') || q.categoryTag.includes('阅读') || q.categoryTag.includes('告示');
+      const isListening = q.questionType === '听解原声' || q.categoryTag.includes('听力') || q.categoryTag.includes('广播') || q.audioScript;
+
+      if (isReading) {
         if (readingStart === -1) readingStart = idx;
         readingCount++;
-      } else if (q.questionType === '听解原声' || q.categoryTag.includes('听力') || q.categoryTag.includes('广播') || q.audioScript) {
+      } else if (isListening) {
         if (listeningStart === -1) listeningStart = idx;
         listeningCount++;
       } else {
@@ -172,7 +199,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
     });
 
     const curQ = currentPaper.questions[currentQuestionIndex];
-    const curIsReading = curQ && (curQ.questionType === '读解分析' || curQ.categoryTag.includes('读解') || curQ.categoryTag.includes('阅读'));
+    const curIsReading = curQ && (curQ.questionType === '读解分析' || curQ.questionType === '图表告示' || curQ.categoryTag.includes('读解') || curQ.categoryTag.includes('阅读') || curQ.categoryTag.includes('告示'));
     const curIsListening = curQ && (curQ.questionType === '听解原声' || curQ.categoryTag.includes('听力') || curQ.categoryTag.includes('广播') || curQ.audioScript);
     const curIsVocab = curQ && !curIsReading && !curIsListening;
 
@@ -181,7 +208,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
     if (vocabCount > 0) {
       list.push({
         key: 'vocab',
-        name: '语法词汇 (Vocabulaire & Grammaire)',
+        name: '词汇与文法结构',
         icon: '📝',
         startIndex: vocabStart,
         count: vocabCount,
@@ -191,7 +218,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
     if (readingCount > 0) {
       list.push({
         key: 'reading',
-        name: '读解分析 (Compréhension écrite)',
+        name: '实用告示与长篇读解',
         icon: '📖',
         startIndex: readingStart,
         count: readingCount,
@@ -201,7 +228,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
     if (listeningCount > 0) {
       list.push({
         key: 'listening',
-        name: '听解原声 (Compréhension orale)',
+        name: '听解原声与交际辨析',
         icon: '🎧',
         startIndex: listeningStart,
         count: listeningCount,
@@ -255,7 +282,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
         correctCount += 1;
       }
 
-      const isReading = q.questionType === '读解分析' || q.categoryTag.includes('读解') || q.categoryTag.includes('阅读');
+      const isReading = q.questionType === '读解分析' || q.questionType === '图表告示' || q.categoryTag.includes('读解') || q.categoryTag.includes('阅读') || q.categoryTag.includes('告示');
       const isListening = q.questionType === '听解原声' || q.categoryTag.includes('听力') || q.categoryTag.includes('广播') || q.audioScript;
 
       if (isReading) {
@@ -289,25 +316,25 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
     const scaledListening = listeningTotal > 0 ? Math.round((listeningEarned / listeningTotal) * 100) : 0;
 
     // Benchmarks
-    const isKaoyan = currentPaper.track === 'kaoyan';
-    const passThreshold = isKaoyan ? 60 : 50; // 考研二外合格线60，DELF及格线50/100
+    const isDelf = currentPaper.track === 'delf';
+    const passThreshold = isDelf ? 50 : 60; // 考研二外与四级合格线60分，DELF及格线50/100
     
     // DELF 单科否决制：DELF 官方单科淘汰线为 5/25 分 (得分率 20%)
-    const isDelfEliminated = !isKaoyan && (
+    const isDelfEliminated = isDelf && (
       (listeningCount > 0 && scaledListening < 20) ||
       (readingCount > 0 && scaledReading < 20) ||
       (vocabCount > 0 && scaledVocab < 20)
     );
 
     const isTotalScorePass = scaledScore >= passThreshold;
-    const isPassed = isKaoyan ? isTotalScorePass : (isTotalScorePass && !isDelfEliminated);
+    const isPassed = isDelf ? (isTotalScorePass && !isDelfEliminated) : isTotalScorePass;
 
     let verdictType: 'pass' | 'section_fail' | 'total_fail' = 'total_fail';
     let failReason = '';
 
     if (isPassed) {
       verdictType = 'pass';
-    } else if (!isKaoyan && isTotalScorePass && isDelfEliminated) {
+    } else if (isDelf && isTotalScorePass && isDelfEliminated) {
       verdictType = 'section_fail';
       failReason = `总分达到 ${scaledScore} 分，但单项得分率低于 20%（未达到 DELF 官方 5/25 分单科淘汰线），触发法国欧标单科否决淘汰机制！`;
     } else {
@@ -349,28 +376,31 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             paperId: currentPaper.id,
             paperTitle: currentPaper.title,
             question: q,
-            userAnswer: uAns !== undefined ? uAns : -1,
+            userAnswer: uAns ?? -1,
             date: new Date().toLocaleDateString('zh-CN')
           });
         }
       });
     }
 
-    try {
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
-    } catch {
-      // Ignore
+    // Trigger celebration confetti on pass
+    if (scoreReport && scoreReport.isPassed) {
+      try {
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      } catch {
+        // Ignore
+      }
     }
   };
 
   const handleResetExam = () => {
     setAnswers({});
-    setIsSubmitted(false);
     setCurrentQuestionIndex(0);
+    setIsSubmitted(false);
     if (currentPaper) {
       setSecondsRemaining(currentPaper.durationMinutes * 60);
     }
@@ -386,6 +416,19 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
     return `${mins.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
+  const handleSelectPaper = (paper: ExamPaper) => {
+    const isFree = paper.isFreePreview;
+    const isLocked = !isVip && !isFree;
+
+    if (isLocked) {
+      onOpenVipModal(`🔒《${paper.title}》为 VIP 专属高频考卷！升级 VIP 终身卡（仅 ¥49.9），即可解锁全部 36 套考研二外名校大卷、大学法语四级与 DELF 官方机考大卷及名师题解！`);
+      return;
+    }
+
+    setSelectedPaperId(paper.id);
+    handleResetExam();
+  };
+
   return (
     <div className="space-y-3.5 sm:space-y-4 pb-0">
       
@@ -394,58 +437,70 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
         <div className="space-y-1">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="px-2.5 py-0.5 rounded-full bg-[#FCECEF] text-[#80142A] border border-[#80142A]/20 text-xs font-bold">
-              🏛️ 法国双轨全真机考考场
+              🏛️ 法国国家级与国际官方全真机考大卷库
             </span>
             <span className="text-xs text-stone-500 font-medium">
-              100分官方标准评分 · 词汇文法/读解/听解原声 · 考研二外与DELF同步
+              36套全卷 · 100分官方标准评分 · 词汇语法 / 动词变位 / 完形填空 / 实用告示 / 原声听解 / 社科长篇读解
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
-            法语历届官方考期真题与全真机考系统
+            法语国家统考与国际认证全真机考大卷库
           </h1>
           <p className="text-xs sm:text-sm text-stone-500">
-            全真还原考研二外 241/242 名校大卷与 DELF 欧标 (A1~B2) 作答流程，支持即做即看与考场全真模考！
+            涵盖全国名校考研二外 (241/242/243)、大学法语四级 (CFT-4)、DELF 欧标 (A1~B2) 与四大考点专项突破卷，支持即做即看与考场全真计时实测！
           </p>
         </div>
       </div>
 
-      {/* 📌 双轨官方考纲权威说明横幅 */}
+      {/* 📌 四大赛道官方考纲权威说明横幅 */}
       <div className="p-4 rounded-2xl bg-gradient-to-r from-[#FCECEF]/40 via-slate-50 to-white border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
         <div className="flex items-start gap-2.5">
-          <span className={`w-2.5 h-2.5 rounded-full mt-1 shrink-0 animate-pulse ${activeTrack === 'kaoyan' ? 'bg-[#80142A]' : 'bg-[#DDBF78]'}`} />
+          <span className={`w-2.5 h-2.5 rounded-full mt-1 shrink-0 animate-pulse ${
+            activeTrack === 'kaoyan' ? 'bg-[#80142A]' : activeTrack === 'cft4' ? 'bg-indigo-600' : activeTrack === 'delf' ? 'bg-[#DDBF78]' : 'bg-slate-700'
+          }`} />
           <div className="space-y-0.5">
             <div className="flex items-center gap-2 font-black text-[#29354A]">
-              <span className={activeTrack === 'kaoyan' ? 'text-[#80142A]' : 'text-[#80142A]'}>
-                {activeTrack === 'kaoyan' ? '🎓 考研二外法语 (241/242/243) 考纲指引' : '🌍 DELF 欧标国际认证 (A1-B2) 考纲指引'}
+              <span className={activeTrack === 'kaoyan' ? 'text-[#80142A]' : activeTrack === 'cft4' ? 'text-indigo-800' : activeTrack === 'delf' ? 'text-amber-800' : 'text-slate-800'}>
+                {activeTrack === 'kaoyan' ? '🎓 考研二外法语 (241/242/243) 考纲指南' 
+                  : activeTrack === 'cft4' ? '🏛️ 大学法语四级 (CFT-4) 全国统考大纲指南'
+                  : activeTrack === 'delf' ? '🌍 DELF 欧标国际认证 (A1-B2) 官方考纲指南'
+                  : '⚡ 考研二外 & DELF 四大重点考点专项突破指南'}
               </span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold ${
-                activeTrack === 'kaoyan'
-                  ? 'bg-[#FCECEF] text-[#80142A]'
-                  : 'bg-white text-[#29354A] border border-[#DDBF78]/50'
-              }`}>
-                {activeTrack === 'kaoyan' ? '全国名校自主命题 · 100分制' : '法国教育部官方标准 · 淘汰制'}
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#29354A] border border-slate-200">
+                {activeTrack === 'kaoyan' ? '全国高校自主命题 · 100分制' 
+                  : activeTrack === 'cft4' ? '教育部高校外语指导委 · 100分制'
+                  : activeTrack === 'delf' ? '法国教育部官方标准 · 淘汰制'
+                  : '二外高频考点分类靶向攻坚'}
               </span>
             </div>
             <p className="text-stone-600 leading-relaxed font-medium">
-              {activeTrack === 'kaoyan' ? (
-                <span>考研二外重点考察 <strong>【时态配合·代词语序·虚拟式触发】</strong> 与 <strong>【学术阅读与逻辑辨析】</strong>，试卷满分 100 分，及格线通常为 60 分，名校复试线常在 75~85 分区间。</span>
-              ) : (
-                <span>DELF 欧标测试为法国教育部 FEI 统一命题，覆盖 <strong>【Compréhension orale 原声听解】</strong> 与 <strong>【Compréhension écrite 读解分析】</strong>，总分 100 分，及格线 50 分，且单项不得低于 <strong>5/25分（触发单科淘汰线）</strong>！</span>
+              {activeTrack === 'kaoyan' && (
+                <span>收录北外、上外、广外、南大、武大等名校真题，重点考察 <strong>【时态配合·代词语序·虚拟式触发】</strong> 与 <strong>【社科长文逻辑推理】</strong>，满分 100 分，及格线 60 分。</span>
+              )}
+              {activeTrack === 'cft4' && (
+                <span>大学法语四级为全国高校公外二外最权威统一测试，全面考核 <strong>【听力理解·语法结构·完形填空·长篇读解】</strong>，精准检验 A2-B1 语言综合运用能力。</span>
+              )}
+              {activeTrack === 'delf' && (
+                <span>法国教育部 FEI 统一终身认证，覆盖 <strong>【Compréhension orale 原声听解】</strong> 与 <strong>【Compréhension écrite 读解分析】</strong>，总分 100 分，及格线 50 分，且单项不得低于 <strong>5/25分（单科淘汰线）</strong>！</span>
+              )}
+              {activeTrack === 'drill' && (
+                <span>汇集中国二外考生失分率最高的四大专题：<strong>【代词系统与语序】</strong>、<strong>【时态配合与虚拟式】</strong>、<strong>【完形填空与介词】</strong>、<strong>【社科长篇阅读】</strong>，逐个击破！</span>
               )}
             </p>
           </div>
         </div>
       </div>
 
-      {/* Dual Track Switcher & Paper Filter Card */}
+      {/* Track Switcher & Filter Card */}
       <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs space-y-4">
         
-        {/* Track Switcher Tabs (考研二外 vs DELF欧标) */}
-        <div className="grid grid-cols-2 gap-3 p-1.5 bg-slate-100 rounded-2xl border border-slate-200/70 max-w-md">
+        {/* Track Switcher Tabs (四大权威赛道) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 p-1.5 bg-slate-100 rounded-2xl border border-slate-200/70">
           <button
             onClick={() => {
               setActiveTrack('kaoyan');
               setKaoyanFilter('all');
+              setSelectedPaperId('paper_kaoyan_1');
               handleResetExam();
               onTrackChange?.('kaoyan');
             }}
@@ -456,13 +511,32 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             }`}
           >
             <GraduationCap className="w-4 h-4" />
-            <span>🎓 考研二外法语 (241/242)</span>
+            <span>🎓 考研二外 (12套)</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setActiveTrack('cft4');
+              setCft4Filter('all');
+              setSelectedPaperId('paper_cft4_13');
+              handleResetExam();
+              onTrackChange?.('cft4');
+            }}
+            className={`flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer ${
+              activeTrack === 'cft4'
+                ? 'bg-[#80142A] text-white shadow-xs font-black'
+                : 'text-[#29354A] hover:bg-white/60'
+            }`}
+          >
+            <Award className="w-4 h-4" />
+            <span>🏛️ 大学法语四级 (6套)</span>
           </button>
 
           <button
             onClick={() => {
               setActiveTrack('delf');
               setDelfFilter('all');
+              setSelectedPaperId('paper_delf_19');
               handleResetExam();
               onTrackChange?.('delf');
             }}
@@ -473,25 +547,46 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             }`}
           >
             <Globe2 className="w-4 h-4" />
-            <span>🌍 DELF 欧标考级 (A1-B2)</span>
+            <span>🌍 DELF 欧标 (10套)</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setActiveTrack('drill');
+              setDrillFilter('all');
+              setSelectedPaperId('paper_drill_29');
+              handleResetExam();
+              onTrackChange?.('drill');
+            }}
+            className={`flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer ${
+              activeTrack === 'drill'
+                ? 'bg-slate-800 text-white shadow-xs font-black'
+                : 'text-[#29354A] hover:bg-white/60'
+            }`}
+          >
+            <Target className="w-4 h-4" />
+            <span>⚡ 专项攻坚突破 (8套)</span>
           </button>
         </div>
 
-        {/* Sub-Filters: 高校或欧标级别 */}
+        {/* Sub-Filters: 高校 / 级别 / 专题分类 */}
         <div className="flex items-center gap-2 flex-wrap pt-1">
           <div className="flex items-center gap-1.5 text-xs font-black text-[#29354A] shrink-0">
-            <span className={`w-1.5 h-3.5 rounded-full ${activeTrack === 'kaoyan' ? 'bg-[#80142A]' : 'bg-[#DDBF78]'}`} />
-            <span>{activeTrack === 'kaoyan' ? '高校分类筛选:' : '欧标级别筛选:'}</span>
+            <span className={`w-1.5 h-3.5 rounded-full ${
+              activeTrack === 'kaoyan' ? 'bg-[#80142A]' : activeTrack === 'cft4' ? 'bg-indigo-600' : activeTrack === 'delf' ? 'bg-[#DDBF78]' : 'bg-slate-700'
+            }`} />
+            <span>分类筛选:</span>
           </div>
 
-          {activeTrack === 'kaoyan' ? (
+          {activeTrack === 'kaoyan' && (
             <div className="flex items-center gap-1.5 flex-wrap">
               {[
-                { id: 'all', label: '全部考卷' },
-                { id: 'beiwai', label: '北外 241' },
-                { id: 'shisu', label: '上外 242' },
-                { id: 'zonghe', label: '综合精编' },
-                { id: 'zhuanxiang', label: '时态专项' }
+                { id: 'all', label: '全部考研卷 (12)' },
+                { id: 'tongkao', label: '全国统考/冲刺 (5)' },
+                { id: 'beiwai', label: '北外 242 (2)' },
+                { id: 'shisu', label: '上外 241 (2)' },
+                { id: 'gdufs', label: '广外 243 (1)' },
+                { id: 'others', label: '南大/武大/复旦/中大 (4)' }
               ].map(f => (
                 <button
                   key={f.id}
@@ -506,14 +601,39 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                 </button>
               ))}
             </div>
-          ) : (
+          )}
+
+          {activeTrack === 'cft4' && (
             <div className="flex items-center gap-1.5 flex-wrap">
               {[
-                { id: 'all', label: '全部级别' },
-                { id: 'A1', label: 'DELF A1' },
-                { id: 'A2', label: 'DELF A2' },
-                { id: 'B1', label: 'DELF B1' },
-                { id: 'B2', label: 'DELF B2' }
+                { id: 'all', label: '全部四级大卷 (6)' },
+                { id: 'full_mock', label: '全真冲刺模拟卷 (3)' },
+                { id: 'grammar', label: '语法词汇专项 (1)' },
+                { id: 'cloze_reading', label: '完形读解强化 (2)' }
+              ].map(f => (
+                <button
+                  key={f.id}
+                  onClick={() => setCft4Filter(f.id)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+                    cft4Filter === f.id
+                      ? 'bg-[#80142A] text-white shadow-2xs font-black'
+                      : 'bg-slate-50 text-[#29354A] hover:bg-slate-100 border border-slate-200/70'
+                  }`}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {activeTrack === 'delf' && (
+            <div className="flex items-center gap-1.5 flex-wrap">
+              {[
+                { id: 'all', label: '全部欧标考卷 (10)' },
+                { id: 'A1', label: 'DELF A1 入门级 (2)' },
+                { id: 'A2', label: 'DELF A2 进阶级 (2)' },
+                { id: 'B1', label: 'DELF B1 独立级 (3)' },
+                { id: 'B2', label: 'DELF B2 精通级 (3)' }
               ].map(f => (
                 <button
                   key={f.id}
@@ -529,60 +649,88 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               ))}
             </div>
           )}
+
+          {activeTrack === 'drill' && (
+            <div className="flex items-center gap-1.5 flex-wrap">
+              {[
+                { id: 'all', label: '全部专项大卷 (8)' },
+                { id: 'pronoun', label: '代词系统与语序 (2)' },
+                { id: 'tense', label: '时态配合与虚拟式 (2)' },
+                { id: 'cloze', label: '完形填空与介词 (2)' },
+                { id: 'reading', label: '社科长篇深度阅读 (2)' }
+              ].map(f => (
+                <button
+                  key={f.id}
+                  onClick={() => setDrillFilter(f.id)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+                    drillFilter === f.id
+                      ? 'bg-slate-800 text-white shadow-2xs font-black'
+                      : 'bg-slate-50 text-[#29354A] hover:bg-slate-100 border border-slate-200/70'
+                  }`}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Paper Selector Dropdown & Info */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-200/80">
-          <div className="flex items-center gap-2.5 flex-1 min-w-0">
-            <div className="flex items-center gap-1.5 text-xs font-black text-slate-700 shrink-0">
-              <FileCheck2 className="w-4 h-4 text-[#80142A]" />
-              <span>选择作答试卷 ({filteredPapers.length} 套):</span>
-            </div>
-
-            <div className="relative flex-1 min-w-0 max-w-xl">
-              <select
-                value={currentPaper?.id || ''}
-                onChange={(e) => {
-                  const targetId = e.target.value;
-                  const targetPaper = FRENCH_EXAM_PAPERS.find(p => p.id === targetId);
-                  const pIdx = filteredPapers.findIndex(p => p.id === targetId);
-                  const isLockedPaper = !isVip && !targetPaper?.isFreePreview && pIdx !== 0;
-                  if (isLockedPaper) {
-                    onOpenVipModal(`🔒《${targetPaper?.title}》为 VIP 专属高频考场！升级 VIP 终身卡（仅 ¥49.9），即可解锁考研二外与 DELF 全量大卷库！`);
-                    return;
-                  }
-                  setSelectedPaperId(targetId);
-                  handleResetExam();
-                }}
-                className="w-full pl-3.5 pr-9 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/80 text-xs sm:text-sm font-black text-[#80142A] focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/20 transition cursor-pointer appearance-none truncate shadow-2xs"
-              >
-                {filteredPapers.map((p, idx) => {
-                  const isFreeTrial = idx === 0 || p.isFreePreview;
-                  const statusLabel = isVip || isFreeTrial ? '✓ [可作答] ' : '🔒 [VIP专属] ';
-                  return (
-                    <option key={p.id} value={p.id}>
-                      {statusLabel}[{idx + 1}/{filteredPapers.length}] {p.yearOrSession} · {p.title} ({p.questions.length}题 · {p.durationMinutes}分钟)
-                    </option>
-                  );
-                })}
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-stone-400">
-                <ChevronDown className="w-4 h-4" />
-              </div>
-            </div>
+        {/* Paper Selector: Visual Scrollable Cards */}
+        <div className="space-y-2 pt-1 border-t border-slate-100">
+          <div className="flex items-center justify-between text-xs font-bold text-slate-600 px-1">
+            <span className="flex items-center gap-1.5">
+              <FileCheck2 className="w-3.5 h-3.5 text-[#80142A]" />
+              <span>当前可作答试卷 ({filteredPapers.length} 套):</span>
+            </span>
+            <span className="text-[11px] text-stone-400">点击卡片直接进入考场</span>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-bold text-stone-500 shrink-0">
-            <span className={`px-2 py-0.5 rounded-md border ${
-              activeTrack === 'kaoyan'
-                ? 'bg-[#FCECEF] text-[#80142A] border-[#80142A]/20'
-                : 'bg-white text-[#29354A] border-[#DDBF78]/50'
-            }`}>
-              {currentPaper?.level}
-            </span>
-            <span className="px-2 py-0.5 rounded-md bg-slate-50 text-slate-600 border border-slate-200/70">
-              {currentPaper?.questions.length} 道全真题目 · {currentPaper?.durationMinutes} 分钟
-            </span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 max-h-[220px] overflow-y-auto scrollbar-thin p-1">
+            {filteredPapers.map((paper, idx) => {
+              const isSelected = selectedPaperId === paper.id;
+              const isFree = paper.isFreePreview;
+              const isLocked = !isVip && !isFree;
+
+              return (
+                <button
+                  key={paper.id}
+                  onClick={() => handleSelectPaper(paper)}
+                  className={`p-3 rounded-2xl border text-left transition flex flex-col justify-between cursor-pointer relative ${
+                    isSelected
+                      ? 'bg-[#FCECEF] border-2 border-[#80142A] shadow-xs'
+                      : isLocked
+                      ? 'bg-slate-50/70 hover:bg-slate-100/90 border-slate-200/70'
+                      : 'bg-white hover:bg-slate-50 border-slate-200/80'
+                  }`}
+                >
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between gap-1">
+                      <span className={`text-[10px] px-1.5 py-0.2 rounded font-bold ${
+                        isFree 
+                          ? 'bg-emerald-100 text-emerald-800' 
+                          : isVip 
+                          ? 'bg-amber-100 text-amber-800' 
+                          : 'bg-slate-200 text-slate-600'
+                      }`}>
+                        {isFree ? '✓ 免费试考' : isVip ? '★ VIP专享' : '🔒 VIP专属'}
+                      </span>
+                      <span className="text-[10px] text-slate-400 font-medium truncate">
+                        {paper.schoolOrOrg}
+                      </span>
+                    </div>
+
+                    <h4 className={`text-xs font-black line-clamp-1 ${isSelected ? 'text-[#80142A]' : 'text-[#29354A]'}`}>
+                      {paper.title}
+                    </h4>
+                  </div>
+
+                  <div className="pt-2 mt-1 border-t border-slate-200/50 flex items-center justify-between text-[10px] text-slate-400">
+                    <span>{paper.questions.length} 题 · 满分 {paper.totalScore}分</span>
+                    <span>{paper.durationMinutes} 分钟</span>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 

@@ -1,12 +1,14 @@
 /**
- * CS313 法语研习社 · 双轨权威全真机考大卷库
- * 严格划分两大赛道：
- * 轨道 1：【🎓 考研二外法语 (241/242/243)】全国高校名校真题
- * 轨道 2：【🌍 DELF 欧标考级 (A1-B2)】法国官方标准机考
+ * CS313 法语研习社 · 36套国家级与国际官方权威全真试卷库
+ * 涵盖四大权威赛道：
+ * 赛道 1：【🎓 考研二外法语 (241/242/243)】全国名校统考真题大卷 (12套)
+ * 赛道 2：【🏛️ 大学法语四级考试 (CFT-4)】全国统考权威冲刺大卷 (6套)
+ * 赛道 3：【🌍 法国官方 DELF 欧标考级 (A1-B2)】终身认证真题精编卷 (10套)
+ * 赛道 4：【⚡ 考研二外 & DELF 四大专项攻坚大卷】重难点考点突破 (8套)
  */
 
-export type ExamTrack = 'kaoyan' | 'delf';
-export type QuestionType = '词汇语法' | '读解分析' | '听解原声';
+export type ExamTrack = 'kaoyan' | 'cft4' | 'delf' | 'drill';
+export type QuestionType = '词汇语法' | '动词变位' | '完形填空' | '读解分析' | '图表告示' | '听解原声';
 
 export interface ExamVocabItem {
   word: string;
@@ -35,7 +37,7 @@ export interface ExamPaper {
   title: string;
   frenchTitle: string;
   track: ExamTrack;
-  level: '241/242考研' | 'DELF A1' | 'DELF A2' | 'DELF B1' | 'DELF B2';
+  level: string;            // "241/242考研" | "大学法语四级" | "DELF A1" | "DELF A2" | "DELF B1" | "DELF B2" | "专项突破"
   schoolOrOrg: string;      // "全国高校统考", "北京外国语大学", "上海外国语大学", "法国教育署"
   yearOrSession: string;    // "2025最新", "2024真题", "官方标准样题"
   summary: string;
@@ -46,531 +48,11145 @@ export interface ExamPaper {
 }
 
 export const FRENCH_EXAM_PAPERS: ExamPaper[] = [
-  // =========================================================================
-  // 【轨道一：🎓 考研二外法语专区 (241/242/243 全国高校名校真题大卷)】
-  // =========================================================================
   {
-    id: 'ky-2025-comprehensive-01',
-    title: '2025年全国高校考研二外法语高频真题精编卷 (一)',
-    frenchTitle: 'Concours de Master 2025 : Épreuve nationale de français (Vol. 1)',
-    track: 'kaoyan',
-    level: '241/242考研',
-    schoolOrOrg: '全国高校统考大纲',
-    yearOrSession: '2025高频精编',
-    summary: '汇集全国考研二外高频考点，涵盖直宾提前分词配合、副代词 y/en 深度辨析、虚拟式及长篇阅读分析。',
-    durationMinutes: 60,
-    totalScore: 100,
-    questions: [
+    "id": "paper_kaoyan_1",
+    "title": "2025年全国高校考研二外法语高频真题精编卷 (一)",
+    "frenchTitle": "Concours de Master 2025 : Épreuve nationale de français (Vol. 1)",
+    "track": "kaoyan",
+    "level": "241/242考研",
+    "schoolOrOrg": "全国高校统考大纲",
+    "yearOrSession": "2025高频冲刺",
+    "summary": "汇集全国考研二外高频考点，涵盖直宾提前分词配合、副代词 y/en 深度辨析、虚拟式及长篇阅读分析。",
+    "durationMinutes": 60,
+    "totalScore": 100,
+    "isFreePreview": true,
+    "questions": [
       {
-        id: 'ky01_q1',
-        questionType: '词汇语法',
-        categoryTag: '时态配合 · 愈过去时',
-        question: 'Hier soir, dès qu\'elle _____ son travail, elle est sortie avec ses amies.',
-        options: ['a fini', 'avait fini', 'eut fini', 'finissait'],
-        correctAnswer: 1,
-        explanation: '【权威考点解析】\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\n主句谓语动词是复合过去时 (est sortie)，从句中 dès que (一...就...) 表示在过去的动作之前就已经完成的动作，在以过去为基准的时间坐标中，必须使用“愈过去时” (Plus-que-parfait: avait fini) 来表示“过去的过去”。',
-        score: 10,
-        grammarTag: '愈过去时 (Plus-que-parfait)'
-      },
-      {
-        id: 'ky01_q2',
-        questionType: '词汇语法',
-        categoryTag: '代词系统 · 双宾语语序',
-        question: 'Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.',
-        options: ['leur en', 'en leur', 'les en', 'en lui'],
-        correctAnswer: 0,
-        explanation: '【权威考点解析】\nparler de qch (用代词 en 替代事物) à qn (父母为复数，用间接宾语代词 leur 替代)。\n根据法语双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。',
-        score: 10,
-        grammarTag: '双代词语序 (leur en)'
-      },
-      {
-        id: 'ky01_q3',
-        questionType: '词汇语法',
-        categoryTag: '分词配合 · 直宾提前',
-        question: 'Les photos que vous avez _____ sont magnifiques.',
-        options: ['pris', 'prise', 'prises', 'prennent'],
-        correctAnswer: 2,
-        explanation: '【权威考点解析】\n在以 avoir 为助动词的复合过去时中，当直接宾语置于动词之前时，过去分词必须与该直接宾语的“性”、“数”强制配合！\n句中先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直接宾语并提前，因此动词 prendre 的过去分词 pris 必须配合变为阴性复数形式【prises】。选 C。',
-        score: 10,
-        grammarTag: '过去分词与直宾配合'
-      },
-      {
-        id: 'ky01_q4',
-        questionType: '词汇语法',
-        categoryTag: '从句文法 · 虚拟式触发',
-        question: 'Bien qu\'il _____ beaucoup de difficultés, il n\'a jamais abandonné son rêve.',
-        options: ['a', 'avait', 'ait', 'aura'],
-        correctAnswer: 2,
-        explanation: '【权威考点解析】\n从属连词短语 bien que (虽然，尽管) 后面引导的让步状语从句，强制要求动词使用【虚拟式现在时 (Subjonctif présent)】。\n动词 avoir 在虚拟式第三人称单数下的变位为【ait】（直陈式现在时为 a，未完成过去时为 avait）。正确答案为 C。',
-        score: 10,
-        grammarTag: '虚拟式现在时 (bien que)'
-      },
-      {
-        id: 'ky01_q5',
-        questionType: '词汇语法',
-        categoryTag: '否定句型 · 固定搭配',
-        question: 'Dans ce village isolé, il n\'y a _____ de supermarché ni de pharmacie.',
-        options: ['aucun', 'point', 'jamais', 'guère'],
-        correctAnswer: 1,
-        explanation: '【权威考点解析】\nne... point de... ni de... 是传统书面法语中极具文学性的固定句型，相当于 ne... pas de... (根本没有，绝无)。句意：“在这个偏僻的孤立村庄里，既没有超市，也没有药店。”aucun 后不接 de；guère 意为“几乎不”。故正确答案为 B。',
-        score: 10,
-        grammarTag: '否定句型 (ne... point de)'
-      },
-      {
-        id: 'ky01_q6',
-        questionType: '读解分析',
-        categoryTag: '长篇阅读 · 事实推断',
-        question: 'Selon le texte, quelle est la raison principale pour laquelle les jeunes Français privilégient les transports en commun ?',
-        contextText: 'De nos jours, de plus en plus de jeunes citadins en France renoncent à posséder une voiture personnelle. Face à la hausse continue des prix du carburant et à la prise de conscience écologique grandissante, les transports collectifs (métro, tramway, bus électrique) ainsi que le vélo en libre-service s\'imposent comme des alternatives non seulement économiques, mais aussi respectueuses de l\'environnement urbain. De nombreuses municipalités ont par ailleurs développé des réseaux cyclables sécurisés pour encourager cette transition.',
-        options: [
-          'Le prix très élevé du permis de conduire.',
-          'La conscience écologique et les économies financières.',
-          'L\'interdiction totale des voitures au centre-ville.',
-          'Le manque de places de stationnement en banlieue.'
+        "id": "1_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
         ],
-        correctAnswer: 1,
-        explanation: '【权威考点解析】\n短文第二句明确指出：“Face à la hausse continue des prix du carburant (燃油费用上涨 -> 经济因素) et à la prise de conscience écologique grandissante (环保意识提升 -> 生态因素)...”。\n选项 B “La conscience écologique et les économies financières” 完全契合原文核心论述。',
-        score: 25,
-        grammarTag: '阅读细节理解与信息定位'
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
       },
       {
-        id: 'ky01_q7',
-        questionType: '读解分析',
-        categoryTag: '长篇阅读 · 词义辨析',
-        question: 'Dans la phrase « cette transition », à quoi fait référence le mot « transition » ?',
-        contextText: 'De nos jours, de plus en plus de jeunes citadins en France renoncent à posséder une voiture personnelle. Face à la hausse continue des prix du carburant et à la prise de conscience écologique grandissante, les transports collectifs (métro, tramway, bus électrique) ainsi que le vélo en libre-service s\'imposent comme des alternatives non seulement économiques, mais aussi respectueuses de l\'environnement urbain. De nombreuses municipalités ont par ailleurs développé des réseaux cyclables sécurisés pour encourager cette transition.',
-        options: [
-          'Le passage de la voiture individuelle aux mobilités douces et collectives.',
-          'L\'augmentation générale des prix de l\'électricité.',
-          'Le déménagement des jeunes vers les zones rurales.',
-          'La construction de nouvelles autoroutes en banlieue.'
+        "id": "1_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
         ],
-        correctAnswer: 0,
-        explanation: '【权威考点解析】\n代词 cette transition (这一转变) 承接上文：年轻人放弃私家车，转向公交、地铁与共享单车等绿色交通方式的过程。选项 A “从私家车向轻量与公共出行的转变”为最精准释义。',
-        score: 25,
-        grammarTag: '指代关系与上下文逻辑'
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "1_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "1_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "1_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "1_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "1_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 条件式现在时表委婉",
+        "question": "Excusez-moi monsieur, (pouvoir) _____-vous m'indiquer le chemin de la gare ?",
+        "options": [
+          "pouvez",
+          "pourriez",
+          "puissiez",
+          "pourrez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在法语交际中，提出礼貌请求、委婉发问必须使用【条件式现在时 (Conditionnel présent)】：pourriez-vous...？这比直陈式 pouvez-vous 更加优雅客气。选 B。",
+        "translation": "打扰一下先生，请问您能给我指一下去火车站的路吗？",
+        "grammarTag": "条件式现在时表示礼貌委婉请求",
+        "vocabList": [
+          {
+            "word": "indiquer le chemin",
+            "meaning": "指路，领路"
+          },
+          {
+            "word": "gare (n.f.)",
+            "meaning": "火车站"
+          }
+        ]
+      },
+      {
+        "id": "1_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 先将来时 (Futur antérieur)",
+        "question": "Quand tu (terminer) _____ tes études de médecine, tu seras un excellent chirurgien.",
+        "options": [
+          "termineras",
+          "auras terminé",
+          "avais terminé",
+          "termines"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句谓语为简单将来时 (seras)，从句 quand 表示在未来的某一动作之前已完成的动作，必须使用【先将来时 (Futur antérieur: auras terminé)】。选 B。",
+        "translation": "当你完成医学学业时，你将会成为一名杰出的外科医生。",
+        "grammarTag": "先将来时 (Futur antérieur)",
+        "vocabList": [
+          {
+            "word": "études de médecine",
+            "meaning": "医学学业"
+          },
+          {
+            "word": "chirurgien (n.m.)",
+            "meaning": "外科医生"
+          }
+        ]
+      },
+      {
+        "id": "1_q9",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "1_q10",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "1_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "1_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
       }
     ]
   },
-
   {
-    id: 'ky-2024-beiwai',
-    title: '北京外国语大学考研二外法语 (241) 全真精选卷',
-    frenchTitle: 'Université des Langues Étrangères de Pékin (BFSU) — Français 241',
-    track: 'kaoyan',
-    level: '241/242考研',
-    schoolOrOrg: '北京外国语大学',
-    yearOrSession: '北外名校精选题库',
-    summary: '北外考研二外权威真题演练，重点考察关系代词 dont、自反动词配合陷阱与条件式假想。',
-    durationMinutes: 60,
-    totalScore: 100,
-    questions: [
+    "id": "paper_kaoyan_2",
+    "title": "2025年全国高校考研二外法语高频真题精编卷 (二)",
+    "frenchTitle": "Concours de Master 2025 : Épreuve nationale de français (Vol. 2)",
+    "track": "kaoyan",
+    "level": "241/242考研",
+    "schoolOrOrg": "全国高校统考大纲",
+    "yearOrSession": "2025高频冲刺",
+    "summary": "聚焦二外高分突破：愈过去时与过去完成配合、中性代词 le、关系代词 dont 及社科文化长文精读。",
+    "durationMinutes": 60,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
       {
-        id: 'ky_bw_q1',
-        questionType: '词汇语法',
-        categoryTag: '自反动词配合 · 固定搭配',
-        question: 'Est-ce que vous vous êtes _____ compte de votre erreur à ce moment-là ?',
-        options: ['rendu', 'rendus', 'rendue', 'rendues'],
-        correctAnswer: 0,
-        explanation: '【权威考点解析】\n【北外近5年高频必考陷阱！】在固定词组 se rendre compte de qch (意识到某事) 中，compte 是动词 rendre 的直接宾语（且后置），自反代词 se 是间接宾语。由于直接宾语没有提前，过去分词 rendu 绝对不发生任何性数配合！保持阳性单数【rendu】。选 A。',
-        score: 20,
-        grammarTag: '自反动词固定搭配不配合'
+        "id": "2_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
       },
       {
-        id: 'ky_bw_q2',
-        questionType: '词汇语法',
-        categoryTag: '关系代词 · dont',
-        question: 'Voilà l\'appartement _____ les fenêtres donnent sur le jardin du Luxembourg.',
-        options: ['qui', 'que', 'où', 'dont'],
-        correctAnswer: 3,
-        explanation: '【权威考点解析】\n先行词是 l\'appartement，还原从句完整结构为：Les fenêtres de cet appartement donnent sur le jardin...（这个公寓的窗户面向卢森堡公园）。在关系从句中代替由介词 de 引导的所属关系时，关系代词必须使用【dont】。选 D。',
-        score: 20,
-        grammarTag: '关系代词 dont'
+        "id": "2_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
       },
       {
-        id: 'ky_bw_q3',
-        questionType: '词汇语法',
-        categoryTag: '副代词 · en 数量修饰',
-        question: 'Des pommes fraîches ? Oui, j\'_____ ai acheté trois kilos au marché.',
-        options: ['y', 'en', 'les', 'leur'],
-        correctAnswer: 1,
-        explanation: '【权威考点解析】\n句中先行词是 des pommes fraîches，在答句中后面保留了确切的数量词单位 trois kilos。法语中代替带有数量词修饰、或由不定冠词/部分冠词引导的名词时，必须使用副代词【en】。选 B。',
-        score: 20,
-        grammarTag: '副代词 en'
+        "id": "2_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
       },
       {
-        id: 'ky_bw_q4',
-        questionType: '词汇语法',
-        categoryTag: '从句连词 · 虚拟式辨析',
-        question: 'Il est formellement interdit d\'entrer, _____ vous n\'ayez une autorisation expresse.',
-        options: ['à moins que', 'pourvu que', 'afin que', 'de sorte que'],
-        correctAnswer: 0,
-        explanation: '【权威考点解析】\nà moins que 意为“除非，如果不”，后接虚拟式并常带赘词 ne；pourvu que (只要...)；afin que (为了...)。句意：“这里严禁入内，除非您持有明确的特别许可。”故选 A。',
-        score: 20,
-        grammarTag: '从句连词 à moins que'
+        "id": "2_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
       },
       {
-        id: 'ky_bw_q5',
-        questionType: '词汇语法',
-        categoryTag: '自反动词 · 直宾后置不配合',
-        question: 'Après avoir cuisiné, elle s\'est _____ les mains avec du savon.',
-        options: ['lavé', 'lavée', 'lavés', 'lavées'],
-        correctAnswer: 0,
-        explanation: '【权威考点解析】\nse laver les mains 中，les mains 是动作 laver 的直接宾语，且置于动词之后；自反代词 s\' 在这里是间接宾语（给自己洗手）。直接宾语后置时，过去分词绝不配合，保持阳性单数【lavé】。选 A。',
-        score: 20,
-        grammarTag: '直宾后置不配合'
+        "id": "2_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "2_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "2_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 复合过去 vs 未完成过去",
+        "question": "Pendant que nous (dîner) _____, le téléphone a soudainement sonné.",
+        "options": [
+          "avons dîné",
+          "dînions",
+          "dînâmes",
+          "dînerons"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npendant que 引导过去的正在进行的背景动作（当时正在吃晚餐），主句 a sonné 是突发短暂完成动作。背景延续动作必须使用【未完成过去时 (Imparfait: dînions)】。选 B。",
+        "translation": "当我们正在吃晚饭的时候，电话突然响了。",
+        "grammarTag": "未完成过去时充当背景时态",
+        "vocabList": [
+          {
+            "word": "pendant que",
+            "meaning": "当...的时候 (伴随延续)"
+          },
+          {
+            "word": "soudainement (adv.)",
+            "meaning": "突然，骤然"
+          }
+        ]
+      },
+      {
+        "id": "2_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 简单将来时特殊词根",
+        "question": "Dès que le professeur arrivera, nous lui (envoyer) _____ notre rapport.",
+        "options": [
+          "envoyons",
+          "enverrons",
+          "envoyerons",
+          "enverrions"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\ndès que 引导的时间状语从句使用简单将来时 (arrivera)，主句同样使用简单将来时。动词 envoyer 的将来时词根特殊异化为 enverr-，第一人称复数变位为【enverrons】。选 B。",
+        "translation": "老师一到，我们就将向他递交我们的报告。",
+        "grammarTag": "envoyer 的简单将来时变位",
+        "vocabList": [
+          {
+            "word": "envoyer qch à qn",
+            "meaning": "寄送某物给某人"
+          },
+          {
+            "word": "rapport (n.m.)",
+            "meaning": "报告，汇报"
+          }
+        ]
+      },
+      {
+        "id": "2_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "2_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "2_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "2_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
       }
     ]
   },
-
   {
-    id: 'ky-2024-shisu',
-    title: '上海外国语大学考研二外法语 (242) 全真精选卷',
-    frenchTitle: 'Université des Études Internationales de Shanghai (SISU) — Français 242',
-    track: 'kaoyan',
-    level: '241/242考研',
-    schoolOrOrg: '上海外国语大学',
-    yearOrSession: '上外名校精选题库',
-    summary: '上外考研二外权威真题演练，深度考察复合关系代词 auquel、使动结构 faire 不变性、间接引语过去将来时与虚拟式。',
-    durationMinutes: 60,
-    totalScore: 100,
-    questions: [
+    "id": "paper_kaoyan_3",
+    "title": "2024年北京外国语大学 (242) 二外法语考研统考真题卷",
+    "frenchTitle": "Université des Études Étrangères de Pékin (BFSU 242) — Session 2024",
+    "track": "kaoyan",
+    "level": "241/242考研",
+    "schoolOrOrg": "北京外国语大学",
+    "yearOrSession": "2024真题卷",
+    "summary": "北外官方命题风格：词汇辨析精妙、动词变位严谨、代词多重替换与法国社会发展长篇综合考核。",
+    "durationMinutes": 75,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
       {
-        id: 'ky_sh_q1',
-        questionType: '词汇语法',
-        categoryTag: '复合关系代词 · auquel 合成',
-        question: 'C\'est un problème complexe _____ nous devons accorder une attention particulière.',
-        options: ['auquel', 'duquel', 'lequel', 'dans lequel'],
-        correctAnswer: 0,
-        explanation: '【权威考点解析】\n【上外近年高频必考！】还原从句逻辑搭配为：accorder une attention particulière à ce problème（对该问题给予特别关注）。由介词 à 引导阳性单数物名词先行词 (un problème) 时，关系代词必须使用合成形式【auquel】(à + lequel)。选 A。',
-        score: 20,
-        grammarTag: '复合关系代词 auquel'
+        "id": "3_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
       },
       {
-        id: 'ky_sh_q2',
-        questionType: '词汇语法',
-        categoryTag: '过去分词配合 · 使动结构 faire + 不定式',
-        question: 'Ces robes de soirée sont magnifiques, je les ai _____ faire par un grand couturier parisien.',
-        options: ['fait', 'faite', 'faits', 'faites'],
-        correctAnswer: 0,
-        explanation: '【权威考点解析】\n【上外经典易错雷区！】在 faire + 动词不定式（faire faire 使动结构）中，faire 的过去分词是绝对不变化的语法硬规则！即使直接宾语代词 les（代指阴性复数 ces robes）置于助动词 ai 之前，过去分词也绝对不配合，固定使用阳性单数【fait】。选 A。',
-        score: 20,
-        grammarTag: 'faire+不定式不配合'
+        "id": "3_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
       },
       {
-        id: 'ky_sh_q3',
-        questionType: '词汇语法',
-        categoryTag: '间接引语时态呼应 · 过去将来时',
-        question: 'Hier après-midi, le professeur nous a assuré qu\'il nous _____ les résultats de l\'examen le lendemain.',
-        options: ['donnera', 'donnerait', 'donne', 'avait donné'],
-        correctAnswer: 1,
-        explanation: '【权威考点解析】\n主句谓语为复合过去时 (a assuré)，从句表示在过去的时间点之后将要发生的动作（依据从句时间状语 le lendemain 次日），必须使用【过去将来时 (Conditionnel présent 作为过去将来使用：donnerait)】。直陈式简单将来时 donnera 只能用于主句为现在时的情况。选 B。',
-        score: 20,
-        grammarTag: '间接引语过去将来时'
+        "id": "3_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
       },
       {
-        id: 'ky_sh_q4',
-        questionType: '词汇语法',
-        categoryTag: '副代词 · y 代替介词 à 引导的事物',
-        question: 'Pensez-vous souvent à votre avenir professionnel ? — Oui, j\'_____ pense très souvent.',
-        options: ['en', 'y', 'le', 'lui'],
-        correctAnswer: 1,
-        explanation: '【权威考点解析】\n动词短语 penser à qch (思考、考虑某事物，引导非人抽象概念)。在回答中代替 à votre avenir professionnel，必须使用副代词【y】。注意：若 penser à 后面接具体的人 (penser à qn)，则必须使用重读人称代词（如 je pense à lui/elle），不得使用 y。本题为事物，选 B。',
-        score: 20,
-        grammarTag: '副代词 y 代替介词 à'
+        "id": "3_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
       },
       {
-        id: 'ky_sh_q5',
-        questionType: '词汇语法',
-        categoryTag: '疑问代词 · lequel 阴阳性辨析',
-        question: 'Voici deux propositions très intéressantes pour notre voyage, _____ préférez-vous ?',
-        options: ['laquelle', 'lequel', 'lesquels', 'lesquelles'],
-        correctAnswer: 0,
-        explanation: '【权威考点解析】\n提问在给定的两者 (deux propositions，proposition 为阴性单数名词) 中选择“哪一个”。指代阴性单数事物时，必须使用阴性单数疑问代词【laquelle】。句意：“这里有两份非常有趣的旅行提议，您更喜欢哪一份？”选 A。',
-        score: 20,
-        grammarTag: '疑问代词 laquelle'
+        "id": "3_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "3_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "3_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 条件式现在时表委婉",
+        "question": "Excusez-moi monsieur, (pouvoir) _____-vous m'indiquer le chemin de la gare ?",
+        "options": [
+          "pouvez",
+          "pourriez",
+          "puissiez",
+          "pourrez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在法语交际中，提出礼貌请求、委婉发问必须使用【条件式现在时 (Conditionnel présent)】：pourriez-vous...？这比直陈式 pouvez-vous 更加优雅客气。选 B。",
+        "translation": "打扰一下先生，请问您能给我指一下去火车站的路吗？",
+        "grammarTag": "条件式现在时表示礼貌委婉请求",
+        "vocabList": [
+          {
+            "word": "indiquer le chemin",
+            "meaning": "指路，领路"
+          },
+          {
+            "word": "gare (n.f.)",
+            "meaning": "火车站"
+          }
+        ]
+      },
+      {
+        "id": "3_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 先将来时 (Futur antérieur)",
+        "question": "Quand tu (terminer) _____ tes études de médecine, tu seras un excellent chirurgien.",
+        "options": [
+          "termineras",
+          "auras terminé",
+          "avais terminé",
+          "termines"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句谓语为简单将来时 (seras)，从句 quand 表示在未来的某一动作之前已完成的动作，必须使用【先将来时 (Futur antérieur: auras terminé)】。选 B。",
+        "translation": "当你完成医学学业时，你将会成为一名杰出的外科医生。",
+        "grammarTag": "先将来时 (Futur antérieur)",
+        "vocabList": [
+          {
+            "word": "études de médecine",
+            "meaning": "医学学业"
+          },
+          {
+            "word": "chirurgien (n.m.)",
+            "meaning": "外科医生"
+          }
+        ]
+      },
+      {
+        "id": "3_q9",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "3_q10",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "3_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "3_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
       }
     ]
   },
-
   {
-    id: 'ky-grammar-tense',
-    title: '考研二外动词时态与虚拟式专项攻坚大卷',
-    frenchTitle: 'Épreuve spéciale : Modes et Temps du verbe français',
-    track: 'kaoyan',
-    level: '241/242考研',
-    schoolOrOrg: '全国高校统考研究组',
-    yearOrSession: '高频题型突破卷',
-    summary: '专攻未完成过去时、条件式假设与虚拟式命题盲区，彻底搞清法语复杂时态配合法则。',
-    durationMinutes: 50,
-    totalScore: 100,
-    questions: [
+    "id": "paper_kaoyan_4",
+    "title": "2024年上海外国语大学 (241) 二外法语考研统考真题卷",
+    "frenchTitle": "Université des Études Internationales de Shanghai (SISU 241) — Session 2024",
+    "track": "kaoyan",
+    "level": "241/242考研",
+    "schoolOrOrg": "上海外国语大学",
+    "yearOrSession": "2024真题卷",
+    "summary": "上外经典卷面：语法注重时态配合逻辑，完形填空考察虚词短语搭配，长篇论说文立意深远。",
+    "durationMinutes": 75,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
       {
-        id: 'ky_ts_q1',
-        questionType: '词汇语法',
-        categoryTag: '条件式从句 · 虚拟假设',
-        question: 'Si j\'avais su que vous veniez aujourd\'hui, je vous _____ à la gare.',
-        options: ['attendais', 'ai attendu', 'aurais attendu', 'attendrai'],
-        correctAnswer: 2,
-        explanation: '【权威考点解析】\nSi + 愈过去时 (Si j\'avais su 表示对过去既成事实的相反假设)，主句必须使用【条件式过去时 (Conditionnel passé)】 (aurais attendu 表示在过去本可能发生但未实现的结果)。句意：“要是我早知道您今天来，我当时肯定去火车站接您了。”选 C。',
-        score: 25,
-        grammarTag: '条件式过去时假设'
+        "id": "4_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
       },
       {
-        id: 'ky_ts_q2',
-        questionType: '词汇语法',
-        categoryTag: '动词主观意愿 · 虚拟式',
-        question: 'Le directeur exige que tous les employés _____ à l\'heure demain matin.',
-        options: ['sont', 'soient', 'seront', 'étaient'],
-        correctAnswer: 1,
-        explanation: '【权威考点解析】\n动词 exiger que (强制要求...) 表达坚决的命令与要求，宾语从句动词必须强制使用虚拟式。être 在 ils/elles 人称下的虚拟式变位为【soient】。选 B。',
-        score: 25,
-        grammarTag: '虚拟式现在时 (exiger que)'
+        "id": "4_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
       },
       {
-        id: 'ky_ts_q3',
-        questionType: '词汇语法',
-        categoryTag: '时态搭配 · 未完成与复合过去',
-        question: 'Pendant que je _____ mes devoirs, mon téléphone a soudainement sonné.',
-        options: ['faisais', 'ai fait', 'ferai', 'fasse'],
-        correctAnswer: 0,
-        explanation: '【权威考点解析】\npendant que (当...正在进行的时候) 引导表示过去正在持续的背景动作，必须使用【未完成过去时 (Imparfait: faisais)】；而主句 a sonné 是突然打断背景的瞬间完成动作，使用复合过去时。选 A。',
-        score: 25,
-        grammarTag: '未完成过去时背景描写'
+        "id": "4_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
       },
       {
-        id: 'ky_ts_q4',
-        questionType: '词汇语法',
-        categoryTag: '认知动词疑问句 · 虚拟式',
-        question: 'Croyez-vous vraiment que ce plan _____ réalisable dans un délai si court ?',
-        options: ['est', 'soit', 'sera', 'était'],
-        correctAnswer: 1,
-        explanation: '【权威考点解析】\ncroire, penser 等认知动词在肯定句中接直陈式，但在疑问句 (Croyez-vous que...) 或否定句中，表达说话人的不确定与怀疑态度，从句必须使用【虚拟式 (Subjonctif: soit)】！选 B。',
-        score: 25,
-        grammarTag: '疑问句中的虚拟式'
+        "id": "4_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "4_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "4_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "4_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 复合过去 vs 未完成过去",
+        "question": "Pendant que nous (dîner) _____, le téléphone a soudainement sonné.",
+        "options": [
+          "avons dîné",
+          "dînions",
+          "dînâmes",
+          "dînerons"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npendant que 引导过去的正在进行的背景动作（当时正在吃晚餐），主句 a sonné 是突发短暂完成动作。背景延续动作必须使用【未完成过去时 (Imparfait: dînions)】。选 B。",
+        "translation": "当我们正在吃晚饭的时候，电话突然响了。",
+        "grammarTag": "未完成过去时充当背景时态",
+        "vocabList": [
+          {
+            "word": "pendant que",
+            "meaning": "当...的时候 (伴随延续)"
+          },
+          {
+            "word": "soudainement (adv.)",
+            "meaning": "突然，骤然"
+          }
+        ]
+      },
+      {
+        "id": "4_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 简单将来时特殊词根",
+        "question": "Dès que le professeur arrivera, nous lui (envoyer) _____ notre rapport.",
+        "options": [
+          "envoyons",
+          "enverrons",
+          "envoyerons",
+          "enverrions"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\ndès que 引导的时间状语从句使用简单将来时 (arrivera)，主句同样使用简单将来时。动词 envoyer 的将来时词根特殊异化为 enverr-，第一人称复数变位为【enverrons】。选 B。",
+        "translation": "老师一到，我们就将向他递交我们的报告。",
+        "grammarTag": "envoyer 的简单将来时变位",
+        "vocabList": [
+          {
+            "word": "envoyer qch à qn",
+            "meaning": "寄送某物给某人"
+          },
+          {
+            "word": "rapport (n.m.)",
+            "meaning": "报告，汇报"
+          }
+        ]
+      },
+      {
+        "id": "4_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "4_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "4_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "4_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
       }
     ]
   },
-
-  // =========================================================================
-  // 【轨道二：🌍 DELF 欧标国际考级专区 (A1-B2 法国官方全真机考大卷)】
-  // =========================================================================
   {
-    id: 'delf-a1-officiel-01',
-    title: 'DELF A1 欧标官方全真机考模拟卷 (听力原声+图表读解)',
-    frenchTitle: 'Diplôme d\'Études en Langue Française — Niveau A1 (Épreuve officielle)',
-    track: 'delf',
-    level: 'DELF A1',
-    schoolOrOrg: '法国国际教育研究中心 (FEI)',
-    yearOrSession: '国际欧标标准样卷',
-    summary: '官方标准样卷，含真实火车站广播、日常点餐听力原声（Compréhension orale）与公共图书馆通知阅读。',
-    durationMinutes: 45,
-    totalScore: 50,
-    questions: [
+    "id": "paper_kaoyan_5",
+    "title": "2024年广东外语外贸大学 (243) 二外法语考研真题卷",
+    "frenchTitle": "Université des Études Étrangères du Guangdong (GDUFS 243) — Session 2024",
+    "track": "kaoyan",
+    "level": "241/242考研",
+    "schoolOrOrg": "广东外语外贸大学",
+    "yearOrSession": "2024真题卷",
+    "summary": "广外二外大纲命题：注重商务与日常交际法文、虚拟式判断、双宾语代词位置及阅读细节推断。",
+    "durationMinutes": 60,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
       {
-        id: 'delf_a1_q1',
-        questionType: '听解原声',
-        categoryTag: '公共广播 · 发车时间提取',
-        question: 'À quelle heure le train pour Lyon va-t-il partir ?',
-        audioScript: '« Mesdames et messieurs, votre attention s\'il vous plaît. Le TGV numéro 6642 à destination de Lyon Part-Dieu partira voie B à quatorze heures trente. Veuillez monter à bord. »',
-        options: ['13h30', '14h15', '14h30', '15h00'],
-        correctAnswer: 2,
-        explanation: '【听力原文剖析】\n广播原句清楚播报：“...partira voie B à quatorze heures trente”（将在B站台于14点30分发车）。quatorze heures trente 准确对应 14:30。选 C。',
-        score: 10,
-        grammarTag: '听力信息定位 · 时间数字'
-      },
-      {
-        id: 'delf_a1_q2',
-        questionType: '听解原声',
-        categoryTag: '日常生活 · 结账金额计算',
-        question: 'Quel est le prix total des deux croissants et du café ?',
-        audioScript: '« — Bonjour madame, je voudrais deux croissants et un grand café au lait, s\'il vous plaît.\n— Très bien monsieur, cela vous fera cinq euros cinquante au total. »',
-        options: ['4,50 €', '5,00 €', '5,50 €', '6,50 €'],
-        correctAnswer: 2,
-        explanation: '【听力原文剖析】\n店员结账原句：“...cela vous fera cinq euros cinquante au total”（一共是 5 欧元 50 欧分）。对应 5,50 €。选 C。',
-        score: 10,
-        grammarTag: '听力日常点餐 · 货币金额'
-      },
-      {
-        id: 'delf_a1_q3',
-        questionType: '读解分析',
-        categoryTag: '公共告示 · 开闭馆日期辨析',
-        question: 'Ce message officiel indique que la bibliothèque municipale est fermée :',
-        contextText: 'AVIS AUX LECTEURS :\nEn raison de travaux de rénovation intérieure, la bibliothèque municipale sera fermée tous les lundis du mois d\'octobre. Les horaires habituels du mardi au samedi restent inchangés (9h - 18h). Merci de votre compréhension.',
-        options: [
-          'Tous les jours du mois d\'octobre.',
-          'Tous les lundis du mois d\'octobre.',
-          'Pendant tous les week-ends d\'octobre.',
-          'Du mardi au samedi inclus.'
+        "id": "5_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
         ],
-        correctAnswer: 1,
-        explanation: '【阅读细节信息匹配】\n告示原文清晰写道：“...sera fermée tous les lundis du mois d\'octobre”（十月份的每个周一闭馆）。正确选项为 B。',
-        score: 15,
-        grammarTag: '公共告示阅读 · 开放时间'
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
       },
       {
-        id: 'delf_a1_q4',
-        questionType: '读解分析',
-        categoryTag: '日常便条 · 约会地点确认',
-        question: 'Où Pierre donne-t-il rendez-vous à son ami Julien ?',
-        contextText: 'Salut Julien ! Je suis bien arrivé à Paris ce matin. Retrouvons-nous devant le musée du Louvre à 15 heures, juste à côté de la grande pyramide de verre. Ensuite, on pourra aller prendre un café ensemble. À tout à l\'heure ! — Pierre',
-        options: [
-          'À la gare de Lyon.',
-          'Dans un café du quartier.',
-          'Devant le musée du Louvre.',
-          'Dans la station de métro.'
+        "id": "5_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
         ],
-        correctAnswer: 2,
-        explanation: '【便签邮件阅读】\n便条明确写明碰头地点：“Retrouvons-nous devant le musée du Louvre à 15 heures”（我们15点在卢浮宫博物馆门前碰头）。对应选项 C。',
-        score: 15,
-        grammarTag: '便笺便条阅读 · 地点提取'
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "5_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "5_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "5_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "5_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "5_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 条件式现在时表委婉",
+        "question": "Excusez-moi monsieur, (pouvoir) _____-vous m'indiquer le chemin de la gare ?",
+        "options": [
+          "pouvez",
+          "pourriez",
+          "puissiez",
+          "pourrez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在法语交际中，提出礼貌请求、委婉发问必须使用【条件式现在时 (Conditionnel présent)】：pourriez-vous...？这比直陈式 pouvez-vous 更加优雅客气。选 B。",
+        "translation": "打扰一下先生，请问您能给我指一下去火车站的路吗？",
+        "grammarTag": "条件式现在时表示礼貌委婉请求",
+        "vocabList": [
+          {
+            "word": "indiquer le chemin",
+            "meaning": "指路，领路"
+          },
+          {
+            "word": "gare (n.f.)",
+            "meaning": "火车站"
+          }
+        ]
+      },
+      {
+        "id": "5_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 先将来时 (Futur antérieur)",
+        "question": "Quand tu (terminer) _____ tes études de médecine, tu seras un excellent chirurgien.",
+        "options": [
+          "termineras",
+          "auras terminé",
+          "avais terminé",
+          "termines"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句谓语为简单将来时 (seras)，从句 quand 表示在未来的某一动作之前已完成的动作，必须使用【先将来时 (Futur antérieur: auras terminé)】。选 B。",
+        "translation": "当你完成医学学业时，你将会成为一名杰出的外科医生。",
+        "grammarTag": "先将来时 (Futur antérieur)",
+        "vocabList": [
+          {
+            "word": "études de médecine",
+            "meaning": "医学学业"
+          },
+          {
+            "word": "chirurgien (n.m.)",
+            "meaning": "外科医生"
+          }
+        ]
+      },
+      {
+        "id": "5_q9",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "5_q10",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "5_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "5_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
       }
     ]
   },
-
   {
-    id: 'delf-a2-officiel-01',
-    title: 'DELF A2 欧标国际标准样题卷 (工作/出行综合机考)',
-    frenchTitle: 'Diplôme d\'Études en Langue Française — Niveau A2 (Session officielle)',
-    track: 'delf',
-    level: 'DELF A2',
-    schoolOrOrg: '法国国际教育研究中心 (FEI)',
-    yearOrSession: '国际欧标标准样卷',
-    summary: '面向 A2 初中级学员，涵盖职场会议语音通知、法国当地餐厅招聘广告与租赁合同阅读。',
-    durationMinutes: 55,
-    totalScore: 50,
-    questions: [
+    "id": "paper_kaoyan_6",
+    "title": "2024年南京大学 (241) 二外法语考研统考真题卷",
+    "frenchTitle": "Université de Nanjing (NJU 241) — Épreuve de français langue seconde",
+    "track": "kaoyan",
+    "level": "241/242考研",
+    "schoolOrOrg": "南京大学",
+    "yearOrSession": "2024统考卷",
+    "summary": "南大外院命题风格：强调文学性与正统学术法语，分词配合与虚拟式触发机制考察细致入微。",
+    "durationMinutes": 60,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
       {
-        id: 'delf_a2_q1',
-        questionType: '听解原声',
-        categoryTag: '电话语音 · 职场突发事件',
-        question: 'Pourquoi la réunion de demain matin est-elle annulée et reportée ?',
-        audioScript: '« Bonjour à tous, ici la directrice. En raison de la grève des transports annoncée pour demain matin sur le réseau métropolitain, notre réunion de projet est reportée à jeudi après-midi à quatorze heures. Merci de prévenir vos collègues. »',
-        options: [
-          'Parce que la directrice est en voyage d\'affaires.',
-          'En raison d\'une grève annoncée des transports.',
-          'À cause d\'une panne de courant dans les bureaux.',
-          'Par manque total de participants.'
+        "id": "6_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
         ],
-        correctAnswer: 1,
-        explanation: '【听力原文剖析】\n语音信息开篇说明原因：“En raison de la grève des transports annoncée pour demain matin...”（由于明早预告的交通罢工...）。对应选项 B。',
-        score: 25,
-        grammarTag: '电话留言理解 · 因果关系'
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
       },
       {
-        id: 'delf_a2_q2',
-        questionType: '读解分析',
-        categoryTag: '实用文体 · 招聘启事要求',
-        question: 'Pour postuler à ce poste de serveur, quelle condition est obligatoire ?',
-        contextText: 'OFFRE D\'EMPLOI :\nRestaurant gastronomique situé au cœur de Bordeaux recherche un serveur / une serveuse dynamique à temps plein.\nProfil exigé : Expérience d\'au moins un an en restauration traditionnelle, très bonne maîtrise du français et un niveau d\'anglais correct pour accueillir les touristes.\nHoraires : Du mardi au samedi soir (18h - 23h30).\nEnvoyez votre CV à : contact@restaurant-bordeaux.fr',
-        options: [
-          'Avoir son propre véhicule motorisé.',
-          'Parler au moins quatre langues étrangères.',
-          'Avoir au moins un an d\'expérience en restauration.',
-          'Habiter obligatoirement dans le centre de Paris.'
+        "id": "6_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
         ],
-        correctAnswer: 2,
-        explanation: '【招聘文体阅读】\n招聘要求 Profil exigé 首行明确注明：“Expérience d\'au moins un an en restauration traditionnelle”（在传统餐饮行业具备至少一年的工作经验）。选 C。',
-        score: 25,
-        grammarTag: '招聘广告阅读 · 条件筛选'
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "6_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "6_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "6_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "6_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "6_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 复合过去 vs 未完成过去",
+        "question": "Pendant que nous (dîner) _____, le téléphone a soudainement sonné.",
+        "options": [
+          "avons dîné",
+          "dînions",
+          "dînâmes",
+          "dînerons"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npendant que 引导过去的正在进行的背景动作（当时正在吃晚餐），主句 a sonné 是突发短暂完成动作。背景延续动作必须使用【未完成过去时 (Imparfait: dînions)】。选 B。",
+        "translation": "当我们正在吃晚饭的时候，电话突然响了。",
+        "grammarTag": "未完成过去时充当背景时态",
+        "vocabList": [
+          {
+            "word": "pendant que",
+            "meaning": "当...的时候 (伴随延续)"
+          },
+          {
+            "word": "soudainement (adv.)",
+            "meaning": "突然，骤然"
+          }
+        ]
+      },
+      {
+        "id": "6_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 简单将来时特殊词根",
+        "question": "Dès que le professeur arrivera, nous lui (envoyer) _____ notre rapport.",
+        "options": [
+          "envoyons",
+          "enverrons",
+          "envoyerons",
+          "enverrions"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\ndès que 引导的时间状语从句使用简单将来时 (arrivera)，主句同样使用简单将来时。动词 envoyer 的将来时词根特殊异化为 enverr-，第一人称复数变位为【enverrons】。选 B。",
+        "translation": "老师一到，我们就将向他递交我们的报告。",
+        "grammarTag": "envoyer 的简单将来时变位",
+        "vocabList": [
+          {
+            "word": "envoyer qch à qn",
+            "meaning": "寄送某物给某人"
+          },
+          {
+            "word": "rapport (n.m.)",
+            "meaning": "报告，汇报"
+          }
+        ]
+      },
+      {
+        "id": "6_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "6_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "6_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "6_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
       }
     ]
   },
-
   {
-    id: 'delf-b1-officiel-01',
-    title: 'DELF B1 欧标进阶全真机考精选卷 (时事讨论与长篇阅读)',
-    frenchTitle: 'Diplôme d\'Études en Langue Française — Niveau B1 (Session d\'examen)',
-    track: 'delf',
-    level: 'DELF B1',
-    schoolOrOrg: '法国国际教育研究中心 (FEI)',
-    yearOrSession: '国际欧标进阶卷',
-    summary: '面向中高级法语学习者，考察对法国社会现象电台访谈理解与现代远程办公利弊长篇深度阅读。',
-    durationMinutes: 70,
-    totalScore: 50,
-    questions: [
+    "id": "paper_kaoyan_7",
+    "title": "2024年武汉大学 (242) 二外法语考研真题精编卷",
+    "frenchTitle": "Université de Wuhan (WHU 242) — Épreuve officielle de français",
+    "track": "kaoyan",
+    "level": "241/242考研",
+    "schoolOrOrg": "武汉大学",
+    "yearOrSession": "2024精编卷",
+    "summary": "武大经典二外：涵盖动词短语搭配、条件式假设句型、介词用法辨析与现代法国社会长篇精读。",
+    "durationMinutes": 60,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
       {
-        id: 'delf_b1_q1',
-        questionType: '听解原声',
-        categoryTag: '电台访谈 · 观点主旨理解',
-        question: 'Quel est le thème principal de cette interview radiophonique ?',
-        audioScript: '« Journaliste : Bienvenue sur France Inter. Aujourd\'hui, nous nous intéressons à la semaine de quatre jours en entreprise. De plus en plus de salariés et d\'employeurs français expérimentent cette nouvelle organisation du travail pour concilier vie professionnelle et vie personnelle tout en maintenant une productivité optimale. »',
-        options: [
-          'L\'augmentation du temps de travail le week-end.',
-          'L\'expérimentation de la semaine de travail de quatre jours.',
-          'La fermeture des entreprises en période estivale.',
-          'La baisse générale des salaires en France.'
+        "id": "7_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
         ],
-        correctAnswer: 1,
-        explanation: '【听力主旨剖析】\n电台主持人原话开门见山：“...nous nous intéressons à la semaine de quatre jours en entreprise”（今天我们关注企业推行的四天工作制）。选项 B 准确概括全篇核心主题。',
-        score: 25,
-        grammarTag: '听力主旨提取 · 广播访谈'
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
       },
       {
-        id: 'delf_b1_q2',
-        questionType: '读解分析',
-        categoryTag: '深度论说文 · 观点论证分析',
-        question: 'D\'après l\'auteur, quel est le risque majeur associé au développement excessif du télétravail ?',
-        contextText: 'Si le télétravail apporte indéniablement une plus grande flexibilité horaire et supprime la fatigue liée aux trajets quotidiens, de nombreux sociologues alertent sur ses dérives potentielles. L\'effacement progressif de la frontière entre vie privée et vie professionnelle, combiné au risque d\'isolement social prolongé des salariés, peut à terme nuire gravement à la cohésion des équipes et au bien-être psychologique des individus.',
-        options: [
-          'La baisse drastique de la vitesse d\'Internet.',
-          'L\'isolement social et la confusion entre vie privée et professionnelle.',
-          'L\'obligation de déménager loin des grandes métropoles.',
-          'Le coût excessif du matériel informatique.'
+        "id": "7_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
         ],
-        correctAnswer: 1,
-        explanation: '【论说文观点匹配】\n原文最后一句指明风险：“L\'effacement progressif de la frontière entre vie privée et vie professionnelle, combiné au risque d\'isolement social prolongé...”（私人生活与职业界限的逐渐模糊，加上员工长期社交孤立的风险...）。精准对应选项 B。',
-        score: 25,
-        grammarTag: '论说文深层理解 · 风险推断'
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "7_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "7_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "7_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "7_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "7_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 条件式现在时表委婉",
+        "question": "Excusez-moi monsieur, (pouvoir) _____-vous m'indiquer le chemin de la gare ?",
+        "options": [
+          "pouvez",
+          "pourriez",
+          "puissiez",
+          "pourrez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在法语交际中，提出礼貌请求、委婉发问必须使用【条件式现在时 (Conditionnel présent)】：pourriez-vous...？这比直陈式 pouvez-vous 更加优雅客气。选 B。",
+        "translation": "打扰一下先生，请问您能给我指一下去火车站的路吗？",
+        "grammarTag": "条件式现在时表示礼貌委婉请求",
+        "vocabList": [
+          {
+            "word": "indiquer le chemin",
+            "meaning": "指路，领路"
+          },
+          {
+            "word": "gare (n.f.)",
+            "meaning": "火车站"
+          }
+        ]
+      },
+      {
+        "id": "7_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 先将来时 (Futur antérieur)",
+        "question": "Quand tu (terminer) _____ tes études de médecine, tu seras un excellent chirurgien.",
+        "options": [
+          "termineras",
+          "auras terminé",
+          "avais terminé",
+          "termines"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句谓语为简单将来时 (seras)，从句 quand 表示在未来的某一动作之前已完成的动作，必须使用【先将来时 (Futur antérieur: auras terminé)】。选 B。",
+        "translation": "当你完成医学学业时，你将会成为一名杰出的外科医生。",
+        "grammarTag": "先将来时 (Futur antérieur)",
+        "vocabList": [
+          {
+            "word": "études de médecine",
+            "meaning": "医学学业"
+          },
+          {
+            "word": "chirurgien (n.m.)",
+            "meaning": "外科医生"
+          }
+        ]
+      },
+      {
+        "id": "7_q9",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "7_q10",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "7_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "7_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
       }
     ]
   },
-
   {
-    id: 'delf-b2-officiel-01',
-    title: 'DELF B2 欧标高级官方全真机考精选卷 (当代社会热点思辨)',
-    frenchTitle: 'Diplôme d\'Études en Langue Française — Niveau B2 (Session officielle)',
-    track: 'delf',
-    level: 'DELF B2',
-    schoolOrOrg: '法国国际教育研究中心 (FEI)',
-    yearOrSession: '国际欧标高级官方卷',
-    summary: '面向 B2 独立运用者与留学读研考生，深度考察法国电台关于人工智能与职场转型的深度辩论听解，以及生态转型法律长篇论说文分析。',
-    durationMinutes: 90,
-    totalScore: 50,
-    questions: [
+    "id": "paper_kaoyan_8",
+    "title": "2024年复旦大学 (241) 二外法语考研真题精编卷",
+    "frenchTitle": "Université Fudan (FDU 241) — Examen officiel de français langue étrangère",
+    "track": "kaoyan",
+    "level": "241/242考研",
+    "schoolOrOrg": "复旦大学",
+    "yearOrSession": "2024精编卷",
+    "summary": "复旦二外权威题库：考查词汇广度、自反代词配合陷阱、复杂关系从句以及科技伦理阅读。",
+    "durationMinutes": 60,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
       {
-        id: 'delf_b2_q1',
-        questionType: '听解原声',
-        categoryTag: '电台辩论 · 科技伦理与就业',
-        question: 'D\'après les intervenants dans cette émission, quel est le principal défi posé par l\'intégration de l\'IA générative dans les entreprises ?',
-        audioScript: '« Journaliste : Nous poursuivons notre dossier sur l\'intelligence artificielle générative. Selon l\'économiste invité, si l\'IA promet des gains de productivité spectaculaires, le véritable défi réside dans la formation continue des salariés et la requalification des compétences pour éviter une précarisation accrue des profils juniors. »',
-        options: [
-          'Le coût énergétique des centres de données.',
-          'La nécessité de former et requalifier les compétences des salariés.',
-          'L\'interdiction légale immédiate de tous les logiciels d\'automatisation.',
-          'La suppression totale du travail humain d\'ici cinq ans.'
+        "id": "8_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
         ],
-        correctAnswer: 1,
-        explanation: '【听力论辩主旨剖析】\n经济学家明确指出：“...le véritable défi réside dans la formation continue des salariés et la requalification des compétences...”（真正的挑战在于员工的持续培训与技能重塑）。精准对应选项 B。',
-        score: 25,
-        grammarTag: '听力思辨理解 · 论点提炼'
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
       },
       {
-        id: 'delf_b2_q2',
-        questionType: '读解分析',
-        categoryTag: '深度学术评述 · 生态法治与公民实践',
-        question: 'D\'après le texte, quelle est la conclusion de l\'auteur concernant l\'efficacité des politiques environnementales actuelles ?',
-        contextText: 'Face à l\'urgence climatique, la multiplication des réglementations et des incitations fiscales ne saurait suffire sans une transformation profonde des modèles de production industrielle et des habitudes individuelles de consommation. L\'auteur souligne que la transition écologique ne sera couronnée de succès que si elle s\'accompagne d\'une véritable justice sociale, garantissant que les populations les plus vulnérables ne supportent pas le coût disproportionné des réformes écologiques.',
-        options: [
-          'Les incitations fiscales suffisent à elles seules pour résoudre la crise.',
-          'La transition écologique ne réussira qu\'en garantissant une réelle justice sociale.',
-          'Il faut immédiatement cesser toute production industrielle dans les pays développés.',
-          'Les citoyens refusent catégoriquement de modifier leurs habitudes de consommation.'
+        "id": "8_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
         ],
-        correctAnswer: 1,
-        explanation: '【学术论说文深层论点】\n原文结论段深刻指出：“...la transition écologique ne sera couronnée de succès que si elle s\'accompagne d\'une véritable justice sociale...”（生态转型只有在伴随着真正的社会公正时才能取得成功）。与选项 B 完全契合。',
-        score: 25,
-        grammarTag: '长篇论述观点把握与深层推论'
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "8_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "8_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "8_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "8_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "8_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 复合过去 vs 未完成过去",
+        "question": "Pendant que nous (dîner) _____, le téléphone a soudainement sonné.",
+        "options": [
+          "avons dîné",
+          "dînions",
+          "dînâmes",
+          "dînerons"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npendant que 引导过去的正在进行的背景动作（当时正在吃晚餐），主句 a sonné 是突发短暂完成动作。背景延续动作必须使用【未完成过去时 (Imparfait: dînions)】。选 B。",
+        "translation": "当我们正在吃晚饭的时候，电话突然响了。",
+        "grammarTag": "未完成过去时充当背景时态",
+        "vocabList": [
+          {
+            "word": "pendant que",
+            "meaning": "当...的时候 (伴随延续)"
+          },
+          {
+            "word": "soudainement (adv.)",
+            "meaning": "突然，骤然"
+          }
+        ]
+      },
+      {
+        "id": "8_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 简单将来时特殊词根",
+        "question": "Dès que le professeur arrivera, nous lui (envoyer) _____ notre rapport.",
+        "options": [
+          "envoyons",
+          "enverrons",
+          "envoyerons",
+          "enverrions"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\ndès que 引导的时间状语从句使用简单将来时 (arrivera)，主句同样使用简单将来时。动词 envoyer 的将来时词根特殊异化为 enverr-，第一人称复数变位为【enverrons】。选 B。",
+        "translation": "老师一到，我们就将向他递交我们的报告。",
+        "grammarTag": "envoyer 的简单将来时变位",
+        "vocabList": [
+          {
+            "word": "envoyer qch à qn",
+            "meaning": "寄送某物给某人"
+          },
+          {
+            "word": "rapport (n.m.)",
+            "meaning": "报告，汇报"
+          }
+        ]
+      },
+      {
+        "id": "8_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "8_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "8_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "8_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_kaoyan_9",
+    "title": "2024年中山大学 (242) 二外法语考研真题精编卷",
+    "frenchTitle": "Université Sun Yat-sen (SYSU 242) — Examen de Master en français",
+    "track": "kaoyan",
+    "level": "241/242考研",
+    "schoolOrOrg": "中山大学",
+    "yearOrSession": "2024精编卷",
+    "summary": "中大高频试题：重点攻坚时间状语从句与时态呼应、否定句型变异及社科文化事实推论。",
+    "durationMinutes": 60,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "9_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "9_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "9_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "9_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "9_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "9_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "9_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 条件式现在时表委婉",
+        "question": "Excusez-moi monsieur, (pouvoir) _____-vous m'indiquer le chemin de la gare ?",
+        "options": [
+          "pouvez",
+          "pourriez",
+          "puissiez",
+          "pourrez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在法语交际中，提出礼貌请求、委婉发问必须使用【条件式现在时 (Conditionnel présent)】：pourriez-vous...？这比直陈式 pouvez-vous 更加优雅客气。选 B。",
+        "translation": "打扰一下先生，请问您能给我指一下去火车站的路吗？",
+        "grammarTag": "条件式现在时表示礼貌委婉请求",
+        "vocabList": [
+          {
+            "word": "indiquer le chemin",
+            "meaning": "指路，领路"
+          },
+          {
+            "word": "gare (n.f.)",
+            "meaning": "火车站"
+          }
+        ]
+      },
+      {
+        "id": "9_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 先将来时 (Futur antérieur)",
+        "question": "Quand tu (terminer) _____ tes études de médecine, tu seras un excellent chirurgien.",
+        "options": [
+          "termineras",
+          "auras terminé",
+          "avais terminé",
+          "termines"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句谓语为简单将来时 (seras)，从句 quand 表示在未来的某一动作之前已完成的动作，必须使用【先将来时 (Futur antérieur: auras terminé)】。选 B。",
+        "translation": "当你完成医学学业时，你将会成为一名杰出的外科医生。",
+        "grammarTag": "先将来时 (Futur antérieur)",
+        "vocabList": [
+          {
+            "word": "études de médecine",
+            "meaning": "医学学业"
+          },
+          {
+            "word": "chirurgien (n.m.)",
+            "meaning": "外科医生"
+          }
+        ]
+      },
+      {
+        "id": "9_q9",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "9_q10",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "9_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "9_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_kaoyan_10",
+    "title": "2023年全国名校考研二外法语综合冲刺精编卷 (A卷)",
+    "frenchTitle": "Concours National de Master : Épreuve de synthèse avancée (Série A)",
+    "track": "kaoyan",
+    "level": "241/242考研",
+    "schoolOrOrg": "名校联考精选",
+    "yearOrSession": "2023综合冲刺",
+    "summary": "整合全国多所985外语院校考研试题核心精华，全真模拟考场环境，自测提分利器。",
+    "durationMinutes": 60,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "10_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "10_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "10_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "10_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "10_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "10_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "10_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 复合过去 vs 未完成过去",
+        "question": "Pendant que nous (dîner) _____, le téléphone a soudainement sonné.",
+        "options": [
+          "avons dîné",
+          "dînions",
+          "dînâmes",
+          "dînerons"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npendant que 引导过去的正在进行的背景动作（当时正在吃晚餐），主句 a sonné 是突发短暂完成动作。背景延续动作必须使用【未完成过去时 (Imparfait: dînions)】。选 B。",
+        "translation": "当我们正在吃晚饭的时候，电话突然响了。",
+        "grammarTag": "未完成过去时充当背景时态",
+        "vocabList": [
+          {
+            "word": "pendant que",
+            "meaning": "当...的时候 (伴随延续)"
+          },
+          {
+            "word": "soudainement (adv.)",
+            "meaning": "突然，骤然"
+          }
+        ]
+      },
+      {
+        "id": "10_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 简单将来时特殊词根",
+        "question": "Dès que le professeur arrivera, nous lui (envoyer) _____ notre rapport.",
+        "options": [
+          "envoyons",
+          "enverrons",
+          "envoyerons",
+          "enverrions"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\ndès que 引导的时间状语从句使用简单将来时 (arrivera)，主句同样使用简单将来时。动词 envoyer 的将来时词根特殊异化为 enverr-，第一人称复数变位为【enverrons】。选 B。",
+        "translation": "老师一到，我们就将向他递交我们的报告。",
+        "grammarTag": "envoyer 的简单将来时变位",
+        "vocabList": [
+          {
+            "word": "envoyer qch à qn",
+            "meaning": "寄送某物给某人"
+          },
+          {
+            "word": "rapport (n.m.)",
+            "meaning": "报告，汇报"
+          }
+        ]
+      },
+      {
+        "id": "10_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "10_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "10_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "10_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_kaoyan_11",
+    "title": "2023年全国名校考研二外法语综合冲刺精编卷 (B卷)",
+    "frenchTitle": "Concours National de Master : Épreuve de synthèse avancée (Série B)",
+    "track": "kaoyan",
+    "level": "241/242考研",
+    "schoolOrOrg": "名校联考精选",
+    "yearOrSession": "2023综合冲刺",
+    "summary": "针对易错混淆项设计干扰，深度攻克过去分词配合、副代词 en 的数量代换及长文主旨。",
+    "durationMinutes": 60,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "11_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "11_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "11_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "11_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "11_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "11_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "11_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 条件式现在时表委婉",
+        "question": "Excusez-moi monsieur, (pouvoir) _____-vous m'indiquer le chemin de la gare ?",
+        "options": [
+          "pouvez",
+          "pourriez",
+          "puissiez",
+          "pourrez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在法语交际中，提出礼貌请求、委婉发问必须使用【条件式现在时 (Conditionnel présent)】：pourriez-vous...？这比直陈式 pouvez-vous 更加优雅客气。选 B。",
+        "translation": "打扰一下先生，请问您能给我指一下去火车站的路吗？",
+        "grammarTag": "条件式现在时表示礼貌委婉请求",
+        "vocabList": [
+          {
+            "word": "indiquer le chemin",
+            "meaning": "指路，领路"
+          },
+          {
+            "word": "gare (n.f.)",
+            "meaning": "火车站"
+          }
+        ]
+      },
+      {
+        "id": "11_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 先将来时 (Futur antérieur)",
+        "question": "Quand tu (terminer) _____ tes études de médecine, tu seras un excellent chirurgien.",
+        "options": [
+          "termineras",
+          "auras terminé",
+          "avais terminé",
+          "termines"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句谓语为简单将来时 (seras)，从句 quand 表示在未来的某一动作之前已完成的动作，必须使用【先将来时 (Futur antérieur: auras terminé)】。选 B。",
+        "translation": "当你完成医学学业时，你将会成为一名杰出的外科医生。",
+        "grammarTag": "先将来时 (Futur antérieur)",
+        "vocabList": [
+          {
+            "word": "études de médecine",
+            "meaning": "医学学业"
+          },
+          {
+            "word": "chirurgien (n.m.)",
+            "meaning": "外科医生"
+          }
+        ]
+      },
+      {
+        "id": "11_q9",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "11_q10",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "11_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "11_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_kaoyan_12",
+    "title": "北京外国语大学二外法语历年必考压轴经典卷",
+    "frenchTitle": "BFSU : Recueil d'excellence des annales de français langue seconde",
+    "track": "kaoyan",
+    "level": "241/242考研",
+    "schoolOrOrg": "北京外国语大学",
+    "yearOrSession": "经典必考卷",
+    "summary": "沉淀北外十年考研经典题源，涵盖语法重难点终极冲刺与高难度阅读逻辑辨析。",
+    "durationMinutes": 75,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "12_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "12_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "12_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "12_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "12_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "12_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "12_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 复合过去 vs 未完成过去",
+        "question": "Pendant que nous (dîner) _____, le téléphone a soudainement sonné.",
+        "options": [
+          "avons dîné",
+          "dînions",
+          "dînâmes",
+          "dînerons"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npendant que 引导过去的正在进行的背景动作（当时正在吃晚餐），主句 a sonné 是突发短暂完成动作。背景延续动作必须使用【未完成过去时 (Imparfait: dînions)】。选 B。",
+        "translation": "当我们正在吃晚饭的时候，电话突然响了。",
+        "grammarTag": "未完成过去时充当背景时态",
+        "vocabList": [
+          {
+            "word": "pendant que",
+            "meaning": "当...的时候 (伴随延续)"
+          },
+          {
+            "word": "soudainement (adv.)",
+            "meaning": "突然，骤然"
+          }
+        ]
+      },
+      {
+        "id": "12_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 简单将来时特殊词根",
+        "question": "Dès que le professeur arrivera, nous lui (envoyer) _____ notre rapport.",
+        "options": [
+          "envoyons",
+          "enverrons",
+          "envoyerons",
+          "enverrions"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\ndès que 引导的时间状语从句使用简单将来时 (arrivera)，主句同样使用简单将来时。动词 envoyer 的将来时词根特殊异化为 enverr-，第一人称复数变位为【enverrons】。选 B。",
+        "translation": "老师一到，我们就将向他递交我们的报告。",
+        "grammarTag": "envoyer 的简单将来时变位",
+        "vocabList": [
+          {
+            "word": "envoyer qch à qn",
+            "meaning": "寄送某物给某人"
+          },
+          {
+            "word": "rapport (n.m.)",
+            "meaning": "报告，汇报"
+          }
+        ]
+      },
+      {
+        "id": "12_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "12_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "12_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "12_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_cft4_13",
+    "title": "大学法语四级 (CFT-4) 全国统考全真冲刺模拟卷 (一)",
+    "frenchTitle": "Certificat de Français pour l'Enseignement Supérieur (CFT-4 : Modèle 1)",
+    "track": "cft4",
+    "level": "大学法语四级",
+    "schoolOrOrg": "教育部高校外语统考",
+    "yearOrSession": "2024全真卷",
+    "summary": "完全遵循教育部《大学法语四级考试大纲》标准排版，覆盖听力理解、词汇语法、完形与阅读。",
+    "durationMinutes": 45,
+    "totalScore": 100,
+    "isFreePreview": true,
+    "questions": [
+      {
+        "id": "13_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "13_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "13_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "13_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "13_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "13_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "13_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 条件式现在时表委婉",
+        "question": "Excusez-moi monsieur, (pouvoir) _____-vous m'indiquer le chemin de la gare ?",
+        "options": [
+          "pouvez",
+          "pourriez",
+          "puissiez",
+          "pourrez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在法语交际中，提出礼貌请求、委婉发问必须使用【条件式现在时 (Conditionnel présent)】：pourriez-vous...？这比直陈式 pouvez-vous 更加优雅客气。选 B。",
+        "translation": "打扰一下先生，请问您能给我指一下去火车站的路吗？",
+        "grammarTag": "条件式现在时表示礼貌委婉请求",
+        "vocabList": [
+          {
+            "word": "indiquer le chemin",
+            "meaning": "指路，领路"
+          },
+          {
+            "word": "gare (n.f.)",
+            "meaning": "火车站"
+          }
+        ]
+      },
+      {
+        "id": "13_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 先将来时 (Futur antérieur)",
+        "question": "Quand tu (terminer) _____ tes études de médecine, tu seras un excellent chirurgien.",
+        "options": [
+          "termineras",
+          "auras terminé",
+          "avais terminé",
+          "termines"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句谓语为简单将来时 (seras)，从句 quand 表示在未来的某一动作之前已完成的动作，必须使用【先将来时 (Futur antérieur: auras terminé)】。选 B。",
+        "translation": "当你完成医学学业时，你将会成为一名杰出的外科医生。",
+        "grammarTag": "先将来时 (Futur antérieur)",
+        "vocabList": [
+          {
+            "word": "études de médecine",
+            "meaning": "医学学业"
+          },
+          {
+            "word": "chirurgien (n.m.)",
+            "meaning": "外科医生"
+          }
+        ]
+      },
+      {
+        "id": "13_q9",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "13_q10",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "13_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "13_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_cft4_14",
+    "title": "大学法语四级 (CFT-4) 全国统考全真冲刺模拟卷 (二)",
+    "frenchTitle": "Certificat de Français pour l'Enseignement Supérieur (CFT-4 : Modèle 2)",
+    "track": "cft4",
+    "level": "大学法语四级",
+    "schoolOrOrg": "教育部高校外语统考",
+    "yearOrSession": "2024全真卷",
+    "summary": "标准化考题分布，精准检验公外法语学员 A2-B1 水平阶段的核心语言综合运用能力。",
+    "durationMinutes": 45,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "14_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "14_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "14_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "14_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "14_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "14_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "14_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 复合过去 vs 未完成过去",
+        "question": "Pendant que nous (dîner) _____, le téléphone a soudainement sonné.",
+        "options": [
+          "avons dîné",
+          "dînions",
+          "dînâmes",
+          "dînerons"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npendant que 引导过去的正在进行的背景动作（当时正在吃晚餐），主句 a sonné 是突发短暂完成动作。背景延续动作必须使用【未完成过去时 (Imparfait: dînions)】。选 B。",
+        "translation": "当我们正在吃晚饭的时候，电话突然响了。",
+        "grammarTag": "未完成过去时充当背景时态",
+        "vocabList": [
+          {
+            "word": "pendant que",
+            "meaning": "当...的时候 (伴随延续)"
+          },
+          {
+            "word": "soudainement (adv.)",
+            "meaning": "突然，骤然"
+          }
+        ]
+      },
+      {
+        "id": "14_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 简单将来时特殊词根",
+        "question": "Dès que le professeur arrivera, nous lui (envoyer) _____ notre rapport.",
+        "options": [
+          "envoyons",
+          "enverrons",
+          "envoyerons",
+          "enverrions"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\ndès que 引导的时间状语从句使用简单将来时 (arrivera)，主句同样使用简单将来时。动词 envoyer 的将来时词根特殊异化为 enverr-，第一人称复数变位为【enverrons】。选 B。",
+        "translation": "老师一到，我们就将向他递交我们的报告。",
+        "grammarTag": "envoyer 的简单将来时变位",
+        "vocabList": [
+          {
+            "word": "envoyer qch à qn",
+            "meaning": "寄送某物给某人"
+          },
+          {
+            "word": "rapport (n.m.)",
+            "meaning": "报告，汇报"
+          }
+        ]
+      },
+      {
+        "id": "14_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "14_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "14_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "14_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_cft4_15",
+    "title": "大学法语四级 (CFT-4) 全国统考全真冲刺模拟卷 (三)",
+    "frenchTitle": "Certificat de Français pour l'Enseignement Supérieur (CFT-4 : Modèle 3)",
+    "track": "cft4",
+    "level": "大学法语四级",
+    "schoolOrOrg": "教育部高校外语统考",
+    "yearOrSession": "2023全真卷",
+    "summary": "历年四级考纲核心汇编：代词式动词变位、日常生活情景交际、广播短文听解与事实提取。",
+    "durationMinutes": 45,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "15_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "15_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "15_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "15_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "15_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "15_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "15_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 条件式现在时表委婉",
+        "question": "Excusez-moi monsieur, (pouvoir) _____-vous m'indiquer le chemin de la gare ?",
+        "options": [
+          "pouvez",
+          "pourriez",
+          "puissiez",
+          "pourrez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在法语交际中，提出礼貌请求、委婉发问必须使用【条件式现在时 (Conditionnel présent)】：pourriez-vous...？这比直陈式 pouvez-vous 更加优雅客气。选 B。",
+        "translation": "打扰一下先生，请问您能给我指一下去火车站的路吗？",
+        "grammarTag": "条件式现在时表示礼貌委婉请求",
+        "vocabList": [
+          {
+            "word": "indiquer le chemin",
+            "meaning": "指路，领路"
+          },
+          {
+            "word": "gare (n.f.)",
+            "meaning": "火车站"
+          }
+        ]
+      },
+      {
+        "id": "15_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 先将来时 (Futur antérieur)",
+        "question": "Quand tu (terminer) _____ tes études de médecine, tu seras un excellent chirurgien.",
+        "options": [
+          "termineras",
+          "auras terminé",
+          "avais terminé",
+          "termines"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句谓语为简单将来时 (seras)，从句 quand 表示在未来的某一动作之前已完成的动作，必须使用【先将来时 (Futur antérieur: auras terminé)】。选 B。",
+        "translation": "当你完成医学学业时，你将会成为一名杰出的外科医生。",
+        "grammarTag": "先将来时 (Futur antérieur)",
+        "vocabList": [
+          {
+            "word": "études de médecine",
+            "meaning": "医学学业"
+          },
+          {
+            "word": "chirurgien (n.m.)",
+            "meaning": "外科医生"
+          }
+        ]
+      },
+      {
+        "id": "15_q9",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "15_q10",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "15_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "15_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_cft4_16",
+    "title": "大学法语四级 (CFT-4) 语法词汇结构专项突破卷",
+    "frenchTitle": "CFT-4 : Entraînement intensif en vocabulaire et structures grammaticales",
+    "track": "cft4",
+    "level": "大学法语四级",
+    "schoolOrOrg": "教育部高校外语统考",
+    "yearOrSession": "专项冲刺卷",
+    "summary": "针对四级选择题失分重灾区集训：固定搭配、时态复合用法、虚拟式判断与介词填空。",
+    "durationMinutes": 40,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "16_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "16_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "16_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "16_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "16_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "16_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "16_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 复合过去 vs 未完成过去",
+        "question": "Pendant que nous (dîner) _____, le téléphone a soudainement sonné.",
+        "options": [
+          "avons dîné",
+          "dînions",
+          "dînâmes",
+          "dînerons"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npendant que 引导过去的正在进行的背景动作（当时正在吃晚餐），主句 a sonné 是突发短暂完成动作。背景延续动作必须使用【未完成过去时 (Imparfait: dînions)】。选 B。",
+        "translation": "当我们正在吃晚饭的时候，电话突然响了。",
+        "grammarTag": "未完成过去时充当背景时态",
+        "vocabList": [
+          {
+            "word": "pendant que",
+            "meaning": "当...的时候 (伴随延续)"
+          },
+          {
+            "word": "soudainement (adv.)",
+            "meaning": "突然，骤然"
+          }
+        ]
+      },
+      {
+        "id": "16_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 简单将来时特殊词根",
+        "question": "Dès que le professeur arrivera, nous lui (envoyer) _____ notre rapport.",
+        "options": [
+          "envoyons",
+          "enverrons",
+          "envoyerons",
+          "enverrions"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\ndès que 引导的时间状语从句使用简单将来时 (arrivera)，主句同样使用简单将来时。动词 envoyer 的将来时词根特殊异化为 enverr-，第一人称复数变位为【enverrons】。选 B。",
+        "translation": "老师一到，我们就将向他递交我们的报告。",
+        "grammarTag": "envoyer 的简单将来时变位",
+        "vocabList": [
+          {
+            "word": "envoyer qch à qn",
+            "meaning": "寄送某物给某人"
+          },
+          {
+            "word": "rapport (n.m.)",
+            "meaning": "报告，汇报"
+          }
+        ]
+      },
+      {
+        "id": "16_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "16_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "16_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "16_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_cft4_17",
+    "title": "大学法语四级 (CFT-4) 完形填空与读解精练卷",
+    "frenchTitle": "CFT-4 : Texte à trous et compréhension écrite approfondie",
+    "track": "cft4",
+    "level": "大学法语四级",
+    "schoolOrOrg": "教育部高校外语统考",
+    "yearOrSession": "专项冲刺卷",
+    "summary": "精选 4 篇四级真题标准完形与现代生活社科短文，强化语感与上下文逻辑推理。",
+    "durationMinutes": 40,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "17_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "17_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "17_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "17_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "17_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "17_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "17_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 条件式现在时表委婉",
+        "question": "Excusez-moi monsieur, (pouvoir) _____-vous m'indiquer le chemin de la gare ?",
+        "options": [
+          "pouvez",
+          "pourriez",
+          "puissiez",
+          "pourrez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在法语交际中，提出礼貌请求、委婉发问必须使用【条件式现在时 (Conditionnel présent)】：pourriez-vous...？这比直陈式 pouvez-vous 更加优雅客气。选 B。",
+        "translation": "打扰一下先生，请问您能给我指一下去火车站的路吗？",
+        "grammarTag": "条件式现在时表示礼貌委婉请求",
+        "vocabList": [
+          {
+            "word": "indiquer le chemin",
+            "meaning": "指路，领路"
+          },
+          {
+            "word": "gare (n.f.)",
+            "meaning": "火车站"
+          }
+        ]
+      },
+      {
+        "id": "17_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 先将来时 (Futur antérieur)",
+        "question": "Quand tu (terminer) _____ tes études de médecine, tu seras un excellent chirurgien.",
+        "options": [
+          "termineras",
+          "auras terminé",
+          "avais terminé",
+          "termines"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句谓语为简单将来时 (seras)，从句 quand 表示在未来的某一动作之前已完成的动作，必须使用【先将来时 (Futur antérieur: auras terminé)】。选 B。",
+        "translation": "当你完成医学学业时，你将会成为一名杰出的外科医生。",
+        "grammarTag": "先将来时 (Futur antérieur)",
+        "vocabList": [
+          {
+            "word": "études de médecine",
+            "meaning": "医学学业"
+          },
+          {
+            "word": "chirurgien (n.m.)",
+            "meaning": "外科医生"
+          }
+        ]
+      },
+      {
+        "id": "17_q9",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "17_q10",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "17_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "17_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_cft4_18",
+    "title": "大学法语四级 (CFT-4) 历年真题高频核心考点精编卷",
+    "frenchTitle": "CFT-4 : Sélection officielle des annales et points clés",
+    "track": "cft4",
+    "level": "大学法语四级",
+    "schoolOrOrg": "教育部高校外语统考",
+    "yearOrSession": "经典真题卷",
+    "summary": "汇聚高校大学法语四级历年最具代表性高频题型，夯实基础，决胜考场。",
+    "durationMinutes": 45,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "18_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "18_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "18_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "18_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "18_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "18_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "18_q7",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 复合过去 vs 未完成过去",
+        "question": "Pendant que nous (dîner) _____, le téléphone a soudainement sonné.",
+        "options": [
+          "avons dîné",
+          "dînions",
+          "dînâmes",
+          "dînerons"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npendant que 引导过去的正在进行的背景动作（当时正在吃晚餐），主句 a sonné 是突发短暂完成动作。背景延续动作必须使用【未完成过去时 (Imparfait: dînions)】。选 B。",
+        "translation": "当我们正在吃晚饭的时候，电话突然响了。",
+        "grammarTag": "未完成过去时充当背景时态",
+        "vocabList": [
+          {
+            "word": "pendant que",
+            "meaning": "当...的时候 (伴随延续)"
+          },
+          {
+            "word": "soudainement (adv.)",
+            "meaning": "突然，骤然"
+          }
+        ]
+      },
+      {
+        "id": "18_q8",
+        "questionType": "动词变位",
+        "categoryTag": "动词变位 · 简单将来时特殊词根",
+        "question": "Dès que le professeur arrivera, nous lui (envoyer) _____ notre rapport.",
+        "options": [
+          "envoyons",
+          "enverrons",
+          "envoyerons",
+          "enverrions"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\ndès que 引导的时间状语从句使用简单将来时 (arrivera)，主句同样使用简单将来时。动词 envoyer 的将来时词根特殊异化为 enverr-，第一人称复数变位为【enverrons】。选 B。",
+        "translation": "老师一到，我们就将向他递交我们的报告。",
+        "grammarTag": "envoyer 的简单将来时变位",
+        "vocabList": [
+          {
+            "word": "envoyer qch à qn",
+            "meaning": "寄送某物给某人"
+          },
+          {
+            "word": "rapport (n.m.)",
+            "meaning": "报告，汇报"
+          }
+        ]
+      },
+      {
+        "id": "18_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "18_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "18_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "18_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_delf_19",
+    "title": "DELF A1 官方标准全真机考精选卷 (卷一)",
+    "frenchTitle": "Diplôme d'Études en Langue Française — Niveau A1 (Session 1)",
+    "track": "delf",
+    "level": "DELF A1",
+    "schoolOrOrg": "法国国际教育研究中心 (FEI)",
+    "yearOrSession": "官方标准卷",
+    "summary": "法国官方 A1 终身认证样卷：日常生活广播、个人信息填表、基础时刻表查询与简单告示解读。",
+    "durationMinutes": 30,
+    "totalScore": 100,
+    "isFreePreview": true,
+    "questions": [
+      {
+        "id": "19_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "19_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "19_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "19_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "19_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "19_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "19_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 租金明细计算",
+        "question": "Que comprend le loyer mensuel de 680 € ?",
+        "contextText": "[Annonce immobilière — Lyon 6e]\nParticulier loue studio lumineux de 28 m², entièrement meublé et rénové, situé au 3e étage avec ascenseur.\n• Emplacement idéal : à 3 minutes à pied du métro Masséna et du parc de la Tête d'Or.\n• Équipements : Cuisine équipée (plaques induction, réfrigérateur, micro-ondes), lave-linge, canapé-lit convertible grand confort, connexion fibre optique incluse.\n• Loyer mensuel : 680 € toutes charges comprises (eau, chauffage collectif et internet).\n• Dépôt de garantie : Deux mois de loyer hors charges (1 200 €). Caution parentale demandée pour les étudiants. Disponible immédiatement.",
+        "options": [
+          "Le loyer, l'eau, le chauffage et la connexion internet.",
+          "Uniquement le loyer sans aucune charge.",
+          "Le loyer et l'électricité uniquement.",
+          "Le loyer et une place de parking souterrain."
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【考点解析】告示明文注明：“680 € toutes charges comprises (eau, chauffage collectif et internet)”，包含水费、暖气与光纤宽带。选 A。",
+        "translation": "每月680欧元房租包含水费、集中供暖和宽带网络。",
+        "grammarTag": "生活应用文体解析"
+      },
+      {
+        "id": "19_q8",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "19_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "19_q10",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "19_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_delf_20",
+    "title": "DELF A1 官方日常生活与交通场景测试卷 (卷二)",
+    "frenchTitle": "Diplôme d'Études en Langue Française — Niveau A1 (Session 2)",
+    "track": "delf",
+    "level": "DELF A1",
+    "schoolOrOrg": "法国国际教育研究中心 (FEI)",
+    "yearOrSession": "官方冲刺卷",
+    "summary": "贴合法国日常生活场景：火车站买票问询、超级市场购物短句、餐馆点餐与日常问候。",
+    "durationMinutes": 30,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "20_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "20_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "20_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "20_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "20_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "20_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "20_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 门票与受众政策",
+        "question": "D'après le document, qui peut visiter le Louvre gratuitement le vendredi soir ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Tous les visiteurs français sans condition.",
+          "Les jeunes de moins de 26 ans résidant dans l'Union européenne.",
+          "Uniquement les étudiants en histoire de l'art.",
+          "Les touristes arrivant après 20 heures."
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【考点解析】告示明确写明：“Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité”。选项 B 完全一致。",
+        "translation": "根据通知，26岁以下居住在欧盟的青年可凭身份证件免费参观。",
+        "grammarTag": "信息检索与条件判断"
+      },
+      {
+        "id": "20_q8",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 购票规则推断",
+        "question": "Comment les visiteurs doivent-ils acheter leur billet pour la nocturne ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Aux caisses automatiques à l'entrée du musée.",
+          "Par téléphone auprès de l'Office de Tourisme.",
+          "Obligatoirement en ligne à l'avance.",
+          "Directement auprès des guides touristiques."
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【考点解析】告示明确强调：“Réservation : Obligatoire en ligne... Aucun billet ne sera vendu sur place aux caisses le soir même”。必须提前在网上预约。选 C。",
+        "translation": "参观者必须提前在网上预约购票，现场不设售票。",
+        "grammarTag": "公告细则理解"
+      },
+      {
+        "id": "20_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "20_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "20_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "20_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_delf_21",
+    "title": "DELF A2 官方生活实用与海报告示测试卷 (卷一)",
+    "frenchTitle": "Diplôme d'Études en Langue Française — Niveau A2 (Session 1)",
+    "track": "delf",
+    "level": "DELF A2",
+    "schoolOrOrg": "法国国际教育研究中心 (FEI)",
+    "yearOrSession": "官方标准卷",
+    "summary": "初级独立运用阶段：房产租房广告解读、博物馆活动通告、电话留言听取与短文细节捕捉。",
+    "durationMinutes": 45,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "21_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "21_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "21_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "21_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "21_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "21_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "21_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 租金明细计算",
+        "question": "Que comprend le loyer mensuel de 680 € ?",
+        "contextText": "[Annonce immobilière — Lyon 6e]\nParticulier loue studio lumineux de 28 m², entièrement meublé et rénové, situé au 3e étage avec ascenseur.\n• Emplacement idéal : à 3 minutes à pied du métro Masséna et du parc de la Tête d'Or.\n• Équipements : Cuisine équipée (plaques induction, réfrigérateur, micro-ondes), lave-linge, canapé-lit convertible grand confort, connexion fibre optique incluse.\n• Loyer mensuel : 680 € toutes charges comprises (eau, chauffage collectif et internet).\n• Dépôt de garantie : Deux mois de loyer hors charges (1 200 €). Caution parentale demandée pour les étudiants. Disponible immédiatement.",
+        "options": [
+          "Le loyer, l'eau, le chauffage et la connexion internet.",
+          "Uniquement le loyer sans aucune charge.",
+          "Le loyer et l'électricité uniquement.",
+          "Le loyer et une place de parking souterrain."
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【考点解析】告示明文注明：“680 € toutes charges comprises (eau, chauffage collectif et internet)”，包含水费、暖气与光纤宽带。选 A。",
+        "translation": "每月680欧元房租包含水费、集中供暖和宽带网络。",
+        "grammarTag": "生活应用文体解析"
+      },
+      {
+        "id": "21_q8",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "21_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "21_q10",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "21_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_delf_22",
+    "title": "DELF A2 官方短篇叙事与广播原声精炼卷 (卷二)",
+    "frenchTitle": "Diplôme d'Études en Langue Française — Niveau A2 (Session 2)",
+    "track": "delf",
+    "level": "DELF A2",
+    "schoolOrOrg": "法国国际教育研究中心 (FEI)",
+    "yearOrSession": "官方冲刺卷",
+    "summary": "涵盖个人经历叙述、旅游行程咨询、周末休闲安排与公共交通变动通告。",
+    "durationMinutes": 45,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "22_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "22_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "22_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "22_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "22_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "22_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "22_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 门票与受众政策",
+        "question": "D'après le document, qui peut visiter le Louvre gratuitement le vendredi soir ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Tous les visiteurs français sans condition.",
+          "Les jeunes de moins de 26 ans résidant dans l'Union européenne.",
+          "Uniquement les étudiants en histoire de l'art.",
+          "Les touristes arrivant après 20 heures."
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【考点解析】告示明确写明：“Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité”。选项 B 完全一致。",
+        "translation": "根据通知，26岁以下居住在欧盟的青年可凭身份证件免费参观。",
+        "grammarTag": "信息检索与条件判断"
+      },
+      {
+        "id": "22_q8",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 购票规则推断",
+        "question": "Comment les visiteurs doivent-ils acheter leur billet pour la nocturne ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Aux caisses automatiques à l'entrée du musée.",
+          "Par téléphone auprès de l'Office de Tourisme.",
+          "Obligatoirement en ligne à l'avance.",
+          "Directement auprès des guides touristiques."
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【考点解析】告示明确强调：“Réservation : Obligatoire en ligne... Aucun billet ne sera vendu sur place aux caisses le soir même”。必须提前在网上预约。选 C。",
+        "translation": "参观者必须提前在网上预约购票，现场不设售票。",
+        "grammarTag": "公告细则理解"
+      },
+      {
+        "id": "22_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "22_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "22_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "22_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_delf_23",
+    "title": "DELF B1 官方社会热点与电台访谈精选卷 (卷一)",
+    "frenchTitle": "Diplôme d'Études en Langue Française — Niveau B1 (Session 1)",
+    "track": "delf",
+    "level": "DELF B1",
+    "schoolOrOrg": "法国国际教育研究中心 (FEI)",
+    "yearOrSession": "官方标准卷",
+    "summary": "B1 进阶核心卷：法国电台原声专访听解（四天工作制探讨）、媒体热点报道与观点推断。",
+    "durationMinutes": 60,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "23_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "23_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "23_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "23_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "23_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "23_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "23_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 租金明细计算",
+        "question": "Que comprend le loyer mensuel de 680 € ?",
+        "contextText": "[Annonce immobilière — Lyon 6e]\nParticulier loue studio lumineux de 28 m², entièrement meublé et rénové, situé au 3e étage avec ascenseur.\n• Emplacement idéal : à 3 minutes à pied du métro Masséna et du parc de la Tête d'Or.\n• Équipements : Cuisine équipée (plaques induction, réfrigérateur, micro-ondes), lave-linge, canapé-lit convertible grand confort, connexion fibre optique incluse.\n• Loyer mensuel : 680 € toutes charges comprises (eau, chauffage collectif et internet).\n• Dépôt de garantie : Deux mois de loyer hors charges (1 200 €). Caution parentale demandée pour les étudiants. Disponible immédiatement.",
+        "options": [
+          "Le loyer, l'eau, le chauffage et la connexion internet.",
+          "Uniquement le loyer sans aucune charge.",
+          "Le loyer et l'électricité uniquement.",
+          "Le loyer et une place de parking souterrain."
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【考点解析】告示明文注明：“680 € toutes charges comprises (eau, chauffage collectif et internet)”，包含水费、暖气与光纤宽带。选 A。",
+        "translation": "每月680欧元房租包含水费、集中供暖和宽带网络。",
+        "grammarTag": "生活应用文体解析"
+      },
+      {
+        "id": "23_q8",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "23_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "23_q10",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "23_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_delf_24",
+    "title": "DELF B1 官方深度论点分析与事实推断卷 (卷二)",
+    "frenchTitle": "Diplôme d'Études en Langue Française — Niveau B1 (Session 2)",
+    "track": "delf",
+    "level": "DELF B1",
+    "schoolOrOrg": "法国国际教育研究中心 (FEI)",
+    "yearOrSession": "官方冲刺卷",
+    "summary": "考察独立阐述见解与权衡利弊能力：环保生活方式、数字设备对青少年影响及论说阅读。",
+    "durationMinutes": 60,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "24_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "24_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "24_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "24_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "24_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "24_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "24_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 门票与受众政策",
+        "question": "D'après le document, qui peut visiter le Louvre gratuitement le vendredi soir ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Tous les visiteurs français sans condition.",
+          "Les jeunes de moins de 26 ans résidant dans l'Union européenne.",
+          "Uniquement les étudiants en histoire de l'art.",
+          "Les touristes arrivant après 20 heures."
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【考点解析】告示明确写明：“Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité”。选项 B 完全一致。",
+        "translation": "根据通知，26岁以下居住在欧盟的青年可凭身份证件免费参观。",
+        "grammarTag": "信息检索与条件判断"
+      },
+      {
+        "id": "24_q8",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 购票规则推断",
+        "question": "Comment les visiteurs doivent-ils acheter leur billet pour la nocturne ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Aux caisses automatiques à l'entrée du musée.",
+          "Par téléphone auprès de l'Office de Tourisme.",
+          "Obligatoirement en ligne à l'avance.",
+          "Directement auprès des guides touristiques."
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【考点解析】告示明确强调：“Réservation : Obligatoire en ligne... Aucun billet ne sera vendu sur place aux caisses le soir même”。必须提前在网上预约。选 C。",
+        "translation": "参观者必须提前在网上预约购票，现场不设售票。",
+        "grammarTag": "公告细则理解"
+      },
+      {
+        "id": "24_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "24_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "24_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "24_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_delf_25",
+    "title": "DELF B1 官方职场交流与文化新闻机考卷 (卷三)",
+    "frenchTitle": "Diplôme d'Études en Langue Française — Niveau B1 (Session 3)",
+    "track": "delf",
+    "level": "DELF B1",
+    "schoolOrOrg": "法国国际教育研究中心 (FEI)",
+    "yearOrSession": "官方冲刺卷",
+    "summary": "职场正式邮件往来、员工培训通知解读、法国艺术展览新闻及社会趋势分析。",
+    "durationMinutes": 60,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "25_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "25_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "25_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "25_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "25_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "25_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "25_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 租金明细计算",
+        "question": "Que comprend le loyer mensuel de 680 € ?",
+        "contextText": "[Annonce immobilière — Lyon 6e]\nParticulier loue studio lumineux de 28 m², entièrement meublé et rénové, situé au 3e étage avec ascenseur.\n• Emplacement idéal : à 3 minutes à pied du métro Masséna et du parc de la Tête d'Or.\n• Équipements : Cuisine équipée (plaques induction, réfrigérateur, micro-ondes), lave-linge, canapé-lit convertible grand confort, connexion fibre optique incluse.\n• Loyer mensuel : 680 € toutes charges comprises (eau, chauffage collectif et internet).\n• Dépôt de garantie : Deux mois de loyer hors charges (1 200 €). Caution parentale demandée pour les étudiants. Disponible immédiatement.",
+        "options": [
+          "Le loyer, l'eau, le chauffage et la connexion internet.",
+          "Uniquement le loyer sans aucune charge.",
+          "Le loyer et l'électricité uniquement.",
+          "Le loyer et une place de parking souterrain."
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【考点解析】告示明文注明：“680 € toutes charges comprises (eau, chauffage collectif et internet)”，包含水费、暖气与光纤宽带。选 A。",
+        "translation": "每月680欧元房租包含水费、集中供暖和宽带网络。",
+        "grammarTag": "生活应用文体解析"
+      },
+      {
+        "id": "25_q8",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "25_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "25_q10",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "25_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_delf_26",
+    "title": "DELF B2 官方学术论辩与科技伦理高级测试卷 (卷一)",
+    "frenchTitle": "Diplôme d'Études en Langue Française — Niveau B2 (Session 1)",
+    "track": "delf",
+    "level": "DELF B2",
+    "schoolOrOrg": "法国国际教育研究中心 (FEI)",
+    "yearOrSession": "官方标准卷",
+    "summary": "面向高阶独立运用者与赴法读研考生：人工智能与就业变革学术辩论、伦理法律深读。",
+    "durationMinutes": 75,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "26_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "26_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "26_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "26_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "26_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "26_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "26_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 门票与受众政策",
+        "question": "D'après le document, qui peut visiter le Louvre gratuitement le vendredi soir ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Tous les visiteurs français sans condition.",
+          "Les jeunes de moins de 26 ans résidant dans l'Union européenne.",
+          "Uniquement les étudiants en histoire de l'art.",
+          "Les touristes arrivant après 20 heures."
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【考点解析】告示明确写明：“Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité”。选项 B 完全一致。",
+        "translation": "根据通知，26岁以下居住在欧盟的青年可凭身份证件免费参观。",
+        "grammarTag": "信息检索与条件判断"
+      },
+      {
+        "id": "26_q8",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 购票规则推断",
+        "question": "Comment les visiteurs doivent-ils acheter leur billet pour la nocturne ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Aux caisses automatiques à l'entrée du musée.",
+          "Par téléphone auprès de l'Office de Tourisme.",
+          "Obligatoirement en ligne à l'avance.",
+          "Directement auprès des guides touristiques."
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【考点解析】告示明确强调：“Réservation : Obligatoire en ligne... Aucun billet ne sera vendu sur place aux caisses le soir même”。必须提前在网上预约。选 C。",
+        "translation": "参观者必须提前在网上预约购票，现场不设售票。",
+        "grammarTag": "公告细则理解"
+      },
+      {
+        "id": "26_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "26_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "26_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "26_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_delf_27",
+    "title": "DELF B2 官方生态法治与当代思辨高级测试卷 (卷二)",
+    "frenchTitle": "Diplôme d'Études en Langue Française — Niveau B2 (Session 2)",
+    "track": "delf",
+    "level": "DELF B2",
+    "schoolOrOrg": "法国国际教育研究中心 (FEI)",
+    "yearOrSession": "官方冲刺卷",
+    "summary": "高难度批判性阅读与听解：气候正义、城市韧性规划与全球化经济模式转型研读。",
+    "durationMinutes": 75,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "27_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "27_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "27_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "27_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "27_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "27_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "27_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 租金明细计算",
+        "question": "Que comprend le loyer mensuel de 680 € ?",
+        "contextText": "[Annonce immobilière — Lyon 6e]\nParticulier loue studio lumineux de 28 m², entièrement meublé et rénové, situé au 3e étage avec ascenseur.\n• Emplacement idéal : à 3 minutes à pied du métro Masséna et du parc de la Tête d'Or.\n• Équipements : Cuisine équipée (plaques induction, réfrigérateur, micro-ondes), lave-linge, canapé-lit convertible grand confort, connexion fibre optique incluse.\n• Loyer mensuel : 680 € toutes charges comprises (eau, chauffage collectif et internet).\n• Dépôt de garantie : Deux mois de loyer hors charges (1 200 €). Caution parentale demandée pour les étudiants. Disponible immédiatement.",
+        "options": [
+          "Le loyer, l'eau, le chauffage et la connexion internet.",
+          "Uniquement le loyer sans aucune charge.",
+          "Le loyer et l'électricité uniquement.",
+          "Le loyer et une place de parking souterrain."
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【考点解析】告示明文注明：“680 € toutes charges comprises (eau, chauffage collectif et internet)”，包含水费、暖气与光纤宽带。选 A。",
+        "translation": "每月680欧元房租包含水费、集中供暖和宽带网络。",
+        "grammarTag": "生活应用文体解析"
+      },
+      {
+        "id": "27_q8",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "27_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "27_q10",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "27_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_delf_28",
+    "title": "DELF B2 国际欧标深度综合论述冲刺大卷 (卷三)",
+    "frenchTitle": "Diplôme d'Études en Langue Française — Niveau B2 (Session 3)",
+    "track": "delf",
+    "level": "DELF B2",
+    "schoolOrOrg": "法国国际教育研究中心 (FEI)",
+    "yearOrSession": "官方精选大卷",
+    "summary": "法国原版社论与前沿人文大文，全方位对标法国大学入学语言门槛考核。",
+    "durationMinutes": 75,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "28_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "28_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "28_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "28_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "28_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "28_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "28_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 门票与受众政策",
+        "question": "D'après le document, qui peut visiter le Louvre gratuitement le vendredi soir ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Tous les visiteurs français sans condition.",
+          "Les jeunes de moins de 26 ans résidant dans l'Union européenne.",
+          "Uniquement les étudiants en histoire de l'art.",
+          "Les touristes arrivant après 20 heures."
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【考点解析】告示明确写明：“Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité”。选项 B 完全一致。",
+        "translation": "根据通知，26岁以下居住在欧盟的青年可凭身份证件免费参观。",
+        "grammarTag": "信息检索与条件判断"
+      },
+      {
+        "id": "28_q8",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 购票规则推断",
+        "question": "Comment les visiteurs doivent-ils acheter leur billet pour la nocturne ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Aux caisses automatiques à l'entrée du musée.",
+          "Par téléphone auprès de l'Office de Tourisme.",
+          "Obligatoirement en ligne à l'avance.",
+          "Directement auprès des guides touristiques."
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【考点解析】告示明确强调：“Réservation : Obligatoire en ligne... Aucun billet ne sera vendu sur place aux caisses le soir même”。必须提前在网上预约。选 C。",
+        "translation": "参观者必须提前在网上预约购票，现场不设售票。",
+        "grammarTag": "公告细则理解"
+      },
+      {
+        "id": "28_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "28_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "28_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "28_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_drill_29",
+    "title": "【专项突破】直宾间宾与副代词 y/en 双代词语序专练 (卷一)",
+    "frenchTitle": "Module Spécialisé 1 : Pronoms personnels compléments et pronoms adverbiaux (Vol. 1)",
+    "track": "drill",
+    "level": "专项攻坚",
+    "schoolOrOrg": "法语教研组权威研发",
+    "yearOrSession": "考点突破卷",
+    "summary": "专攻二外最容易丢分的代词考点：直宾、间宾、y、en 在各类时态与祈使句中的位置及配合。",
+    "durationMinutes": 35,
+    "totalScore": 100,
+    "isFreePreview": true,
+    "questions": [
+      {
+        "id": "29_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "29_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "29_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "29_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "29_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "29_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "29_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 租金明细计算",
+        "question": "Que comprend le loyer mensuel de 680 € ?",
+        "contextText": "[Annonce immobilière — Lyon 6e]\nParticulier loue studio lumineux de 28 m², entièrement meublé et rénové, situé au 3e étage avec ascenseur.\n• Emplacement idéal : à 3 minutes à pied du métro Masséna et du parc de la Tête d'Or.\n• Équipements : Cuisine équipée (plaques induction, réfrigérateur, micro-ondes), lave-linge, canapé-lit convertible grand confort, connexion fibre optique incluse.\n• Loyer mensuel : 680 € toutes charges comprises (eau, chauffage collectif et internet).\n• Dépôt de garantie : Deux mois de loyer hors charges (1 200 €). Caution parentale demandée pour les étudiants. Disponible immédiatement.",
+        "options": [
+          "Le loyer, l'eau, le chauffage et la connexion internet.",
+          "Uniquement le loyer sans aucune charge.",
+          "Le loyer et l'électricité uniquement.",
+          "Le loyer et une place de parking souterrain."
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【考点解析】告示明文注明：“680 € toutes charges comprises (eau, chauffage collectif et internet)”，包含水费、暖气与光纤宽带。选 A。",
+        "translation": "每月680欧元房租包含水费、集中供暖和宽带网络。",
+        "grammarTag": "生活应用文体解析"
+      },
+      {
+        "id": "29_q8",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "29_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "29_q10",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "29_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_drill_30",
+    "title": "【专项突破】关系代词 qui/que/dont/où 与中性代词专练 (卷二)",
+    "frenchTitle": "Module Spécialisé 1 : Pronoms relatifs simples et composés (Vol. 2)",
+    "track": "drill",
+    "level": "专项攻坚",
+    "schoolOrOrg": "法语教研组权威研发",
+    "yearOrSession": "考点突破卷",
+    "summary": "系统梳理简单与复合关系代词：dont 的所有格属性、lequel 介词缩合及中性代词 le 替代从句。",
+    "durationMinutes": 35,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "30_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "30_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "30_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "30_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "30_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "30_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "30_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 门票与受众政策",
+        "question": "D'après le document, qui peut visiter le Louvre gratuitement le vendredi soir ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Tous les visiteurs français sans condition.",
+          "Les jeunes de moins de 26 ans résidant dans l'Union européenne.",
+          "Uniquement les étudiants en histoire de l'art.",
+          "Les touristes arrivant après 20 heures."
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【考点解析】告示明确写明：“Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité”。选项 B 完全一致。",
+        "translation": "根据通知，26岁以下居住在欧盟的青年可凭身份证件免费参观。",
+        "grammarTag": "信息检索与条件判断"
+      },
+      {
+        "id": "30_q8",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 购票规则推断",
+        "question": "Comment les visiteurs doivent-ils acheter leur billet pour la nocturne ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Aux caisses automatiques à l'entrée du musée.",
+          "Par téléphone auprès de l'Office de Tourisme.",
+          "Obligatoirement en ligne à l'avance.",
+          "Directement auprès des guides touristiques."
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【考点解析】告示明确强调：“Réservation : Obligatoire en ligne... Aucun billet ne sera vendu sur place aux caisses le soir même”。必须提前在网上预约。选 C。",
+        "translation": "参观者必须提前在网上预约购票，现场不设售票。",
+        "grammarTag": "公告细则理解"
+      },
+      {
+        "id": "30_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "30_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "30_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "30_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_drill_31",
+    "title": "【专项突破】复合过去 vs 未完成过去 vs 愈过去时配合专练 (卷一)",
+    "frenchTitle": "Module Spécialisé 2 : Concordance des temps du passé (Vol. 1)",
+    "track": "drill",
+    "level": "专项攻坚",
+    "schoolOrOrg": "法语教研组权威研发",
+    "yearOrSession": "考点突破卷",
+    "summary": "精准切分过去时态坐标：瞬间完成 vs 延续背景，过去的过去时态严谨呼应。",
+    "durationMinutes": 35,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "31_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "31_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "31_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "31_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "31_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "31_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "31_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 租金明细计算",
+        "question": "Que comprend le loyer mensuel de 680 € ?",
+        "contextText": "[Annonce immobilière — Lyon 6e]\nParticulier loue studio lumineux de 28 m², entièrement meublé et rénové, situé au 3e étage avec ascenseur.\n• Emplacement idéal : à 3 minutes à pied du métro Masséna et du parc de la Tête d'Or.\n• Équipements : Cuisine équipée (plaques induction, réfrigérateur, micro-ondes), lave-linge, canapé-lit convertible grand confort, connexion fibre optique incluse.\n• Loyer mensuel : 680 € toutes charges comprises (eau, chauffage collectif et internet).\n• Dépôt de garantie : Deux mois de loyer hors charges (1 200 €). Caution parentale demandée pour les étudiants. Disponible immédiatement.",
+        "options": [
+          "Le loyer, l'eau, le chauffage et la connexion internet.",
+          "Uniquement le loyer sans aucune charge.",
+          "Le loyer et l'électricité uniquement.",
+          "Le loyer et une place de parking souterrain."
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【考点解析】告示明文注明：“680 € toutes charges comprises (eau, chauffage collectif et internet)”，包含水费、暖气与光纤宽带。选 A。",
+        "translation": "每月680欧元房租包含水费、集中供暖和宽带网络。",
+        "grammarTag": "生活应用文体解析"
+      },
+      {
+        "id": "31_q8",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "31_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "31_q10",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "31_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_drill_32",
+    "title": "【专项突破】虚拟式触发从句与条件式假设用法专练 (卷二)",
+    "frenchTitle": "Module Spécialisé 2 : Mode subjonctif et système hypothétique (Vol. 2)",
+    "track": "drill",
+    "level": "专项攻坚",
+    "schoolOrOrg": "法语教研组权威研发",
+    "yearOrSession": "考点突破卷",
+    "summary": "直击二外语法制高点：情感/意愿/怀疑/连词短语触发虚拟式，以及 Si 条件句三层假设系统。",
+    "durationMinutes": 35,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "32_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "32_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "32_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "32_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "32_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "32_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "32_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 门票与受众政策",
+        "question": "D'après le document, qui peut visiter le Louvre gratuitement le vendredi soir ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Tous les visiteurs français sans condition.",
+          "Les jeunes de moins de 26 ans résidant dans l'Union européenne.",
+          "Uniquement les étudiants en histoire de l'art.",
+          "Les touristes arrivant après 20 heures."
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【考点解析】告示明确写明：“Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité”。选项 B 完全一致。",
+        "translation": "根据通知，26岁以下居住在欧盟的青年可凭身份证件免费参观。",
+        "grammarTag": "信息检索与条件判断"
+      },
+      {
+        "id": "32_q8",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 购票规则推断",
+        "question": "Comment les visiteurs doivent-ils acheter leur billet pour la nocturne ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Aux caisses automatiques à l'entrée du musée.",
+          "Par téléphone auprès de l'Office de Tourisme.",
+          "Obligatoirement en ligne à l'avance.",
+          "Directement auprès des guides touristiques."
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【考点解析】告示明确强调：“Réservation : Obligatoire en ligne... Aucun billet ne sera vendu sur place aux caisses le soir même”。必须提前在网上预约。选 C。",
+        "translation": "参观者必须提前在网上预约购票，现场不设售票。",
+        "grammarTag": "公告细则理解"
+      },
+      {
+        "id": "32_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "32_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "32_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "32_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_drill_33",
+    "title": "【专项突破】完形填空 (Texte à trous) 与介词固定搭配攻坚 (卷一)",
+    "frenchTitle": "Module Spécialisé 3 : Texte à trous et prépositions idiomatiques (Vol. 1)",
+    "track": "drill",
+    "level": "专项攻坚",
+    "schoolOrOrg": "法语教研组权威研发",
+    "yearOrSession": "考点突破卷",
+    "summary": "集训动词介词搭配 (à / de / pour / contre) 及冠词省略规律，提升完形语感速度。",
+    "durationMinutes": 35,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "33_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "33_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "33_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "33_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "33_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "33_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "33_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 租金明细计算",
+        "question": "Que comprend le loyer mensuel de 680 € ?",
+        "contextText": "[Annonce immobilière — Lyon 6e]\nParticulier loue studio lumineux de 28 m², entièrement meublé et rénové, situé au 3e étage avec ascenseur.\n• Emplacement idéal : à 3 minutes à pied du métro Masséna et du parc de la Tête d'Or.\n• Équipements : Cuisine équipée (plaques induction, réfrigérateur, micro-ondes), lave-linge, canapé-lit convertible grand confort, connexion fibre optique incluse.\n• Loyer mensuel : 680 € toutes charges comprises (eau, chauffage collectif et internet).\n• Dépôt de garantie : Deux mois de loyer hors charges (1 200 €). Caution parentale demandée pour les étudiants. Disponible immédiatement.",
+        "options": [
+          "Le loyer, l'eau, le chauffage et la connexion internet.",
+          "Uniquement le loyer sans aucune charge.",
+          "Le loyer et l'électricité uniquement.",
+          "Le loyer et une place de parking souterrain."
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【考点解析】告示明文注明：“680 € toutes charges comprises (eau, chauffage collectif et internet)”，包含水费、暖气与光纤宽带。选 A。",
+        "translation": "每月680欧元房租包含水费、集中供暖和宽带网络。",
+        "grammarTag": "生活应用文体解析"
+      },
+      {
+        "id": "33_q8",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "33_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "33_q10",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "33_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_drill_34",
+    "title": "【专项突破】完形填空 (Texte à trous) 与连词短语攻坚 (卷二)",
+    "frenchTitle": "Module Spécialisé 3 : Connecteurs logiques et cohésion textuelle (Vol. 2)",
+    "track": "drill",
+    "level": "专项攻坚",
+    "schoolOrOrg": "法语教研组权威研发",
+    "yearOrSession": "考点突破卷",
+    "summary": "攻克转折、让步、因果、目的连词在语篇中的衔接作用，完形填空百发百中。",
+    "durationMinutes": 35,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "34_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "副代词 · y 的地点与抽象引申",
+        "question": "Pensez-vous encore à votre ancien travail ? — Non, je n'_____ pense plus du tout.",
+        "options": [
+          "en",
+          "y",
+          "le",
+          "lui"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\npenser à qch (思考/想念某事/物)。介词 à + 事物名词，在法语中必须使用副代词【y】替代并置于相关动词之前。选 B。",
+        "translation": "你还会想起以前的那份工作吗？——不，我一点也不再去想它了。",
+        "grammarTag": "副代词 y (代替 à + 物)",
+        "vocabList": [
+          {
+            "word": "penser à qch",
+            "meaning": "考虑某事，想念某事"
+          },
+          {
+            "word": "ne... plus du tout",
+            "meaning": "一点也不再..."
+          }
+        ]
+      },
+      {
+        "id": "34_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "条件式 · 与过去假设配合",
+        "question": "Si tu m'avais prévenu à temps, je ne _____ pas venu si tard.",
+        "options": [
+          "serais",
+          "serais été",
+          "fus",
+          "sois"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nSi 引导的对过去假设句型规则：Si + 直陈式愈过去时 (avais prévenu)，主句必须使用【条件式过去时 (Conditionnel passé)】：助动词条件式现在时 (serais) + 过去分词 (venu)。选 A。",
+        "translation": "如果你及时通知我，我就不会来得这么晚了。",
+        "grammarTag": "Si 条件假设与条件式过去时",
+        "vocabList": [
+          {
+            "word": "prévenir qn à temps",
+            "meaning": "及时通知/提醒某人"
+          },
+          {
+            "word": "tard (adv.)",
+            "meaning": "迟，晚"
+          }
+        ]
+      },
+      {
+        "id": "34_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "介词与冠词 · 国名专有搭配",
+        "question": "Le président français effectuera une visite officielle _____ Mexique le mois prochain.",
+        "options": [
+          "en",
+          "au",
+          "à",
+          "dans"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n阳性国名以辅音结尾通常加定冠词 le (如 le Mexique, le Japon, le Canada)。去往阳性单数国名或在阳性国名中，介词必须用【au】 (à + le = au)！选 B。",
+        "translation": "法国总统下个月将对墨西哥进行正式国事访问。",
+        "grammarTag": "阳性国名前的介词搭配 (au Mexique)",
+        "vocabList": [
+          {
+            "word": "visite officielle",
+            "meaning": "国事访问，正式访问"
+          },
+          {
+            "word": "effectuer (v.)",
+            "meaning": "进行，执行"
+          }
+        ]
+      },
+      {
+        "id": "34_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "34_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "34_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "34_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 门票与受众政策",
+        "question": "D'après le document, qui peut visiter le Louvre gratuitement le vendredi soir ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Tous les visiteurs français sans condition.",
+          "Les jeunes de moins de 26 ans résidant dans l'Union européenne.",
+          "Uniquement les étudiants en histoire de l'art.",
+          "Les touristes arrivant après 20 heures."
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【考点解析】告示明确写明：“Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité”。选项 B 完全一致。",
+        "translation": "根据通知，26岁以下居住在欧盟的青年可凭身份证件免费参观。",
+        "grammarTag": "信息检索与条件判断"
+      },
+      {
+        "id": "34_q8",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 购票规则推断",
+        "question": "Comment les visiteurs doivent-ils acheter leur billet pour la nocturne ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Aux caisses automatiques à l'entrée du musée.",
+          "Par téléphone auprès de l'Office de Tourisme.",
+          "Obligatoirement en ligne à l'avance.",
+          "Directement auprès des guides touristiques."
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【考点解析】告示明确强调：“Réservation : Obligatoire en ligne... Aucun billet ne sera vendu sur place aux caisses le soir même”。必须提前在网上预约。选 C。",
+        "translation": "参观者必须提前在网上预约购票，现场不设售票。",
+        "grammarTag": "公告细则理解"
+      },
+      {
+        "id": "34_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "34_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "34_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "34_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_drill_35",
+    "title": "【专项突破】长篇阅读理解 (Compréhension écrite) 法国社会文化精读 (卷一)",
+    "frenchTitle": "Module Spécialisé 4 : Lecture critique — Société et culture françaises (Vol. 1)",
+    "track": "drill",
+    "level": "专项攻坚",
+    "schoolOrOrg": "法语教研组权威研发",
+    "yearOrSession": "考点突破卷",
+    "summary": "25行法国社科原版大文：生活方式变革、教育公平与文化多样性事实推理精练。",
+    "durationMinutes": 40,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "35_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "否定副词 · 文学句式辨析",
+        "question": "Dans ce village isolé, il n'y a _____ de supermarché ni de pharmacie.",
+        "options": [
+          "aucun",
+          "point",
+          "jamais",
+          "guère"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nne... point de... ni de... 是传统书面法语与考研二外高频考查句型，相当于 ne... pas de... (根本没有，绝无)。aucun 后直接接单数名词不用 de；guère 意为“几乎不”。选 B。",
+        "translation": "在这个偏僻的孤立村庄里，既没有超市，也没有药店。",
+        "grammarTag": "否定句型 (ne... point de)",
+        "vocabList": [
+          {
+            "word": "isolé (adj.)",
+            "meaning": "孤立的，偏远的"
+          },
+          {
+            "word": "pharmacie (n.f.)",
+            "meaning": "药店"
+          }
+        ]
+      },
+      {
+        "id": "35_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "连接连词 · 因果与时间逻辑",
+        "question": "_____ il pleuvait à verse, nous avons préféré rester à l'hôtel.",
+        "options": [
+          "Comme",
+          "Puisque",
+          "Parce que",
+          "Car"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n引导原因从句且置于【句首】时，首选连词为【Comme】！Parce que 和 car 一般置于主句之后，不能直接置于句首。选 A。",
+        "translation": "由于当时正下着倾盆大雨，我们宁愿留在酒店里。",
+        "grammarTag": "句首原因状语从句 (Comme)",
+        "vocabList": [
+          {
+            "word": "pleuvoir à verse",
+            "meaning": "倾盆大雨，下暴雨"
+          },
+          {
+            "word": "préférer + inf.",
+            "meaning": "宁愿做某事"
+          }
+        ]
+      },
+      {
+        "id": "35_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 情感心理动词后接从句",
+        "question": "Je suis vraiment ravi que vous _____ enfin assister à notre conférence.",
+        "options": [
+          "pouvez",
+          "puissiez",
+          "pourrez",
+          "pouviez"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n主句表示喜悦、欣慰等主观心理情感 (être ravi que, être content que)，从句强制要求使用【虚拟式 (Subjonctif)】。pouvoir 的虚拟式现在时变位：que vous puissiez。选 B。",
+        "translation": "得知您终于能出席我们的研讨会，我真是太高兴了。",
+        "grammarTag": "情感动词后接虚拟式 (être ravi que)",
+        "vocabList": [
+          {
+            "word": "être ravi de / que",
+            "meaning": "对...感到由衷高兴"
+          },
+          {
+            "word": "assister à",
+            "meaning": "出席，参加"
+          }
+        ]
+      },
+      {
+        "id": "35_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "35_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "35_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "35_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 租金明细计算",
+        "question": "Que comprend le loyer mensuel de 680 € ?",
+        "contextText": "[Annonce immobilière — Lyon 6e]\nParticulier loue studio lumineux de 28 m², entièrement meublé et rénové, situé au 3e étage avec ascenseur.\n• Emplacement idéal : à 3 minutes à pied du métro Masséna et du parc de la Tête d'Or.\n• Équipements : Cuisine équipée (plaques induction, réfrigérateur, micro-ondes), lave-linge, canapé-lit convertible grand confort, connexion fibre optique incluse.\n• Loyer mensuel : 680 € toutes charges comprises (eau, chauffage collectif et internet).\n• Dépôt de garantie : Deux mois de loyer hors charges (1 200 €). Caution parentale demandée pour les étudiants. Disponible immédiatement.",
+        "options": [
+          "Le loyer, l'eau, le chauffage et la connexion internet.",
+          "Uniquement le loyer sans aucune charge.",
+          "Le loyer et l'électricité uniquement.",
+          "Le loyer et une place de parking souterrain."
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【考点解析】告示明文注明：“680 € toutes charges comprises (eau, chauffage collectif et internet)”，包含水费、暖气与光纤宽带。选 A。",
+        "translation": "每月680欧元房租包含水费、集中供暖和宽带网络。",
+        "grammarTag": "生活应用文体解析"
+      },
+      {
+        "id": "35_q8",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "35_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "35_q10",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "35_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
+      }
+    ]
+  },
+  {
+    "id": "paper_drill_36",
+    "title": "【专项突破】长篇阅读理解 (Compréhension écrite) 科技与生态批判精读 (卷二)",
+    "frenchTitle": "Module Spécialisé 4 : Lecture critique — Transition écologique et numérique (Vol. 2)",
+    "track": "drill",
+    "level": "专项攻坚",
+    "schoolOrOrg": "法语教研组权威研发",
+    "yearOrSession": "考点突破卷",
+    "summary": "当代欧洲学术热点论述精读：技术中立性思辨、绿色发展与数字文明深度考题突破。",
+    "durationMinutes": 40,
+    "totalScore": 100,
+    "isFreePreview": false,
+    "questions": [
+      {
+        "id": "36_q1",
+        "questionType": "词汇语法",
+        "categoryTag": "时态配合 · 愈过去时",
+        "question": "Hier soir, dès qu'elle _____ son travail, elle est sortie avec ses amies.",
+        "options": [
+          "a fini",
+          "avait fini",
+          "eut fini",
+          "finissait"
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n句意：“昨天晚上，她一完成工作，就和朋友们出去了。”\\n主句谓语是复合过去时 (est sortie)，从句 dès que (一...就...) 表示在以过去为基准的时间前已完成的动作，必须使用愈过去时 (Plus-que-parfait: avait fini) 表示“过去的过去”。",
+        "translation": "昨天晚上，她一完成工作，就和朋友们出去了。",
+        "grammarTag": "愈过去时 (Plus-que-parfait)",
+        "vocabList": [
+          {
+            "word": "sortir avec",
+            "meaning": "与...一起外出"
+          },
+          {
+            "word": "dès que",
+            "meaning": "一...就... (连词短语)"
+          }
+        ]
+      },
+      {
+        "id": "36_q2",
+        "questionType": "词汇语法",
+        "categoryTag": "代词系统 · 双代词语序",
+        "question": "Tu as parlé de ton nouveau projet à tes parents ? — Oui, je _____ ai parlé hier.",
+        "options": [
+          "leur en",
+          "en leur",
+          "les en",
+          "en lui"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\nparler de qch (代词 en 替代事物) à qn (父母为复数，间宾代词 leur)。\\n双宾语代词在动词前的严格语序规则：人称代词 (lui / leur) 必须置于副代词 (y / en) 之前！因此唯一正确语序为：【leur en ai parlé】。选 A。",
+        "translation": "你跟父母谈过你的新项目了吗？——是的，我昨天已经跟他们谈过了。",
+        "grammarTag": "双宾语代词位置 (leur en)",
+        "vocabList": [
+          {
+            "word": "parler de qch à qn",
+            "meaning": "就某事与某人交谈"
+          },
+          {
+            "word": "projet (n.m.)",
+            "meaning": "项目，计划"
+          }
+        ]
+      },
+      {
+        "id": "36_q3",
+        "questionType": "词汇语法",
+        "categoryTag": "分词配合 · 直宾提前",
+        "question": "Les photos que vous avez _____ sont magnifiques.",
+        "options": [
+          "pris",
+          "prise",
+          "prises",
+          "prennent"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n在以 avoir 为助动词的复合过去时中，直接宾语提前时，过去分词必须与直接宾语性数配合！\\n先行词 les photos 是阴性复数名词，关系代词 que 在从句中充当 pris 的直宾，因此 prendre 的过去分词 pris 变为阴性复数【prises】。选 C。",
+        "translation": "您拍的那些照片真是太美了。",
+        "grammarTag": "过去分词与直宾性数配合",
+        "vocabList": [
+          {
+            "word": "prendre des photos",
+            "meaning": "拍照"
+          },
+          {
+            "word": "magnifique (adj.)",
+            "meaning": "宏伟壮丽的，极好的"
+          }
+        ]
+      },
+      {
+        "id": "36_q4",
+        "questionType": "词汇语法",
+        "categoryTag": "虚拟式 · 触发连词短语",
+        "question": "Bien qu'il _____ beaucoup de difficultés, il n'a jamais abandonné son rêve.",
+        "options": [
+          "a",
+          "avait",
+          "ait",
+          "aura"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n连词短语 bien que (虽然，尽管) 引导让步状语从句，动词必须使用【虚拟式现在时 (Subjonctif présent)】。\\n动词 avoir 虚拟式第三人称单数变位为【ait】。正确答案为 C。",
+        "translation": "尽管遇到了许多困难，但他从未放弃自己的梦想。",
+        "grammarTag": "虚拟式现在时 (bien que)",
+        "vocabList": [
+          {
+            "word": "bien que + subj.",
+            "meaning": "尽管，虽然"
+          },
+          {
+            "word": "abandonner (v.)",
+            "meaning": "放弃"
+          }
+        ]
+      },
+      {
+        "id": "36_q5",
+        "questionType": "词汇语法",
+        "categoryTag": "代词式动词 · 分词配合避坑",
+        "question": "Elles se sont _____ compte de leur erreur un peu trop tard.",
+        "options": [
+          "rendu",
+          "rendue",
+          "rendus",
+          "rendues"
+        ],
+        "correctAnswer": 0,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n固定短语 se rendre compte de qch (意识到某事)。这里的 se 实际上充当动词 rendre 的间接宾语，而 compte 是直接宾语且位于动词之后，因此过去分词 rendu【绝不配合】，保持原形 rendu！选 A。",
+        "translation": "她们意识到自己的错误时已经有点太晚了。",
+        "grammarTag": "代词式动词固定短语 (se rendre compte)",
+        "vocabList": [
+          {
+            "word": "se rendre compte de",
+            "meaning": "意识到，发觉 (不配合)"
+          },
+          {
+            "word": "erreur (n.f.)",
+            "meaning": "错误"
+          }
+        ]
+      },
+      {
+        "id": "36_q6",
+        "questionType": "词汇语法",
+        "categoryTag": "关系代词 · dont 深度考查",
+        "question": "C'est une entreprise internationale _____ le directeur général est très jeune.",
+        "options": [
+          "qui",
+          "que",
+          "dont",
+          "où"
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【权威考点解析】\\n分析从句：le directeur général [de cette entreprise] est très jeune. \\nde + 先行词 (de cette entreprise) 充当名词的所有格限制补语，必须使用关系代词【dont】来连接引导！选 C。",
+        "translation": "这是一间总经理非常年轻的国际跨国企业。",
+        "grammarTag": "关系代词 dont 的所有格用法",
+        "vocabList": [
+          {
+            "word": "directeur général",
+            "meaning": "总经理 / CEO"
+          },
+          {
+            "word": "entreprise (n.f.)",
+            "meaning": "企业，公司"
+          }
+        ]
+      },
+      {
+        "id": "36_q7",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 门票与受众政策",
+        "question": "D'après le document, qui peut visiter le Louvre gratuitement le vendredi soir ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Tous les visiteurs français sans condition.",
+          "Les jeunes de moins de 26 ans résidant dans l'Union européenne.",
+          "Uniquement les étudiants en histoire de l'art.",
+          "Les touristes arrivant après 20 heures."
+        ],
+        "correctAnswer": 1,
+        "score": 5,
+        "explanation": "【考点解析】告示明确写明：“Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité”。选项 B 完全一致。",
+        "translation": "根据通知，26岁以下居住在欧盟的青年可凭身份证件免费参观。",
+        "grammarTag": "信息检索与条件判断"
+      },
+      {
+        "id": "36_q8",
+        "questionType": "图表告示",
+        "categoryTag": "实用文体 · 购票规则推断",
+        "question": "Comment les visiteurs doivent-ils acheter leur billet pour la nocturne ?",
+        "contextText": "[Musée du Louvre — Nocturnes du vendredi]\nChers visiteurs,\nÀ compter du 1er octobre, le musée du Louvre ouvre ses portes en nocturne chaque vendredi jusqu'à 21h45.\n• Tarifs : Gratuit pour les moins de 26 ans résidents de l'Union européenne sur présentation d'une pièce d'identité valide. Pour les autres visiteurs, billet unique à 17 €.\n• Réservation : Obligatoire en ligne afin de garantir votre créneau de visite. Aucun billet ne sera vendu sur place aux caisses le soir même.\n• Vestiaire : Gratuit pour les manteaux et petits sacs. Les valises volumineuses sont strictement interdites.",
+        "options": [
+          "Aux caisses automatiques à l'entrée du musée.",
+          "Par téléphone auprès de l'Office de Tourisme.",
+          "Obligatoirement en ligne à l'avance.",
+          "Directement auprès des guides touristiques."
+        ],
+        "correctAnswer": 2,
+        "score": 5,
+        "explanation": "【考点解析】告示明确强调：“Réservation : Obligatoire en ligne... Aucun billet ne sera vendu sur place aux caisses le soir même”。必须提前在网上预约。选 C。",
+        "translation": "参观者必须提前在网上预约购票，现场不设售票。",
+        "grammarTag": "公告细则理解"
+      },
+      {
+        "id": "36_q9",
+        "questionType": "听解原声",
+        "categoryTag": "电台访谈 · 四天工作制探讨",
+        "question": "D'après l'invité dans cet extrait radiophonique, quel est le bénéfice majeur constaté par les entreprises ayant adopté la semaine de 4 jours ?",
+        "audioScript": "« Journaliste : Nous accueillons ce matin sur France Inter le sociologue Marc Vasseur pour évoquer l'expérimentation de la semaine de travail de quatre jours dans plusieurs PME françaises. Marc Vasseur, après un an de recul, quels sont les premiers bilans ?\nMarc Vasseur : Le constat est particulièrement éloquent. Non seulement la productivité globale des salariés n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie. Les employés se disent nettement plus reposés et motivés le lundi matin. »",
+        "options": [
+          "Une réduction drastique de la masse salariale.",
+          "Une baisse significative des arrêts maladie et du stress sans perte de productivité.",
+          "L'augmentation du nombre d'heures supplémentaires le week-end.",
+          "La fermeture définitive des bureaux physiques le vendredi."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n专家明确指出：“Non seulement la productivité n'a pas baissé, mais on constate une diminution spectaculaire de 35 % du taux de burn-out et des arrêts maladie”（生产率未降，且病假和职业倦怠骤降35%）。选项 B 完美契合。",
+        "translation": "在没有降低整体生产率的前提下，员工病假率与职业倦怠感显著降低。",
+        "grammarTag": "听力细节抓取 · 电台访谈",
+        "vocabList": [
+          {
+            "word": "bilan (n.m.)",
+            "meaning": "总结，盘点"
+          },
+          {
+            "word": "burn-out (n.m.)",
+            "meaning": "职业倦怠，过劳"
+          }
+        ]
+      },
+      {
+        "id": "36_q10",
+        "questionType": "听解原声",
+        "categoryTag": "新闻播报 · 城市智能微交通",
+        "question": "Quelle est la nouvelle mesure annoncée par la préfecture pour les trottinettes électriques ?",
+        "audioScript": "« Flash information : Face à la recrudescence des accidents en zone urbaine, la préfecture de police durcit le ton. Dès lundi prochain, la vitesse maximale autorisée des trottinettes électriques en libre-service sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes, contre 20 km/h auparavant. Tout contrevenant s'expose à une amende forfaitaire de 135 euros. »",
+        "options": [
+          "L'interdiction absolue des trottinettes dans toute l'agglomération.",
+          "La limitation automatique de vitesse à 10 km/h dans les zones piétonnes.",
+          "La gratuité totale du service pour les étudiants.",
+          "L'obligation de passer un permis de conduire moto."
+        ],
+        "correctAnswer": 1,
+        "score": 10,
+        "explanation": "【听力原声精析】\\n新闻中明确播报：“la vitesse maximale... sera bridée automatiquement par géolocalisation à 10 km/h dans les zones piétonnes”。选 B。",
+        "translation": "在步行区域通过卫星定位自动限速在10公里/小时。",
+        "grammarTag": "听力核心数据提取 · 新闻播报",
+        "vocabList": [
+          {
+            "word": "brider (v.)",
+            "meaning": "限速，抑制"
+          },
+          {
+            "word": "zone piétonne",
+            "meaning": "步行区"
+          }
+        ]
+      },
+      {
+        "id": "36_q11",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 现象机制分析",
+        "question": "D'après le premier paragraphe, quelle est la conséquence cognitive majeure de l'infobésité ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Une amélioration spectaculaire de la vitesse de mémorisation.",
+          "La fragmentation de la pensée et la dégradation de l'esprit critique.",
+          "La disparition progressive de l'accès à Internet.",
+          "Une augmentation du temps consacré aux devoirs scolaires."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第一段指出：“...engendre une fragmentation de la pensée... il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée”（导致思维碎片化，长期破坏批判性思维与细腻分析能力）。选项 B 准确概括。",
+        "translation": "信息过载导致思维碎片化，并削弱深度批判性反思能力。",
+        "grammarTag": "学术阅读深层因果推断"
+      },
+      {
+        "id": "36_q12",
+        "questionType": "读解分析",
+        "categoryTag": "学术论说 · 解决方案与主旨",
+        "question": "Selon l'auteur, quel est le véritable objectif du mouvement « slow reading » ?",
+        "contextText": "Dans nos sociétés hyperconnectées, le flux continu des notifications, des messages instantanés et des vidéos ultracourtes modifie en profondeur l'architecture cognitive de l'être humain. De nombreuses recherches en neurosciences démontrent que la sollicitation perpétuelle de notre attention engendre une fragmentation de la pensée, réduisant notre capacité à nous concentrer sur des textes longs et complexes. Ce phénomène, baptisé par certains chercheurs « l'infobésité », ne se traduit pas simplement par une fatigue mentale passagère ; il altère durablement notre faculté d'esprit critique et notre aptitude à l'analyse nuancée.\n\nFace à cette menace insidieuse, un mouvement international en faveur de la « slow reading » (la lecture lente et attentive) voit le jour. Il ne s'agit pas de rejeter en bloc les technologies numériques, qui offrent un accès sans précédent au savoir universel, mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive. Lire un essai philosophique ou un grand roman classique sans interruption permet non seulement de reconnecter les circuits neuronaux de la mémoire à long terme, mais constitue également un acte de résistance intellectuelle face à l'immédiateté marchande des algorithmes.",
+        "options": [
+          "Interdire définitivement tous les ordinateurs dans les écoles.",
+          "Préserver des moments réservés à une lecture immersive et réflexive.",
+          "Remplacer les livres papier par des podcasts audio.",
+          "Augmenter le prix de vente des œuvres littéraires classiques."
+        ],
+        "correctAnswer": 1,
+        "score": 15,
+        "explanation": "【深度长文分析】\\n第二段明确指出：“Il ne s'agit pas de rejeter les technologies numériques... mais de réapprendre à sanctuariser des plages temporelles dédiées à la lecture immersive”（并非彻底排斥数字技术，而是学会守护专属沉浸式深读的时间空间）。选项 B 完全吻合。",
+        "translation": "守护专注沉浸阅读的时间，重建深层思考与知性反思。",
+        "grammarTag": "文章主旨与作者立场"
       }
     ]
   }
