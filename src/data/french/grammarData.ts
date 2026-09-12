@@ -378,5 +378,88 @@ export const FRENCH_GRAMMAR_LIST: GrammarPoint[] = [
       }
     ],
     examTrap: '【时态搭配黄金定律】：Si 条件从句中【绝对不能直接出现条件式】！必须是 Si + imparfait（未完成过去时），主句才用条件式！例：S\'il faisait beau, je sortirais (绝不能写 *Si je sortirais)！'
+  },
+  {
+    id: 'g_pronoun_order',
+    title: '双宾语人称代词与副代词综合排列顺序秘籍',
+    frenchTitle: "L'Ordre des pronoms personnels et adverbiaux",
+    level: 'B1-B2',
+    category: '代词系统',
+    tracks: ['kaoyan', 'delf'],
+    trackNotes: {
+      kaoyan: '【全国高校考研二外单选题每年必考】考查直陈式普通双宾语顺序与肯定命令式倒装语序。',
+      delf: '口语与写作避免重复、实现地道自然表达的标尺。'
+    },
+    summary: '当一句话中同时出现两个代词（如把某物送给某人、把某人带到某地）时，代词的相对先后顺序必须严格遵守固定法则！',
+    formula: '普通/否定句：主语 + (ne) + [me/te/se/nous/vous] ➔ [le/la/les] ➔ [lui/leur] ➔ [y] ➔ [en] + 动词 + (pas)；肯定命令式：动词 - [le/la/les] - [moi/toi/lui/nous/vous/leur] - [y] - [en]',
+    rules: [
+      {
+        name: '1. 直陈式与否定命令式（普通金字塔语序）',
+        description: '第一、二人称(me/te/nous/vous) ➔ 第三人称直宾(le/la/les) ➔ 第三人称间宾(lui/leur) ➔ y ➔ en。',
+        examples: [
+          { fr: 'Il me le donne.', zh: '他把它给我 (me 在 le 之前)。' },
+          { fr: 'Je le lui prête.', zh: '我把它借给他 (le 在 lui 之前)。' },
+          { fr: 'Je lui en parle.', zh: '我和他谈起这件事 (lui 在 en 之前)。' },
+          { fr: 'Il y en a beaucoup.', zh: '那里有很多 (y 在 en 之前)。' }
+        ]
+      },
+      {
+        name: '2. 肯定命令式（颠倒语序与连字符）',
+        description: '动词置前，直宾(le/la/les)必须先于间宾，代词之间用连字符 « - » 连接！',
+        examples: [
+          { fr: 'Donne-le-moi !', zh: '把它给我！(直宾le在前，重读人称代词moi在后)' },
+          { fr: 'Explique-la-lui !', zh: '向他解释这件事情！(la 在 lui 之前)' }
+        ]
+      },
+      {
+        name: '3. 肯定命令式音变与连音特殊红线',
+        description: 'moi/toi 遇到 y/en 转化为省音 m\'en, t\'en；第 1 组动词 tu 遇 y/en 强制补回字母 s 连音！',
+        examples: [
+          { fr: 'Donne-m\'en un peu.', zh: '给我一些吧 (绝不能写 *Donne-moi-en)！' },
+          { fr: 'Vas-y ! / Parles-en !', zh: '去吧！/ 谈谈这件事！(单数命令式原本va/parle无s，遇y/en强制补回s发音)' }
+        ]
+      }
+    ],
+    examTrap: '【考研必考避坑】：肯定命令式中 Donne-m\'en（给我一些）常年在选择题中设陷阱写成 *Donne-moi-en 或 *Donne-en-moi，必错！同时记住：否定命令式立刻打回原形：Ne m\'en donne pas！'
+  },
+  {
+    id: 'g_relative_pronouns_comp',
+    title: '复合关系代词 (Lequel / Auquel / Duquel) 与指示代词绝技',
+    frenchTitle: 'Les Pronoms relatifs composés',
+    level: 'KAOYAN',
+    category: '从句与虚拟式',
+    tracks: ['kaoyan'],
+    trackNotes: {
+      kaoyan: '【考研二外长难句翻译与填空天花板】全国名校真题阅读中区分 duquel, de laquelle, dont 以及 lequel 的介词配合。'
+    },
+    summary: '当先行词作介词短语（特别是由 à, de 或复合介词 à côté de, grâce à, près de 引导）的补语时，必须使用复合关系代词 lequel，并随先行词性数缩合变化！',
+    formula: '介词 + lequel/laquelle/lesquels/lesquelles；à + lequel ➔ auquel；de + lequel ➔ duquel',
+    rules: [
+      {
+        name: '1. 介词 à 缩合体系 (Auquel, À laquelle, Auquels, Auxquelles)',
+        description: '当从句动词接介词 à 时，lequel 与 à 缩合。',
+        examples: [
+          { fr: 'L\'entreprise à laquelle il s\'intéresse est connue.', zh: '他感兴趣的那家企业非常知名 (s\'intéresser à entreprise 阴性单数)。' },
+          { fr: 'Les problèmes auxquels nous faisons face sont graves.', zh: '我们面临的问题很严峻 (faire face à problèmes 阳性复数)。' }
+        ]
+      },
+      {
+        name: '2. 复合介词短语中 de 体系 (Duquel, De laquelle) vs DONT',
+        description: '当介词是复合介词（près de, à côté de, au milieu de, à cause de）时，【绝对不能用 dont】，必须用 duquel / de laquelle！',
+        examples: [
+          { fr: 'L\'arbre près duquel je me repose est un chêne.', zh: '我倚靠休息的那棵树是一棵橡树 (复合介词près de，必须用duquel！)。' },
+          { fr: 'La table au-dessus de laquelle est suspendue la lampe.', zh: '上方悬挂着吊灯的那张桌子。' }
+        ]
+      },
+      {
+        name: '3. 无先行词指示关系代词 (Ce qui, Ce que, Ce dont, Ce à quoi)',
+        description: '先行词不明确或代指整句话的内容时使用。',
+        examples: [
+          { fr: 'Ce dont j\'ai besoin, c\'est de ton soutien.', zh: '我所需要的是你的支持 (avoir besoin de ➔ ce dont)。' },
+          { fr: 'Ce à quoi je pense est très important.', zh: '我正在考虑的事情非常重要 (penser à ➔ ce à quoi)。' }
+        ]
+      }
+    ],
+    examTrap: '【考研顶级改错】：dont 只能引导简单介词 de 的补语（如 le livre dont je parle）；如果介词是复合介词（如 près de, à cause de, au milieu de），绝不能用 dont，必须用 duquel / de laquelle！例：L\'arbre près duquel je me repose（绝不可写 *L\'arbre dont je me repose près）！'
   }
 ];

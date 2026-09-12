@@ -15,7 +15,8 @@ export interface FrenchVocab {
   category: string;        // 分类：日常生活/情感/学术/商务/社会
   example: {
     fr: string;
-    zh: string;
+    zh?: string;
+    chinese?: string;
   };
 }
 
@@ -344,7 +345,137 @@ export const FRENCH_VOCAB_LIST: FrenchVocab[] = [
     category: '二外考研必考从句',
     example: {
       fr: "Bien qu'il fasse froid, il sort sans manteau.",
-      chinese: '尽管天气很冷，他还是没穿大衣就出去了。'
+      chinese: '尽管天气很冷，他还是没穿大衣就出去了。',
+      zh: '尽管天气很冷，他还是没穿大衣就出去了。'
+    }
+  },
+  // --- 🏛️ 北外考研二外绝密高频：阴阳同形异义词 (Faux-amis de genre) ---
+  {
+    id: 'v_ky_gender_01',
+    french: 'mémoire',
+    article: 'le',
+    gender: 'masculine',
+    pos: 'n.m.',
+    phonetic: '[memwaʁ]',
+    chinese: '学术毕业论文 / 备忘录 (阳性！对比 la mémoire 记忆力)',
+    level: 'KAOYAN',
+    category: '考研同形异性考点',
+    example: {
+      fr: 'Il rédige son mémoire de master en linguistique.',
+      zh: '他正在撰写他的语言学硕士毕业论文。',
+      chinese: '他正在撰写他的语言学硕士毕业论文。'
+    }
+  },
+  {
+    id: 'v_ky_gender_02',
+    french: 'mémoire',
+    article: 'la',
+    gender: 'feminine',
+    pos: 'n.f.',
+    phonetic: '[memwaʁ]',
+    chinese: '记忆力 / 回忆 (阴性！对比 le mémoire 论文)',
+    level: 'KAOYAN',
+    category: '考研同形异性考点',
+    example: {
+      fr: 'Elle a une excellente mémoire des dates.',
+      zh: '她对日期的记忆力极好。',
+      chinese: '她对日期的记忆力极好。'
+    }
+  },
+  {
+    id: 'v_ky_gender_03',
+    french: 'tour',
+    article: 'le',
+    gender: 'masculine',
+    pos: 'n.m.',
+    phonetic: '[tuʁ]',
+    chinese: '轮次 / 环游 / 周长 (阳性！如 faire le tour)',
+    level: 'KAOYAN',
+    category: '考研同形异性考点',
+    example: {
+      fr: 'Faire le tour du monde en 80 jours.',
+      zh: '八十天环游地球。',
+      chinese: '八十天环游地球。'
+    }
+  },
+  {
+    id: 'v_ky_gender_04',
+    french: 'tour',
+    article: 'la',
+    gender: 'feminine',
+    pos: 'n.f.',
+    phonetic: '[tuʁ]',
+    chinese: '高塔 / 城堡的塔楼 (阴性！如 la Tour Eiffel)',
+    level: 'KAOYAN',
+    category: '考研同形异性考点',
+    example: {
+      fr: 'La Tour Eiffel a été construite en 1889.',
+      zh: '埃菲尔铁塔建于 1889 年。',
+      chinese: '埃菲尔铁塔建于 1889 年。'
+    }
+  },
+  {
+    id: 'v_ky_gender_05',
+    french: 'poste',
+    article: 'le',
+    gender: 'masculine',
+    pos: 'n.m.',
+    phonetic: '[pɔst]',
+    chinese: '工作岗位 / 职位 (阳性！对比 la poste 邮局)',
+    level: 'KAOYAN',
+    category: '考研同形异性考点',
+    example: {
+      fr: 'Il a obtenu un poste important dans cette entreprise.',
+      zh: '他在该企业谋得了一个重要职位。',
+      chinese: '他在该企业谋得了一个重要职位。'
+    }
+  },
+  {
+    id: 'v_ky_gender_06',
+    french: 'mode',
+    article: 'le',
+    gender: 'masculine',
+    pos: 'n.m.',
+    phonetic: '[mɔd]',
+    chinese: '方式 / 语法上的“式” (阳性！如 mode subjonctif)',
+    level: 'KAOYAN',
+    category: '考研同形异性考点',
+    example: {
+      fr: 'Le mode d’emploi de cet appareil est clair.',
+      zh: '这个设备的使用说明/使用方式非常清晰。',
+      chinese: '这个设备的使用说明/使用方式非常清晰。'
+    }
+  },
+  {
+    id: 'v_ky_gender_07',
+    french: 'mode',
+    article: 'la',
+    gender: 'feminine',
+    pos: 'n.f.',
+    phonetic: '[mɔd]',
+    chinese: '时尚 / 时髦风尚 (阴性！如 à la mode)',
+    level: 'KAOYAN',
+    category: '考研同形异性考点',
+    example: {
+      fr: 'Paris est considérée comme la capitale de la mode.',
+      zh: '巴黎被视为世界时尚之都。',
+      chinese: '巴黎被视为世界时尚之都。'
+    }
+  },
+  {
+    id: 'v_ky_gender_08',
+    french: 'livre',
+    article: 'la',
+    gender: 'feminine',
+    pos: 'n.f.',
+    phonetic: '[livʁ]',
+    chinese: '磅 / 半公斤 / 英镑 (阴性！对比 le livre 书本)',
+    level: 'KAOYAN',
+    category: '考研同形异性考点',
+    example: {
+      fr: 'Acheter une livre de café.',
+      zh: '买一磅（半公斤）咖啡。',
+      chinese: '买一磅（半公斤）咖啡。'
     }
   }
 ];

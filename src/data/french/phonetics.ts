@@ -440,8 +440,8 @@ export const PRONUNCIATION_RULES: PronunciationRule[] = [
     frenchTitle: 'La Liaison en français',
     tag: '提分难点 · 法语流畅度精髓',
     summary: '在前一个单词以辅音字母结尾、后一个单词以元音或哑音h开头时，原本不发音的词尾辅音必须发出来与后面的元音拼读！',
-    detail: '注意联诵时的音变规律：辅音 -s/-x 联诵时变为 [z] 音；辅音 -d 联诵时变为 [t] 音；辅音 -f 联诵时变为 [v] 音。',
-    formula: '词末不发音辅音 + 词首元音/哑音h ➔ 拼合发音',
+    detail: '注意联诵时的音变规律：辅音 -s/-x 联诵时变为 [z] 音；辅音 -d 联诵时变为 [t] 音；辅音 -f 联诵时变为 [v] 音。\n\n🚨【北外考研必考 · 4大禁止联诵 (Liaisons interdites) 铁律】：\n① 连词 « et » 后面【绝对禁止联诵】！如 un père et un fils 读 [e œ̃]，绝不能读 [e tœ̃]；\n② 主谓倒装疑问句后不与后面词联诵 (Sont-ils arrivés ?)；\n③ 单数普通名词与后置修饰语通常不联诵 (un soldat intelligent)；\n④ 嘘音 h 之前绝对严禁联诵 (les / héros)！',
+    formula: '词末不发音辅音 + 词首元音/哑音h ➔ 拼合发音 (注意：遇到 et 与嘘音h 严禁联诵！)',
     examples: [
       {
         phrase: 'les enfants',
@@ -463,6 +463,52 @@ export const PRONUNCIATION_RULES: PronunciationRule[] = [
         meaning: '伟大的人',
         highlight: 'grand 的 -d 联诵变为 [t]',
         explanation: '形容词置于名词前必须联诵，-d 音变为 [t]，连上哑音 homme。'
+      },
+      {
+        phrase: 'un père et un fils',
+        ipa: '[œ̃ pɛʁ e œ̃ fis]',
+        meaning: '一位父亲和一个儿子',
+        highlight: 'et 后绝对严禁联诵！',
+        explanation: '连词 et [e] 与 un [œ̃] 之间绝对不能发 [t] 音，切勿读成 [e tœ̃]！'
+      }
+    ]
+  },
+  {
+    id: 'h_muet_aspire',
+    title: '哑音 h 与嘘音 h 的生死界限',
+    frenchTitle: 'H muet et H aspiré',
+    tag: '北外/名校考研二外必设陷阱',
+    summary: '法语中字母 h 永远不发出声音，但具有截然相反的“语法属性”：【哑音 h】视同元音（必须省音、必须联诵）；而【嘘音 h】具有辅音阻隔阻断作用，【绝对禁止省音、绝对禁止联诵】！',
+    detail: '【考研与口试必背大坑】：把《les héros》(英雄们) 读成 [lezeʁo] 是严重硬伤（直接变成了 les zéros 零蛋！），正确发音为 [le eʁo]（两词之间阻断，绝不联诵！）；同时也绝对不能写成 *l\'héros，必须写 le héros！\n\n🏛️【名校二外 6 大高频嘘音 h 必背表】：\n① le héros (英雄)；② la haine (仇恨)；③ en haut (在上面)；④ les haricots (四季豆)；⑤ le hasard (偶然/机遇)；⑥ la honte (耻辱)。',
+    formula: '哑音 h ➔ 允许省音 (l\'homme) & 允许联诵 (les‿hommes)；嘘音 h ➔ 禁止省音 (le héros) & 禁止联诵 (les / héros)',
+    examples: [
+      {
+        phrase: 'les héros',
+        ipa: '[le eʁo]',
+        meaning: '英雄们',
+        highlight: '嘘音 h：严禁联诵！绝对不能读 [lezeʁo]',
+        explanation: '若联诵读成 [lezeʁo] 就成了 les zéros (零)。两者之间必须断开，读作 [le eʁo]。'
+      },
+      {
+        phrase: "l'homme",
+        ipa: '[lɔm]',
+        meaning: '男人 / 人类',
+        highlight: '哑音 h：强制省音',
+        explanation: 'homme 是哑音 h，视同元音开头，le homme 必须省写为 l\'homme。'
+      },
+      {
+        phrase: 'les hommes',
+        ipa: '[le zɔm]',
+        meaning: '男人们',
+        highlight: '哑音 h：强制联诵',
+        explanation: '遇到哑音 h 词首，-s 正常联诵发 [z] 音，拼读为 [le zɔm]。'
+      },
+      {
+        phrase: 'en haut',
+        ipa: '[ɑ̃ o]',
+        meaning: '在上面 / 在高处',
+        highlight: '嘘音 h：禁止联诵',
+        explanation: 'haut 是嘘音 h，读作 [ɑ̃ o]，绝不能读成 [ɑ̃no]。'
       }
     ]
   },
