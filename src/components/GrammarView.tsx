@@ -31,8 +31,11 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
   const [selectedPoint, setSelectedPoint] = useState<GrammarPoint>(FRENCH_GRAMMAR_LIST[0]);
   const [playingFr, setPlayingFr] = useState<string | null>(null);
 
+  const [showBridgesGuide, setShowBridgesGuide] = useState<boolean>(true);
+
   const detailScrollRef = useRef<HTMLDivElement | null>(null);
   const formulaRef = useRef<HTMLDivElement | null>(null);
+  const bridgeRef = useRef<HTMLDivElement | null>(null);
   const rulesRef = useRef<HTMLDivElement | null>(null);
   const trapRef = useRef<HTMLDivElement | null>(null);
 
@@ -114,6 +117,120 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
             直击考研二外失分重灾区：副代词 y/en 深度解析、直接宾语提前过去分词配合、自反动词性数配合与虚拟式触发器，配独家【考研避坑指南】。
           </p>
         </div>
+      </div>
+
+      {/* 💡 破壁指南 · 动词变位与文法考点的 4 大灵魂纽带 */}
+      <div className="bg-gradient-to-br from-white via-amber-50/20 to-rose-50/20 rounded-2xl sm:rounded-3xl border border-amber-200/80 shadow-xs p-5 sm:p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="w-8 h-8 rounded-xl bg-amber-50 text-amber-900 border border-amber-200/80 flex items-center justify-center text-base shadow-2xs font-bold">
+                💡
+              </span>
+              <h2 className="text-base sm:text-lg font-black text-slate-900 tracking-tight flex items-center gap-2">
+                <span>破壁认知指南 · 动词变位与文法考点的 4 大灵魂纽带</span>
+              </h2>
+              <span className="px-2.5 py-0.5 rounded-full bg-rose-50 text-[#80142A] border border-rose-200 font-bold text-xs">
+                告别孤立死记 · 融会贯通
+              </span>
+            </div>
+            <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+              很多同学觉得变位和文法是两张皮？其实<strong>语法试题考的全是动词变位派生出来的内在规则！</strong>掌握这 4 大纽带，变位与文法直接贯通：
+            </p>
+          </div>
+
+          <button
+            onClick={() => setShowBridgesGuide(!showBridgesGuide)}
+            className="px-3.5 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/80 text-xs font-bold transition flex items-center gap-1.5 self-start sm:self-auto cursor-pointer shadow-2xs shrink-0"
+          >
+            <span>{showBridgesGuide ? '收起 4 大纽带' : '展开 4 大纽带'}</span>
+            <ChevronRight className={`w-3.5 h-3.5 transition-transform ${showBridgesGuide ? 'rotate-90' : ''}`} />
+          </button>
+        </div>
+
+        {showBridgesGuide && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
+            {/* Card 1 */}
+            <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-2 flex flex-col justify-between">
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-base">🏭</span>
+                  <h3 className="text-xs font-black text-slate-900">桥梁 1 · 零件加工厂</h3>
+                </div>
+                <div className="text-[11px] font-bold text-indigo-700 bg-indigo-50/80 px-2 py-0.5 rounded-md border border-indigo-100">
+                  现在时变位 ➔ 高级时态原料
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                  现在时不是孤立的！<strong className="text-slate-800">nous 人称</strong>（parl-ons）砍掉 -ons 得到<strong className="text-[#80142A]">未完成过去时</strong>词根；<strong className="text-slate-800">ils 人称</strong>（finiss-ent）砍掉 -ent 得到<strong className="text-[#80142A]">虚拟式</strong>词根！
+                </p>
+              </div>
+              <div className="text-[10px] text-slate-400 font-bold pt-1 border-t border-slate-100 flex items-center justify-between">
+                <span>直通文法</span>
+                <span className="text-indigo-600 font-mono">未完成时 & 虚拟式</span>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-2 flex flex-col justify-between">
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-base">🏷️</span>
+                  <h3 className="text-xs font-black text-slate-900">桥梁 2 · 贴标签游戏</h3>
+                </div>
+                <div className="text-[11px] font-bold text-rose-700 bg-rose-50/80 px-2 py-0.5 rounded-md border border-rose-100">
+                  女生加 -e，大家加 -s
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                  过去分词本质等同<strong className="text-slate-800">形容词</strong>！只要有配合职责，就贴标签：女生主语贴粉红标签 <code className="text-[#80142A] font-bold">+e</code>，大家贴复数标签 <code className="text-[#80142A] font-bold">+s</code>，女生大家贴 <code className="text-[#80142A] font-bold">+es</code>！
+                </p>
+              </div>
+              <div className="text-[10px] text-slate-400 font-bold pt-1 border-t border-slate-100 flex items-center justify-between">
+                <span>直通文法</span>
+                <span className="text-rose-600 font-mono">性数配合四大规则</span>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-2 flex flex-col justify-between">
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-base">🏠</span>
+                  <h3 className="text-xs font-black text-slate-900">桥梁 3 · 一座房子的位移</h3>
+                </div>
+                <div className="text-[11px] font-bold text-amber-800 bg-amber-50/80 px-2 py-0.5 rounded-md border border-amber-100">
+                  生老病死位移用 être
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                  95% 动作动词用 avoir，只管干活不贴标签；唯独进出房子的 <strong className="text-slate-800">16 个位移词</strong>（aller, venir...）和<strong className="text-slate-800">代动词</strong>用 être，且用 être <strong className="text-[#80142A]">必须贴标签配合</strong>！
+                </p>
+              </div>
+              <div className="text-[10px] text-slate-400 font-bold pt-1 border-t border-slate-100 flex items-center justify-between">
+                <span>直通文法</span>
+                <span className="text-amber-700 font-mono">复合过去时助动词</span>
+              </div>
+            </div>
+
+            {/* Card 4 */}
+            <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-2 flex flex-col justify-between">
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-base">🏃‍♂️</span>
+                  <h3 className="text-xs font-black text-slate-900">桥梁 4 · 宾语抢跑提前</h3>
+                </div>
+                <div className="text-[11px] font-bold text-emerald-800 bg-emerald-50/80 px-2 py-0.5 rounded-md border border-emerald-100">
+                  直宾 COD 抢跑补贴标签
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                  用 avoir 时分词平时躺平不配合，但只要<strong className="text-slate-800">直接宾语</strong>抢跑到动词前面（代词提前或 que 从句），分词回头看见直宾，<strong className="text-[#80142A]">立刻补贴性数标签</strong>！间宾绝不配合！
+                </p>
+              </div>
+              <div className="text-[10px] text-slate-400 font-bold pt-1 border-t border-slate-100 flex items-center justify-between">
+                <span>直通文法</span>
+                <span className="text-emerald-700 font-mono">直宾提前配合考研大题</span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Main Two-Column Layout (左右对称 50%/50% 严格等高，右侧滑块滑动面板) */}
@@ -203,6 +320,11 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
                           ✓ 免费
                         </span>
                       )}
+                      {point.conjugationBridge && (
+                        <span className="text-[9px] px-1.5 py-0.2 rounded bg-rose-50 text-[#80142A] font-bold border border-rose-200/60">
+                          🔗 变位纽带
+                        </span>
+                      )}
                     </div>
                     <h3 className={`font-bold text-xs sm:text-sm leading-snug ${isSelected ? 'text-[#80142A]' : 'text-[#29354A]'}`}>
                       {point.title}
@@ -253,6 +375,15 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
                 <Sparkles className="w-3 h-3 text-[#DDBF78]" />
                 <span>核心文法公式</span>
               </button>
+              {selectedPoint.conjugationBridge && (
+                <button
+                  onClick={() => scrollToSection(bridgeRef)}
+                  className="px-2.5 py-1 rounded-lg bg-rose-50 hover:bg-rose-100/80 text-[#80142A] text-[11px] font-bold border border-rose-200/60 transition cursor-pointer flex items-center gap-1 whitespace-nowrap"
+                >
+                  <Sparkles className="w-3 h-3 text-[#80142A]" />
+                  <span>与变位纽带</span>
+                </button>
+              )}
               <button
                 onClick={() => scrollToSection(rulesRef)}
                 className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold transition cursor-pointer flex items-center gap-1 whitespace-nowrap"
@@ -286,6 +417,28 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
                 {selectedPoint.summary}
               </p>
             </div>
+
+            {/* Conjugation Bridge Callout (Anchor Ref) */}
+            {selectedPoint.conjugationBridge && (
+              <div ref={bridgeRef} className="p-4 rounded-2xl bg-gradient-to-r from-rose-50/40 via-amber-50/30 to-white border border-rose-200/90 space-y-2 shadow-2xs">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-lg bg-[#80142A] text-white text-[10px] font-black tracking-wide shadow-2xs">
+                      {selectedPoint.conjugationBridge.bridgeName}
+                    </span>
+                    <span className="text-xs font-black text-slate-800">
+                      {selectedPoint.conjugationBridge.targetTenseOrRule}
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-rose-800 font-bold bg-rose-100/70 px-2 py-0.5 rounded-full border border-rose-200/60">
+                    🔗 动词变位与文法互通机制
+                  </span>
+                </div>
+                <p className="text-xs text-slate-700 leading-relaxed font-medium bg-white/80 p-3 rounded-xl border border-rose-100/80 shadow-2xs">
+                  {selectedPoint.conjugationBridge.concept}
+                </p>
+              </div>
+            )}
 
             {/* Rules and Examples List (Anchor Ref) */}
             <div ref={rulesRef} className="space-y-3.5">

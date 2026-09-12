@@ -269,7 +269,12 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
             step3Title: 'Step 3 · 专属发音秘籍',
             step3Desc: 'vous avez 必须连诵读 [vu-zave]；ils ont 读 [il-zõ] (严格区别于 ils sont 的 [s] 音)！',
             formula: '四大天王古形态（独立记忆：j\'ai, as, a, avons, avez, ont）',
-            warning: '🚨 避坑重点：第一人称必须省音为 j\'ai；复数人称均带有高频 [z] 连音！'
+            warning: '🚨 避坑重点：第一人称必须省音为 j\'ai；复数人称均带有高频 [z] 连音！',
+            examBridge: {
+              bridgeTitle: '🎯 直通文法考点 · 助动词发动机与配合枢纽',
+              targetGrammar: '《复合过去时助动词选择》 & 《直宾代词 COD 提前配合》',
+              bridgeDetail: '全法语 90% 以上动词的复合过去时，都直接调用这个 avoir 现在时作为助动词（j\'ai parlé, tu as fini）！平时分词不配合，唯独当直宾 COD 抢跑提前时（Les fleurs qu\'il a achetées），分词才回头做性数配合！'
+            }
           };
         }
 
@@ -286,7 +291,12 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
             step3Title: 'Step 3 · 专属发音秘籍',
             step3Desc: 'vous êtes 中间字母 s 遇到元音 ê 必须连诵发 [z]，读作 [vu-zεt]！',
             formula: '第一基石特异形态（独立记忆：suis, es, est, sommes, êtes, sont）',
-            warning: '🚨 避坑重点：vous êtes 必须连诵读成 [vu-zεt]；ils sont 发 [s] 音区别于 ils ont 的 [z]！'
+            warning: '🚨 避坑重点：vous êtes 必须连诵读成 [vu-zεt]；ils sont 发 [s] 音区别于 ils ont 的 [z]！',
+            examBridge: {
+              bridgeTitle: '🎯 直通文法考点 · 桥梁 2 & 3【位移动词 + 贴标签游戏】',
+              targetGrammar: '《复合过去时 14 个位移动词配合》 & 《自反代动词性数配合》',
+              bridgeDetail: 'être 是 16 个进出房子的位移动词与全部自反代动词的专属助动词！只要助动词是 être，分词立即充当形容词，必须贴标签（女生加 -e，大家加 -s：Elle est allée / Elles se sont levées）！'
+            }
           };
         }
 
@@ -303,7 +313,12 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
             step3Title: 'Step 3 · 专属发音秘籍',
             step3Desc: 'nous allons [nuz-alõ]、vous allez [vuz-ale] 均发生强连诵！',
             formula: '位移基石特异形态（vais, vas, va, allons, allez, vont）',
-            warning: '🚨 避坑重点：复合过去时助动词必须使用 être (je suis allé)！'
+            warning: '🚨 避坑重点：复合过去时助动词必须使用 être (je suis allé)！',
+            examBridge: {
+              bridgeTitle: '🎯 直通文法考点 · 桥梁 3【位移用 être】& 副代词 y',
+              targetGrammar: '《复合过去时配合绝招》 & 《考研双璧：副代词 y 与 en》',
+              bridgeDetail: 'aller 复合过去时必须用 être（Je suis allé/allée），分词强制贴标签性数配合；同时 aller 后面接地点时，考研极高频考查副代词 y 的替代（Tu vas à Paris ? — Oui, j\'y vais）！'
+            }
           };
         }
 
@@ -320,7 +335,12 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
             step3Title: 'Step 3 · 专属发音秘籍',
             step3Desc: 'nous faisons 中 ai 弱化读作 [ə] (读作 [fə-zõ])；vous faites [fεt]！',
             formula: '万能行动特异形态（fais, fais, fait, faisons, faites, font）',
-            warning: '🚨 考点大雷区：vous 的形式是 vous faites (不是 faisez)；ils 是 font！'
+            warning: '🚨 考点大雷区：vous 的形式是 vous faites (不是 faisez)；ils 是 font！',
+            examBridge: {
+              bridgeTitle: '🎯 直通文法考点 · 桥梁 1【零件加工厂】& 使动结构',
+              targetGrammar: '《未完成过去时词根》 & 《虚拟式变位》',
+              bridgeDetail: '现在时复数 nous faisons 砍掉 -ons 得到的词根 fais-，直接用于生产未完成过去时（je faisais）；虚拟式发生特异大变身（que je fasse）；考研常考“faire + 动词原形”使动结构。'
+            }
           };
         }
 
@@ -336,7 +356,12 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
           step3Title: 'Step 3 · 发音与连诵',
           step3Desc: '点击每张卡片右侧扬声器，即刻聆听法国标准音发音！',
           formula: '第3组专属特异变位（锁定当前卡片形态）',
-          warning: '💡 重点：第 3 组动词在各类考题中占 80% 以上，作为独立重点单词掌握！'
+          warning: '💡 重点：第 3 组动词在各类考题中占 80% 以上，作为独立重点单词掌握！',
+          examBridge: {
+            bridgeTitle: '🎯 直通文法考点 · 桥梁 1【零件加工厂之不规则原料】',
+            targetGrammar: '《虚拟式现在时命题触发器》 & 《从句时态配合》',
+            bridgeDetail: `动词 ${selectedVerb.infinitive} 的现在时变位是虚拟式和未完成过去时的直接输入源！考研从句试题考查虚拟式时，核心就是考查 ${selectedVerb.infinitive} 的特殊变位词根。`
+          }
         };
       }
 
@@ -354,7 +379,12 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
           step3Title: 'Step 3 · 听力破壁绝密',
           step3Desc: `je, tu, il, ils 词尾全部不发音！-ent 绝对静音！四个人称读音 100% 一模一样（全读 [${stem}]）！`,
           formula: `词根 (${stem}-) + 人称新衣 (-e, -es, -e, -ons, -ez, -ent)`,
-          warning: '👂 听力秒杀：只有 nous [-on] 和 vous [-e] 发音不同，听觉上只有 3 种声音！'
+          warning: '👂 听力秒杀：只有 nous [-on] 和 vous [-e] 发音不同，听觉上只有 3 种声音！',
+          examBridge: {
+            bridgeTitle: '🎯 直通文法考点 · 桥梁 1【零件加工厂 (The Stem Factory)】',
+            targetGrammar: '《未完成过去时 vs 复合过去时》 & 《虚拟式现在时》',
+            bridgeDetail: `现在时看似基础，实则是后续高级文法的零件车间！第 1 人称复数 nous ${stem}ons 砍掉 -ons 得到「${stem}-」，直接用于生产【未完成过去时 (je ${stem}ais)】；第 3 人称复数 ils ${stem}ent 砍掉 -ent 得到「${stem}-」，直接用于生产【虚拟式 (que je ${stem}e)】！`
+          }
         };
       }
 
@@ -372,7 +402,12 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
           step3Title: 'Step 3 · 专属发音特征',
           step3Desc: '复数 nous/vous/ils 带有清晰的双 s [s] 咬音（finissons, finissez, finissent）！',
           formula: `词根 (${stem}-) + 专属外衣 (-is, -is, -it, -issons, -issez, -issent)`,
-          warning: '👂 发音要点：复数标志性双胞胎 -iss- 发 [s] 音，极为响亮！'
+          warning: '👂 发音要点：复数标志性双胞胎 -iss- 发 [s] 音，极为响亮！',
+          examBridge: {
+            bridgeTitle: '🎯 直通文法考点 · 桥梁 1【双胞胎 -iss- 零件车间】',
+            targetGrammar: '《未完成过去时》 & 《虚拟式现在时》',
+            bridgeDetail: `第 2 组动词复数特有的双胞胎「-iss-」（nous ${stem}issons / ils ${stem}issent），正是考研考查【未完成过去时 (je ${stem}issais)】与【虚拟式 (que je ${stem}isse)】的送分与丢分分水岭！文法从句中必须保留 -iss- 词根！`
+          }
         };
       }
     }
@@ -397,7 +432,126 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
         formula: `助动词 ${selectedVerb.auxiliary} (现在时) + 过去分词 (${selectedVerb.participle})`,
         warning: isEtreAux 
           ? '🚨 考点大雷区：用 être 作助动词时，分词必须随主语性数配合（如 allé / allée / allés / allées）！'
-          : '💡 提示：助动词与人称代词常发生省音（如 j\'ai）或连音（如 vous avez）！'
+          : '💡 提示：助动词与人称代词常发生省音（如 j\'ai）或连音（如 vous avez）！',
+        examBridge: isEtreAux ? {
+          bridgeTitle: '🎯 直通文法考点 · 桥梁 2 & 3【位移用 être 必须贴标签】',
+          targetGrammar: '《复合过去时助动词选择与过去分词配合绝招》',
+          bridgeDetail: '【考研语法改错最常考点】：因为本词是进出房子的位移动词，助动词强制选 être！分词立刻变成形容词：主语是女生必须加 -e（Elle est allée），主语是大家必须加 -s（Ils sont allés）！凡漏写 -e/-s 直接扣光分数！'
+        } : {
+          bridgeTitle: '🎯 直通文法考点 · 桥梁 4【直宾代词 COD 抢跑提前配合】',
+          targetGrammar: '《直宾代词 COD 与间宾代词 COI 深度辨析》',
+          bridgeDetail: '【考研失分重灾区】：用 avoir 时普通语序分词绝不配合（J\'ai acheté les fleurs）；但只要直宾代词（le/la/les）抢跑提前（Je les ai achetées）或先行词提前（Les fleurs que j\'ai achetées），分词回头看见直宾，必须立刻补贴 -e/-s 标签！间宾（lui/leur）抢跑绝不配合！'
+        }
+      };
+    }
+
+    if (selectedTense === 'imparfait') {
+      return {
+        badge: '✨ 未完成过去时推导法则',
+        badgeClass: 'bg-indigo-50 text-indigo-900 border-indigo-200/80',
+        ruleMapping: '对应时态法则：未完成过去时【直陈式现在时 nous 词根法】',
+        relationWhy: '未完成过去时表示过去持续的背景描写、未完成状态或过去习惯动作。',
+        step1Title: 'Step 1 · 提取现在时 nous 词根',
+        step1Desc: `直陈式现在时 nous 形式砍掉 -ons ➔ 提取稳定词根`,
+        step2Title: 'Step 2 · 穿上专属旧毛衣',
+        step2Desc: '词根 + 专属后缀：-ais, -ais, -ait, -ions, -iez, -aient',
+        step3Title: 'Step 3 · 听力音调特征',
+        step3Desc: 'je, tu, il, ils 后缀全部读 [ε]（发音完全一致），仅 nous [-jõ] 和 vous [-je] 带半元音！',
+        formula: '现在时 nous 词根 + (-ais, -ais, -ait, -ions, -iez, -aient)',
+        warning: '💡 全法语仅 être 动词词根特异 (ét-)，其余 100% 动词严格执行此法则！',
+        examBridge: {
+          bridgeTitle: '🎯 直通文法考点 · 桥梁 1【零件加工厂】& 过去时间轴对决',
+          targetGrammar: '《未完成过去时 vs 复合过去时：时间画卷与考研辨析》',
+          bridgeDetail: '变位词根 100% 产自现在时 nous！文法大题必考两时态对决：描绘环境、心理、天气、过去习惯用未完成过去时（Il faisait beau）；突发插入的动作、推动情节发展用复合过去时（le téléphone a sonné）！'
+        }
+      };
+    }
+
+    if (selectedTense === 'subjonctif') {
+      return {
+        badge: '✨ 虚拟式现在时推导法则',
+        badgeClass: 'bg-emerald-50 text-emerald-900 border-emerald-200/80',
+        ruleMapping: '对应时态法则：虚拟式【直陈式现在时 ils 词根法】',
+        relationWhy: '虚拟式用于表达主观愿望、情感态度、怀疑、必要性（常跟在 il faut que 从句后）。',
+        step1Title: 'Step 1 · 提取现在时 ils 词根',
+        step1Desc: `直陈式现在时 ils 形式砍掉 -ent ➔ 提取虚拟式加工原料`,
+        step2Title: 'Step 2 · 穿上虚拟式外衣',
+        step2Desc: '单数加 -e, -es, -e；复数 nous/vous 加 -ions, -iez；ils 加 -ent',
+        step3Title: 'Step 3 · 特异动词锁定',
+        step3Desc: '四大天王等特异词根：fasse (faire), aille (aller), sois (être), aie (avoir)',
+        formula: '现在时 ils 词根 + (-e, -es, -e, -ions, -iez, -ent)',
+        warning: '⚠️ 注意：nous 与 vous 的后缀带有 i (-ions, -iez)，听觉上带有清晰的 [j] 半元音！',
+        examBridge: {
+          bridgeTitle: '🎯 直通文法考点 · 桥梁 1【零件加工厂】& 命题触发器',
+          targetGrammar: '《虚拟式现在时 (Subjonctif) 命题触发器》',
+          bridgeDetail: '变位词根直接从现在时 ils 砍掉 -ent 批发而来！文法高频考点：Il faut que (必须)、vouloir que (想要)、bien que (尽管) 后面必须接虚拟式变位；考研送命陷阱：espérer que (希望) 后面只接直陈式将来时，绝不接虚拟式！'
+        }
+      };
+    }
+
+    if (selectedTense === 'futur_simple') {
+      return {
+        badge: '✨ 简单将来时推导法则',
+        badgeClass: 'bg-amber-50 text-amber-900 border-amber-200/80',
+        ruleMapping: '对应时态法则：简单将来时【原形整鱼保留法】',
+        relationWhy: '简单将来时表示将来发生的事情或对将来的预测与计划。',
+        step1Title: 'Step 1 · 保留整条鱼 (原形)',
+        step1Desc: '以 -r 结尾的原形动词作为词根（第3组个别异化如 ser-, aur-, ir-, fer-）',
+        step2Title: 'Step 2 · 拼装 avoir 现在时词尾',
+        step2Desc: '词根 + (-ai, -as, -a, -ons, -ez, -ont)（正是 avoir 的现在时变位！）',
+        step3Title: 'Step 3 · 尾音上扬特征',
+        step3Desc: '重音全部落在词尾后缀上，发音坚决有力！',
+        formula: '动词原形(保留-r) + avoir现在时尾缀 (-ai, -as, -a, -ons, -ez, -ont)',
+        warning: '💡 记忆神技：词尾 -ai, -as, -a, -ons, -ez, -ont 恰好就是动词 avoir 的现在时！',
+        examBridge: {
+          bridgeTitle: '🎯 直通文法考点 · Si 条件从句主句时态呼应',
+          targetGrammar: '《从句时态呼应》 & 《Si 条件从句系统》',
+          bridgeDetail: '在文法从句中，最核心的考点就是【Si + 直陈式现在时 ➔ 主句必须用简单将来时】（Si tu viens demain, je serai content）！'
+        }
+      };
+    }
+
+    if (selectedTense === 'conditionnel') {
+      return {
+        badge: '✨ 条件式现在时推导法则',
+        badgeClass: 'bg-violet-50 text-violet-900 border-violet-200/80',
+        ruleMapping: '对应时态法则：条件式现在时【将来时鱼身 + 未完成旧毛衣】',
+        relationWhy: '条件式用于表达礼貌请求、愿望建议，或在假设从句中表示与事实相反的假想。',
+        step1Title: 'Step 1 · 借用将来时鱼身',
+        step1Desc: '采用简单将来时的词根（全部以字母 -r 结尾）',
+        step2Title: 'Step 2 · 穿上未完成旧毛衣',
+        step2Desc: '词根 + 未完成过去时后缀 (-ais, -ais, -ait, -ions, -iez, -aient)',
+        step3Title: 'Step 3 · 辨析发音差别',
+        step3Desc: "第一人称 je 读 [ε]（发音区别于将来时的 [e]：j'aimerais vs j'aimerai）",
+        formula: '简单将来时词根(带-r) + 未完成过去时后缀(-ais, -ais, -ait, -ions, -iez, -aient)',
+        warning: '💡 绝妙构词：身体是将来时的词根，衣服是未完成过去时的词尾！',
+        examBridge: {
+          bridgeTitle: '🎯 直通文法考点 · Si 条件假设系统',
+          targetGrammar: '《条件式现在时假想系统》',
+          bridgeDetail: '文法必考大题：【Si + 未完成过去时 ➔ 主句必须搭配条件式现在时】（Si j\'avais le temps, je voyagerais）表示与现在事实相反的浪漫假想！'
+        }
+      };
+    }
+
+    if (selectedTense === 'imperatif') {
+      return {
+        badge: '✨ 命令式推导法则',
+        badgeClass: 'bg-orange-50 text-orange-900 border-orange-200/80',
+        ruleMapping: '对应时态法则：命令式【三大专有人称法】',
+        relationWhy: '向对方发出指令、建议或请求，仅使用 tu, nous, vous 三个人称，省略主语代词。',
+        step1Title: 'Step 1 · 锁定 3 个人称',
+        step1Desc: '仅 tu, nous, vous 变位，丢掉主语代词',
+        step2Title: 'Step 2 · 斩掉 tu 的末尾 -s',
+        step2Desc: '第 1 组 -er 动词（包括 aller）的 tu 形式必须摘掉末尾的 -s！',
+        step3Title: 'Step 3 · 特异命令式形态',
+        step3Desc: 'Sois/Soyons/Soyez (être), Aie/Ayons/Ayez (avoir), Fais/Faisons/Faites (faire)',
+        formula: '直陈式现在时对应形态 (第1组 tu 形式去 -s，省略主语)',
+        warning: '🚨 避坑重点：第 1 组动词 Parle ! 绝不能写 Parles !',
+        examBridge: {
+          bridgeTitle: '🎯 直通文法考点 · 桥梁与副代词 y/en 联诵恢复 -s',
+          targetGrammar: '《命令式代词后置与连字符规则》',
+          bridgeDetail: '【考研改错必考陷阱】：第 1 组动词 tu 形式通常砍掉 -s（Parle ! / Va !）；但是，一旦后面跟了副代词 y 或 en，为了发音顺口，必须把砍掉的 -s 补回来加连字符（Vas-y ! / Parles-en !）！'
+        }
       };
     }
 
@@ -827,6 +981,28 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
                   {derivation.warning}
                 </div>
               </div>
+
+              {/* 4. 直通文法考点 · 变位与真题为什么紧密相连 */}
+              {derivation.examBridge && (
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-amber-50/60 via-rose-50/30 to-white border border-rose-200/90 space-y-2 shadow-2xs">
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2.5 py-0.5 rounded-lg bg-[#80142A] text-white text-[11px] font-black tracking-wide shadow-2xs">
+                        {derivation.examBridge.bridgeTitle}
+                      </span>
+                      <span className="text-xs font-black text-slate-800">
+                        {derivation.examBridge.targetGrammar}
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-rose-800 font-bold bg-rose-100/70 px-2 py-0.5 rounded-full border border-rose-200/60">
+                      考研二外 & DELF 必考纽带
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-700 leading-relaxed font-medium bg-white/80 p-2.5 rounded-xl border border-rose-100/80">
+                    {derivation.examBridge.bridgeDetail}
+                  </p>
+                </div>
+              )}
 
             </div>
 
