@@ -118,7 +118,7 @@ export const App: React.FC = () => {
           />
         )}
         {activeTab !== 'home' && (
-          <div className="max-w-6xl mx-auto px-4 pt-2.5 sm:pt-3.5 space-y-6">
+          <div className="max-w-6xl mx-auto px-4 pt-2 sm:pt-3 space-y-3 sm:space-y-3.5">
             {activeTab === 'phonetics' && <PhoneticsView />}
             {activeTab === 'conjugation' && <ConjugationView />}
             {activeTab === 'vocab' && <VocabView />}
@@ -147,7 +147,7 @@ export const App: React.FC = () => {
             {activeTab === 'cinema' && <CinemaView />}
 
             {/* 🎁 学员美学福利 · 一子一木 4K 伴学治愈壁纸屋横幅 (二级页面底部统一展示) */}
-            <div className="pt-2 pb-2">
+            <div className="pt-0.5 pb-1">
               <WallpaperBanner onOpenWallpaperModal={() => setIsWallpaperModalOpen(true)} />
             </div>
           </div>

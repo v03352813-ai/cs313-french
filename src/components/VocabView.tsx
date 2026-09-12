@@ -140,7 +140,7 @@ export const VocabView: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 pb-16 animate-in fade-in duration-300">
+    <div className="space-y-3.5 sm:space-y-4 pb-0 animate-in fade-in duration-300">
       
       {/* 1. 顶部步骤导引条 (直观告知考纲词汇分级与已掌握统计) */}
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">

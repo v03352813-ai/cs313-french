@@ -1,4 +1,4 @@
-﻿import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   FileCheck2, 
   CheckCircle2, 
@@ -387,7 +387,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
   };
 
   return (
-    <div className="space-y-5 pb-16">
+    <div className="space-y-3.5 sm:space-y-4 pb-0">
       
       {/* Top Hero Banner */}
       <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">

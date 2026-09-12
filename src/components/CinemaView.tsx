@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Headphones, 
   Play, 
@@ -102,7 +102,7 @@ export const CinemaView: React.FC = () => {
   const currentDialogue = selectedMovie.dialogues[activeDialogueIndex] || selectedMovie.dialogues[0];
 
   return (
-    <div className="space-y-8 pb-16">
+    <div className="space-y-4 sm:space-y-5 pb-0">
       
       {/* Top Hero Banner */}
       <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
