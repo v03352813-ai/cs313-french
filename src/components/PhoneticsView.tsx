@@ -314,6 +314,7 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {PRONUNCIATION_RULES.map((rule, idx) => {
             const isLocked = !isVip && idx >= 2;
+            const isLastOdd = idx === PRONUNCIATION_RULES.length - 1 && PRONUNCIATION_RULES.length % 2 !== 0;
             return (
               <div
                 key={rule.id}
@@ -323,6 +324,8 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
                   }
                 }}
                 className={`p-5 rounded-3xl bg-white border shadow-xs space-y-3 transition relative ${
+                  isLastOdd ? 'md:col-span-2' : ''
+                } ${
                   isLocked 
                     ? 'border-amber-200/80 hover:border-[#80142A]/40 cursor-pointer bg-slate-50/60' 
                     : 'border-slate-200/80'
@@ -356,7 +359,7 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
                   {rule.formula}
                 </div>
 
-                <div className="space-y-1.5 pt-1">
+                <div className={`pt-1 ${isLastOdd ? 'grid grid-cols-1 md:grid-cols-2 gap-2' : 'space-y-1.5'}`}>
                   {rule.examples.map(ex => (
                     <div 
                       key={ex.phrase}
