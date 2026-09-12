@@ -65,17 +65,17 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
             <span>法兰西语音纯正发音规范</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
-            35 音标体系 & 联诵发音实验室
+            法语 35 国际音标 & 5 大核心发音联诵规则
           </h1>
           <p className="text-xs sm:text-sm text-[#29354A]/80 leading-relaxed max-w-2xl font-medium">
-            点击任意音标与例词即可收听正统巴黎真人发音，掌握鼻化元音、小舌音 [ʁ] 与连音联诵规则。
+            点击任意音标收听正统巴黎原声音频与嘴型指南；切换规则模块攻关连音联诵与考研避坑铁律。
           </p>
         </div>
       </div>
 
-      {/* 关键：两大核心发音模块选择卡片（对齐第三张图双赛道卡片设计，直观切换 35 音标实验室 与 4 大联诵规则） */}
+      {/* 关键：两大核心发音模块选择卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-        {/* 模块 1: 35 音标体系 & 联诵发音实验室 */}
+        {/* 模块 1: 35 国际音标交互发音台 */}
         <div
           onClick={() => setActiveModule('soundboard')}
           className={`p-4 sm:p-5 rounded-2xl border-2 transition-all cursor-pointer flex items-start gap-4 relative ${
@@ -92,7 +92,7 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
           <div className="space-y-1 flex-1 min-w-0">
             <div className="flex items-center justify-between gap-2">
               <h3 className={`text-base sm:text-lg font-black ${activeModule === 'soundboard' ? 'text-[#80142A]' : 'text-slate-800'}`}>
-                35 音标体系 & 联诵发音实验室
+                35 国际音标交互发音台
               </h3>
               <span className={`text-[11px] font-black px-2.5 py-0.5 rounded-full whitespace-nowrap ${
                 activeModule === 'soundboard' ? 'bg-[#80142A] text-white shadow-2xs' : 'bg-slate-100 text-slate-600'
@@ -101,7 +101,7 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
               </span>
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
-              点击任意音标与例词即可收听正统巴黎真人发音，掌握 11 个口元音、4 个鼻化元音、3 个半元音与 17 个辅音。
+              左侧点按音标、右侧透视嘴型指南与高频词汇。掌握 11 口元音、4 鼻化元音、3 半元音与 17 辅音。
             </p>
           </div>
           {activeModule === 'soundboard' && (
