@@ -238,7 +238,7 @@ export const CinemaView: React.FC<CinemaViewProps> = ({
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-4 sm:py-6 space-y-6">
+    <div className="w-full space-y-4 sm:space-y-6 pb-6">
       
       {/* ========================================================================= */}
       {/* ① 顶部当前电影原声播放器舞台 (Selected Movie Stage - 置顶核心第一焦点) */}
