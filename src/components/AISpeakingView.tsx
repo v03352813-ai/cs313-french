@@ -621,23 +621,6 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
   return (
     <div className="max-w-6xl mx-auto px-2 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-5 animate-in fade-in duration-300">
       
-      {/* 免费试学模式解锁横幅 (未激活时呈现) */}
-      {!isVip && (
-        <div className="rounded-2xl p-3 sm:px-4 sm:py-2.5 bg-gradient-to-r from-[#80142A] to-[#680E20] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
-          <div className="flex items-center gap-2 text-xs">
-            <Sparkles className="w-4 h-4 text-[#DDBF78] shrink-0" />
-            <span>
-              当前为<strong>【免费试学模式】</strong> · 拍下激活码即享 DELF 欧标与全国考研二外全真机考、6,500+ 核心词库与影视高光名台词原声精听
-            </span>
-          </div>
-          <button
-            onClick={() => onOpenVipModal?.('拍下激活码即享 DELF 欧标与全国考研二外全真机考、6,500+ 核心词库与影视高光名台词原声精听！')}
-            className="px-4 py-1.5 rounded-xl bg-white text-[#80142A] hover:bg-rose-50 text-xs font-black shrink-0 transition shadow-xs flex items-center justify-center gap-1 cursor-pointer"
-          >
-            <span>输入卡密解锁 ➔</span>
-          </button>
-        </div>
-      )}
 
       {/* 轻量级顶部 Hero 标题卡片 */}
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">

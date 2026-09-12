@@ -165,6 +165,25 @@ export const App: React.FC = () => {
         onOpenExamModal={() => setIsExamModalOpen(true)}
       />
 
+      {/* VIP Upsell Ribbon for Free Preview Users (未激活前全站每个页面统一呈现，解锁后自动隐藏) */}
+      {!isVip && (
+        <div className="max-w-6xl mx-auto px-4 pt-2.5 sm:pt-3 w-full min-w-0 animate-fade-in">
+          <div className="bg-gradient-to-r from-[#6b0f24] via-[#80142a] to-[#4a0815] text-white py-2.5 px-4 sm:px-6 rounded-2xl text-xs font-semibold shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 border border-rose-900/40 min-w-0">
+            <div className="flex items-start sm:items-center gap-2.5 min-w-0">
+              <Sparkles className="w-4 h-4 shrink-0 text-amber-300 mt-0.5 sm:mt-0 animate-pulse" />
+              <span className="leading-snug break-words min-w-0">
+                当前为<strong>【免费试学模式】</strong> · 拍下激活码即享 DELF 欧标与全国考研二外全真机考、6,500+ 核心词库与影视高光名台词原声精听
+              </span>
+            </div>
+            <button
+              onClick={() => handleOpenVipModal('拍下激活码即享 DELF 欧标与全国考研二外全真机考、6,500+ 核心词库与影视高光名台词原声精听！')}
+              className="w-full sm:w-auto px-4 py-1.5 rounded-xl bg-white text-[#80142a] font-extrabold hover:bg-rose-50 transition shadow-xs text-xs cursor-pointer shrink-0 text-center flex items-center justify-center gap-1 hover:scale-105 active:scale-95"
+            >
+              <span>输入卡密解锁 ➔</span>
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Main View Area */}
       <main className="flex-1 w-full pb-4 sm:pb-6">
