@@ -158,10 +158,10 @@ export const VipModal: React.FC<VipModalProps> = ({
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    placeholder="格式：CS313-FR-XXXX-YYYY"
+                    placeholder="在此粘贴或输入激活码"
                     value={inputKey}
                     onChange={e => setInputKey(e.target.value)}
-                    className="flex-1 px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200/80 font-mono text-xs sm:text-sm uppercase focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/20 focus:bg-white transition text-[#80142A] font-bold"
+                    className="flex-1 px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200/80 font-mono text-xs sm:text-sm uppercase focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/20 focus:bg-white transition text-[#80142A] font-bold placeholder:normal-case placeholder:font-normal placeholder:text-slate-400"
                   />
                   <button
                     onClick={handleActivate}
