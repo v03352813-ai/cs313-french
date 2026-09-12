@@ -246,32 +246,32 @@ export const CinemaView: React.FC<CinemaViewProps> = ({
       {selectedMovie && (
         <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden">
           
-          {/* Cover + Poster Header with Atmospheric Cinematic Mood */}
-          <div className="relative min-h-[200px] sm:min-h-[240px] bg-slate-900 overflow-hidden flex flex-col justify-between p-5 sm:p-7 text-white">
+          {/* Cover + Poster Header with Atmospheric Cinematic Mood (40% 全彩大片质感 + 文字微阴影保护) */}
+          <div className="relative min-h-[200px] sm:min-h-[240px] bg-slate-950 overflow-hidden flex flex-col justify-between p-5 sm:p-7 text-white">
             <img 
               src={selectedMovie.coverImage} 
               alt={selectedMovie.movieTitle}
-              className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity scale-105 transition-transform duration-700 hover:scale-100"
+              className="absolute inset-0 w-full h-full object-cover opacity-40 sm:opacity-45 scale-105 transition-transform duration-700 hover:scale-100"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/80 to-slate-900/40"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/60 to-slate-950/25"></div>
             
             <div className="relative z-10 space-y-3">
               <div className="flex items-center justify-between gap-2 flex-wrap">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white font-black text-xs border border-white/20">
+                  <span className="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md text-white font-black text-xs border border-white/20 shadow-xs">
                     {selectedMovie.levelTag}
                   </span>
-                  <span className="px-3 py-1 rounded-full bg-[#80142A]/80 backdrop-blur-md text-rose-100 text-xs font-bold border border-rose-300/30">
+                  <span className="px-3 py-1 rounded-full bg-[#80142A]/90 backdrop-blur-md text-rose-100 text-xs font-bold border border-rose-300/30 shadow-xs">
                     {selectedMovie.genre}
                   </span>
-                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-black/40 backdrop-blur-sm text-slate-300">
+                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-slate-200 border border-white/10 shadow-xs">
                     {selectedMovie.year}年 · 导演: {selectedMovie.director}
                   </span>
                 </div>
 
                 {/* 正在播放提示药丸 */}
                 {playingFr && (
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#80142A] border border-rose-300/40 text-white text-xs font-bold backdrop-blur-md animate-pulse">
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#80142A] border border-rose-300/40 text-white text-xs font-bold backdrop-blur-md animate-pulse shadow-md">
                     <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                     <Music2 className="w-3.5 h-3.5" />
                     <span>正在播放原声...</span>
@@ -280,13 +280,13 @@ export const CinemaView: React.FC<CinemaViewProps> = ({
               </div>
 
               <div className="space-y-1">
-                <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-white font-serif drop-shadow-sm flex items-center gap-3 flex-wrap">
+                <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-white font-serif drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] flex items-center gap-3 flex-wrap">
                   <span>《{selectedMovie.movieTitle}》</span>
-                  <span className="text-base sm:text-lg font-normal text-rose-200/90 font-serif italic">
+                  <span className="text-base sm:text-lg font-normal text-rose-200 font-serif italic drop-shadow-md">
                     ({selectedMovie.frenchTitle})
                   </span>
                 </h1>
-                <p className="text-xs sm:text-sm text-slate-200 line-clamp-2 max-w-3xl leading-relaxed font-medium">
+                <p className="text-xs sm:text-sm text-slate-100 line-clamp-2 max-w-3xl leading-relaxed font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
                   {selectedMovie.sceneSummary}
                 </p>
               </div>
