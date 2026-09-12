@@ -293,6 +293,15 @@ const SCENARIO_REPLY_REGISTRY: Record<string, { replyFr: string; replyZh: string
   }
 };
 
+const getCleanScenarioTitle = (title: string, icon?: string): string => {
+  let clean = (title || '').trim();
+  if (icon && clean.startsWith(icon)) {
+    clean = clean.slice(icon.length).trim();
+  }
+  clean = clean.replace(/^[\uD800-\uDBFF][\uDC00-\uDFFF]\s*/, '').replace(/^[^\w\s\u4e00-\u9fa5A-Za-zÀ-ÿ0-9]+\s*/, '').trim();
+  return clean || title;
+};
+
 export const AISpeakingView: React.FC<AISpeakingViewProps> = ({ 
   isVip = false, 
   onOpenVipModal 
@@ -595,13 +604,14 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
           const isSelected = sc.id === currentScenario.id;
           const isFree = sc.id === 'fr_cafe_01';
           const isLocked = !isVip && !isFree;
+          const cleanTitle = getCleanScenarioTitle(sc.title, sc.icon);
 
           return (
             <div
               key={sc.id}
               onClick={() => {
                 if (isLocked) {
-                  onOpenVipModal?.(`🔒【${sc.title}】为 VIP 专属口语实训场景！升级 VIP 终身卡（仅 ¥49.9），即可畅享 DELF 欧标实战会话、巴黎生活实操、外企面试与经典影视名场面对戏！`);
+                  onOpenVipModal?.(`🔒【${cleanTitle}】为 VIP 专属口语实训场景！升级 VIP 终身卡（仅 ¥49.9），即可畅享 DELF 欧标实战会话、巴黎生活实操、外企面试与经典影视名场面对戏！`);
                   return;
                 }
                 setSelectedScenarioId(sc.id);
@@ -614,47 +624,72 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
                   : 'bg-white border-slate-200/80 hover:border-slate-300 hover:shadow-xs'
               }`}
             >
-              <div className="space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-xl">{sc.icon}</span>
-                  <div className="flex items-center gap-1.5">
-                    {isLocked ? (
-                      <span className="text-[10px] px-2 py-0.5 rounded-md font-extrabold bg-amber-100 text-amber-900 border border-amber-300/80 flex items-center gap-0.5">
-                        <Lock className="w-2.5 h-2.5 text-amber-700" />
-                        <span>VIP专属</span>
+              <div className="space-y-2">
+                {/* 顶部：左侧独立图标徽章 + 右侧分类与级别标签 */}
+                <div className="flex items-start gap-2.5">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0 transition-transform group-hover:scale-105 shadow-2xs ${
+                    isSelected 
+                      ? 'bg-rose-50 border border-[#80142A]/30 text-[#80142A]' 
+                      : 'bg-slate-100/90 border border-slate-200/70'
+                  }`}>
+                    {sc.icon}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-1 mb-0.5">
+                      <span className="text-[10px] font-bold text-slate-400">
+                        {sc.categoryLabel}
                       </span>
-                    ) : (
-                      <span className="text-[10px] px-2 py-0.5 rounded-md font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300/80">
-                        免费体验
-                      </span>
-                    )}
-                    <span className={`text-[10px] px-2 py-0.5 rounded-md font-bold ${
-                      sc.levelTag.includes('B2') 
-                        ? 'bg-purple-100 text-purple-800' 
-                        : 'bg-slate-100 text-slate-700'
+                      <div className="flex items-center gap-1 shrink-0">
+                        {isLocked ? (
+                          <span className="text-[9px] px-1.5 py-0.2 rounded font-extrabold bg-amber-100 text-amber-900 border border-amber-300/80 flex items-center gap-0.5">
+                            <Lock className="w-2.5 h-2.5 text-amber-700" />
+                            <span>VIP</span>
+                          </span>
+                        ) : (
+                          <span className="text-[9px] px-1.5 py-0.2 rounded font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300/80">
+                            免费
+                          </span>
+                        )}
+                        <span className={`text-[9px] px-1.5 py-0.2 rounded font-bold ${
+                          sc.levelTag.includes('B2') 
+                            ? 'bg-purple-100 text-purple-800' 
+                            : 'bg-slate-100 text-slate-700'
+                        }`}>
+                          {sc.levelTag.replace(/\s*\(.*?\)/, '')}
+                        </span>
+                      </div>
+                    </div>
+                    <h4 className={`text-xs sm:text-sm font-black leading-snug line-clamp-1 ${
+                      isSelected ? 'text-[#80142A]' : 'text-slate-800'
                     }`}>
-                      {sc.levelTag}
-                    </span>
+                      {cleanTitle}
+                    </h4>
                   </div>
                 </div>
-                <h4 className={`text-xs sm:text-sm font-black leading-snug line-clamp-1 ${
-                  isSelected ? 'text-[#80142A]' : 'text-slate-800'
-                }`}>
-                  {sc.title}
-                </h4>
+
+                {/* 法语副标题 */}
+                <div className="text-[11px] text-slate-400 font-mono line-clamp-1 italic">
+                  {sc.frenchTitle}
+                </div>
+
+                {/* 场景说明 */}
                 <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed">
                   {sc.description}
                 </p>
               </div>
-              <div className="pt-2 flex items-center justify-between text-[10px] text-slate-400 font-medium border-t border-slate-100 mt-2">
-                <span>{sc.categoryLabel}</span>
+
+              {/* 底部信息与动作按钮 */}
+              <div className="pt-2 flex items-center justify-between text-[10px] font-medium border-t border-slate-100 mt-2.5">
+                <span className="text-slate-400">{sc.levelTag}</span>
                 {isLocked ? (
-                  <span className="text-amber-700 font-bold flex items-center gap-0.5">
+                  <span className="text-amber-700 font-bold flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
                     <Lock className="w-3 h-3" />
                     <span>去解锁</span>
                   </span>
                 ) : (
-                  <span className="text-[#80142A] font-bold">进入对练 ➜</span>
+                  <span className="text-[#80142A] font-bold group-hover:translate-x-0.5 transition-transform">
+                    进入对练 ➜
+                  </span>
                 )}
               </div>
             </div>
@@ -667,14 +702,19 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
         {/* 对话舞台顶栏 */}
         <div className="p-4 sm:p-5 bg-gradient-to-r from-slate-50 to-white border-b border-slate-200 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <span className="text-2xl">{currentScenario.icon}</span>
+            <div className="w-11 h-11 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex items-center justify-center text-2xl shrink-0">
+              {currentScenario.icon}
+            </div>
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-sm sm:text-base font-black text-slate-900">
-                  {currentScenario.title}
+                  {getCleanScenarioTitle(currentScenario.title, currentScenario.icon)}
                 </h3>
                 <span className="text-[11px] px-2 py-0.5 rounded-md bg-rose-50 text-[#80142A] font-bold border border-[#80142A]/20">
                   {currentScenario.categoryLabel}
+                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 font-bold">
+                  {currentScenario.levelTag}
                 </span>
               </div>
               <p className="text-xs text-slate-500 font-mono mt-0.5">
@@ -682,9 +722,9 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+          <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium bg-amber-50/70 border border-amber-200/60 px-3 py-1.5 rounded-full">
             <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
-            <span>智能多轮交互</span>
+            <span>智能多轮对练 · 真人语音</span>
           </div>
         </div>
 

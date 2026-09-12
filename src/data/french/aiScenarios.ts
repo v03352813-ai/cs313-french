@@ -42,7 +42,7 @@ export interface AIScenario {
 export const AI_SCENARIOS_DATA: AIScenario[] = [
   {
     id: 'fr_cafe_01',
-    title: '☕ 巴黎花神咖啡馆 · 点单与露天位闲聊',
+    title: '巴黎花神咖啡馆 · 点单与露天位闲聊',
     frenchTitle: 'Au Café de Flore · Commande en terrasse',
     category: 'daily_life',
     categoryLabel: '生活实用',
@@ -72,7 +72,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_delf_b1_b2_01',
-    title: '🎓 DELF B1/B2 考官 1v1 面试 · 环保与科技辩驳',
+    title: 'DELF B1/B2 考官 1v1 面试 · 环保与科技辩驳',
     frenchTitle: 'Entretien DELF avec l\'examinateur · Épreuve orale',
     category: 'delf_speaking',
     categoryLabel: '欧标冲刺',
@@ -102,7 +102,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_metro_01',
-    title: '🚇 巴黎地铁与交通换乘 · 圣米歇尔广场问路',
+    title: '巴黎地铁与交通换乘 · 圣米歇尔广场问路',
     frenchTitle: 'Dans le Métro Parisien · Demande d\'itinéraire',
     category: 'travel_transport',
     categoryLabel: '出行问路',
@@ -132,7 +132,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_boulangerie_01',
-    title: '🥖 传统法式面包房 · 买法棍与牛角包',
+    title: '传统法式面包房 · 买法棍与牛角包',
     frenchTitle: 'À la Boulangerie artisanale · La baguette tradition',
     category: 'daily_life',
     categoryLabel: '生活实用',
@@ -162,7 +162,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_entretien_01',
-    title: '💼 法企求职面试 · 自我介绍与职业抱负',
+    title: '法企求职面试 · 自我介绍与职业抱负',
     frenchTitle: 'Entretien d\'embauche · Présentation professionnelle',
     category: 'business_work',
     categoryLabel: '职场商务',
@@ -192,7 +192,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_pharmacie_01',
-    title: '💊 法国绿色十字药店 · 症状咨询与买药',
+    title: '法国绿色十字药店 · 症状咨询与买药',
     frenchTitle: 'À la Pharmacie · Symptômes et posologie',
     category: 'daily_life',
     categoryLabel: '生活实用',
@@ -222,10 +222,10 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_shopping_01',
-    title: '👗 玛黑区独立买手店 · 试衣与退换货',
+    title: '玛黑区独立买手店 · 试衣与退换货',
     frenchTitle: 'Shopping dans le Marais · Cabine d\'essayage',
     category: 'daily_life',
-    categoryLabel: '购物日常',
+    categoryLabel: '生活实用',
     levelTag: '初级 (A1~A2)',
     icon: '👗',
     gradient: 'from-fuchsia-600 to-rose-600',
@@ -252,7 +252,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_dinner_01',
-    title: '🍷 受邀法国家庭晚宴 · 餐桌社交与赞美',
+    title: '受邀法国家庭晚宴 · 餐桌社交与赞美',
     frenchTitle: 'Dîner chez des amis français · Convivialité',
     category: 'social_etiquette',
     categoryLabel: '社交礼仪',
@@ -284,7 +284,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   // --- 【新增】生活实用：巴士底集市 ---
   {
     id: 'fr_marche_01',
-    title: '🧀 巴士底露天早市 · 挑选奶酪与应季蔬果',
+    title: '巴士底露天早市 · 挑选奶酪与应季蔬果',
     frenchTitle: 'Au Marché Bastille · Fromages et produits frais',
     category: 'daily_life',
     categoryLabel: '生活实用',
@@ -316,7 +316,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   // --- 【新增】欧标冲刺 4 大场景 (B1/B2) ---
   {
     id: 'fr_delf_teletravail_02',
-    title: '💻 DELF B1 考官口试 · 远程办公与生活界限',
+    title: 'DELF B1 考官口试 · 远程办公与生活界限',
     frenchTitle: 'Épreuve orale DELF B1 · Le télétravail et l\'équilibre de vie',
     category: 'delf_speaking',
     categoryLabel: '欧标冲刺',
@@ -346,7 +346,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_delf_ia_03',
-    title: '🤖 DELF B2 深度思辨 · 人工智能对教育与艺术的冲击',
+    title: 'DELF B2 深度思辨 · 人工智能对教育与艺术的冲击',
     frenchTitle: 'Débat DELF B2 · L\'intelligence artificielle et la créativité',
     category: 'delf_speaking',
     categoryLabel: '欧标冲刺',
@@ -376,7 +376,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_delf_reseaux_04',
-    title: '📱 DELF B1 观点陈述 · 社交媒体与青年数字断联',
+    title: 'DELF B1 观点陈述 · 社交媒体与青年数字断联',
     frenchTitle: 'Exposé DELF B1 · Les réseaux sociaux et la déconnexion',
     category: 'delf_speaking',
     categoryLabel: '欧标冲刺',
@@ -406,7 +406,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_delf_tourisme_05',
-    title: '✈️ DELF B2 考官反驳 · 大众过度旅游与文化遗产保护',
+    title: 'DELF B2 考官反驳 · 大众过度旅游与文化遗产保护',
     frenchTitle: 'Débat DELF B2 · Le surtourisme et le patrimoine',
     category: 'delf_speaking',
     categoryLabel: '欧标冲刺',
@@ -438,7 +438,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   // --- 【新增】出行问路 4 大场景 ---
   {
     id: 'fr_aeroport_02',
-    title: '✈️ 戴高乐机场 (CDG) · 行李延误申报与海关出入境',
+    title: '戴高乐机场 (CDG) · 行李延误申报与海关出入境',
     frenchTitle: 'À l\'Aéroport Charles de Gaulle · Perte de bagage et douane',
     category: 'travel_transport',
     categoryLabel: '出行问路',
@@ -468,7 +468,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_tgv_03',
-    title: '🚄 SNCF 法国高铁站 · 普罗旺斯TGV退改签与柜台咨询',
+    title: 'SNCF 法国高铁站 · 普罗旺斯TGV退改签与柜台咨询',
     frenchTitle: 'En Gare SNCF · Échange de billet TGV pour Avignon',
     category: 'travel_transport',
     categoryLabel: '出行问路',
@@ -498,7 +498,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_hotel_04',
-    title: '🏨 塞纳河畔精品酒店 · 入住办理与塞纳河景升房',
+    title: '塞纳河畔精品酒店 · 入住办理与塞纳河景升房',
     frenchTitle: 'À la Réception de l\'Hôtel · Check-in et surclassement',
     category: 'travel_transport',
     categoryLabel: '出行问路',
@@ -528,7 +528,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_musee_05',
-    title: '🏛️ 卢浮宫票务中心 · 语音导览租借与特展预约',
+    title: '卢浮宫票务中心 · 语音导览租借与特展预约',
     frenchTitle: 'Au Musée du Louvre · Billetterie et audioguide',
     category: 'travel_transport',
     categoryLabel: '出行问路',
@@ -560,7 +560,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   // --- 【新增】职场面试 4 大场景 ---
   {
     id: 'fr_reunion_02',
-    title: '📊 法资跨国周会 · 汇报项目里程碑与管理层问答',
+    title: '法资跨国周会 · 汇报项目里程碑与管理层问答',
     frenchTitle: 'Réunion d\'équipe hebdomadaire · Avancement du projet',
     category: 'business_work',
     categoryLabel: '职场面试',
@@ -590,7 +590,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_negociation_03',
-    title: '🤝 商务合作洽谈 · 交付周期与批量折扣博弈',
+    title: '商务合作洽谈 · 交付周期与批量折扣博弈',
     frenchTitle: 'Négociation commerciale · Tarifs et remises quantitatives',
     category: 'business_work',
     categoryLabel: '职场面试',
@@ -620,7 +620,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_stagiaire_04',
-    title: '🏢 首日入职实习 · 与带教导师破冰与分配工作',
+    title: '首日入职实习 · 与带教导师破冰与分配工作',
     frenchTitle: 'Premier jour de stage · Accueil par le tuteur d\'entreprise',
     category: 'business_work',
     categoryLabel: '职场面试',
@@ -650,7 +650,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_demission_05',
-    title: '📄 职场薪酬面谈 · 年终绩效沟通与争取加薪',
+    title: '职场薪酬面谈 · 年终绩效沟通与争取加薪',
     frenchTitle: 'Entretien annuel d\'évaluation · Négociation de salaire',
     category: 'business_work',
     categoryLabel: '职场面试',
@@ -682,7 +682,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   // --- 【新增】社交礼仪 3 大场景 ---
   {
     id: 'fr_soiree_02',
-    title: '🥂 巴黎青年屋顶派对 · 破冰认识新朋友与兴趣畅聊',
+    title: '巴黎青年屋顶派对 · 破冰认识新朋友与兴趣畅聊',
     frenchTitle: 'Soirée rooftop entre amis · Briser la glace',
     category: 'social_etiquette',
     categoryLabel: '社交礼仪',
@@ -699,7 +699,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
         speakerName: '巴黎摄影师 Maxime',
         avatar: '👱🏻‍♂️',
         fr: 'Salut ! Je ne crois pas qu\'on se connaisse déjà, moi c\'est Maxime ! La vue sur les toits de Paris est magique ce soir, non ? Tu es venu(e) avec qui ?',
-        zh: '嗨！我想我们之前还没见过面，我叫马克西姆！今晚从这里俯瞰巴黎屋顶的夜景真绝了，不是吗？你今晚是跟谁一块儿来的呀？',
+        zh: '嗨 ! 我想我们之前还没见过面，我叫马克西姆！今晚从这里俯瞰巴黎屋顶的夜景真绝了，不是吗？你今晚是跟谁一块儿来的呀？',
         phonetic: 'sa.ly ! ʒə nə kʁwa pa k‿ɔ̃ sə kɔ.nɛs...',
         grammarTip: '青年破冰招呼：Je ne crois pas qu\'on se connaisse (我想我们还不认识吧，croire 带虚拟式)',
         suggestedResponses: [
@@ -712,7 +712,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_voisin_03',
-    title: '🏡 巴黎公寓邻里社交 · 邻里节与生活琐事交流',
+    title: '巴黎公寓邻里社交 · 邻里节与生活琐事交流',
     frenchTitle: 'La Fête des Voisins · Convivialité dans l\'immeuble',
     category: 'social_etiquette',
     categoryLabel: '社交礼仪',
@@ -742,7 +742,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
   },
   {
     id: 'fr_professeur_04',
-    title: '💌 拜访法国大学教授 · 学术请教与赠礼致谢',
+    title: '拜访法国大学教授 · 学术请教与赠礼致谢',
     frenchTitle: 'Visite chez le Professeur · Remerciements et conseils',
     category: 'social_etiquette',
     categoryLabel: '社交礼仪',
