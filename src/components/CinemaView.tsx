@@ -164,35 +164,35 @@ export const CinemaView: React.FC<CinemaViewProps> = ({
   return (
     <div className="space-y-3 sm:space-y-3.5 pb-0">
       
-      {/* Top Hero Banner with Weekly Update Commitment */}
-      <div className="bg-gradient-to-r from-[#80142A] via-[#650E20] to-[#360811] rounded-2xl sm:rounded-3xl p-5 sm:p-6 text-white shadow-md relative overflow-hidden border border-[#80142A]/30">
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-radial from-[#DDBF78]/15 via-transparent to-transparent pointer-events-none"></div>
+      {/* Top Hero Banner with Weekly Update Commitment (Light, Elegant French Theme) */}
+      <div className="bg-gradient-to-br from-white via-rose-50/35 to-amber-50/20 rounded-2xl sm:rounded-3xl p-5 sm:p-6 border border-rose-200/80 shadow-xs relative overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-bold backdrop-blur-sm border border-white/20">
-                <Headphones className="w-3.5 h-3.5 text-[#DDBF78]" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50 text-[#80142A] border border-rose-200/80 text-xs font-bold shadow-2xs">
+                <Headphones className="w-3.5 h-3.5 text-[#80142A]" />
                 <span>法兰西原声视听 · 沉浸精听跟读</span>
               </span>
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#DDBF78] text-[#4A0A17] text-xs font-extrabold shadow-xs">
-                <Calendar className="w-3 h-3" />
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200/80 text-xs font-extrabold shadow-2xs">
+                <Calendar className="w-3 h-3 text-amber-700" />
                 <span>每周五准时上新</span>
               </span>
-              <span className="text-xs px-2.5 py-0.5 rounded-full bg-white/10 text-white/90 font-medium">
+              <span className="text-xs px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200/70 font-medium">
                 已收录 30 部法国影史殿堂名片
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight flex items-center gap-2 font-serif">
-              法国高分经典电影原声精听 (Cinéma)
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight flex items-center gap-2 font-serif text-slate-900">
+              <span>法国高分经典电影原声精听</span>
+              <span className="text-[#80142A] text-xl sm:text-2xl font-bold font-sans">(Cinéma)</span>
             </h1>
-            <p className="text-xs sm:text-sm text-white/85 max-w-2xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed font-medium">
               汇聚新浪潮、治愈温情、传奇爱恋与当代金棕榈传世经典，中法双语逐句原声磨耳朵与语法考点精析。剧库每周五定期持续扩充，VIP 终身会员全库永久同步免费享用！
             </p>
           </div>
           <div className="shrink-0 flex sm:flex-col items-start sm:items-end justify-between gap-2">
-            <div className="bg-white/10 backdrop-blur-md border border-white/15 px-4 py-2 rounded-xl text-right">
-              <div className="text-[11px] text-white/70">精学库规模</div>
-              <div className="text-xl font-black text-[#DDBF78] font-serif">30 部经典名作</div>
+            <div className="bg-white/95 border border-slate-200/80 shadow-2xs px-4 py-2.5 rounded-2xl text-right">
+              <div className="text-[11px] text-slate-400 font-bold">精学库规模</div>
+              <div className="text-xl font-black text-[#80142A] font-serif">30 部经典名作</div>
             </div>
           </div>
         </div>
