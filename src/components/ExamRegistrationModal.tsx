@@ -17,7 +17,8 @@ import {
   BookOpen,
   Calculator,
   GraduationCap,
-  Globe2
+  Globe2,
+  Lightbulb
 } from 'lucide-react';
 import { FRENCH_EXAM_REGISTRATION_DATA } from '../data/french/examRegistration';
 import { getFrenchExamCountdown } from '../utils/examCountdown';
@@ -33,7 +34,7 @@ export const ExamRegistrationModal: React.FC<ExamRegistrationModalProps> = ({
   onClose,
   onNavigateToExam
 }) => {
-  const [activeTab, setActiveTab] = useState<'timeline' | 'tips' | 'scoring' | 'centers'>('timeline');
+  const [activeTab, setActiveTab] = useState<'gateways' | 'timeline' | 'tips' | 'scoring' | 'centers'>('gateways');
   const [timelineTrack, setTimelineTrack] = useState<'kaoyan' | 'delf'>('kaoyan');
   const [expandedStep, setExpandedStep] = useState<string | null>('01');
 
@@ -86,10 +87,10 @@ export const ExamRegistrationModal: React.FC<ExamRegistrationModalProps> = ({
             <div>
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="px-2 py-0.5 rounded-full bg-white/20 text-white text-[10.5px] font-black tracking-wide">
-                  官方考期全景
+                  官方报考直通
                 </span>
                 <h3 className="text-base sm:text-lg font-black tracking-tight">
-                  2026 法语考研二外 & DELF 官方考期指南
+                  2026 法语考研二外 & DELF 欧标官方报考对接与全景指南
                 </h3>
                 <span className="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-xs font-black flex items-center gap-1 shadow-2xs">
                   <Flame className="w-3.5 h-3.5 text-rose-700" />
@@ -97,7 +98,7 @@ export const ExamRegistrationModal: React.FC<ExamRegistrationModalProps> = ({
                 </span>
               </div>
               <p className="text-xs text-slate-200 font-medium mt-0.5">
-                研招网 (yz.chsi.com.cn) 与教育部考试院 NEEA 官方权威时间线 · 抢考位避坑手册
+                中国研招网 (yz.chsi.com.cn) · 教育部考试院 (delf-dalf.neea.edu.cn) · 高校教务直通
               </p>
             </div>
           </div>
@@ -111,8 +112,20 @@ export const ExamRegistrationModal: React.FC<ExamRegistrationModalProps> = ({
           </button>
         </div>
 
-        {/* 4 维导航标签页 */}
+        {/* 5 维导航标签页 */}
         <div className="flex items-center border-b border-slate-200/80 bg-slate-50/90 px-4 sm:px-6 overflow-x-auto no-scrollbar shrink-0">
+          <button
+            onClick={() => setActiveTab('gateways')}
+            className={`py-3 px-3 sm:px-4 text-xs font-bold border-b-2 transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
+              activeTab === 'gateways'
+                ? 'border-[#80142A] text-[#80142A] bg-white shadow-2xs font-black'
+                : 'border-transparent text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <Globe2 className="w-4 h-4 text-[#80142A]" />
+            <span>🌐 官方报名唯一入口对接</span>
+          </button>
+
           <button
             onClick={() => setActiveTab('timeline')}
             className={`py-3 px-3 sm:px-4 text-xs font-bold border-b-2 transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
@@ -164,6 +177,127 @@ export const ExamRegistrationModal: React.FC<ExamRegistrationModalProps> = ({
 
         {/* 内容主体 (可滚动区域) */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5">
+          
+          {/* TAB 0: 官方报名唯一入口对接 (权威说明与一键直通) */}
+          {activeTab === 'gateways' && (
+            <div className="space-y-4">
+              
+              {/* 官方权威合规声明 */}
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-[#FFF9FA] via-[#FCECEF]/60 to-white border border-[#80142A]/25 space-y-1.5 shadow-2xs">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-5 h-5 text-[#80142A]" />
+                  <strong className="text-sm font-black text-[#80142A]">
+                    关于国家正规法语考试官方报考渠道的重要说明
+                  </strong>
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                  我国所有硕士研究生入学考试（二外法语 241/242/243）及法国官方 DELF/DALF 欧标考级，均必须由考生本人在国家级官方指定系统以实名认证方式完成网上报名与缴费。任何第三方机构均无权私自办理。本研习社已为您整合全国三大官方唯一报名系统入口与报考指南，请点击对应卡片前往官网安全报考：
+                </p>
+              </div>
+
+              {/* 三大官方报名网关大卡片 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                {/* 网关 1: 考研二外 -> 中国研招网 */}
+                <div className="p-5 rounded-3xl bg-white border-2 border-[#80142A]/30 hover:border-[#80142A] shadow-xs hover:shadow-md transition space-y-3.5 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="px-2.5 py-0.5 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-black border border-[#80142A]/20">
+                        🏛️ 全国高校统考
+                      </span>
+                      <span className="text-xs font-mono font-bold text-slate-400">yz.chsi.com.cn</span>
+                    </div>
+                    <h4 className="text-base font-black text-[#29354A]">
+                      全国硕士研究生统一招生考试（二外法语）
+                    </h4>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      <strong>唯一官方报名网：</strong>中国研究生招生信息网（学信网·研招网）<br/>
+                      <strong>适用对象：</strong>全国高校英语专业、翻译硕士 (MTI) 等报考统考二外法语 (241/242/243 自命题) 的考生。<br/>
+                      <strong>报名时间：</strong>每年 9 月下旬预报名，10 月 8 日 - 25 日正式网报，11 月初网上确认，12 月下旬初试。
+                    </p>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row items-center gap-2">
+                    <a
+                      href="https://yz.chsi.com.cn"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-full py-2.5 px-4 rounded-xl bg-[#80142A] hover:bg-[#680E20] text-white text-xs font-bold flex items-center justify-center gap-2 shadow-xs transition cursor-pointer"
+                    >
+                      <span>前往中国研招网官网报名</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                    <button
+                      onClick={() => setActiveTab('timeline')}
+                      className="w-full sm:w-auto py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold whitespace-nowrap cursor-pointer transition"
+                    >
+                      查看考期时间表
+                    </button>
+                  </div>
+                </div>
+
+                {/* 网关 2: DELF/DALF -> 教育部考试院 NEEA */}
+                <div className="p-5 rounded-3xl bg-white border-2 border-amber-300 hover:border-amber-400 shadow-xs hover:shadow-md transition space-y-3.5 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="px-2.5 py-0.5 rounded-full bg-amber-50 text-[#8A6A1E] text-xs font-black border border-amber-200">
+                        🌍 法国教育部终身认证
+                      </span>
+                      <span className="text-xs font-mono font-bold text-slate-400">delf-dalf.neea.edu.cn</span>
+                    </div>
+                    <h4 className="text-base font-black text-amber-950">
+                      DELF-DALF 法国官方国际欧标考级
+                    </h4>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      <strong>唯一官方报名网：</strong>教育部教育考试院 DELF-DALF 官方报名网<br/>
+                      <strong>适用对象：</strong>法国留学申请、魁北克移民、外企应聘、欧洲终身有效法语能力水平认证。<br/>
+                      <strong>考期安排：</strong>每年春季（3月）、夏季（6月）、冬季（11月）三大考季，提前约 2 个月在 NEEA 抢考位。
+                    </p>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row items-center gap-2">
+                    <a
+                      href="https://delf-dalf.neea.edu.cn"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-full py-2.5 px-4 rounded-xl bg-[#B89047] hover:bg-[#8A6A1E] text-white text-xs font-bold flex items-center justify-center gap-2 shadow-xs transition cursor-pointer"
+                    >
+                      <span>前往教育部 NEEA 抢考位</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                    <button
+                      onClick={() => setActiveTab('centers')}
+                      className="w-full sm:w-auto py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold whitespace-nowrap cursor-pointer transition"
+                    >
+                      查看考点紧俏榜
+                    </button>
+                  </div>
+                </div>
+
+                {/* 网关 3: 大学法语四级 (CFT-4) -> 高校教务系统 */}
+                <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-xs space-y-3 md:col-span-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-800 text-xs font-black border border-slate-200">
+                        🏫 全国在校公外统考
+                      </span>
+                      <h4 className="text-sm sm:text-base font-black text-slate-900">
+                        大学法语四级考试 (CFT-4) 报考通道
+                      </h4>
+                    </div>
+                    <span className="text-xs font-bold text-slate-500">
+                      每年 3月-4月 由各高校教务处组织集体报名
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    大学法语四级考试由教育部高等学校大学外语教学指导委员会统一命题。凡修完大学二外法语课程的在校本科生或研究生，均可在每年 3~4 月登录本校教务管理系统（选课报考中心）完成网上报考，考试时间通常在 6 月中下旬（与大学英语 CET-4/6 同期举行）。
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+          )}
           
           {/* TAB 1: 官方考期全流程日历 */}
           {activeTab === 'timeline' && (
