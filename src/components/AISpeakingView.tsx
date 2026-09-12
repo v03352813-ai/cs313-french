@@ -6,6 +6,7 @@ import {
   Volume2, 
   Sparkles, 
   RotateCcw, 
+  Clock,
   CheckCircle2, 
   AlertCircle, 
   BookOpen, 
@@ -32,6 +33,12 @@ export interface AISpeakingViewProps {
   onOpenVipModal?: (reason?: string) => void;
 }
 
+export interface SuggestionOption {
+  tag: string;
+  text: string;
+  zh?: string;
+}
+
 interface ChatMessage {
   id: string;
   sender: 'ai' | 'user';
@@ -41,7 +48,7 @@ interface ChatMessage {
   zh?: string;
   phonetic?: string;
   grammarTip?: string;
-  suggestedResponses?: string[];
+  suggestedResponses?: SuggestionOption[];
   score?: {
     fluency: number;
     grammar: number;
@@ -302,37 +309,120 @@ const getCleanScenarioTitle = (title: string, icon?: string): string => {
   return clean || title;
 };
 
+// 建议项安全归一化工具（兼容字符串数组与对象数组）
+export function normalizeSuggestions(items: any[] | undefined | null): SuggestionOption[] {
+  if (!items || !Array.isArray(items)) return [];
+  return items.map((item, idx) => {
+    if (typeof item === 'string') {
+      return {
+        tag: idx === 0 ? '标准回答' : idx === 1 ? '高分进阶' : '地道口语',
+        text: item,
+        zh: '点击即可直接填入发送'
+      };
+    }
+    return {
+      tag: item?.tag || (idx === 0 ? '标准回答' : '高分进阶'),
+      text: item?.text || (typeof item === 'string' ? item : ''),
+      zh: item?.zh || ''
+    };
+  }).filter(item => Boolean(item.text && item.text.trim().length > 0));
+}
+
+// 动态多轮灵感库生成器
+function generateDynamicSuggestions(
+  scenario: AIScenario,
+  turnCount: number,
+  refreshSeed: number = 0
+): SuggestionOption[] {
+  const isDelf = scenario.category === 'delf_speaking';
+  const isDaily = scenario.category === 'daily_life';
+  const isTravel = scenario.category === 'travel_transport';
+  const isBiz = scenario.category === 'business_work';
+
+  if (isDelf) {
+    const pools: SuggestionOption[][] = [
+      [
+        { tag: '论点立意', text: 'À mon avis, cette mesure présente des atouts indéniables, mais il faut mesurer ses conséquences sociales.', zh: '在我看来，该举措具有不可否认的优势，但必须权衡其社会后果。' },
+        { tag: '让步转折', text: 'Bien que l\'argument écologique soit recevable, force est de constater que les alternatives actuelles restent insuffisantes.', zh: '尽管环保论点站得住脚，但不得不承认目前的替代方案依然不足。' },
+        { tag: '提议号召', text: 'Il conviendrait donc d\'instaurer une période de transition progressive avec des subventions adaptées.', zh: '因此，应当设立带有相应补贴的渐进过渡期。' }
+      ],
+      [
+        { tag: '现象剖析', text: 'Ce phénomène s\'explique en grande partie par l\'évolution rapide de nos modes de vie numériques.', zh: '这一现象很大程度上源于我们数字化生活方式的迅猛演变。' },
+        { tag: '反驳质疑', text: 'Je ne partage pas entièrement ce point de vue, car cela risque d\'accentuer la précarité des plus vulnérables.', zh: '我不能完全赞同这一观点，因为这可能会加剧弱势群体的脆弱性。' },
+        { tag: '总结陈词', text: 'En définitive, l\'éducation et la sensibilisation demeurent les leviers les plus pérennes pour surmonter cette crise.', zh: '归根结底，教育与倡导依然是克服这场危机最持久的抓手。' }
+      ]
+    ];
+    return pools[(turnCount + refreshSeed) % pools.length];
+  }
+
+  if (isDaily || isTravel) {
+    const pools: SuggestionOption[][] = [
+      [
+        { tag: '礼貌询问', text: 'Pardonnez-moi de vous déranger, pourriez-vous m\'indiquer le chemin le plus rapide ?', zh: '劳驾打扰一下，您能为我指明最快捷的路线吗？' },
+        { tag: '高频点选', text: 'Je vais prendre cette option, s\'il vous plaît, avec un reçu pour ma comptabilité.', zh: '请帮我选这个方案，并附带一份报销收据。' },
+        { tag: '确认感谢', text: 'C\'est parfait, merci infiniment pour vos explications limpides !', zh: '太棒了，非常感谢您清晰明了的说明！' }
+      ],
+      [
+        { tag: '退改要求', text: 'Est-il envisageable d\'échanger mon billet sans frais supplémentaires pour le train suivant ?', zh: '请问是否可以在没有额外手续费的情况下改签至下一班列车？' },
+        { tag: '生活咨询', text: 'Avez-vous une recommandation particulière pour un restaurant typique dans le quartier ?', zh: '在这一带您有什么地道的特色餐厅特别推荐吗？' },
+        { tag: '客套道别', text: 'Je vous remercie chaleureusement de votre accueil. Bonne journée !', zh: '衷心感谢您的热情接待。祝您拥有愉快的一天！' }
+      ]
+    ];
+    return pools[(turnCount + refreshSeed) % pools.length];
+  }
+
+  if (isBiz) {
+    const pools: SuggestionOption[][] = [
+      [
+        { tag: '商务汇报', text: 'Je vous confirme que nous avons franchi le premier jalon du projet dans le respect scrupuleux du calendrier.', zh: '我向您确认，我们已在严格遵守时间节点的前提下顺利通过了项目的首个里程碑。' },
+        { tag: '谈判协商', text: 'Nous serions disposés à accepter ces conditions tarifaires sous réserve d\'un étalement des livraisons.', zh: '只要能分期分批交付，我们愿意接受此价格条件。' },
+        { tag: '主动跟进', text: 'Je m\'engage à vous transmettre le compte-rendu synthétique avant la fin de la journée.', zh: '我保证在今天结束前向您呈送精简会议纪要。' }
+      ]
+    ];
+    return pools[(turnCount + refreshSeed) % pools.length];
+  }
+
+  return [
+    { tag: '地道致谢', text: 'C\'est une excellente suggestion, je vais la mettre en pratique dès maintenant.', zh: '这是极好的建议，我马上付诸实践。' },
+    { tag: '展开对话', text: 'Pourriez-vous m\'en dire davantage sur ce point précis ? Cela m\'intéresse vivement.', zh: '您能就这一具体要点多讲一些吗？我非常感兴趣。' },
+    { tag: '赞同共鸣', text: 'Je suis tout à fait en phase avec votre analyse sur cette question.', zh: '关于这个问题，我与您的分析见解完全一致。' }
+  ];
+}
+
 export const AISpeakingView: React.FC<AISpeakingViewProps> = ({ 
   isVip = false, 
   onOpenVipModal 
 }) => {
   const [selectedScenarioId, setSelectedScenarioId] = useState<string>('fr_cafe_01');
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputText, setInputText] = useState<string>('');
   const [isListening, setIsListening] = useState<boolean>(false);
   const [isAiReplying, setIsAiReplying] = useState<boolean>(false);
   const [showTranslations, setShowTranslations] = useState<boolean>(true);
-  const [showPhonetics, setShowPhonetics] = useState<boolean>(false);
-  const [playingAudioFr, setPlayingAudioFr] = useState<string | null>(null);
+  const [isReportOpen, setIsReportOpen] = useState<boolean>(false);
+  const [refreshSeed, setRefreshSeed] = useState<number>(0);
+  const [timerSeconds, setTimerSeconds] = useState<number>(120);
 
   const recognitionRef = useRef<any>(null);
-  const chatBottomRef = useRef<HTMLDivElement | null>(null);
+  const chatScrollRef = useRef<HTMLDivElement | null>(null);
 
   const currentScenario = AI_SCENARIOS_DATA.find(s => s.id === selectedScenarioId) || AI_SCENARIOS_DATA[0];
 
-  const categories = [
-    { id: 'all', label: '全部场景' },
-    { id: 'daily_life', label: '生活实用' },
-    { id: 'delf_speaking', label: '欧标冲刺 (B1/B2)' },
-    { id: 'travel_transport', label: '出行问路' },
-    { id: 'business_work', label: '职场面试' },
-    { id: 'social_etiquette', label: '社交礼仪' },
+  const scenarioCategories = [
+    { key: 'all', label: '全部场景', count: AI_SCENARIOS_DATA.length },
+    { key: 'weekly_new', label: '本周新推', count: AI_SCENARIOS_DATA.filter(s => s.isWeeklyNew).length },
+    { key: 'delf_speaking', label: 'DELF 欧标冲刺', count: AI_SCENARIOS_DATA.filter(s => s.category === 'delf_speaking').length },
+    { key: 'daily_life', label: '生活实用', count: AI_SCENARIOS_DATA.filter(s => s.category === 'daily_life').length },
+    { key: 'travel_transport', label: '出行问路', count: AI_SCENARIOS_DATA.filter(s => s.category === 'travel_transport').length },
+    { key: 'business_work', label: '职场与面试', count: AI_SCENARIOS_DATA.filter(s => s.category === 'business_work').length },
+    { key: 'social_etiquette', label: '社交礼仪', count: AI_SCENARIOS_DATA.filter(s => s.category === 'social_etiquette').length },
   ];
 
   const filteredScenarios = AI_SCENARIOS_DATA.filter(s => {
-    if (activeCategory === 'all') return true;
-    return s.category === activeCategory;
+    if (selectedCategory === 'all') return true;
+    if (selectedCategory === 'weekly_new') return Boolean(s.isWeeklyNew);
+    return s.category === selectedCategory;
   });
 
   const userTurnsCount = messages.filter(m => m.sender === 'user').length;
@@ -350,6 +440,7 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
   }, [selectedScenarioId]);
 
   const initScenario = (scenario: AIScenario) => {
+    stopFrenchSpeech();
     const firstTurn = scenario.turns[0];
     const initialMsg: ChatMessage = {
       id: 'msg_init_' + Date.now(),
@@ -360,26 +451,29 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
       zh: firstTurn.zh,
       phonetic: firstTurn.phonetic,
       grammarTip: firstTurn.grammarTip,
-      suggestedResponses: firstTurn.suggestedResponses
+      suggestedResponses: normalizeSuggestions(firstTurn.suggestedResponses)
     };
     setMessages([initialMsg]);
     setInputText('');
-    stopFrenchSpeech();
+    setTimerSeconds(scenario.examDurationSec || 120);
+    setRefreshSeed(0);
     // 自动播放欢迎语
     setTimeout(() => {
       handlePlaySpeech(firstTurn.fr);
     }, 400);
   };
 
+  const handleResetScenario = () => {
+    initScenario(currentScenario);
+  };
+
   useEffect(() => {
-    chatBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    chatScrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isAiReplying]);
 
   // 语音播放
   const handlePlaySpeech = async (text: string) => {
-    setPlayingAudioFr(text);
     await speakFrench(text, 0.9);
-    setPlayingAudioFr(null);
   };
 
   // 语音识别初始化 (Web Speech API)
@@ -439,14 +533,13 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
 
     // 免费体验轮次上限检查（仅支持前 3 轮）
     if (!isVip && userTurnsCount >= 3) {
-      onOpenVipModal?.('🎯 您的免费 AI 口语体验轮次已达上限（已体验 3 轮）！升级 VIP 终身卡（仅 ¥49.9），即可享受全站 8 大场景无限次 AI 自由畅聊与巴黎母语对练！');
+      onOpenVipModal?.('🎯 您的免费 AI 口语体验轮次已达上限（已体验 3 轮）！升级 VIP 终身卡（仅 ¥49.9），即可享受全站 24 大场景无限次 AI 自由畅聊与巴黎母语对练！');
       return;
     }
 
-    // 随机计算发音与流利度打分
-    const fluency = Math.min(98, Math.round(82 + Math.random() * 16));
-    const grammar = Math.min(98, Math.round(84 + Math.random() * 14));
-    const pronunciation = Math.min(98, Math.round(80 + Math.random() * 18));
+    const fluency = Math.min(98, Math.round(85 + Math.random() * 13));
+    const grammar = Math.min(98, Math.round(86 + Math.random() * 12));
+    const pronunciation = Math.min(98, Math.round(82 + Math.random() * 16));
 
     const userMsg: ChatMessage = {
       id: 'msg_user_' + Date.now(),
@@ -456,7 +549,7 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
       fr: text,
       score: { fluency, grammar, pronunciation },
       feedback: fluency > 90 
-        ? '发音标准流畅，主谓连读连音自然，用词精准！' 
+        ? '发音标准流畅，主谓连读连音自然，虚拟式配合到位！' 
         : '表达地道清晰！建议注意元音鼻化音（on / an / in）的纯正度。'
     };
 
@@ -464,38 +557,44 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
     setInputText('');
     setIsAiReplying(true);
 
-    if (fluency >= 92) {
-      confetti({
-        particleCount: 50,
-        spread: 60,
-        origin: { y: 0.8 }
-      });
-    }
+    confetti({
+      particleCount: 35,
+      spread: 45,
+      origin: { y: 0.8 }
+    });
 
-    // 模拟 AI 拟人思考回复
+    const currentTurnNumber = userTurnsCount + 1;
+
     setTimeout(() => {
       setIsAiReplying(false);
 
       let replyFr = '';
       let replyZh = '';
-      let nextSuggestions: string[] = [];
+      let nextSuggestions: SuggestionOption[] = [];
       let grammarTip = '';
 
       const customReply = SCENARIO_REPLY_REGISTRY[currentScenario.id];
-      if (customReply) {
+      if (currentTurnNumber === 1 && customReply) {
         replyFr = customReply.replyFr;
         replyZh = customReply.replyZh;
         grammarTip = customReply.grammarTip;
-        nextSuggestions = customReply.nextSuggestions;
+        nextSuggestions = normalizeSuggestions(customReply.nextSuggestions);
       } else {
-        replyFr = 'Parfait ! J\'ai bien compris votre demande. Avez-vous besoin d\'un autre renseignement ou puis-je faire autre chose pour vous aider ?';
-        replyZh = '太好了！我完全理解了您的诉求。您还需要其他信息吗，或者我还能帮您做点什么？';
-        grammarTip = '礼貌接待用语：Puis-je faire autre chose pour vous aider ?';
-        nextSuggestions = [
-          'Non merci, c\'est très clair ! Merci pour votre aide précieuse.',
-          'Oui, pouvez-vous me préciser les horaires d\'ouverture ?',
-          'Merci beaucoup, bonne journée à vous !'
-        ];
+        const dynSuggestions = generateDynamicSuggestions(currentScenario, currentTurnNumber, refreshSeed);
+        if (currentScenario.category === 'delf_speaking') {
+          replyFr = 'C\'est un argument fort pertinent. Toutefois, comment concilieriez-vous cette approche avec les contraintes budgétaires actuelles ?';
+          replyZh = '这是一个非常中肯的论点。然而，您将如何把这种方法与当下的预算限制加以调和呢？';
+          grammarTip = '欧标追问技巧：Comment concilieriez-vous... ? (条件式委婉质询)';
+        } else if (currentScenario.category === 'business_work') {
+          replyFr = 'Très bien. C\'est une analyse lucide. Quelles sont les prochaines étapes concrètes que vous préconisez pour notre équipe ?';
+          replyZh = '很好。这是一份清醒透彻的分析。针对我们团队，您主张推进的下一步具体举措是什么？';
+          grammarTip = '职场推进句型：Quelles sont les prochaines étapes concrètes ?';
+        } else {
+          replyFr = 'C\'est parfait, tout est bien clair ! Avez-vous une autre question ou souhaitez-vous aborder un autre détail ensemble ?';
+          replyZh = '太好了，一切都很清楚！您还有其他问题，或者想一起探讨其他细节吗？';
+          grammarTip = '日常互动惯用语：Souhaitez-vous aborder un autre détail ?';
+        }
+        nextSuggestions = dynSuggestions;
       }
 
       const aiReplyMsg: ChatMessage = {
@@ -511,427 +610,588 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
 
       setMessages(prev => [...prev, aiReplyMsg]);
       handlePlaySpeech(replyFr);
-    }, 1200);
+    }, 1000);
   };
 
+  const latestAiMessage = [...messages].reverse().find(m => m.sender === 'ai');
+  const activeSuggestions = normalizeSuggestions(latestAiMessage?.suggestedResponses).length > 0
+    ? normalizeSuggestions(latestAiMessage?.suggestedResponses)
+    : generateDynamicSuggestions(currentScenario, userTurnsCount, refreshSeed);
+
   return (
-    <div className="space-y-4 sm:space-y-6 pb-8">
-      {/* 顶部标语 */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-5">
-        <div className="space-y-1.5">
-          <div className="flex items-center gap-2 flex-wrap">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-black border border-[#80142A]/20">
-              <Bot className="w-3.5 h-3.5 text-[#DDBF78]" />
-              <span>巴黎母语级真实语伴 · 1v1 智能对练</span>
-            </div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-900 text-xs font-bold border border-amber-300/80">
-              <Sparkles className="w-3 h-3 text-[#B89047]" />
-              <span>🔥 每周持续扩充上新 (每周五更新)</span>
-            </div>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight flex items-center gap-3">
-            <span>AI 口语对练室 (Parler Français)</span>
-            <span className="text-xs sm:text-sm px-2.5 py-0.5 rounded-lg bg-rose-50 text-[#80142A] font-bold border border-[#80142A]/30">
-              巴黎原声引擎
+    <div className="max-w-6xl mx-auto px-2 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-5 animate-in fade-in duration-300">
+      
+      {/* 免费试学模式解锁横幅 (未激活时呈现) */}
+      {!isVip && (
+        <div className="rounded-2xl p-3 sm:px-4 sm:py-2.5 bg-gradient-to-r from-[#80142A] to-[#680E20] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
+          <div className="flex items-center gap-2 text-xs">
+            <Sparkles className="w-4 h-4 text-[#DDBF78] shrink-0" />
+            <span>
+              当前为<strong>【免费试学模式】</strong> · 拍下激活码即享 DELF 欧标与全国考研二外全真机考、6,500+ 核心词库与影视高光名台词原声精听
             </span>
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
-            涵盖<strong>巴黎咖啡馆、地铁交通、法式面包房、DELF 考官辩驳与法企面试</strong>，支持跟读打分、双语对照与标准发音示范，<strong>每周五定期扩充全新高频场景</strong>。
-          </p>
-        </div>
-
-        {/* 顶部辅助开关 */}
-        <div className="flex items-center gap-2 self-start md:self-auto flex-wrap">
+          </div>
           <button
-            onClick={() => setShowTranslations(prev => !prev)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer border ${
-              showTranslations 
-                ? 'bg-[#FCECEF] text-[#80142A] border-[#80142A]/30' 
-                : 'bg-slate-100 text-slate-600 border-slate-200'
-            }`}
+            onClick={() => onOpenVipModal?.('拍下激活码即享 DELF 欧标与全国考研二外全真机考、6,500+ 核心词库与影视高光名台词原声精听！')}
+            className="px-4 py-1.5 rounded-xl bg-white text-[#80142A] hover:bg-rose-50 text-xs font-black shrink-0 transition shadow-xs flex items-center justify-center gap-1 cursor-pointer"
           >
-            {showTranslations ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
-            <span>中文译文</span>
-          </button>
-          <button
-            onClick={() => setShowPhonetics(prev => !prev)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer border ${
-              showPhonetics 
-                ? 'bg-[#FCECEF] text-[#80142A] border-[#80142A]/30' 
-                : 'bg-slate-100 text-slate-600 border-slate-200'
-            }`}
-          >
-            <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
-            <span>国际音标引导</span>
-          </button>
-          <button
-            onClick={() => initScenario(currentScenario)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition cursor-pointer border border-slate-200"
-            title="重新开启本场景对话"
-          >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span>重置对话</span>
+            <span>输入卡密解锁 ➔</span>
           </button>
         </div>
-      </div>
+      )}
 
-      {/* 场景分类胶囊条 */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-        {categories.map(cat => {
-          const count = cat.id === 'all'
-            ? AI_SCENARIOS_DATA.length
-            : AI_SCENARIOS_DATA.filter(s => s.category === cat.id).length;
-          return (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
-                activeCategory === cat.id
-                  ? 'bg-[#80142A] text-white shadow-xs'
-                  : 'bg-white border border-slate-200/80 text-slate-600 hover:bg-slate-50'
-              }`}
-            >
-              <span>{cat.label}</span>
-              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-black ${
-                activeCategory === cat.id
-                  ? 'bg-white/20 text-white'
-                  : 'bg-slate-100 text-slate-500'
-              }`}>
-                {count}
+      {/* 轻量级顶部 Hero 标题卡片 */}
+      <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-[#80142A] text-white font-black text-sm flex items-center justify-center shrink-0 shadow-xs shadow-[#80142A]/20">
+            06
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-[#80142A] bg-rose-50 px-2 py-0.5 rounded-md border border-[#80142A]/20">
+                实战对练
               </span>
+              <h2 className="text-base sm:text-lg font-black text-slate-900">
+                AI 智能法语口语实战对练 · 巴黎腔角色扮演工坊
+              </h2>
+            </div>
+            <p className="text-xs text-slate-500 mt-0.5">
+              DELF 欧标实用会话对练 · 巴黎生活实操 · 法企商务面试 · 经典影视名场面对戏
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 flex-wrap">
+          {userTurnsCount >= 2 && (
+            <button
+              onClick={() => setIsReportOpen(true)}
+              className="px-3.5 py-1.5 rounded-xl bg-[#80142A] hover:bg-[#680E20] text-white text-xs font-bold flex items-center gap-1.5 shadow-xs shadow-[#80142A]/20 transition active:scale-98 cursor-pointer"
+            >
+              <BarChart3 className="w-3.5 h-3.5" />
+              <span>生成能力报告</span>
             </button>
-          );
-        })}
+          )}
+
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200/60 text-xs font-semibold">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            AI 对练就绪
+          </span>
+        </div>
       </div>
 
-      {/* 场景卡片横向轮播或选择 */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        {filteredScenarios.map(sc => {
-          const isSelected = sc.id === currentScenario.id;
-          const isFree = sc.id === 'fr_cafe_01';
-          const isLocked = !isVip && !isFree;
-          const cleanTitle = getCleanScenarioTitle(sc.title, sc.icon);
+      {/* 每周更新特推通知条 */}
+      <div className="px-4 py-2.5 rounded-xl bg-rose-50/60 border border-rose-200/70 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+        <div className="flex items-center gap-2 text-slate-700 min-w-0 flex-wrap">
+          <span className="px-1.5 py-0.2 rounded bg-[#80142A] text-white text-[10px] font-black shrink-0">
+            周更
+          </span>
+          <span className="font-bold text-slate-900">第 35 期特推：</span>
+          <span className="text-slate-600">《巴黎花神咖啡馆》点单对戏、卢浮宫中文语音导览租借、DELF B2 环保限行思辩</span>
+        </div>
+        <button
+          onClick={() => setSelectedCategory('weekly_new')}
+          className="text-[#80142A] hover:text-[#680E20] font-bold shrink-0 flex items-center gap-0.5 cursor-pointer text-xs"
+        >
+          <span>看本周新推 ({AI_SCENARIOS_DATA.filter(s => s.isWeeklyNew).length})</span>
+          <ChevronRight className="w-3.5 h-3.5" />
+        </button>
+      </div>
 
-          return (
-            <div
-              key={sc.id}
-              onClick={() => {
-                if (isLocked) {
-                  onOpenVipModal?.(`🔒【${cleanTitle}】为 VIP 专属口语实训场景！升级 VIP 终身卡（仅 ¥49.9），即可畅享全部 24+ 口语实战场景、每周五持续扩充上新、DELF 欧标实战会话与外企面试！`);
-                  return;
-                }
-                setSelectedScenarioId(sc.id);
-              }}
-              className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between group ${
-                isSelected
-                  ? 'bg-white border-[#80142A] shadow-md ring-2 ring-[#80142A]/20'
-                  : isLocked
-                  ? 'bg-slate-50/70 border-slate-200/80 hover:border-amber-300 hover:bg-white text-slate-700'
-                  : 'bg-white border-slate-200/80 hover:border-slate-300 hover:shadow-xs'
-              }`}
-            >
-              <div className="space-y-2">
-                {/* 顶部：左侧独立图标徽章 + 右侧分类与级别标签 */}
-                <div className="flex items-start gap-2.5">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0 transition-transform group-hover:scale-105 shadow-2xs ${
-                    isSelected 
-                      ? 'bg-rose-50 border border-[#80142A]/30 text-[#80142A]' 
-                      : 'bg-slate-100/90 border border-slate-200/70'
-                  }`}>
-                    {sc.icon}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between gap-1 mb-0.5">
-                      <span className="text-[10px] font-bold text-slate-400">
-                        {sc.categoryLabel}
-                      </span>
-                      <div className="flex items-center gap-1 shrink-0">
-                        {isLocked ? (
-                          <span className="text-[9px] px-1.5 py-0.2 rounded font-extrabold bg-amber-100 text-amber-900 border border-amber-300/80 flex items-center gap-0.5">
-                            <Lock className="w-2.5 h-2.5 text-amber-700" />
-                            <span>VIP</span>
-                          </span>
-                        ) : (
-                          <span className="text-[9px] px-1.5 py-0.2 rounded font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300/80">
-                            免费
-                          </span>
-                        )}
-                        <span className={`text-[9px] px-1.5 py-0.2 rounded font-bold ${
-                          sc.levelTag.includes('B2') 
-                            ? 'bg-purple-100 text-purple-800' 
-                            : 'bg-slate-100 text-slate-700'
-                        }`}>
-                          {sc.levelTag.replace(/\s*\(.*?\)/, '')}
-                        </span>
+      {/* 场景分类选项卡 */}
+      <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1">
+        {scenarioCategories.map((tab) => (
+          <button
+            key={tab.key}
+            onClick={() => setSelectedCategory(tab.key)}
+            className={`whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+              selectedCategory === tab.key
+                ? 'bg-slate-900 text-white shadow-xs'
+                : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
+            }`}
+          >
+            <span>{tab.label}</span>
+            <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+              selectedCategory === tab.key ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
+            }`}>
+              {tab.count}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/* 核心双栏工作区：左侧场景选择卡片 + 右侧互动对话舞台 */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        
+        {/* 左侧 4 列：剧本列表 */}
+        <div className="lg:col-span-4 space-y-3">
+          <div className="flex items-center justify-between px-1">
+            <span className="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+              <Layers className="w-3.5 h-3.5 text-[#80142A]" /> 选择口语实战剧本
+            </span>
+            <span className="text-[11px] text-slate-400 font-bold">
+              共 {filteredScenarios.length} 个
+            </span>
+          </div>
+
+          <div className="space-y-2.5 max-h-[660px] overflow-y-auto pr-1 no-scrollbar">
+            {filteredScenarios.map((sc) => {
+              const isSelected = sc.id === selectedScenarioId;
+              const isFree = sc.id === 'fr_cafe_01';
+              const isLocked = !isVip && !isFree;
+              const cleanTitle = getCleanScenarioTitle(sc.title, sc.icon);
+
+              return (
+                <div
+                  key={sc.id}
+                  onClick={() => {
+                    if (isLocked) {
+                      onOpenVipModal?.(`🔒【${cleanTitle}】为 VIP 专属口语实训场景！升级 VIP 终身卡（仅 ¥49.9），即可畅享 DELF 欧标实战会话、巴黎生活实操、外企面试与每周五持续上新！`);
+                      return;
+                    }
+                    setSelectedScenarioId(sc.id);
+                  }}
+                  className={`p-3.5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between gap-2.5 group/sc ${
+                    isSelected
+                      ? 'bg-[#FCECEF]/80 border-[#80142A] shadow-md ring-2 ring-[#80142A]/20 text-slate-900'
+                      : isLocked
+                      ? 'bg-white hover:bg-rose-50/50 border-slate-200/90 text-slate-800 shadow-xs'
+                      : 'bg-white hover:bg-slate-50 border-slate-200/90 text-slate-800 shadow-xs'
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <span className="text-xl shrink-0 drop-shadow-xs">{sc.icon}</span>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <h4 className={`text-xs font-black truncate ${isSelected ? 'text-[#80142A]' : 'text-slate-900 group-hover/sc:text-[#80142A]'}`}>
+                            {cleanTitle}
+                          </h4>
+                          {isFree ? (
+                            <span className="text-[9px] font-black px-1.5 py-0.2 rounded-md bg-emerald-500 text-white shrink-0 shadow-2xs">
+                              免费试聊
+                            </span>
+                          ) : isLocked ? (
+                            <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-md bg-amber-100 text-amber-800 border border-amber-200 shrink-0 flex items-center gap-0.5">
+                              <Lock className="w-2.5 h-2.5 text-amber-600" /> VIP
+                            </span>
+                          ) : sc.isWeeklyNew ? (
+                            <span className="text-[9px] font-black px-1.5 py-0.2 rounded-md bg-[#80142A] text-white shrink-0 shadow-2xs">
+                              NEW
+                            </span>
+                          ) : null}
+                        </div>
+                        <p className={`text-[10px] truncate ${isSelected ? 'text-slate-600 font-medium' : 'text-slate-500'}`}>
+                          {sc.frenchTitle}
+                        </p>
                       </div>
                     </div>
-                    <h4 className={`text-xs sm:text-sm font-black leading-snug line-clamp-1 ${
-                      isSelected ? 'text-[#80142A]' : 'text-slate-800'
+
+                    <span className={`text-[9px] font-bold px-2 py-0.5 rounded-md border shrink-0 ${
+                      isSelected
+                        ? 'bg-white text-[#80142A] border-rose-200 shadow-2xs'
+                        : isLocked
+                        ? 'bg-amber-50 text-amber-800 border-amber-200'
+                        : 'bg-slate-100 text-slate-600 border-slate-200'
                     }`}>
-                      {cleanTitle}
-                    </h4>
+                      {isLocked ? 'VIP专属' : sc.levelTag ? sc.levelTag.split(' ')[0] : '初级'}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-[10px]">
+                    <span className={`${isSelected ? 'text-[#80142A] font-bold' : isLocked ? 'text-amber-700 font-bold' : 'text-[#80142A] font-bold'}`}>
+                      {isLocked ? '🔒 点击解锁实练' : sc.categoryLabel}
+                    </span>
+                    <span className={`flex items-center gap-0.5 ${isSelected ? 'text-[#80142A] font-bold' : 'text-slate-400'}`}>
+                      <span>{isLocked ? '去解锁' : '开始实练'}</span>
+                      <ChevronRight className="w-3 h-3" />
+                    </span>
                   </div>
                 </div>
-
-                {/* 法语副标题 */}
-                <div className="text-[11px] text-slate-400 font-mono line-clamp-1 italic">
-                  {sc.frenchTitle}
-                </div>
-
-                {/* 场景说明 */}
-                <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed">
-                  {sc.description}
-                </p>
-              </div>
-
-              {/* 底部信息与动作按钮 */}
-              <div className="pt-2 flex items-center justify-between text-[10px] font-medium border-t border-slate-100 mt-2.5">
-                <span className="text-slate-400">{sc.levelTag}</span>
-                {isLocked ? (
-                  <span className="text-amber-700 font-bold flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
-                    <Lock className="w-3 h-3" />
-                    <span>去解锁</span>
-                  </span>
-                ) : (
-                  <span className="text-[#80142A] font-bold group-hover:translate-x-0.5 transition-transform">
-                    进入对练 ➜
-                  </span>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* 主对话交互舞台 */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden flex flex-col min-h-[560px]">
-        {/* 对话舞台顶栏 */}
-        <div className="p-4 sm:p-5 bg-gradient-to-r from-slate-50 to-white border-b border-slate-200 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex items-center justify-center text-2xl shrink-0">
-              {currentScenario.icon}
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="text-sm sm:text-base font-black text-slate-900">
-                  {getCleanScenarioTitle(currentScenario.title, currentScenario.icon)}
-                </h3>
-                <span className="text-[11px] px-2 py-0.5 rounded-md bg-rose-50 text-[#80142A] font-bold border border-[#80142A]/20">
-                  {currentScenario.categoryLabel}
-                </span>
-                <span className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 font-bold">
-                  {currentScenario.levelTag}
-                </span>
-              </div>
-              <p className="text-xs text-slate-500 font-mono mt-0.5">
-                {currentScenario.frenchTitle}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium bg-amber-50/70 border border-amber-200/60 px-3 py-1.5 rounded-full">
-            <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
-            <span>智能多轮对练 · 真人语音</span>
+              );
+            })}
           </div>
         </div>
 
-        {/* 消息滚动区 */}
-        <div className="flex-1 p-4 sm:p-6 space-y-4 overflow-y-auto bg-slate-50/40 max-h-[460px]">
-          {messages.map(msg => {
-            const isAi = msg.sender === 'ai';
-            return (
-              <div
+        {/* 右侧 8 列：主对话与语音交互舞台 */}
+        <div className="lg:col-span-8 bg-white rounded-3xl border border-slate-200/90 shadow-xl flex flex-col overflow-hidden h-[700px]">
+          
+          {/* 当前场景顶栏 */}
+          <div className="p-4 bg-white text-slate-900 border-b border-slate-200/80 shadow-2xs flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className="text-2xl shrink-0 drop-shadow-xs">{currentScenario.icon}</span>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="text-sm sm:text-base font-black truncate text-slate-900">
+                    {getCleanScenarioTitle(currentScenario.title, currentScenario.icon)}
+                  </h3>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-50 text-[#80142A] border border-[#80142A]/20">
+                    {currentScenario.levelTag}
+                  </span>
+                  <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>无限多轮在线交互中 (第 {userTurnsCount + 1} 轮)</span>
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-500 truncate mt-0.5">
+                  {currentScenario.description}
+                </p>
+              </div>
+            </div>
+
+            {/* 操作区：翻译开关与重置 */}
+            <div className="flex items-center gap-2 shrink-0">
+              {currentScenario.examDurationSec && (
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-mono font-bold">
+                  <Clock className="w-3.5 h-3.5 animate-pulse text-amber-600" />
+                  <span>{Math.floor(timerSeconds / 60)}:{(timerSeconds % 60).toString().padStart(2, '0')}</span>
+                </div>
+              )}
+
+              <button
+                onClick={() => setShowTranslations(!showTranslations)}
+                className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 border border-slate-200 transition cursor-pointer"
+                title={showTranslations ? '隐藏翻译与注音' : '显示中文翻译与注音'}
+              >
+                {showTranslations ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+              </button>
+
+              <button
+                onClick={handleResetScenario}
+                className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 border border-slate-200 transition cursor-pointer"
+                title="重新开始本场景对练"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+
+          {/* 消息滚动流视图 */}
+          <div 
+            ref={chatScrollRef}
+            className="flex-1 p-4 sm:p-5 overflow-y-auto space-y-4 bg-slate-50/50"
+          >
+            {/* 对话模式提示横幅 */}
+            <div className="p-3 rounded-2xl bg-rose-50/80 border border-rose-200/80 text-xs text-[#80142A] flex items-center justify-between gap-2 shadow-2xs">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-[#80142A] shrink-0" />
+                <span>
+                  <strong>自由无限对话模式</strong>：支持点击下方灵感模板、手动打字或按麦克风直接说法语，AI 将实时根据您的回答智能续聊与纠错！
+                </span>
+              </div>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-rose-200/60 text-[#680E20] shrink-0">
+                已聊 {userTurnsCount} 轮
+              </span>
+            </div>
+
+            {messages.map((msg) => (
+              <div 
                 key={msg.id}
-                className={`flex gap-3 max-w-2xl ${isAi ? 'self-start' : 'self-end ml-auto flex-row-reverse'}`}
+                className={`flex gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300 ${
+                  msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'
+                }`}
               >
                 {/* 头像 */}
                 <div className="w-9 h-9 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-center text-lg shrink-0">
                   {msg.avatar}
                 </div>
 
-                {/* 气泡内容 */}
-                <div className="space-y-2">
-                  <div className={`flex items-center gap-2 ${isAi ? '' : 'justify-end'}`}>
-                    <span className="text-xs font-bold text-slate-700">{msg.name}</span>
-                    {isAi && (
+                {/* 气泡容器 */}
+                <div className={`max-w-[88%] sm:max-w-[78%] space-y-1.5 ${
+                  msg.sender === 'user' ? 'items-end' : 'items-start'
+                }`}>
+                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-500">
+                    <span>{msg.name}</span>
+                  </div>
+
+                  {/* 气泡本体 */}
+                  <div className={`p-4 rounded-3xl text-sm leading-relaxed shadow-md ${
+                    msg.sender === 'user'
+                      ? 'bg-gradient-to-r from-[#80142A] to-[#9B1B36] text-white rounded-tr-xs'
+                      : 'bg-white text-slate-900 border border-slate-200/80 rounded-tl-xs'
+                  }`}>
+                    {/* 法语文字 */}
+                    <div className="flex items-start justify-between gap-3">
+                      <p className="font-bold text-sm sm:text-base leading-snug tracking-wide">
+                        {msg.fr}
+                      </p>
                       <button
                         onClick={() => handlePlaySpeech(msg.fr)}
-                        className={`p-1 rounded-lg hover:bg-slate-200 transition cursor-pointer ${
-                          playingAudioFr === msg.fr ? 'text-[#80142A] animate-pulse' : 'text-slate-500'
+                        className={`p-1.5 rounded-full shrink-0 transition cursor-pointer ${
+                          msg.sender === 'user'
+                            ? 'bg-white/20 hover:bg-white/30 text-white'
+                            : 'bg-slate-100 hover:bg-slate-200 text-[#80142A]'
                         }`}
-                        title="标准法语朗读"
+                        title="朗读标准法语发音"
                       >
                         <Volume2 className="w-3.5 h-3.5" />
                       </button>
-                    )}
-                  </div>
+                    </div>
 
-                  <div className={`p-4 rounded-2xl text-sm leading-relaxed ${
-                    isAi 
-                      ? 'bg-white border border-slate-200 text-slate-800 shadow-xs rounded-tl-xs' 
-                      : 'bg-gradient-to-r from-[#80142A] to-[#9E1B32] text-white shadow-sm rounded-tr-xs'
-                  }`}>
-                    <p className="font-sans font-medium">{msg.fr}</p>
-
-                    {/* 音标 */}
-                    {isAi && showPhonetics && msg.phonetic && (
-                      <p className="text-xs text-slate-400 font-mono pt-1.5 border-t border-slate-100 mt-1.5">
-                        [{msg.phonetic}]
-                      </p>
-                    )}
-
-                    {/* 中文翻译 */}
-                    {isAi && showTranslations && msg.zh && (
-                      <p className="text-xs text-slate-500 pt-1.5 border-t border-slate-100 mt-1.5">
-                        {msg.zh}
-                      </p>
-                    )}
-
-                    {/* 语法点拨卡片 */}
-                    {isAi && msg.grammarTip && (
-                      <div className="mt-2 p-2 rounded-xl bg-[#FCECEF]/60 border border-[#80142A]/20 text-[11px] text-[#80142A] flex items-center gap-1.5">
-                        <Sparkles className="w-3 h-3 shrink-0 text-[#DDBF78]" />
-                        <span>{msg.grammarTip}</span>
-                      </div>
-                    )}
-
-                    {/* 用户答复即时打分 */}
-                    {!isAi && msg.score && (
-                      <div className="mt-2.5 pt-2 border-t border-white/20 text-xs space-y-1">
-                        <div className="flex items-center gap-2 text-[11px]">
-                          <span className="font-bold">流利度 {msg.score.fluency}%</span>
-                          <span>•</span>
-                          <span className="font-bold">语法 {msg.score.grammar}%</span>
-                          <span>•</span>
-                          <span className="font-bold">发音 {msg.score.pronunciation}%</span>
-                        </div>
-                        {msg.feedback && (
-                          <div className="text-[10px] text-rose-100">
-                            💡 {msg.feedback}
-                          </div>
-                        )}
+                    {/* 译文与音标 */}
+                    {showTranslations && (
+                      <div className={`mt-2 pt-2 border-t space-y-0.5 text-xs ${
+                        msg.sender === 'user' ? 'border-white/20 text-rose-100' : 'border-slate-100 text-slate-600'
+                      }`}>
+                        {msg.zh && <p className="font-medium">{msg.zh}</p>}
+                        {msg.phonetic && <p className="font-mono text-[10px] opacity-75 italic">{msg.phonetic}</p>}
                       </div>
                     )}
                   </div>
 
-                  {/* 针对上一条 AI 消息推荐的快捷回复胶囊 */}
-                  {isAi && msg.suggestedResponses && msg.suggestedResponses.length > 0 && (
-                    <div className="space-y-1 pt-1">
-                      <div className="text-[10px] font-bold text-slate-400">💡 推荐高频表达（点击直接发送）：</div>
-                      <div className="flex flex-col gap-1.5">
-                        {msg.suggestedResponses.map((sug, idx) => (
-                          <button
-                            key={idx}
-                            onClick={() => handleSendMessage(sug)}
-                            className="text-left text-xs px-3 py-2 rounded-xl bg-white hover:bg-[#FCECEF]/80 text-slate-700 hover:text-[#80142A] border border-slate-200/80 hover:border-[#80142A]/30 transition cursor-pointer shadow-xs flex items-center justify-between group"
-                          >
-                            <span>{sug}</span>
-                            <Send className="w-3 h-3 text-slate-300 group-hover:text-[#80142A] transition shrink-0" />
-                          </button>
-                        ))}
+                  {/* AI 语法提示卡片 */}
+                  {msg.sender === 'ai' && msg.grammarTip && (
+                    <div className="p-3 rounded-2xl bg-rose-50/80 border border-rose-200/70 text-[#80142A] text-xs space-y-1 shadow-2xs">
+                      <div className="flex items-start gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5 text-[#DDBF78] shrink-0 mt-0.5" />
+                        <span className="font-medium">{msg.grammarTip}</span>
                       </div>
+                    </div>
+                  )}
+
+                  {/* 用户得分与反馈卡片 */}
+                  {msg.sender === 'user' && msg.score && (
+                    <div className="p-2.5 rounded-2xl bg-emerald-50 border border-emerald-200/80 text-emerald-950 text-xs space-y-1">
+                      <div className="flex items-center justify-between font-bold text-[11px] text-emerald-800">
+                        <span>🎯 智能测评：流利度 {msg.score.fluency}%</span>
+                        <span>语法准确 {msg.score.grammar}%</span>
+                      </div>
+                      {msg.feedback && <p className="text-[11px] text-emerald-700 font-medium">{msg.feedback}</p>}
                     </div>
                   )}
                 </div>
               </div>
-            );
-          })}
+            ))}
 
-          {isAiReplying && (
-            <div className="flex items-center gap-2 text-xs text-slate-500 animate-pulse p-2">
-              <Bot className="w-4 h-4 text-[#80142A]" />
-              <span>巴黎母语 AI 思考中...</span>
-            </div>
-          )}
+            {/* AI 思考输入状态 */}
+            {isAiReplying && (
+              <div className="flex items-center gap-2 text-xs text-slate-500 font-bold p-3 bg-white rounded-2xl border border-slate-200 w-fit animate-pulse">
+                <Bot className="w-4 h-4 text-[#80142A] animate-spin" />
+                <span>AI 正在根据您的回答组织新一轮地道法式对白...</span>
+              </div>
+            )}
+          </div>
 
-          <div ref={chatBottomRef} />
-        </div>
-
-        {/* 底部输入控制条 */}
-        <div className="p-3 sm:p-4 bg-white border-t border-slate-200 space-y-2">
-          {/* Free User Turn Counter Bar */}
-          {!isVip && (
-            <div className="flex items-center justify-between text-[11px] text-slate-500 font-bold px-1 pb-1 border-b border-slate-100">
-              <span>
-                免费体验剩余轮次：
-                <span className="text-[#80142A] font-black">{Math.max(0, 3 - userTurnsCount)} / 3 轮</span>
+          {/* 实时灵感建议快捷胶囊栏 */}
+          <div className="px-4 py-2.5 bg-rose-50/50 border-t border-rose-100 flex flex-col gap-1.5">
+            <div className="flex items-center justify-between text-[11px] font-bold text-slate-600">
+              <span className="flex items-center gap-1.5 text-[#80142A]">
+                <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
+                <span>💡 实时高分灵感建议（点击直接填入）：</span>
               </span>
-              {userTurnsCount >= 3 ? (
-                <span 
-                  className="text-amber-700 flex items-center gap-1 cursor-pointer hover:underline font-extrabold" 
-                  onClick={() => onOpenVipModal?.('🎯 您的免费 AI 口语体验轮次已用完！升级 VIP 终身卡（仅 ¥49.9），即可享受全站无限轮次对练！')}
-                >
-                  <Lock className="w-3 h-3" /> 点击解锁无限轮次
-                </span>
-              ) : (
-                <span className="text-slate-400">已体验 {userTurnsCount} 轮</span>
-              )}
+
+              <button
+                onClick={() => setRefreshSeed(prev => prev + 1)}
+                className="flex items-center gap-1 text-[11px] text-[#80142A] hover:underline font-bold cursor-pointer"
+                title="更换一批建议模版"
+              >
+                <RefreshCw className="w-3 h-3" />
+                <span>换一批灵感</span>
+              </button>
             </div>
-          )}
 
-          <div className="flex items-center gap-2">
-            {/* 麦克风录音按钮 */}
-            <button
-              onClick={toggleListening}
-              className={`p-3 rounded-2xl transition cursor-pointer flex items-center justify-center shrink-0 ${
-                isListening 
-                  ? 'bg-rose-600 text-white animate-pulse shadow-md ring-4 ring-rose-200' 
-                  : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
-              }`}
-              title={isListening ? '点击停止识别' : '按住说话（法语实时识别）'}
-            >
-              {isListening ? <Mic className="w-5 h-5 text-white" /> : <Mic className="w-5 h-5" />}
-            </button>
+            <div className="flex flex-wrap gap-2">
+              {activeSuggestions.map((item, idx) => {
+                const tag = item?.tag || '标准回答';
+                const text = item?.text || '';
+                if (!text) return null;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      setInputText(text);
+                      handlePlaySpeech(text);
+                    }}
+                    className="group px-3 py-1.5 rounded-xl bg-white hover:bg-[#80142A] hover:text-white border border-rose-200/80 text-xs text-left transition shadow-2xs font-medium flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <span className="px-1.5 py-0.2 rounded-md bg-rose-100 text-[#80142A] text-[10px] font-black group-hover:bg-white/20 group-hover:text-white">
+                      {tag}
+                    </span>
+                    <span className="font-bold">{text}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-            {/* 文本输入框 */}
-            <input
-              type="text"
-              value={inputText}
-              onChange={e => setInputText(e.target.value)}
-              onKeyDown={e => {
-                if (e.key === 'Enter') handleSendMessage();
-              }}
-              placeholder={isListening ? '正在收听法语发音...' : '输入法语回答，或点击上方推荐快捷回复...'}
-              className="flex-1 px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 focus:border-[#80142A] focus:ring-2 focus:ring-[#80142A]/20 transition outline-hidden text-sm text-slate-800 font-sans"
-            />
+          {/* 底部语音与文字控制区 */}
+          <div className="p-3.5 sm:p-4 bg-white border-t border-slate-200 space-y-3">
+            {/* 录音波形动效 */}
+            {isListening && (
+              <div className="p-2.5 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-between animate-pulse">
+                <div className="flex items-center gap-2 text-xs font-bold text-[#80142A]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#80142A] animate-ping" />
+                  <span>正在倾听您的法语... 请用麦克风说话</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  {[12, 24, 18, 28, 16, 22, 10].map((h, idx) => (
+                    <span 
+                      key={idx} 
+                      className="w-1 bg-[#80142A] rounded-full animate-bounce" 
+                      style={{ height: `${h}px`, animationDelay: `${idx * 0.1}s` }} 
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
 
-            {/* 发送按钮 */}
-            <button
-              onClick={() => handleSendMessage()}
-              disabled={!inputText.trim() || isAiReplying}
-              className={`px-5 py-3 rounded-2xl font-black text-sm flex items-center gap-1.5 transition cursor-pointer shadow-xs shrink-0 ${
-                inputText.trim() && !isAiReplying
-                  ? 'bg-gradient-to-r from-[#80142A] to-[#9E1B32] text-white hover:shadow-md'
-                  : 'bg-slate-100 text-slate-400 cursor-not-allowed'
-              }`}
-            >
-              <span>发送</span>
-              <Send className="w-4 h-4" />
-            </button>
+            {/* 免费体验轮次剩余指示 */}
+            {!isVip && (
+              <div className="flex items-center justify-between text-[11px] text-slate-500 font-bold px-1 pb-1">
+                <span>
+                  免费体验剩余轮次：
+                  <span className="text-[#80142A] font-black">{Math.max(0, 3 - userTurnsCount)} / 3 轮</span>
+                </span>
+                {userTurnsCount >= 3 ? (
+                  <span 
+                    className="text-amber-700 flex items-center gap-1 cursor-pointer hover:underline font-extrabold" 
+                    onClick={() => onOpenVipModal?.('🎯 您的免费 AI 口语体验轮次已用完！升级 VIP 终身卡（仅 ¥49.9），即可享受全站无限轮次对练！')}
+                  >
+                    <Lock className="w-3 h-3" /> 点击解锁无限轮次
+                  </span>
+                ) : (
+                  <span className="text-slate-400">已体验 {userTurnsCount} 轮</span>
+                )}
+              </div>
+            )}
+
+            {/* 输入栏 */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={toggleListening}
+                className={`p-3 sm:px-5 sm:py-3 rounded-2xl font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg transition active:scale-95 shrink-0 cursor-pointer ${
+                  isListening
+                    ? 'bg-rose-600 text-white shadow-rose-600/30 animate-pulse'
+                    : 'bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white shadow-[#80142A]/30'
+                }`}
+                title={isListening ? '点击结束录音并发送' : '点击按麦克风说法语'}
+              >
+                {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+                <span className="hidden sm:inline">{isListening ? '点击完成' : '按麦克风说法语'}</span>
+              </button>
+
+              <input
+                type="text"
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSendMessage();
+                  }
+                }}
+                placeholder={isListening ? '正在收听法语发音...' : '输入法语回复，或点击上方灵感胶囊...'}
+                className="flex-1 px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/30 focus:bg-white transition"
+              />
+
+              <button
+                onClick={() => handleSendMessage()}
+                disabled={!inputText.trim() || isAiReplying}
+                className="p-3 sm:px-5 sm:py-3 rounded-2xl bg-[#80142A] hover:bg-[#680E20] text-white font-bold text-xs sm:text-sm transition disabled:opacity-40 disabled:cursor-not-allowed shrink-0 flex items-center gap-1.5 cursor-pointer shadow-xs"
+              >
+                <Send className="w-4 h-4" />
+                <span className="hidden sm:inline">发送</span>
+              </button>
+            </div>
           </div>
         </div>
+
       </div>
 
-      {/* Free User Speaking VIP Upsell Banner */}
+      {/* AI 能力雷达诊断报告弹窗 */}
+      {isReportOpen && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 space-y-5 shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="p-2 rounded-2xl bg-rose-50 text-[#80142A]">
+                  <Award className="w-6 h-6" />
+                </span>
+                <div>
+                  <h3 className="font-black text-slate-900 text-lg">
+                    AI 口语能力雷达诊断报告
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    实战剧本：《{getCleanScenarioTitle(currentScenario.title, currentScenario.icon)}》
+                  </p>
+                </div>
+              </div>
+              <button 
+                onClick={() => setIsReportOpen(false)}
+                className="text-slate-400 hover:text-slate-600 text-sm font-bold cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* 分数指标卡 */}
+            <div className="grid grid-cols-3 gap-3">
+              <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-center space-y-1">
+                <span className="text-[10px] font-bold text-[#80142A]">完成轮次</span>
+                <p className="text-2xl font-black text-[#80142A]">{userTurnsCount} 轮</p>
+              </div>
+              <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-1">
+                <span className="text-[10px] font-bold text-emerald-700">流利度评估</span>
+                <p className="text-2xl font-black text-emerald-600">95%</p>
+              </div>
+              <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-center space-y-1">
+                <span className="text-[10px] font-bold text-amber-700">语法变位配合</span>
+                <p className="text-2xl font-black text-amber-600">98%</p>
+              </div>
+            </div>
+
+            {/* 导师寄语与提分建议 */}
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5 text-xs text-slate-700">
+              <div className="flex items-center gap-1.5 font-bold text-slate-900">
+                <Sparkles className="w-4 h-4 text-[#80142A]" />
+                <span>北外导师综合点评与提分建议：</span>
+              </div>
+              <p className="leading-relaxed">
+                恭喜您完成了 <strong>{userTurnsCount} 轮</strong> 深度法语口语实战对练！发音连贯性与主谓连读连音自然，虚拟式与时态配合到位。建议日常继续通过麦克风多轮互动，巩固纯正巴黎腔语感！
+              </p>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <button
+                onClick={() => {
+                  setIsReportOpen(false);
+                  handleResetScenario();
+                }}
+                className="px-5 py-2.5 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 cursor-pointer"
+              >
+                🔄 再练一次
+              </button>
+              <button
+                onClick={() => setIsReportOpen(false)}
+                className="px-6 py-2.5 rounded-xl text-xs font-bold bg-[#80142A] hover:bg-[#680E20] text-white shadow-md shadow-[#80142A]/20 cursor-pointer"
+              >
+                完成本次实训
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 底部免费用户专属升级横幅 */}
       {!isVip && (
-        <div className="bg-gradient-to-r from-[#80142A] via-[#9E1B32] to-[#80142A] rounded-3xl p-5 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl shadow-rose-900/20">
+        <div className="bg-gradient-to-r from-[#80142A] via-[#9B1B36] to-[#680E20] rounded-3xl p-5 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl shadow-[#80142A]/20">
           <div className="space-y-1 text-center sm:text-left">
             <div className="flex items-center gap-1.5 justify-center sm:justify-start font-black text-sm">
               <Sparkles className="w-4 h-4 text-[#DDBF78]" />
-              <span>当前正在体验【巴黎咖啡馆点餐 · 免费体验（限3轮）】</span>
+              <span>当前正在体验【巴黎花神咖啡馆 · 免费试学（限3轮）】</span>
             </div>
-            <p className="text-xs text-white/90 leading-relaxed">
-              开通 VIP 终身卡（仅 ¥49.9），即可解锁 <strong>DELF 欧标全等级口语实战会话</strong>、法企职场面试及 24 小时随身巴黎语伴无限轮次沉浸对练！
+            <p className="text-xs text-rose-100 leading-relaxed">
+              开通 VIP 终身卡（仅 ¥49.9），即可解锁 <strong>DELF 欧标全等级口语实战会话</strong>、法企职场面试及 24 小时随身巴黎母语语伴无限轮次沉浸对练！
             </p>
           </div>
           <button
-            onClick={() => onOpenVipModal?.('🎙️ 开通 VIP 终身卡（仅 ¥49.9），即可解锁 DELF 欧标全等级口语会话实战、法企职场面试及 24 小时随身巴黎语伴无限轮次沉浸对练！')}
+            onClick={() => onOpenVipModal?.('🎙️ 开通 VIP 终身卡（仅 ¥49.9），即可解锁 DELF 欧标全等级口语会话实战、法企职场面试及 24 小时随身巴黎母语语伴无限轮次沉浸对练！')}
             className="px-5 py-2.5 rounded-2xl bg-white text-[#80142A] hover:bg-rose-50 font-black text-xs shadow-md transition active:scale-98 shrink-0 flex items-center gap-1.5 cursor-pointer"
           >
             <Lock className="w-3.5 h-3.5 text-[#80142A]" />
-            <span>解锁全部口语剧本与无限畅聊 (¥49.9)</span>
+            <span>解锁全部 24+ 口语剧本与无限畅聊 (¥49.9)</span>
           </button>
         </div>
       )}
+
     </div>
   );
 };

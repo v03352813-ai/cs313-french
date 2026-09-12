@@ -37,6 +37,8 @@ export interface AIScenario {
   systemPrompt: string;
   turns: DialogueTurn[];
   referenceModelAnswer?: string;
+  isWeeklyNew?: boolean;
+  examDurationSec?: number;
 }
 
 export const AI_SCENARIOS_DATA: AIScenario[] = [
@@ -49,6 +51,8 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
     levelTag: '初级 (A1~A2)',
     icon: '☕',
     gradient: 'from-amber-600 to-rose-700',
+    isWeeklyNew: true,
+    examDurationSec: 120,
     description: '坐在巴黎圣日耳曼大道经典的绿藤露天座上，向侍者（Garçon de café）点一杯浓缩咖啡、可颂牛角包并结账，体验最纯正的巴黎左岸慢生活！',
     targetSkills: ['咖啡馆礼貌点单', '露天位选座', '加糖加奶表达', '买单算账'],
     systemPrompt: '你是巴黎花神咖啡馆（Café de Flore）风度翩翩的法籍侍者 Julien。你热情而地道，习惯用法式礼貌表达（Bonjour Monsieur/Madame, Que puis-je vous servir ?, Très bien !）。与用户展开自然的多轮点餐互动。',
@@ -353,6 +357,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
     levelTag: '高级 (B2)',
     icon: '🤖',
     gradient: 'from-purple-700 to-pink-800',
+    isWeeklyNew: true,
     description: '紧扣全球前沿科技热点！考官引导就 ChatGPT、生成式 AI 是否会导致学生批判性思维退化、是否会取代原创作家与艺术家展开深度辩论。',
     targetSkills: ['学术抽象词汇驾驭', '虚拟式现在时与条件式搭配', '辩证法三段论 (Thèse, Antithèse, Synthèse)'],
     systemPrompt: '你是思想开放但立场锐利的大学教授兼 DELF B2 评卷人 Anne-Sophie。你擅长引导考生从哲学与社会伦理角度探讨生成式人工智能的伦理红线。',
@@ -535,6 +540,7 @@ export const AI_SCENARIOS_DATA: AIScenario[] = [
     levelTag: '初级 (A1~A2)',
     icon: '🏛️',
     gradient: 'from-slate-600 to-stone-800',
+    isWeeklyNew: true,
     description: '在卢浮宫玻璃金字塔下的服务大厅，租借中文互动多媒体语音导览器（Audioguide），询问《蒙娜丽莎》（La Joconde）所在展馆以及特展入场时段。',
     targetSkills: ['展馆导览租用 (audioguide interactif)', '艺术品与展区位置询问 (Aile Denon, La Joconde)', '学生优惠票价核对 (Tarif réduit)'],
     systemPrompt: '你是卢浮宫接待处（Accueil du Louvre）的热情引导员 Émilie。你通晓博物馆各个翼楼的经典路线，并耐心向游客提供游览图与指引。',
