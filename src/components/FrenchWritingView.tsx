@@ -579,15 +579,74 @@ export const FrenchWritingView: React.FC<FrenchWritingViewProps> = ({
             </div>
 
             {/* 范文精析与踩分考点 */}
-            <div className="p-5 rounded-2xl bg-white border border-slate-200/80 space-y-2">
+            <div className="p-5 rounded-2xl bg-white border border-slate-200/80 space-y-3">
               <h4 className="text-sm font-black text-slate-900 flex items-center gap-2">
                 <Lightbulb className="w-4 h-4 text-[#DDBF78]" />
-                <span>名师考官阅卷点评与踩分点拆解</span>
+                <span>名师考官阅卷点评与核心考点解析</span>
               </h4>
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed whitespace-pre-line font-sans">
                 {currentQ.sampleAnalysis}
               </p>
             </div>
+
+            {/* 北外教研：文体规范对比指南 (DELF公函 vs 考研二外议论文) */}
+            {currentQ.genreComparisonNotice && (
+              <div className="p-5 rounded-2xl bg-gradient-to-br from-indigo-50/70 via-white to-slate-50 border border-indigo-200/80 space-y-2.5">
+                <div className="flex items-center gap-2 text-xs font-black text-indigo-900">
+                  <BookOpen className="w-4 h-4 text-indigo-600" />
+                  <span>【北外名师导学】文体规范与踩分导向对比 (Guide stylistique)</span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                  <div className="p-3 rounded-xl bg-white border border-indigo-100 space-y-1">
+                    <span className="font-extrabold text-[#80142A] block">🌍 DELF 欧标公函规范导向：</span>
+                    <p className="text-slate-600 leading-relaxed">{currentQ.genreComparisonNotice.delfFocus}</p>
+                  </div>
+                  <div className="p-3 rounded-xl bg-white border border-indigo-100 space-y-1">
+                    <span className="font-extrabold text-indigo-900 block">🏛️ 名校考研二外议论文导向：</span>
+                    <p className="text-slate-600 leading-relaxed">{currentQ.genreComparisonNotice.kaoyanFocus}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* 北外考研阅卷评分细则与采分点拆解 (Grille d'évaluation) */}
+            {currentQ.gradingCriteria && currentQ.gradingCriteria.length > 0 && (
+              <div className="p-5 rounded-2xl bg-white border border-slate-200/80 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Award className="w-4 h-4 text-[#80142A]" />
+                    <h4 className="text-sm font-black text-slate-900">
+                      北外二外考研阅卷评分细则 (Grille de notation officielle)
+                    </h4>
+                  </div>
+                  <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-rose-50 text-[#80142A] font-bold border border-[#80142A]/20">
+                    踩点给分 · 扣分雷区透明化
+                  </span>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs border-collapse">
+                    <thead>
+                      <tr className="bg-slate-50 text-slate-700 font-black border-b border-slate-200">
+                        <th className="p-2.5 w-1/4">采分考核项</th>
+                        <th className="p-2.5 w-16 text-center">分值</th>
+                        <th className="p-2.5 w-1/2">阅卷给分标准 (Règle)</th>
+                        <th className="p-2.5 w-1/3 text-rose-700">典型扣分陷阱 (Piège)</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {currentQ.gradingCriteria.map((gc, gcIdx) => (
+                        <tr key={gcIdx} className="hover:bg-slate-50/60 transition">
+                          <td className="p-2.5 font-bold text-slate-900">{gc.point}</td>
+                          <td className="p-2.5 text-center font-black text-[#80142A]">{gc.score}</td>
+                          <td className="p-2.5 text-slate-700 leading-relaxed">{gc.rule}</td>
+                          <td className="p-2.5 text-rose-600 font-medium leading-relaxed bg-rose-50/30">{gc.penaltyTrap}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
           </div>
         )}
 

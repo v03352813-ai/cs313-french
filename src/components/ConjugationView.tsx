@@ -10,14 +10,17 @@ import {
   ChevronUp, 
   Zap, 
   X, 
-  Table
+  Table,
+  GraduationCap
 } from 'lucide-react';
 import { 
   FRENCH_VERBS, 
   TENSES_METADATA, 
   VerbItem, 
   TenseKey, 
-  VerbGroup 
+  VerbGroup,
+  KAOYAN_PASSE_SIMPLE_50,
+  PasseSimpleItem
 } from '../data/french/conjugation';
 
 // 法语标准音真人朗读引擎
@@ -183,6 +186,42 @@ const FRENCH_TENSE_RULES: FrenchTenseRuleItem[] = [
       { infinitive: 'aller', meaning: '去', conjugated: 'Va ! Allons ! Allez !' },
       { infinitive: 'faire', meaning: '做', conjugated: 'Fais ! Faisons ! Faites !' }
     ]
+  },
+  {
+    key: 'plus_que_parfait',
+    tenseName: '愈过去时',
+    frenchName: 'Plus-que-parfait',
+    usageDesc: '表示“过去的过去”（比过去某一动作更早完成的动作），考研真题长难句与时态配合核心。',
+    formula: '助动词 avoir / être (未完成过去时 imparfait) + 过去分词 (Participe passé)',
+    rules: {
+      group1: 'j\'avais parlé, nous avions aimé (助动词 avoir 的 imparfait 变位 + 分词)',
+      group2: 'j\'avais fini, nous avions choisi (第二组规则分词 -i)',
+      group3: '四大天王与位移动词：j\'avais été, j\'avais eu, j\'étais allé(e), il était parti (遵循 être 配合规则)'
+    },
+    sample: [
+      { infinitive: 'partir', meaning: '离开', conjugated: 'il était déjà parti' },
+      { infinitive: 'finir', meaning: '完成', conjugated: 'nous avions fini' },
+      { infinitive: 'arriver', meaning: '到达', conjugated: 'le train était arrivé' },
+      { infinitive: 'voir', meaning: '看见', conjugated: "j'avais déjà vu" }
+    ]
+  },
+  {
+    key: 'passe_simple',
+    tenseName: '简单过去时',
+    frenchName: 'Passé simple',
+    usageDesc: '书面文学与考研阅读专属时态。考研二外重点：秒认第三人称（il / ils）与词根突变。',
+    formula: '按主音分为 -a 组 (第1组) / -i 组 / -u 组 / -in 组',
+    rules: {
+      group1: '第 1 组动词 (-er)：-ai, -as, -a, -âmes, -âtes, -èrent (重点识别：il parla, ils parlèrent)',
+      group2: '第 2 组动词 (-ir)：-is, -is, -it, -îmes, -îtes, -irent (重点识别：il finit, ils finirent)',
+      group3: '特异突变型：être ➔ il fut / ils furent；avoir ➔ il eut / ils eurent；faire ➔ il fit；venir ➔ il vint'
+    },
+    sample: [
+      { infinitive: 'être', meaning: '是', conjugated: 'il fut / ils furent' },
+      { infinitive: 'avoir', meaning: '有', conjugated: 'il eut / ils eurent' },
+      { infinitive: 'faire', meaning: '做', conjugated: 'il fit / ils firent' },
+      { infinitive: 'prendre', meaning: '拿/采取', conjugated: 'il prit / ils prirent' }
+    ]
   }
 ];
 
@@ -195,10 +234,14 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
   isVip = false,
   onOpenVipModal
 }) => {
-  // 核心视图模式：'workbench' (交互推导工作台) vs 'rules' (全景法则宝典)
-  const [viewMode, setViewMode] = useState<'workbench' | 'rules'>('workbench');
+  // 核心视图模式：'workbench' (交互推导工作台) vs 'rules' (全景法则宝典) vs 'passe_simple' (考研简单过去时50词速认)
+  const [viewMode, setViewMode] = useState<'workbench' | 'rules' | 'passe_simple'>('workbench');
   const [showHatGuide, setShowHatGuide] = useState<boolean>(true);
   const [showFullMatrix, setShowFullMatrix] = useState<boolean>(true);
+
+  // 考研二外阅读：简单过去时 (Passé Simple) 50 核心词速认专区状态
+  const [psSearch, setPsSearch] = useState<string>('');
+  const [psGroupFilter, setPsGroupFilter] = useState<'all' | '第一组' | '第二组' | '第三组'>('all');
 
   // 动词库筛选与搜索
   const [selectedVerb, setSelectedVerb] = useState<VerbItem>(FRENCH_VERBS[0]);
@@ -218,6 +261,17 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
     const matchesSearch = !q || 
       v.infinitive.toLowerCase().includes(q) ||
       v.meaning.toLowerCase().includes(q);
+    return matchesGroup && matchesSearch;
+  });
+
+  const filteredPsList = KAOYAN_PASSE_SIMPLE_50.filter(item => {
+    const matchesGroup = psGroupFilter === 'all' || item.group === psGroupFilter;
+    const q = psSearch.trim().toLowerCase();
+    const matchesSearch = !q ||
+      item.verb.toLowerCase().includes(q) ||
+      item.meaning.toLowerCase().includes(q) ||
+      item.thirdSingular.toLowerCase().includes(q) ||
+      item.thirdPlural.toLowerCase().includes(q);
     return matchesGroup && matchesSearch;
   });
 
@@ -626,8 +680,8 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
           </div>
 
           <div className="flex items-center gap-2 self-start md:self-auto shrink-0 flex-wrap">
-            {/* 视图切换 (工作台 vs 法则宝典) */}
-            <div className="flex items-center bg-slate-100 p-1 rounded-2xl border border-slate-200/80 shrink-0">
+            {/* 视图切换 (工作台 vs 法则宝典 vs 考研简单过去时50词) */}
+            <div className="flex items-center bg-slate-100 p-1 rounded-2xl border border-slate-200/80 shrink-0 flex-wrap gap-1">
               <button
                 onClick={() => setViewMode('workbench')}
                 className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
@@ -649,6 +703,17 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
               >
                 <BookOpen className="w-3.5 h-3.5 text-[#80142A]" />
                 <span>全景法则宝典</span>
+              </button>
+              <button
+                onClick={() => setViewMode('passe_simple')}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
+                  viewMode === 'passe_simple'
+                    ? 'bg-[#80142A] text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <GraduationCap className="w-3.5 h-3.5" />
+                <span>🏛️ 考研阅读：简单过去时50词</span>
               </button>
             </div>
 
@@ -1206,6 +1271,228 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* ③ 考研阅读专供：简单过去时 (Passé Simple) 50 核心动词速认宝典 */}
+      {/* ========================================================================= */}
+      {viewMode === 'passe_simple' && (
+        <div className="space-y-4 sm:space-y-5 animate-in fade-in duration-300">
+          {/* 顶栏卡片：北外考研名师导学 & 痛点剖析 */}
+          <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-amber-500/10 via-rose-500/10 to-purple-500/10 border border-amber-200/90 shadow-xs space-y-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#80142A] text-white font-black text-xs">
+                    🏛️ 北外考研二外攻坚课
+                  </span>
+                  <h3 className="text-base sm:text-lg font-black text-slate-900">
+                    简单过去时（Passé simple）50 核心动词速认宝典
+                  </h3>
+                  <span className="px-2.5 py-0.5 rounded-full bg-rose-100 text-[#80142A] text-xs font-bold">
+                    阅读理解提分核心武器
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-4xl">
+                  <strong>【痛点破解】</strong>简单过去时在现代口语中已基本绝迹，但在各大名校（北外、北大、上外、复旦、人大等）二外法语真题阅读长难句中<strong>占 85% 以上的叙事篇幅</strong>！考研阅卷<strong>不需要你全人称默写，核心痛点是识别第三人称（单数 il / 复数 ils）与异化突变词根</strong>！
+                </p>
+              </div>
+              <button
+                onClick={() => setViewMode('workbench')}
+                className="px-3.5 py-1.5 rounded-xl bg-white text-[#80142A] font-bold border border-rose-200 hover:bg-rose-50 transition shrink-0 cursor-pointer text-xs shadow-2xs self-start md:self-auto"
+              >
+                返回交互推导工作台 ➔
+              </button>
+            </div>
+
+            {/* 4 大核心音变识别心法卡片 */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-2 border-t border-amber-200/70 text-xs">
+              <div className="p-3 bg-white/90 rounded-2xl border border-amber-100">
+                <span className="font-black text-amber-900 block mb-1">① -a 型（第1组 & aller）</span>
+                <p className="text-slate-600 text-[11px] leading-relaxed">
+                  词尾：<code className="text-[#80142A] font-bold">-a / -èrent</code><br/>
+                  如 <span className="font-semibold">il parla, ils parlèrent</span>；<span className="font-semibold">il alla, ils allèrent</span>。
+                </p>
+              </div>
+              <div className="p-3 bg-white/90 rounded-2xl border border-sky-100">
+                <span className="font-black text-sky-900 block mb-1">② -i 型（第2组 & 部分第3组）</span>
+                <p className="text-slate-600 text-[11px] leading-relaxed">
+                  词尾：<code className="text-sky-800 font-bold">-it / -irent</code><br/>
+                  如 <span className="font-semibold">il finit, il prit, il vit, il fit, il naquit</span>。
+                </p>
+              </div>
+              <div className="p-3 bg-white/90 rounded-2xl border border-purple-100">
+                <span className="font-black text-purple-900 block mb-1">③ -u 型（三大核心神仙变位）</span>
+                <p className="text-slate-600 text-[11px] leading-relaxed">
+                  词尾：<code className="text-purple-800 font-bold">-ut / -urent</code><br/>
+                  如 <span className="font-semibold">il fut (être), il eut (avoir), il vécut, il mourut</span>。
+                </p>
+              </div>
+              <div className="p-3 bg-white/90 rounded-2xl border border-emerald-100">
+                <span className="font-black text-emerald-900 block mb-1">④ -in 型（鼻音特殊词根）</span>
+                <p className="text-slate-600 text-[11px] leading-relaxed">
+                  词尾：<code className="text-emerald-800 font-bold">-int / -inrent</code><br/>
+                  如 <span className="font-semibold">il vint (venir), il tint (tenir), il devint</span>。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* 筛选与搜索控制栏 */}
+          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-4 sm:p-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <input
+                type="text"
+                placeholder="搜索动词原形、中文或变形 (如 fut, eut, prit, naquit)..."
+                value={psSearch}
+                onChange={e => setPsSearch(e.target.value)}
+                className="w-full pl-10 pr-8 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm font-medium focus:outline-hidden focus:ring-2 focus:ring-[#80142A]/20 focus:bg-white transition text-slate-800"
+              />
+              {psSearch && (
+                <button
+                  onClick={() => setPsSearch('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-xs font-bold text-slate-400 mr-1 hidden sm:inline">动词门类：</span>
+              {[
+                { key: 'all', label: `全部 (${KAOYAN_PASSE_SIMPLE_50.length})` },
+                { key: '第一组', label: '第1组 (-a型)' },
+                { key: '第二组', label: '第2组 (-i型)' },
+                { key: '第三组', label: '第3组 (突变神仙词)' },
+              ].map(tab => (
+                <button
+                  key={tab.key}
+                  onClick={() => setPsGroupFilter(tab.key as any)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+                    psGroupFilter === tab.key
+                      ? 'bg-slate-900 text-white shadow-2xs'
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+              <span className="text-xs text-slate-400 ml-2 font-medium">
+                已筛选: {filteredPsList.length} 词
+              </span>
+            </div>
+          </div>
+
+          {/* 50 核心词响应式卡片网格 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5">
+            {filteredPsList.map((item) => (
+              <div
+                key={item.id}
+                className="bg-white rounded-3xl p-4 border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-rose-300 transition flex flex-col justify-between space-y-3"
+              >
+                {/* 顶部：原形、词义与门类徽章 */}
+                <div>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg font-black text-slate-900 tracking-tight">
+                        {item.verb}
+                      </span>
+                      <button
+                        onClick={() => playSpeech(item.verb)}
+                        className="p-1 text-slate-400 hover:text-[#80142A] hover:bg-rose-50 rounded-lg transition cursor-pointer"
+                        title="朗读动词原形"
+                      >
+                        <Volume2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                    <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                      item.group === '第一组' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' :
+                      item.group === '第二组' ? 'bg-sky-50 text-sky-700 border border-sky-200' :
+                      'bg-purple-50 text-purple-700 border border-purple-200'
+                    }`}>
+                      {item.group}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 font-medium mt-0.5">
+                    {item.meaning}
+                  </p>
+                </div>
+
+                {/* 核心考研识别区：单三与复三 (il & ils) */}
+                <div className="bg-rose-50/50 rounded-2xl p-3 border border-rose-100/90 space-y-2">
+                  <div className="flex items-center justify-between text-[11px] text-slate-400 font-bold border-b border-rose-100/70 pb-1">
+                    <span>考研阅读真题高频人称</span>
+                    <span className="text-[#80142A]">秒认核心 🎯</span>
+                  </div>
+
+                  {/* 单三 il */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-slate-500 font-mono">il / elle :</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-sm font-black text-[#80142A] tracking-tight">
+                        {item.thirdSingular}
+                      </span>
+                      <button
+                        onClick={() => playSpeech(item.thirdSingular)}
+                        className="p-0.5 text-slate-400 hover:text-[#80142A] cursor-pointer"
+                        title="朗读"
+                      >
+                        <Volume2 className="w-3 h-3" />
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* 复三 ils */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-slate-500 font-mono">ils / elles :</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs font-bold text-slate-700">
+                        {item.thirdPlural}
+                      </span>
+                      {item.thirdPlural !== '—' && (
+                        <button
+                          onClick={() => playSpeech(item.thirdPlural)}
+                          className="p-0.5 text-slate-400 hover:text-[#80142A] cursor-pointer"
+                          title="朗读"
+                        >
+                          <Volume2 className="w-3 h-3" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* 助记技巧与第一人称备查 */}
+                <div className="space-y-1.5 pt-1">
+                  <div className="p-2 rounded-xl bg-amber-50/70 border border-amber-100/80 text-[11px] text-amber-900 leading-snug">
+                    <span className="font-bold text-amber-950">💡 助记规律：</span>
+                    <span>{item.radicalTip}</span>
+                  </div>
+                  {item.firstSingular !== '—' && (
+                    <div className="text-[10px] text-slate-400 flex items-center justify-between px-1">
+                      <span>第一人称备查 (je)：</span>
+                      <span className="font-mono text-slate-600">{item.firstSingular}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {filteredPsList.length === 0 && (
+            <div className="p-12 text-center bg-white rounded-3xl border border-slate-200 space-y-2">
+              <p className="text-slate-500 text-sm font-bold">没有找到匹配的动词</p>
+              <button
+                onClick={() => { setPsSearch(''); setPsGroupFilter('all'); }}
+                className="px-4 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-bold cursor-pointer"
+              >
+                重置搜索条件
+              </button>
+            </div>
+          )}
         </div>
       )}
 

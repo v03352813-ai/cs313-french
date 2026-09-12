@@ -7,6 +7,13 @@ export type FrenchWritingType =
   | 'delf_b1_opinion'   // DELF B1 论坛观点/个人信件 (160~180词)
   | 'delf_a2_message';  // DELF A2 便条与日常经历 (60~80词)
 
+export interface GradingCriterion {
+  point: string;
+  score: string;
+  rule: string;
+  penaltyTrap: string;
+}
+
 export interface FrenchWritingQuestion {
   id: string;
   track: FrenchWritingTrack;
@@ -30,6 +37,11 @@ export interface FrenchWritingQuestion {
   sampleAnalysis: string;
   keyFormulas: string[];
   advancedVocab: { word: string; meaning: string; replacement: string }[];
+  gradingCriteria?: GradingCriterion[];
+  genreComparisonNotice?: {
+    delfFocus: string;
+    kaoyanFocus: string;
+  };
 }
 
 export interface WritingFormulaGroup {
@@ -194,6 +206,36 @@ Camille Dubois`,
       { word: 'détruire les arbres', meaning: '砍树', replacement: 'sacrifier un patrimoine arboré centenaire' },
       { word: 'faire un autre parking', meaning: '再建一个停车场', replacement: 'aménager un parking relais en périphérie' },
       { word: 'bon pour l\'air', meaning: '净化空气', replacement: 'un îlot de fraîcheur régulateur du microclimat' }
+    ],
+    genreComparisonNotice: {
+      delfFocus: 'DELF B2 核心考核交际与行政公函规范：必须具备完整的信头五大要素（发件人、收件人、地点与日期、Objet、Monsieur le Maire/Madame称呼），运用条件式委婉提出对策（Il serait souhaitable de...），结尾必须使用标准高规格致敬语（Formule de politesse）。',
+      kaoyanFocus: '对比名校考研二外议论文：考研写作强调学术客观性，严禁通篇滥用个人情感式“je”，多采用无人称句（Il convient de... / Il s\'avère que...）、严密的逻辑三段式以及虚拟式让步从句。'
+    },
+    gradingCriteria: [
+      {
+        point: '信头与行政公函格式规范 (Forme et Présentation)',
+        score: '5.0 分',
+        rule: '必须包含发件人、收件人、地点与日期、Objet 及信尾高规格 Formule de politesse，缺少一项直接扣 1 分。',
+        penaltyTrap: '误用非正式开头（如 Cher Monsieur / Salut），扣 2.0 分。'
+      },
+      {
+        point: '论证深度与替代方案提出 (Prise de position & Solutions)',
+        score: '8.0 分',
+        rule: '必须至少提出两个切实可行的替代建议（如 P+R 郊区换乘停车场、电动接驳车），逻辑链条闭环。',
+        penaltyTrap: '仅表达抱怨抗议而未提出可行替代对策，扣 3.0 分。'
+      },
+      {
+        point: '语法准确度与高阶句式 (Morphosyntaxe & Structures complexes)',
+        score: '7.0 分',
+        rule: '熟练运用条件式委婉提议（Il serait judicieux de...）及虚拟式从句，动词变位与分词配合零失误。',
+        penaltyTrap: '变位出现 2 处以上硬伤，扣 2.0 分。'
+      },
+      {
+        point: '高阶书面词汇与词数达标 (Lexique & Longueur)',
+        score: '5.0 分',
+        rule: '不少于 250 词；使用 microclimat, mobilités douces, pérenne 等城市生态书面词汇。',
+        penaltyTrap: '字数低于 230 词按梯度扣分（每少 20 词扣 1 分）。'
+      }
     ]
   },
   {
@@ -292,6 +334,36 @@ En résumé, il est essentiel que nous utilisions l'IA avec discernement, en la 
       { word: 'très important', meaning: '很重要', replacement: 'primordial / indispensable' },
       { word: 'nous pouvons parler', meaning: '我们可以说话', replacement: 'avoir l\'opportunité de dialoguer' },
       { word: 'mauvais pour nous', meaning: '对我们有害', replacement: 'porter préjudice à notre réflexion critique' }
+    ],
+    genreComparisonNotice: {
+      delfFocus: '对比 DELF 考试：DELF 写作重在情境交际与交际目的达成，允许使用第一人称阐述立场。',
+      kaoyanFocus: '北外/全国名校考研二外命题作文重在学术客观性（Style académique）：严禁通篇主观滥用“je”，多采用无人称结构（Il convient de... / Il s\'avère que...）、严密的连接词三段式（D\'une part, D\'autre part, En résumé）与虚拟式让步从句。'
+    },
+    gradingCriteria: [
+      {
+        point: '审题立意与三段式结构 (Structure & Thématique)',
+        score: '5.0 分',
+        rule: '严格遵循“引入现象 ➔ 正反辩证（优势与局限） ➔ 总结升华”的标准学术议论文框架，立意明确。',
+        penaltyTrap: '偏题或仅写单方面（只谈优点不谈局限）扣 2.5 分。'
+      },
+      {
+        point: '动词变位与虚拟式硬踩分点 (Grammaire & Subjonctif)',
+        score: '6.0 分',
+        rule: '基础变位零失误；全篇必须正确运用至少 1 处虚拟式从句（如 bien que + 虚拟式 或 il est essentiel que + 虚拟式）。',
+        penaltyTrap: '虚拟式从句误用直陈式（如 bien que l\'IA est）扣 1.5 分；每处规则动词变位笔误扣 0.5 分。'
+      },
+      {
+        point: '篇章逻辑连接词贯穿 (Cohésion & Connecteurs)',
+        score: '5.0 分',
+        rule: '各段落与论点之间严谨运用 D\'une part... D\'autre part..., Qui plus est, En résumé 等连接词贯穿。',
+        penaltyTrap: '整篇只有简单并列句（不断用 Et, Mais）而缺乏高级连接词扣 2.0 分。'
+      },
+      {
+        point: '学术书面词汇与字数合规 (Lexique académique & Mots)',
+        score: '4.0 分',
+        rule: '词数严格控制在 120~150 词最佳得分区间；使用 primordial, autonomie, réflexion critique 等书面语。',
+        penaltyTrap: '字数不足 110 词扣 2.0 分；通篇使用口语化幼稚词汇（très bon, beaucoup）扣 1.5 分。'
+      }
     ]
   },
   {
@@ -322,6 +394,42 @@ En résumé, il est essentiel que nous utilisions l'IA avec discernement, en la 
 3. 句 3：Pourvu que 后面必须跟虚拟式 unissions；
 4. 句 4：Bien qu'il soit 同样是虚拟式经典考点；consacrer... à... 介词搭配；
 5. 句 5：时态对比！到达 sont arrivés 是复合过去时，起飞是在到达之前发生的动作，必须用【愈过去时 avait décollé】！`,
+    genreComparisonNotice: {
+      delfFocus: '对比 DELF 考试：DELF 考试不设传统汉译法题型，注重法汉跨文化交际；',
+      kaoyanFocus: '汉译法（Thème）是北外、上外、北大二外考研试卷的拉分重器（通常占 15~20 分），阅卷老师严格采取【采分点扣分制】，对性数配合、虚拟式标志词、介词搭配与过去时态时间轴实行“一错一扣”。'
+    },
+    gradingCriteria: [
+      {
+        point: '第 1 句：Quelles que soient + 虚拟式倒装',
+        score: '4.0 分',
+        rule: '采分点：Quelles que soient（主表性数配合+倒装 1.5分）+ persistions（虚拟式现在时 1.5分）+ protéger l\'environnement（1.0分）。',
+        penaltyTrap: '错写为 Quelque soit（未分开/未配合）直接扣 1.5 分；错用直陈式 persistons 扣 1.0 分。'
+      },
+      {
+        point: '第 2 句：最高级先行词 + 关系代词 + 虚拟式过去时',
+        score: '4.0 分',
+        rule: '采分点：C\'est le roman le plus captivant（最高级修饰 1.5分）+ que j\'aie jamais lu（虚拟式过去时踩分 2.5分）。',
+        penaltyTrap: '从句动词误用直陈式复合过去时（que j\'ai jamais lu）扣 1.5 分；分词配合错误扣 0.5 分。'
+      },
+      {
+        point: '第 3 句：Pourvu que 引导条件虚拟式',
+        score: '4.0 分',
+        rule: '采分点：Pourvu que / À condition que（1.5分）+ unissions nos efforts（虚拟式现在时 1.5分）+ être en mesure de / être capable de（1.0分）。',
+        penaltyTrap: 'Pourvu que 后面跟直陈式 unissons 扣 1.5 分。'
+      },
+      {
+        point: '第 4 句：Bien que 让步从句 + 固定介词搭配',
+        score: '4.0 分',
+        rule: '采分点：Bien qu\'il soit（让步虚拟式 2.0分）+ consacre une demi-heure à s\'exercer（consacrer... à... 介词搭配与代动词 2.0分）。',
+        penaltyTrap: '写成 Bien qu\'il est 扣 1.5 分；介词搭配错用 pour 或 de 扣 1.0 分。'
+      },
+      {
+        point: '第 5 句：时间轴时态先后对比（愈过去时 vs 复合过去时）',
+        score: '4.0 分',
+        rule: '采分点：Lorsqu\'ils sont arrivés（基准动作：复合过去时 1.5分）+ l\'avion avait déjà décollé（发生在到达之前的动作：愈过去时 2.5分）。',
+        penaltyTrap: '起飞动作误用 imparfait (décollait) 或 passé composé (a décollé) 扣 2.0 分（时态概念混淆）。'
+      }
+    ],
     keyFormulas: [
       'Quelles que soient... (无论……如何，主谓配合)',
       'Le plus... que + subjonctif (最……的……)',

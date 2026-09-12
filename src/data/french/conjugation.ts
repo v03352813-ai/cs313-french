@@ -11,7 +11,9 @@ export type TenseKey =
   | 'futur_simple'    // 简单将来时
   | 'conditionnel'    // 条件式现在时
   | 'subjonctif'      // 虚拟式现在时
-  | 'imperatif';      // 命令式
+  | 'imperatif'       // 命令式
+  | 'passe_simple'    // 简单过去时 (考研阅读专供)
+  | 'plus_que_parfait'; // 愈过去时 (过去的过去)
 
 export interface TenseInfo {
   key: TenseKey;
@@ -44,6 +46,13 @@ export const TENSES_METADATA: TenseInfo[] = [
     formula: '直陈式 nous 词根 + (-ais, -ais, -ait, -ions, -iez, -aient)'
   },
   {
+    key: 'plus_que_parfait',
+    label: '愈过去时',
+    frenchLabel: 'Plus-que-parfait',
+    usage: '考研语法选择与汉译法必考！表示在过去某个动作之前就已经完成的动作（过去的过去）。',
+    formula: '助动词 avoir/être (未完成过去时) + 过去分词'
+  },
+  {
     key: 'futur_simple',
     label: '简单将来时',
     frenchLabel: 'Futur simple',
@@ -70,6 +79,13 @@ export const TENSES_METADATA: TenseInfo[] = [
     frenchLabel: 'Impératif',
     usage: '向对方发出指令、建议或请求（仅 tu, nous, vous 三个人称）。',
     formula: '省略主语代词，第一组动词 tu 形式通常去 -s'
+  },
+  {
+    key: 'passe_simple',
+    label: '简单过去时',
+    frenchLabel: 'Passé simple',
+    usage: '名校考研二外阅读必考！法国文学与纯书面叙事核心时态，通常只需识别第三人称。',
+    formula: '第一组 -a/-èrent；第二/三组 -it/-irent 或 -ut/-urent'
   }
 ];
 
@@ -535,4 +551,72 @@ export const FRENCH_VERBS: VerbItem[] = [
       }
     }
   }
+];
+
+/**
+ * 🏛️ 北外/名校考研二外阅读专供：高频简单过去时 (Passé Simple) 50 核心动词速认宝典
+ * 重点攻克考研学生“单词认得，但简单过去时第三人称变位认不出”的痛点
+ */
+export interface PasseSimpleItem {
+  id: string;
+  verb: string;
+  meaning: string;
+  group: string;
+  thirdSingular: string;  // il / elle (考研阅读最最常见)
+  thirdPlural: string;    // ils / elles
+  firstSingular: string;  // je
+  radicalTip: string;     // 词根突变规律
+}
+
+export const KAOYAN_PASSE_SIMPLE_50: PasseSimpleItem[] = [
+  { id: 'ps_1', verb: 'être', meaning: '是 / 存在', group: '第三组', thirdSingular: 'il fut', thirdPlural: 'ils furent', firstSingular: 'je fus', radicalTip: '源于古拉丁语 fui，全变异为 f- 词根' },
+  { id: 'ps_2', verb: 'avoir', meaning: '有 / 得到', group: '第三组', thirdSingular: 'il eut', thirdPlural: 'ils eurent', firstSingular: "j'eus", radicalTip: '词根异化为 eu-，注意发音同单个元音 [y]' },
+  { id: 'ps_3', verb: 'faire', meaning: '做 / 使得', group: '第三组', thirdSingular: 'il fit', thirdPlural: 'ils firent', firstSingular: 'je fis', radicalTip: '词根异化为 f- + -it，极高频' },
+  { id: 'ps_4', verb: 'dire', meaning: '说 / 讲', group: '第三组', thirdSingular: 'il dit', thirdPlural: 'ils dirent', firstSingular: 'je dis', radicalTip: '与现在时同形 (il dit)，注意复数 dirent' },
+  { id: 'ps_5', verb: 'aller', meaning: '去 / 前往', group: '第三组', thirdSingular: 'il alla', thirdPlural: 'ils allèrent', firstSingular: "j'allai", radicalTip: '规则套用第一组 -a / -èrent' },
+  { id: 'ps_6', verb: 'voir', meaning: '看见 / 见证', group: '第三组', thirdSingular: 'il vit', thirdPlural: 'ils virent', firstSingular: 'je vis', radicalTip: 'v- + -it，易与 vivre 混淆，需辨别' },
+  { id: 'ps_7', verb: 'savoir', meaning: '知道 / 得悉', group: '第三组', thirdSingular: 'il sut', thirdPlural: 'ils surent', firstSingular: 'je sus', radicalTip: '词根异化为 s- + -ut' },
+  { id: 'ps_8', verb: 'pouvoir', meaning: '能够 / 可以', group: '第三组', thirdSingular: 'il put', thirdPlural: 'ils purent', firstSingular: 'je pus', radicalTip: '词根异化为 p- + -ut' },
+  { id: 'ps_9', verb: 'falloir', meaning: '必须 / 需要', group: '无人称', thirdSingular: 'il fallut', thirdPlural: '—', firstSingular: '—', radicalTip: '无人称动词，考研高频句型 il fallut que...' },
+  { id: 'ps_10', verb: 'vouloir', meaning: '想要 / 意图', group: '第三组', thirdSingular: 'il voulut', thirdPlural: 'ils voulurent', firstSingular: 'je voulus', radicalTip: 'voul- + -ut' },
+  { id: 'ps_11', verb: 'venir', meaning: '来 / 达到', group: '第三组', thirdSingular: 'il vint', thirdPlural: 'ils vinrent', firstSingular: 'je vins', radicalTip: '鼻音词根 v- + -int [vɛ̃]' },
+  { id: 'ps_12', verb: 'prendre', meaning: '拿 / 乘坐 / 采取', group: '第三组', thirdSingular: 'il prit', thirdPlural: 'ils prirent', firstSingular: 'je pris', radicalTip: 'pr- + -it，同理用于 comprendre, apprendre' },
+  { id: 'ps_13', verb: 'arriver', meaning: '到达 / 发生', group: '第一组', thirdSingular: 'il arriva', thirdPlural: 'ils arrivèrent', firstSingular: "j'arrivai", radicalTip: '第一组规则动词，词尾 -a / -èrent' },
+  { id: 'ps_14', verb: 'croire', meaning: '相信 / 认为', group: '第三组', thirdSingular: 'il crut', thirdPlural: 'ils crurent', firstSingular: 'je crus', radicalTip: 'cr- + -ut' },
+  { id: 'ps_15', verb: 'mettre', meaning: '放置 / 穿上', group: '第三组', thirdSingular: 'il mit', thirdPlural: 'ils mirent', firstSingular: 'je mis', radicalTip: 'm- + -it，同理用于 promettre, admettre' },
+  { id: 'ps_16', verb: 'passer', meaning: '度过 / 经过', group: '第一组', thirdSingular: 'il passa', thirdPlural: 'ils passèrent', firstSingular: 'je passai', radicalTip: '第一组规则叙事核心动词' },
+  { id: 'ps_17', verb: 'devoir', meaning: '应该 / 必须', group: '第三组', thirdSingular: 'il dut', thirdPlural: 'ils durent', firstSingular: 'je dus', radicalTip: 'd- + -ut (注意单数无长音符)' },
+  { id: 'ps_18', verb: 'demander', meaning: '询问 / 要求', group: '第一组', thirdSingular: 'il demanda', thirdPlural: 'ils demandèrent', firstSingular: 'je demandai', radicalTip: '小说对话引入句高频' },
+  { id: 'ps_19', verb: 'trouver', meaning: '找到 / 觉得', group: '第一组', thirdSingular: 'il trouva', thirdPlural: 'ils trouvèrent', firstSingular: 'je trouvai', radicalTip: '第一组规则动词' },
+  { id: 'ps_20', verb: 'donner', meaning: '给予 / 赋予', group: '第一组', thirdSingular: 'il donna', thirdPlural: 'ils donnèrent', firstSingular: 'je donnai', radicalTip: '第一组规则动词' },
+  { id: 'ps_21', verb: 'comprendre', meaning: '理解 / 包含', group: '第三组', thirdSingular: 'il comprit', thirdPlural: 'ils comprirent', firstSingular: 'je compris', radicalTip: '与 prendre 变位同型' },
+  { id: 'ps_22', verb: 'connaître', meaning: '认识 / 了解', group: '第三组', thirdSingular: 'il connut', thirdPlural: 'ils connurent', firstSingular: 'je connus', radicalTip: 'conn- + -ut' },
+  { id: 'ps_23', verb: 'partir', meaning: '出发 / 离开', group: '第三组', thirdSingular: 'il partit', thirdPlural: 'ils partirent', firstSingular: 'je partis', radicalTip: 'part- + -it' },
+  { id: 'ps_24', verb: 'mourir', meaning: '死亡 / 逝世', group: '第三组', thirdSingular: 'il mourut', thirdPlural: 'ils moururent', firstSingular: 'je mourus', radicalTip: '人物传记阅读极高频，mour- + -ut' },
+  { id: 'ps_25', verb: 'naître', meaning: '出生 / 诞生', group: '第三组', thirdSingular: 'il naquit', thirdPlural: 'ils naquirent', firstSingular: 'je naquis', radicalTip: '词根特殊异化为 naqu- + -it' },
+  { id: 'ps_26', verb: 'écrire', meaning: '书写 / 著述', group: '第三组', thirdSingular: 'il écrivit', thirdPlural: 'ils écrivirent', firstSingular: "j'écrivis", radicalTip: 'écriv- + -it' },
+  { id: 'ps_27', verb: 'lire', meaning: '阅读 / 读到', group: '第三组', thirdSingular: 'il lut', thirdPlural: 'ils lurent', firstSingular: 'je lus', radicalTip: 'l- + -ut' },
+  { id: 'ps_28', verb: 'vivre', meaning: '生活 / 经历', group: '第三组', thirdSingular: 'il vécut', thirdPlural: 'ils vécurent', firstSingular: 'je vécus', radicalTip: '词根特殊异化为 véc- + -ut' },
+  { id: 'ps_29', verb: 'sentir', meaning: '感觉 / 闻到', group: '第三组', thirdSingular: 'il sentit', thirdPlural: 'ils sentirent', firstSingular: 'je sentis', radicalTip: 'sent- + -it' },
+  { id: 'ps_30', verb: 'attendre', meaning: '等待 / 期望', group: '第三组', thirdSingular: 'il attendit', thirdPlural: 'ils attendirent', firstSingular: "j'attendis", radicalTip: 'attend- + -it' },
+  { id: 'ps_31', verb: 'sortir', meaning: '出去 / 产出', group: '第三组', thirdSingular: 'il sortit', thirdPlural: 'ils sortirent', firstSingular: 'je sortis', radicalTip: 'sort- + -it' },
+  { id: 'ps_32', verb: 'tenir', meaning: '拿着 / 保持', group: '第三组', thirdSingular: 'il tint', thirdPlural: 'ils tinrent', firstSingular: 'je tins', radicalTip: '鼻音词根 t- + -int [tɛ̃]，同 venir' },
+  { id: 'ps_33', verb: 'ouvrir', meaning: '打开 / 开辟', group: '第三组', thirdSingular: 'il ouvrit', thirdPlural: 'ils ouvrirent', firstSingular: "j'ouvris", radicalTip: 'ouvr- + -it，同理用于 découvrir' },
+  { id: 'ps_34', verb: 'perdre', meaning: '失去 / 输掉', group: '第三组', thirdSingular: 'il perdit', thirdPlural: 'ils perdirent', firstSingular: 'je perdis', radicalTip: 'perd- + -it' },
+  { id: 'ps_35', verb: 'rendre', meaning: '归还 / 使得', group: '第三组', thirdSingular: 'il rendit', thirdPlural: 'ils rendirent', firstSingular: 'je rendis', radicalTip: 'rend- + -it (如 il rendit compte)' },
+  { id: 'ps_36', verb: 'répondre', meaning: '回答 / 响应', group: '第三组', thirdSingular: 'il répondit', thirdPlural: 'ils répondirent', firstSingular: 'je répondis', radicalTip: 'répond- + -it' },
+  { id: 'ps_37', verb: 'paraître', meaning: '显得 / 出版', group: '第三组', thirdSingular: 'il parut', thirdPlural: 'ils parurent', firstSingular: 'je parus', radicalTip: 'par- + -ut' },
+  { id: 'ps_38', verb: 'disparaître', meaning: '消失 / 逝世', group: '第三组', thirdSingular: 'il disparut', thirdPlural: 'ils disparurent', firstSingular: 'je disparus', radicalTip: 'dispar- + -ut' },
+  { id: 'ps_39', verb: 'recevoir', meaning: '收到 / 接待', group: '第三组', thirdSingular: 'il reçut', thirdPlural: 'ils reçurent', firstSingular: 'je reçus', radicalTip: '注意下加符 c -> ç (reçut)' },
+  { id: 'ps_40', verb: 'boire', meaning: '喝 / 饮用', group: '第三组', thirdSingular: 'il but', thirdPlural: 'ils burent', firstSingular: 'je bus', radicalTip: 'b- + -ut' },
+  { id: 'ps_41', verb: 'courir', meaning: '跑 / 蔓延', group: '第三组', thirdSingular: 'il courut', thirdPlural: 'ils coururent', firstSingular: 'je courus', radicalTip: 'cour- + -ut' },
+  { id: 'ps_42', verb: 'conduire', meaning: '引导 / 驾驶', group: '第三组', thirdSingular: 'il conduisit', thirdPlural: 'ils conduisirent', firstSingular: 'je conduisis', radicalTip: 'conduis- + -it' },
+  { id: 'ps_43', verb: 'craindre', meaning: '害怕 / 担忧', group: '第三组', thirdSingular: 'il craignit', thirdPlural: 'ils craignirent', firstSingular: 'je craignis', radicalTip: 'craign- + -it' },
+  { id: 'ps_44', verb: 'dormir', meaning: '睡觉', group: '第三组', thirdSingular: 'il dormit', thirdPlural: 'ils dormirent', firstSingular: 'je dormis', radicalTip: 'dorm- + -it' },
+  { id: 'ps_45', verb: 'entendre', meaning: '听见 / 意指', group: '第三组', thirdSingular: 'il entendit', thirdPlural: 'ils entendirent', firstSingular: "j'entendis", radicalTip: 'entend- + -it' },
+  { id: 'ps_46', verb: 'plaire', meaning: '使喜欢 / 取悦', group: '第三组', thirdSingular: 'il plut', thirdPlural: 'ils plurent', firstSingular: 'je plus', radicalTip: '易与 pleuvoir (下雨) il plut 混淆，需靠上下文分辨' },
+  { id: 'ps_47', verb: 'résoudre', meaning: '解决 / 决议', group: '第三组', thirdSingular: 'il résolut', thirdPlural: 'ils résolurent', firstSingular: 'je résolus', radicalTip: 'résol- + -ut' },
+  { id: 'ps_48', verb: 'rire', meaning: '笑', group: '第三组', thirdSingular: 'il rit', thirdPlural: 'ils rirent', firstSingular: 'je ris', radicalTip: 'r- + -it' },
+  { id: 'ps_49', verb: 'suivre', meaning: '跟随 / 听从', group: '第三组', thirdSingular: 'il suivit', thirdPlural: 'ils suivirent', firstSingular: 'je suivis', radicalTip: 'suiv- + -it' },
+  { id: 'ps_50', verb: 'valoir', meaning: '价值 / 等于', group: '第三组', thirdSingular: 'il valut', thirdPlural: 'ils valurent', firstSingular: 'je valus', radicalTip: 'val- + -ut (如 il valut mieux...)' }
 ];
