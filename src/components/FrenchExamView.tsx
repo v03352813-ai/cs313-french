@@ -105,11 +105,20 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
     return {
       kaoyan: {
         all: kaoyan.length,
-        tongkao: kaoyan.filter(p => p.schoolOrOrg.includes('统考') || p.schoolOrOrg.includes('联考')).length,
+        tongkao: kaoyan.filter(p => p.schoolOrOrg.includes('统考') || p.schoolOrOrg.includes('联考') || p.schoolOrOrg.includes('综合')).length,
         beiwai: kaoyan.filter(p => p.schoolOrOrg.includes('北京外国语大学')).length,
         shisu: kaoyan.filter(p => p.schoolOrOrg.includes('上海外国语大学')).length,
         gdufs: kaoyan.filter(p => p.schoolOrOrg.includes('广东外语外贸大学')).length,
-        others: kaoyan.filter(p => p.schoolOrOrg.includes('南京大学') || p.schoolOrOrg.includes('武汉大学') || p.schoolOrOrg.includes('复旦') || p.schoolOrOrg.includes('中山大学')).length,
+        others: kaoyan.filter(p =>
+          p.schoolOrOrg.includes('北京大学') ||
+          p.schoolOrOrg.includes('清华大学') ||
+          p.schoolOrOrg.includes('浙江大学') ||
+          p.schoolOrOrg.includes('南京大学') ||
+          p.schoolOrOrg.includes('武汉大学') ||
+          p.schoolOrOrg.includes('复旦') ||
+          p.schoolOrOrg.includes('中山大学') ||
+          p.schoolOrOrg.includes('四川外国语大学')
+        ).length,
       },
       cft4: {
         all: cft4.length,
@@ -143,8 +152,17 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
         if (kaoyanFilter === 'beiwai' && !p.schoolOrOrg.includes('北京外国语大学')) return false;
         if (kaoyanFilter === 'shisu' && !p.schoolOrOrg.includes('上海外国语大学')) return false;
         if (kaoyanFilter === 'gdufs' && !p.schoolOrOrg.includes('广东外语外贸大学')) return false;
-        if (kaoyanFilter === 'others' && !p.schoolOrOrg.includes('南京大学') && !p.schoolOrOrg.includes('武汉大学') && !p.schoolOrOrg.includes('复旦') && !p.schoolOrOrg.includes('中山大学')) return false;
-        if (kaoyanFilter === 'tongkao' && !p.schoolOrOrg.includes('统考') && !p.schoolOrOrg.includes('名校联考')) return false;
+        if (kaoyanFilter === 'others' && !(
+          p.schoolOrOrg.includes('北京大学') ||
+          p.schoolOrOrg.includes('清华大学') ||
+          p.schoolOrOrg.includes('浙江大学') ||
+          p.schoolOrOrg.includes('南京大学') ||
+          p.schoolOrOrg.includes('武汉大学') ||
+          p.schoolOrOrg.includes('复旦') ||
+          p.schoolOrOrg.includes('中山大学') ||
+          p.schoolOrOrg.includes('四川外国语大学')
+        )) return false;
+        if (kaoyanFilter === 'tongkao' && !(p.schoolOrOrg.includes('统考') || p.schoolOrOrg.includes('联考') || p.schoolOrOrg.includes('综合'))) return false;
       }
 
       if (activeTrack === 'cft4' && cft4Filter !== 'all') {
@@ -479,14 +497,14 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               🏛️ 法国国家级与国际官方全真机考大卷库
             </span>
             <span className="text-xs text-stone-500 font-medium">
-              77套全国名校历年全卷 · 1,848道官方全真试题 · 100分标准实测评分 · 词汇语法 / 动词变位 / 完形填空 / 实用告示 / 原声听解 / 社科长篇读解
+              100套全国名校历年全卷 · 2,400道官方全真试题 · 100分标准实测评分 · 词汇语法 / 动词变位 / 完形填空 / 实用告示 / 原声听解 / 社科长篇读解
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
             法语国家统考与国际认证全真机考大卷库
           </h1>
           <p className="text-xs sm:text-sm text-stone-500">
-            涵盖全国名校考研二外 (北外242/上外241/广外243/南大/武大/复旦/中大历年真题)、大学法语四级 (CFT-4)、DELF 欧标 (A1~B2) 与四大考点专项突破卷！
+            涵盖全国名校考研二外 (北京外国语大学/上海外国语大学/广东外语外贸大学/北大/清华/南大/武大/复旦/中大/浙大/川外等历年真题)、大学法语四级 (CFT-4)、DELF 欧标 (A1~B2) 与四大考点专项突破卷！
           </p>
         </div>
       </div>
@@ -500,7 +518,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
           <div className="space-y-0.5">
             <div className="flex items-center gap-2 font-black text-[#29354A]">
               <span className={activeTrack === 'kaoyan' ? 'text-[#80142A]' : activeTrack === 'cft4' ? 'text-indigo-800' : activeTrack === 'delf' ? 'text-amber-800' : 'text-slate-800'}>
-                {activeTrack === 'kaoyan' ? `🎓 考研二外法语 (241/242/243) 历年名校大卷 (${paperCounts.kaoyan.all}套)` 
+                {activeTrack === 'kaoyan' ? `🎓 全国硕士考研二外法语·历年名校大卷 (${paperCounts.kaoyan.all}套)` 
                   : activeTrack === 'cft4' ? `🏛️ 大学法语四级 (CFT-4) 全国统考历年真题 (${paperCounts.cft4.all}套)`
                   : activeTrack === 'delf' ? `🌍 DELF 欧标国际认证 (A1-B2) 官方考卷 (${paperCounts.delf.all}套)`
                   : `⚡ 考研二外 & DELF 四大重点考点专项攻坚 (${paperCounts.drill.all}套)`}
@@ -514,7 +532,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             </div>
             <p className="text-stone-600 leading-relaxed font-medium">
               {activeTrack === 'kaoyan' && (
-                <span>全面收录北外 242、上外 241、广外 243、南大、武大、复旦、中大等历年统考真题编年卷，重点考察 <strong>【时态配合·代词语序·虚拟式触发】</strong> 与 <strong>【社科长文逻辑推理】</strong>，满分 100 分。</span>
+                <span>全面收录北京外国语大学、上海外国语大学、广东外语外贸大学、北京大学、清华大学、南京大学、武汉大学、复旦大学、中山大学、浙江大学、四川外国语大学等历年统考真题编年卷，重点考察 <strong>【时态配合·代词语序·虚拟式触发】</strong> 与 <strong>【社科长文逻辑推理】</strong>，满分 100 分。</span>
               )}
               {activeTrack === 'cft4' && (
                 <span>大学法语四级为全国高校公外二外最权威统一测试，全面考核 <strong>【听力理解·语法结构·完形填空·长篇读解】</strong>，精准检验 A2-B1 语言综合运用能力。</span>
@@ -620,12 +638,12 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
           {activeTrack === 'kaoyan' && (
             <div className="flex items-center gap-1.5 flex-wrap">
               {[
-                { id: 'all', label: `全部考研卷 (${paperCounts.kaoyan.all})` },
-                { id: 'tongkao', label: `全国统考/冲刺 (${paperCounts.kaoyan.tongkao})` },
-                { id: 'beiwai', label: `北外 242 (${paperCounts.kaoyan.beiwai})` },
-                { id: 'shisu', label: `上外 241 (${paperCounts.kaoyan.shisu})` },
-                { id: 'gdufs', label: `广外 243 (${paperCounts.gdufs})` },
-                { id: 'others', label: `南大/武大/复旦/中大 (${paperCounts.kaoyan.others})` }
+                { id: 'all', label: `全部考研真题 (${paperCounts.kaoyan.all})` },
+                { id: 'beiwai', label: `北京外国语大学 (${paperCounts.kaoyan.beiwai})` },
+                { id: 'shisu', label: `上海外国语大学 (${paperCounts.kaoyan.shisu})` },
+                { id: 'gdufs', label: `广东外语外贸大学 (${paperCounts.kaoyan.gdufs})` },
+                { id: 'others', label: `985名校联盟 (${paperCounts.kaoyan.others})` },
+                { id: 'tongkao', label: `全国统考综合 (${paperCounts.kaoyan.tongkao})` }
               ].map(f => (
                 <button
                   key={f.id}
@@ -1137,7 +1155,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                   <strong>官方合格线：</strong>
                   {currentPaper?.track === 'delf' 
                     ? 'DELF 欧标总分满 50/100 分合格，且单科成绩必须 ≥ 5/25 分（严禁触发单科淘汰线）。'
-                    : '考研二外 (241/242/243) 与大学法语四级总分 100 分，及格基准为 60 分。'}
+                    : '考研二外与大学法语四级总分 100 分，及格基准为 60 分。'}
                 </span>
               </div>
               <div className="flex items-start gap-2">

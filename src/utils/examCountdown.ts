@@ -1,4 +1,4 @@
-// 动态考期倒计时智能计算器 (法语考研二外 241/242 & DELF 欧标)
+// 动态考期倒计时智能计算器 (全国名校考研二外 & DELF 欧标)
 // 规则：
 // 1. 考前 90 天内开始倒计时大考（如：距考试85天）
 // 2. 考试当天：今日大考进行中
@@ -17,7 +17,7 @@ export interface ExamCountdownStatus {
 export function getFrenchExamCountdown(customDate?: Date): ExamCountdownStatus {
   const now = customDate || new Date();
   
-  // 2026年全国硕士研究生招生考试（二外法语 241/242/243，通常为每年12月下旬）
+  // 2026年全国硕士研究生招生考试（二外法语，通常为每年12月下旬）
   const currentExamDate = new Date('2026-12-20T08:30:00');
 
   const msPerDay = 1000 * 60 * 60 * 24;

@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { 
   X, 
   Crown, 
@@ -112,7 +112,7 @@ export const VipModal: React.FC<VipModalProps> = ({
                 CS313 法语研习社 · 终身 VIP
               </h2>
               <p className="text-xs text-rose-100 mt-0.5">
-                考研二外(241/242) & DELF 欧标真题全功能授权
+                全国考研二外名校真题 & DELF 欧标全功能授权
               </p>
             </div>
           </div>

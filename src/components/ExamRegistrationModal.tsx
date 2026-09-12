@@ -191,7 +191,7 @@ export const ExamRegistrationModal: React.FC<ExamRegistrationModalProps> = ({
                   </strong>
                 </div>
                 <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  我国所有硕士研究生入学考试（二外法语 241/242/243）及法国官方 DELF/DALF 欧标考级，均必须由考生本人在国家级官方指定系统以实名认证方式完成网上报名与缴费。任何第三方机构均无权私自办理。本研习社已为您整合全国三大官方唯一报名系统入口与报考指南，请点击对应卡片前往官网安全报考：
+                  我国所有硕士研究生入学考试（二外法语）及法国官方 DELF/DALF 欧标考级，均必须由考生本人在国家级官方指定系统以实名认证方式完成网上报名与缴费。任何第三方机构均无权私自办理。本研习社已为您整合全国三大官方唯一报名系统入口与报考指南，请点击对应卡片前往官网安全报考：
                 </p>
               </div>
 
@@ -212,7 +212,7 @@ export const ExamRegistrationModal: React.FC<ExamRegistrationModalProps> = ({
                     </h4>
                     <p className="text-xs text-slate-600 leading-relaxed">
                       <strong>唯一官方报名网：</strong>中国研究生招生信息网（学信网·研招网）<br/>
-                      <strong>适用对象：</strong>全国高校英语专业、翻译硕士 (MTI) 等报考统考二外法语 (241/242/243 自命题) 的考生。<br/>
+                      <strong>适用对象：</strong>全国高校英语专业、翻译硕士 (MTI) 等报考高校自命题二外法语的考生。<br/>
                       <strong>报名时间：</strong>每年 9 月下旬预报名，10 月 8 日 - 25 日正式网报，11 月初网上确认，12 月下旬初试。
                     </p>
                   </div>
@@ -314,7 +314,7 @@ export const ExamRegistrationModal: React.FC<ExamRegistrationModalProps> = ({
                   }`}
                 >
                   <GraduationCap className="w-3.5 h-3.5" />
-                  <span>全国考研二外 (241/242/243)</span>
+                  <span>全国硕士考研二外法语</span>
                 </button>
                 <button
                   onClick={() => setTimelineTrack('delf')}

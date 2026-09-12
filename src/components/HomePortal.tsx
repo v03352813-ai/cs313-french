@@ -219,8 +219,8 @@ const TRACKS_CONFIG: Record<TrackId, TrackConfig> = {
   },
   kaoyan: {
     id: 'kaoyan',
-    name: '考研二外 241/242 冲刺',
-    targetAudience: '冲刺名校 241/242 · 高分通关',
+    name: '全国名校考研二外冲刺',
+    targetAudience: '冲刺名校考研二外 · 高分通关',
     tag: '考研必选',
     icon: '🎯',
     themeColorName: '深蓝灰',

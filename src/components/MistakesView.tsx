@@ -29,7 +29,7 @@ export const MistakesView: React.FC<MistakesViewProps> = ({
   const isKaoyanMistake = (m: WrongRecord) => {
     const id = m.paperId.toLowerCase();
     const title = m.paperTitle.toLowerCase();
-    return id.includes('ky') || title.includes('考研') || title.includes('二外') || title.includes('241') || title.includes('242');
+    return id.includes('kaoyan') || id.includes('ky') || title.includes('考研') || title.includes('二外') || title.includes('名校') || title.includes('统考') || title.includes('外国语');
   };
 
   const isDelfMistake = (m: WrongRecord) => {

@@ -1,4 +1,4 @@
-// 法语考研二外 (241/242) & DELF/DALF 官方权威考期与报考全景数据
+// 法语考研二外 & DELF/DALF 官方权威考期与报考全景数据
 
 export interface ExamSessionInfo {
   title: string;
@@ -9,11 +9,11 @@ export interface ExamSessionInfo {
   neeaUrlLabel: string;
 }
 
-export interface TimelineStep {
+export interface RegistrationStep {
   step: string;
   title: string;
   dateRange: string;
-  status: 'upcoming' | 'current' | 'done';
+  status: 'upcoming' | 'current' | 'completed';
   desc: string;
   tips: string[];
 }
@@ -24,7 +24,7 @@ export interface SnatchTip {
   points: string[];
 }
 
-export interface ScoringRule {
+export interface ExamScoringCriterion {
   level: string;
   totalScore: number;
   passScore: number;
@@ -34,9 +34,9 @@ export interface ScoringRule {
 }
 
 export const FRENCH_EXAM_REGISTRATION_DATA = {
-  // 考研二外 241/242
+  // 全国硕士考研二外法语
   kaoyanSession: {
-    title: '2026年全国硕士研究生招生考试 (二外法语 241/242/243)',
+    title: '2026年全国硕士研究生招生考试 (二外法语)',
     targetAudience: '全国高校英语语言文学、翻译硕士 (MTI) 等考研考生',
     examDate: '2026年12月20日 08:30 - 11:30',
     registerDate: '2026年10月8日 - 10月25日 (每日 09:00 - 22:00)',
@@ -63,7 +63,7 @@ export const FRENCH_EXAM_REGISTRATION_DATA = {
       status: 'upcoming' as const,
       desc: '目标高校（北外、上外、武大、北大等）陆续公布2026研究生招生简章与二外法语考试大纲/参考书目。',
       tips: [
-        '确认目标院校二外法语科目代码（通常为 241、242 或 243 自命题）',
+        '确认目标院校二外法语科目大纲与参考书目',
         '核对题型结构（单选、时态变位、完形填空、法汉互译、阅读理解）',
         '搜集高校近 5~10 年历届统考真题研读'
       ]
@@ -202,7 +202,7 @@ export const FRENCH_EXAM_REGISTRATION_DATA = {
       ]
     },
     {
-      level: '全国考研二外 (241/242)',
+      level: '全国硕士考研二外法语',
       totalScore: 100,
       passScore: 60,
       sectionThreshold: 0,

@@ -160,7 +160,7 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
             </h1>
             <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
               {trackFilter === 'kaoyan'
-                ? '直击全国各大名校（241/242/243 自命题）失分重灾区：副代词 y/en 深度辨析、直接宾语提前过去分词配合、自反代动词间宾陷阱与虚拟式避坑。'
+                ? '直击全国各大高校名校考研二外自命题失分重灾区：副代词 y/en 深度辨析、直接宾语提前过去分词配合、自反代动词间宾陷阱与虚拟式避坑。'
                 : trackFilter === 'delf'
                 ? '聚焦法国教育部 CIEP 官方欧标交际与应用能力：论证逻辑连接词（Connecteurs logiques）、条件式委婉提议、间接引语时态配合与公函句式规范。'
                 : '系统建立法语底层逻辑，涵盖 70+ 核心考点与 46 考点交互式思维导图，彻底告别语法死记硬背。'}
@@ -565,7 +565,7 @@ export const GrammarView: React.FC<GrammarViewProps> = ({
               <div className="p-2.5 rounded-xl bg-gradient-to-r from-[#FCECEF] via-rose-50 to-white border border-[#80142A]/20 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="text-sm">🏛️</span>
-                  <span className="text-xs font-black text-[#80142A]">全国考研二外 (241/242) 定向深度剖析</span>
+                  <span className="text-xs font-black text-[#80142A]">全国名校考研二外定向深度剖析</span>
                 </div>
                 <span className="text-[10px] px-2 py-0.5 rounded-md bg-white text-[#80142A] font-bold border border-[#80142A]/20 shadow-2xs">
                   自命题真题 · 语法改错踩分

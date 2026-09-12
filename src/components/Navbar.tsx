@@ -167,7 +167,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </h1>
 
                 <p className="text-xs text-[#29354A]/75 font-medium leading-snug">
-                  考研二外 (241/242) 名校大卷 + DELF 欧标 (A1~B2) 全真机考 + 35 音标与联诵透视 + 动词变位演练器 + 5,000+ 性数词库 + 经典电影原声精听
+                  全国名校考研二外大卷 + DELF 欧标 (A1~B2) 全真机考 + 35 音标与联诵透视 + 动词变位演练器 + 5,000+ 性数词库 + 经典电影原声精听
                 </p>
               </div>
 
