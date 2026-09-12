@@ -87,11 +87,17 @@ function handleStaticRequest(req, res) {
     }
 
     const content = fs.readFileSync(filePath);
-    res.writeHead(200, {
+    const headers = {
       'Content-Type': mime,
       'Content-Length': stat.size,
       'Access-Control-Allow-Origin': '*'
-    });
+    };
+    if (ext === '.html') {
+      headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
+      headers['Pragma'] = 'no-cache';
+      headers['Expires'] = '0';
+    }
+    res.writeHead(200, headers);
     res.end(content);
   } catch (err) {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
