@@ -65,8 +65,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'speaking' as ActiveTab, label: 'AI口语', shortLabel: '口语', icon: Mic, isHero: true },
     { id: 'writing' as ActiveTab, label: 'AI写作', shortLabel: '写作', icon: PenTool, isHero: true },
     { id: 'grammar' as ActiveTab, label: '语法宝典', shortLabel: '语法', icon: BookOpenCheck },
-    { id: 'exam' as ActiveTab, label: '真题模考', shortLabel: '真题', icon: FileCheck2 },
     { id: 'cinema' as ActiveTab, label: '法影精听', shortLabel: '精听', icon: Headphones },
+    { id: 'exam' as ActiveTab, label: '真题模考', shortLabel: '真题', icon: FileCheck2 },
   ];
 
   const [isAdmin, setIsAdmin] = useState<boolean>(() => {
