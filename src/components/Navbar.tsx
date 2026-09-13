@@ -332,26 +332,26 @@ export const Navbar: React.FC<NavbarProps> = ({
   // 二级功能页面：采用顶部标准自然流设计（固定在最上端，不再悬浮跟随滚动），对齐日韩版采用上下分层舒展设计
   return (
     <header className="w-full pt-2.5 sm:pt-3 transition-all">
-      <div className="max-w-6xl mx-auto px-4 w-full">
-        <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs px-3 sm:px-5 py-2.5 sm:py-3 w-full space-y-2.5 sm:space-y-3">
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 w-full">
+        <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs px-2.5 sm:px-5 py-2 sm:py-3 w-full space-y-2 sm:space-y-3 overflow-hidden">
           
           {/* 上层：品牌标识、当前位置定位与右侧 VIP / 壁纸区 */}
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center justify-between gap-1.5 sm:gap-3 w-full min-w-0">
             
             {/* Left Brand Area */}
             <div 
               onClick={handleLogoClick}
-              className="flex items-center gap-2 cursor-pointer select-none shrink-0 group"
+              className="flex items-center gap-1.5 sm:gap-2 cursor-pointer select-none shrink-0 group"
               title="法语研习社 (点击返回首页 / 连击5次开启管理员)"
             >
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#80142A] via-[#9B1B36] to-[#680E20] flex items-center justify-center text-white shadow-sm shadow-[#80142A]/20 font-black text-base sm:text-lg tracking-tight group-hover:scale-105 transition shrink-0">
+              <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#80142A] via-[#9B1B36] to-[#680E20] flex items-center justify-center text-white shadow-sm shadow-[#80142A]/20 font-black text-xs sm:text-lg tracking-tight group-hover:scale-105 transition shrink-0">
                 FR
               </div>
               <div className="flex items-center gap-1.5 whitespace-nowrap shrink-0">
-                <span className="font-black text-sm sm:text-base tracking-tight text-[#29354A]">
+                <span className="font-black text-xs sm:text-base tracking-tight text-[#29354A]">
                   法语研习社
                 </span>
-                <span className="text-[10px] font-black px-1.5 py-0.2 rounded-full bg-[#FCECEF] text-[#80142A] border border-[#80142A]/25 hidden sm:inline">
+                <span className="text-[10px] font-black px-1.5 py-0.2 rounded-full bg-[#FCECEF] text-[#80142A] border border-[#80142A]/25 hidden md:inline">
                   French Pro
                 </span>
                 {currentActiveItem && currentActiveItem.id !== 'home' && (
@@ -366,20 +366,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Right Area: 福利与VIP/管理区 */}
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 whitespace-nowrap">
+            <div className="flex items-center gap-1 sm:gap-2 shrink-0 whitespace-nowrap">
               <button
                 onClick={onOpenExamModal || (() => setActiveTab('exam'))}
-                className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-bold transition shrink-0 cursor-pointer shadow-2xs"
+                className="flex items-center gap-1 px-1.5 sm:px-2.5 py-1 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-bold transition shrink-0 cursor-pointer shadow-2xs"
                 title="查看官方考期全景与避坑指南"
               >
                 <span>📅</span>
                 <span className="hidden sm:inline">官方考期</span>
-                <span className="text-[10px] bg-white/20 px-1 rounded-full">{examCountdown.badgeText}</span>
+                <span className="text-[10px] bg-white/20 px-1 rounded-full hidden sm:inline">{examCountdown.badgeText}</span>
+                <span className="text-[10px] bg-white/20 px-1 rounded-full inline sm:hidden">{examCountdown.days}天</span>
               </button>
 
               <button
                 onClick={onOpenWallpaperModal}
-                className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200/80 text-xs font-bold transition shrink-0 cursor-pointer shadow-2xs"
+                className="flex items-center gap-1 px-1.5 sm:px-2.5 py-1 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200/80 text-xs font-bold transition shrink-0 cursor-pointer shadow-2xs"
                 title="免费领取 4K 伴学壁纸"
               >
                 <span>🎁</span>
@@ -409,14 +410,19 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {/* VIP Status or Activation Button (二级及其他页面分为激活和未激活) */}
               {isVip ? (
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] text-white text-xs font-bold shadow-xs shadow-[#80142A]/20 shrink-0 whitespace-nowrap">
+                <div 
+                  onClick={onOpenVipModal}
+                  className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] text-white text-xs font-bold shadow-xs shadow-[#80142A]/20 shrink-0 whitespace-nowrap cursor-pointer hover:opacity-95 transition active:scale-95"
+                  title={license?.planName || '全球小语种黑金终身通卡'}
+                >
                   <Crown className="w-3.5 h-3.5 text-[#DDBF78] shrink-0" />
-                  <span className="whitespace-nowrap">{license?.planName || 'CS313 法语单语种终身VIP'}</span>
+                  <span className="hidden sm:inline whitespace-nowrap">{license?.planName || '终身 VIP'}</span>
+                  <span className="inline sm:hidden whitespace-nowrap font-black">终身VIP</span>
                 </div>
               ) : (
                 <button
                   onClick={onOpenVipModal}
-                  className="flex items-center gap-1 px-3 py-1 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-bold shadow-xs shadow-[#80142A]/20 active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
+                  className="flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-xl bg-gradient-to-r from-[#80142A] to-[#9B1B36] hover:from-[#680E20] hover:to-[#80142A] text-white text-xs font-bold shadow-xs shadow-[#80142A]/20 active:scale-98 transition shrink-0 whitespace-nowrap cursor-pointer"
                   title="输入卡密激活 VIP 终身卡"
                 >
                   <KeyRound className="w-3.5 h-3.5 shrink-0" />
