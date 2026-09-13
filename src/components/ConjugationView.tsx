@@ -715,15 +715,16 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
       {/* ========================================================================= */}
       {/* 🎩 独家自研 · 动词变位推导中心 & 脱帽换衣法则速查 (浅色高质感统一顶栏) */}
       {/* ========================================================================= */}
-      <div className="bg-gradient-to-br from-white via-rose-50/30 to-amber-50/20 rounded-3xl p-5 sm:p-6 border border-rose-200/80 shadow-xs space-y-4">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-          <div className="space-y-1">
+      <div className="bg-gradient-to-br from-white via-rose-50/30 to-amber-50/20 rounded-3xl p-4 sm:p-6 border border-rose-200/80 shadow-xs space-y-3.5 overflow-hidden">
+        {/* 顶部标题行与收起/展开按钮 */}
+        <div className="flex items-start justify-between gap-2.5">
+          <div className="space-y-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="w-8 h-8 rounded-xl bg-rose-50 text-[#80142A] border border-rose-200/70 flex items-center justify-center text-base shadow-2xs">
+              <span className="w-8 h-8 rounded-xl bg-rose-50 text-[#80142A] border border-rose-200/70 flex items-center justify-center text-base shadow-2xs shrink-0">
                 🎩
               </span>
-              <h2 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-                <span>动词活用推导 ·【脱帽换衣法则】速查指南</span>
+              <h2 className="text-base sm:text-xl font-black text-slate-900 tracking-tight">
+                动词活用推导 ·【脱帽换衣法则】速查指南
               </h2>
               <span className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200/80 font-bold text-xs shadow-2xs">
                 独家自研教学法 · 1分钟秒懂
@@ -734,62 +735,63 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
             </p>
           </div>
 
-          <div className="flex items-center gap-2 self-start md:self-auto shrink-0 flex-wrap">
-            {/* 视图切换 (工作台 vs 代词小火车&COD配合 vs 法则宝典 vs 考研简单过去时50词) */}
-            <div className="flex items-center bg-slate-100 p-1 rounded-2xl border border-slate-200/80 shrink-0 flex-wrap gap-1">
-              <button
-                onClick={() => setViewMode('workbench')}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
-                  viewMode === 'workbench'
-                    ? 'bg-white text-[#80142A] shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                <Zap className="w-3.5 h-3.5 text-[#80142A]" />
-                <span>交互推导工作台</span>
-              </button>
-              <button
-                onClick={() => setViewMode('pronouns_train')}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
-                  viewMode === 'pronouns_train'
-                    ? 'bg-[#80142A] text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                <span>🚂</span>
-                <span>代词小火车 & COD配合</span>
-              </button>
-              <button
-                onClick={() => setViewMode('rules')}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
-                  viewMode === 'rules'
-                    ? 'bg-white text-[#80142A] shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                <BookOpen className="w-3.5 h-3.5 text-[#80142A]" />
-                <span>全景法则宝典</span>
-              </button>
-              <button
-                onClick={() => setViewMode('passe_simple')}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
-                  viewMode === 'passe_simple'
-                    ? 'bg-[#80142A] text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                <GraduationCap className="w-3.5 h-3.5" />
-                <span>🏛️ 考研阅读：简单过去时50词</span>
-              </button>
-            </div>
+          {/* 收起 / 展开 说明 */}
+          <button
+            onClick={() => setShowHatGuide(!showHatGuide)}
+            className="px-2.5 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition flex items-center gap-1 shrink-0 cursor-pointer border border-slate-200/80 shadow-2xs self-start"
+            title="点击展开或折叠法则说明"
+          >
+            {showHatGuide ? <ChevronUp className="w-3.5 h-3.5 text-slate-500" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-500" />}
+            <span className="whitespace-nowrap">{showHatGuide ? '收起法则' : '展开法则'}</span>
+          </button>
+        </div>
 
-            {/* 收起 / 展开 说明 */}
+        {/* 视图切换 (工作台 vs 代词小火车&COD配合 vs 法则宝典 vs 考研简单过去时50词) */}
+        <div className="w-full min-w-0 pt-0.5">
+          <div className="w-full overflow-x-auto no-scrollbar flex items-center bg-slate-100/90 p-1 rounded-2xl border border-slate-200/80 gap-1 scroll-smooth">
             <button
-              onClick={() => setShowHatGuide(!showHatGuide)}
-              className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition flex items-center gap-1 shrink-0 cursor-pointer border border-slate-200/80 shadow-2xs"
+              onClick={() => setViewMode('workbench')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 shrink-0 whitespace-nowrap ${
+                viewMode === 'workbench'
+                  ? 'bg-white text-[#80142A] shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
             >
-              {showHatGuide ? <ChevronUp className="w-3.5 h-3.5 text-slate-500" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-500" />}
-              <span>{showHatGuide ? '收起法则' : '展开法则'}</span>
+              <Zap className="w-3.5 h-3.5 text-[#80142A]" />
+              <span>交互推导工作台</span>
+            </button>
+            <button
+              onClick={() => setViewMode('pronouns_train')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 shrink-0 whitespace-nowrap ${
+                viewMode === 'pronouns_train'
+                  ? 'bg-[#80142A] text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <span>🚂</span>
+              <span>代词小火车 & COD配合</span>
+            </button>
+            <button
+              onClick={() => setViewMode('rules')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 shrink-0 whitespace-nowrap ${
+                viewMode === 'rules'
+                  ? 'bg-white text-[#80142A] shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <BookOpen className="w-3.5 h-3.5 text-[#80142A]" />
+              <span>全景法则宝典</span>
+            </button>
+            <button
+              onClick={() => setViewMode('passe_simple')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 shrink-0 whitespace-nowrap ${
+                viewMode === 'passe_simple'
+                  ? 'bg-[#80142A] text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <GraduationCap className="w-3.5 h-3.5" />
+              <span>🏛️ 考研简单过去时50词</span>
             </button>
           </div>
         </div>
