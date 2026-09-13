@@ -38,6 +38,12 @@ export default async function handler(req, res) {
   }
 
   try {
+    const adminPin = (req.headers['x-admin-pin'] || req.body?.adminPin || '').trim().toLowerCase();
+    const validPins = ['cs313admin', '888888', 'cs313', (process.env.ADMIN_PIN || '').trim().toLowerCase()].filter(Boolean);
+    if (!validPins.includes(adminPin)) {
+      return res.status(401).json({ success: false, message: 'Unauthorized: 无权访问店主管理后台，安全口令验证失败' });
+    }
+
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
     const { count = 10, tier = 'fr_lifetime' } = body;
     const type = tier === 'all_lang' ? 'ALL' : 'FR';
