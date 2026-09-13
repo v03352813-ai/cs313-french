@@ -16,7 +16,8 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { getDeviceFingerprint, DeviceInfo } from '../utils/fingerprint';
-import { activateLicenseWithKey, LicenseInfo } from '../data/auth/cardKeys';
+import { LicenseInfo } from '../data/auth/cardKeys';
+import { api } from '../services/api';
 
 interface VipModalProps {
   isOpen: boolean;
@@ -58,7 +59,7 @@ export const VipModal: React.FC<VipModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleActivate = () => {
+  const handleActivate = async () => {
     const key = inputKey.trim().toUpperCase();
     if (!key) {
       setErrorMsg('请输入激活卡密');
@@ -69,8 +70,8 @@ export const VipModal: React.FC<VipModalProps> = ({
     setErrorMsg('');
     setSuccessMsg('');
 
-    setTimeout(() => {
-      const res = activateLicenseWithKey(key, currentDevice.deviceId, currentDevice.deviceName);
+    try {
+      const res = await api.verifyCardKey(key, currentDevice);
       setIsLoading(false);
       if (res.success && res.license) {
         setSuccessMsg(res.message);
@@ -91,7 +92,10 @@ export const VipModal: React.FC<VipModalProps> = ({
       } else {
         setErrorMsg(res.message);
       }
-    }, 400);
+    } catch {
+      setIsLoading(false);
+      setErrorMsg('网络连接异常，请检查网络或稍后重试');
+    }
   };
 
   return (

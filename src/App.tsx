@@ -16,6 +16,7 @@ import { WallpaperRewardModal } from './components/WallpaperRewardModal';
 import { WallpaperBanner } from './components/WallpaperBanner';
 import { ExamRegistrationModal } from './components/ExamRegistrationModal';
 import { getLocalLicense, LicenseInfo } from './data/auth/cardKeys';
+import { api } from './services/api';
 import { ArrowUp, Home, ShieldCheck, Sparkles, AlertTriangle } from 'lucide-react';
 
 interface ErrorBoundaryProps {
@@ -81,7 +82,12 @@ export const App: React.FC = () => {
   const handleOpenVipModal = (reason?: string) => {
     setVipModalReason(reason || '');
     setIsVipModalOpen(true);
+    api.trackEvent('vip_intent', { reason: reason || 'direct_click' });
   };
+
+  useEffect(() => {
+    api.trackEvent('page_view', { path: window.location.hash || '#home' });
+  }, []);
 
   // Mistakes state stored in localStorage
   const [mistakes, setMistakes] = useState<WrongRecord[]>(() => {

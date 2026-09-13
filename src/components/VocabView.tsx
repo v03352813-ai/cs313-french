@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { FRENCH_VOCAB_LIST, FrenchVocab } from '../data/french/vocabData';
 import { speakFrench, stopFrenchSpeech } from '../utils/speech';
+import { api } from '../services/api';
 
 interface VocabViewProps {
   isVip?: boolean;
@@ -40,7 +41,7 @@ export const VocabView: React.FC<VocabViewProps> = ({
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(false);
   const [speechRate, setSpeechRate] = useState<0.8 | 1.0 | 1.2>(1.0); // 0.8 慢速 / 1.0 标准 / 1.2 快速
 
-  // Mastered Words Tracker (LocalStorage)
+  // Mastered Words Tracker (LocalStorage + Cloud Sync)
   const [masteredIds, setMasteredIds] = useState<string[]>(() => {
     try {
       const saved = localStorage.getItem('cs313_fr_mastered_vocabs');
@@ -49,6 +50,16 @@ export const VocabView: React.FC<VocabViewProps> = ({
       return [];
     }
   });
+
+  // 初始加载云端进度
+  useEffect(() => {
+    api.syncStudyProgress({}).then(progress => {
+      if (progress && progress.masteredVocabIds && progress.masteredVocabIds.length > 0) {
+        setMasteredIds(progress.masteredVocabIds);
+        localStorage.setItem('cs313_fr_mastered_vocabs', JSON.stringify(progress.masteredVocabIds));
+      }
+    }).catch(() => {});
+  }, []);
 
   const levels = [
     { id: 'all', label: '全部词库', isFree: true },
@@ -142,6 +153,7 @@ export const VocabView: React.FC<VocabViewProps> = ({
       } catch {
         // Ignore
       }
+      api.syncStudyProgress({ masteredVocabIds: updated }).catch(() => {});
       return updated;
     });
   };
