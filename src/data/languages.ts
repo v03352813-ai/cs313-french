@@ -105,7 +105,7 @@ export const CS313_LANGUAGES: Record<LanguageCode, LanguageProfile> = {
     examSystem: {
       name: 'DELF / DALF & 考研二外',
       description: '法国教育部终身文凭 / 国内高校考研双轨备考',
-      levels: ['DELF A1-A2 (基础突破)', 'DELF B1-B2 (中高级独立)', 'DALF C1-C2 (精通)', '全国高校考研二外法语 241/242/243']
+      levels: ['DELF A1-A2 (基础突破)', 'DELF B1-B2 (中高级独立)', 'DALF C1-C2 (精通)', '全国名校考研二外法语 (统考/自命题)']
     },
     features: {
       vocabCount: '5,000+ 核心考纲词汇与阴阳性搭配',
