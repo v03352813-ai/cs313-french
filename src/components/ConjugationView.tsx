@@ -615,6 +615,55 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
       };
     }
 
+    if (selectedTense === 'plus_que_parfait') {
+      const isEtreAux = selectedVerb.auxiliary === 'être';
+      return {
+        badge: '✨ 愈过去时推导法则',
+        badgeClass: 'bg-purple-50 text-purple-900 border-purple-200/80',
+        ruleMapping: '对应时态法则：愈过去时【助动词未完成过去时 + 过去分词】',
+        relationWhy: '愈过去时表示“过去的过去”，即在过去某一动作或时间之前就已经完成的动作。',
+        step1Title: 'Step 1 · 助动词 imparfait 变位',
+        step1Desc: isEtreAux 
+          ? "位移动词强制使用 être 的未完成过去时 (j'étais, tu étais...)" 
+          : "绝大多数动词使用 avoir 的未完成过去时 (j'avais, tu avais...)",
+        step2Title: 'Step 2 · 挂载过去分词',
+        step2Desc: `助动词 + 过去分词「${selectedVerb.participle}」`,
+        step3Title: 'Step 3 · 性数配合铁律',
+        step3Desc: isEtreAux 
+          ? '助动词为 être 时，分词随主语性数配合 (阴性+e, 复数+s)！' 
+          : '助动词为 avoir 时，直宾 COD 抢跑前置才配合，普通语序不配合。',
+        formula: `助动词 ${selectedVerb.auxiliary} (imparfait) + 过去分词 (${selectedVerb.participle})`,
+        warning: '💡 考研真题核心：常与复合过去时或未完成过去时形成时间先后对照（比过去更早）！',
+        examBridge: {
+          bridgeTitle: '🎯 直通文法考点 · 过去的过去时间先后链',
+          targetGrammar: '《愈过去时与从句复合时态呼应》',
+          bridgeDetail: '在复合叙事中，比过去动作更早发生的动作必须使用愈过去时（Quand il est arrivé, le train était déjà parti 当他到达时，火车已经开走了）！'
+        }
+      };
+    }
+
+    if (selectedTense === 'passe_simple') {
+      return {
+        badge: '🏛️ 简单过去时推导法则',
+        badgeClass: 'bg-amber-50 text-amber-900 border-amber-200/80',
+        ruleMapping: '对应时态法则：简单过去时【文学与考研阅读专用】',
+        relationWhy: '简单过去时是法语纯书面语与文学叙事核心时态。考研二外重点：秒认第三人称（单数 il / 复数 ils）！',
+        step1Title: 'Step 1 · 锁定词尾主音门派',
+        step1Desc: '第1组动词为 -a 组 (-ai, -as, -a, -èrent)；第2组/部分第3组为 -i 组 (-is, -it, -irent)；部分第3组为 -u 组 (-us, -ut, -urent)',
+        step2Title: 'Step 2 · 重点锁定第三人称',
+        step2Desc: '阅读中 90% 考查第三人称单数 (il parla/il fut/il vit) 与复数 (ils parlèrent/ils furent)',
+        step3Title: 'Step 3 · 特殊突变词根记忆',
+        step3Desc: 'être ➔ il fut；avoir ➔ il eut；faire ➔ il fit；venir ➔ il vint',
+        formula: '词根 + 简单过去时专属后缀 (重点记忆第 3 人称形态)',
+        warning: '🚨 考研要诀：现代口语已不再使用，但在各大高校考研阅读中占 80% 叙事篇幅！',
+        examBridge: {
+          bridgeTitle: '🎯 直通文法考点 · 考研长难句阅读秒杀',
+          targetGrammar: '《考研阅读 50 核心动词突变速认》',
+          bridgeDetail: '阅卷不需要全人称拼写，只要在长难句中一眼看出 il fut = il a été (它是/它曾是)、il fit = il a fait (它做了)，就能瞬间读懂上下文！'
+        }
+      };
+    }
+
     return {
       badge: `✨ ${currentTenseMeta.label} 语法法则`,
       badgeClass: 'bg-slate-50 text-slate-800 border-slate-200/80',

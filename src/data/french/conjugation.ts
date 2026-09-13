@@ -167,6 +167,38 @@ export const FRENCH_VERBS: VerbItem[] = [
         nous: { stem: '', ending: 'soyons', full: 'soyons' },
         vous: { stem: '', ending: 'soyez', full: 'soyez' },
         ils_elles: { stem: '', ending: 'soient', full: 'soient' }
+      },
+      conditionnel: {
+        je: { stem: 'ser', ending: 'ais', full: 'serais' },
+        tu: { stem: 'ser', ending: 'ais', full: 'serais' },
+        il_elle: { stem: 'ser', ending: 'ait', full: 'serait' },
+        nous: { stem: 'ser', ending: 'ions', full: 'serions' },
+        vous: { stem: 'ser', ending: 'iez', full: 'seriez' },
+        ils_elles: { stem: 'ser', ending: 'aient', full: 'seraient' }
+      },
+      plus_que_parfait: {
+        je: { stem: "j'avais ", ending: 'été', full: "j'avais été" },
+        tu: { stem: 'tu avais ', ending: 'été', full: 'tu avais été' },
+        il_elle: { stem: 'il avait ', ending: 'été', full: 'il avait été' },
+        nous: { stem: 'nous avions ', ending: 'été', full: 'nous avions été' },
+        vous: { stem: 'vous aviez ', ending: 'été', full: 'vous aviez été' },
+        ils_elles: { stem: 'ils avaient ', ending: 'été', full: 'ils avaient été' }
+      },
+      imperatif: {
+        je: { stem: '-', ending: '-', full: '-' },
+        tu: { stem: '', ending: 'Sois !', full: 'Sois !' },
+        il_elle: { stem: '-', ending: '-', full: '-' },
+        nous: { stem: '', ending: 'Soyons !', full: 'Soyons !' },
+        vous: { stem: '', ending: 'Soyez !', full: 'Soyez !' },
+        ils_elles: { stem: '-', ending: '-', full: '-' }
+      },
+      passe_simple: {
+        je: { stem: 'f', ending: 'us', full: 'fus' },
+        tu: { stem: 'f', ending: 'us', full: 'fus' },
+        il_elle: { stem: 'f', ending: 'ut', full: 'fut' },
+        nous: { stem: 'f', ending: 'ûmes', full: 'fûmes' },
+        vous: { stem: 'f', ending: 'ûtes', full: 'fûtes' },
+        ils_elles: { stem: 'f', ending: 'urent', full: 'furent' }
       }
     }
   },
@@ -214,6 +246,46 @@ export const FRENCH_VERBS: VerbItem[] = [
         nous: { stem: 'aur', ending: 'ons', full: 'aurons' },
         vous: { stem: 'aur', ending: 'ez', full: 'aurez' },
         ils_elles: { stem: 'aur', ending: 'ont', full: 'auront' }
+      },
+      conditionnel: {
+        je: { stem: '', ending: "j'aurais", full: "j'aurais" },
+        tu: { stem: 'aur', ending: 'ais', full: 'aurais' },
+        il_elle: { stem: 'aur', ending: 'ait', full: 'aurait' },
+        nous: { stem: 'aur', ending: 'ions', full: 'aurions' },
+        vous: { stem: 'aur', ending: 'iez', full: 'auriez' },
+        ils_elles: { stem: 'aur', ending: 'aient', full: 'auraient' }
+      },
+      plus_que_parfait: {
+        je: { stem: "j'avais ", ending: 'eu', full: "j'avais eu" },
+        tu: { stem: 'tu avais ', ending: 'eu', full: 'tu avais eu' },
+        il_elle: { stem: 'il avait ', ending: 'eu', full: 'il avait eu' },
+        nous: { stem: 'nous avions ', ending: 'eu', full: 'nous avions eu' },
+        vous: { stem: 'vous aviez ', ending: 'eu', full: 'vous aviez eu' },
+        ils_elles: { stem: 'ils avaient ', ending: 'eu', full: 'ils avaient eu' }
+      },
+      subjonctif: {
+        je: { stem: '', ending: 'aie', full: 'aie' },
+        tu: { stem: '', ending: 'aies', full: 'aies' },
+        il_elle: { stem: '', ending: 'ait', full: 'ait' },
+        nous: { stem: '', ending: 'ayons', full: 'ayons' },
+        vous: { stem: '', ending: 'ayez', full: 'ayez' },
+        ils_elles: { stem: '', ending: 'aient', full: 'aient' }
+      },
+      imperatif: {
+        je: { stem: '-', ending: '-', full: '-' },
+        tu: { stem: '', ending: 'Aie !', full: 'Aie !' },
+        il_elle: { stem: '-', ending: '-', full: '-' },
+        nous: { stem: '', ending: 'Ayons !', full: 'Ayons !' },
+        vous: { stem: '', ending: 'Ayez !', full: 'Ayez !' },
+        ils_elles: { stem: '-', ending: '-', full: '-' }
+      },
+      passe_simple: {
+        je: { stem: '', ending: 'eus', full: 'eus' },
+        tu: { stem: '', ending: 'eus', full: 'eus' },
+        il_elle: { stem: '', ending: 'eut', full: 'eut' },
+        nous: { stem: '', ending: 'eûmes', full: 'eûmes' },
+        vous: { stem: '', ending: 'eûtes', full: 'eûtes' },
+        ils_elles: { stem: '', ending: 'eurent', full: 'eurent' }
       }
     }
   },
@@ -253,6 +325,54 @@ export const FRENCH_VERBS: VerbItem[] = [
         nous: { stem: 'ir', ending: 'ons', full: 'irons' },
         vous: { stem: 'ir', ending: 'ez', full: 'irez' },
         ils_elles: { stem: 'ir', ending: 'ont', full: 'iront' }
+      },
+      imparfait: {
+        je: { stem: 'all', ending: 'ais', full: 'allais' },
+        tu: { stem: 'all', ending: 'ais', full: 'allais' },
+        il_elle: { stem: 'all', ending: 'ait', full: 'allait' },
+        nous: { stem: 'all', ending: 'ions', full: 'allions' },
+        vous: { stem: 'all', ending: 'iez', full: 'alliez' },
+        ils_elles: { stem: 'all', ending: 'aient', full: 'allaient' }
+      },
+      conditionnel: {
+        je: { stem: 'ir', ending: 'ais', full: 'irais' },
+        tu: { stem: 'ir', ending: 'ais', full: 'irais' },
+        il_elle: { stem: 'ir', ending: 'ait', full: 'irait' },
+        nous: { stem: 'ir', ending: 'ions', full: 'irions' },
+        vous: { stem: 'ir', ending: 'iez', full: 'iriez' },
+        ils_elles: { stem: 'ir', ending: 'aient', full: 'iraient' }
+      },
+      plus_que_parfait: {
+        je: { stem: "j'étais ", ending: 'allé(e)', full: "j'étais allé(e)" },
+        tu: { stem: 'tu étais ', ending: 'allé(e)', full: 'tu étais allé(e)' },
+        il_elle: { stem: 'il était ', ending: 'allé', full: 'il était allé' },
+        nous: { stem: 'nous étions ', ending: 'allé(e)s', full: 'nous étions allés' },
+        vous: { stem: 'vous étiez ', ending: 'allé(e)s', full: 'vous étiez allés' },
+        ils_elles: { stem: 'ils étaient ', ending: 'allés', full: 'ils étaient allés' }
+      },
+      subjonctif: {
+        je: { stem: '', ending: 'aille', full: 'aille' },
+        tu: { stem: '', ending: 'ailles', full: 'ailles' },
+        il_elle: { stem: '', ending: 'aille', full: 'aille' },
+        nous: { stem: 'all', ending: 'ions', full: 'allions' },
+        vous: { stem: 'all', ending: 'iez', full: 'alliez' },
+        ils_elles: { stem: '', ending: 'aillent', full: 'aillent' }
+      },
+      imperatif: {
+        je: { stem: '-', ending: '-', full: '-' },
+        tu: { stem: '', ending: 'Va !', full: 'Va !' },
+        il_elle: { stem: '-', ending: '-', full: '-' },
+        nous: { stem: '', ending: 'Allons !', full: 'Allons !' },
+        vous: { stem: '', ending: 'Allez !', full: 'Allez !' },
+        ils_elles: { stem: '-', ending: '-', full: '-' }
+      },
+      passe_simple: {
+        je: { stem: 'all', ending: 'ai', full: 'allai' },
+        tu: { stem: 'all', ending: 'as', full: 'allas' },
+        il_elle: { stem: 'all', ending: 'a', full: 'alla' },
+        nous: { stem: 'all', ending: 'âmes', full: 'allâmes' },
+        vous: { stem: 'all', ending: 'âtes', full: 'allâtes' },
+        ils_elles: { stem: 'all', ending: 'èrent', full: 'allèrent' }
       }
     }
   },
@@ -292,6 +412,54 @@ export const FRENCH_VERBS: VerbItem[] = [
         nous: { stem: 'fer', ending: 'ons', full: 'ferons' },
         vous: { stem: 'fer', ending: 'ez', full: 'ferez' },
         ils_elles: { stem: 'fer', ending: 'ont', full: 'feront' }
+      },
+      imparfait: {
+        je: { stem: 'fais', ending: 'ais', full: 'faisais' },
+        tu: { stem: 'fais', ending: 'ais', full: 'faisais' },
+        il_elle: { stem: 'fais', ending: 'ait', full: 'faisait' },
+        nous: { stem: 'fais', ending: 'ions', full: 'faisions' },
+        vous: { stem: 'fais', ending: 'iez', full: 'faisiez' },
+        ils_elles: { stem: 'fais', ending: 'aient', full: 'faisaient' }
+      },
+      conditionnel: {
+        je: { stem: 'fer', ending: 'ais', full: 'ferais' },
+        tu: { stem: 'fer', ending: 'ais', full: 'ferais' },
+        il_elle: { stem: 'fer', ending: 'ait', full: 'ferait' },
+        nous: { stem: 'fer', ending: 'ions', full: 'ferions' },
+        vous: { stem: 'fer', ending: 'iez', full: 'feriez' },
+        ils_elles: { stem: 'fer', ending: 'aient', full: 'feraient' }
+      },
+      plus_que_parfait: {
+        je: { stem: "j'avais ", ending: 'fait', full: "j'avais fait" },
+        tu: { stem: 'tu avais ', ending: 'fait', full: 'tu avais fait' },
+        il_elle: { stem: 'il avait ', ending: 'fait', full: 'il avait fait' },
+        nous: { stem: 'nous avions ', ending: 'fait', full: 'nous avions fait' },
+        vous: { stem: 'vous aviez ', ending: 'fait', full: 'vous aviez fait' },
+        ils_elles: { stem: 'ils avaient ', ending: 'fait', full: 'ils avaient fait' }
+      },
+      subjonctif: {
+        je: { stem: 'fass', ending: 'e', full: 'fasse' },
+        tu: { stem: 'fass', ending: 'es', full: 'fasses' },
+        il_elle: { stem: 'fass', ending: 'e', full: 'fasse' },
+        nous: { stem: 'fass', ending: 'ions', full: 'fassions' },
+        vous: { stem: 'fass', ending: 'iez', full: 'fassiez' },
+        ils_elles: { stem: 'fass', ending: 'ent', full: 'fassent' }
+      },
+      imperatif: {
+        je: { stem: '-', ending: '-', full: '-' },
+        tu: { stem: '', ending: 'Fais !', full: 'Fais !' },
+        il_elle: { stem: '-', ending: '-', full: '-' },
+        nous: { stem: '', ending: 'Faisons !', full: 'Faisons !' },
+        vous: { stem: '', ending: 'Faites !', full: 'Faites !' },
+        ils_elles: { stem: '-', ending: '-', full: '-' }
+      },
+      passe_simple: {
+        je: { stem: 'f', ending: 'is', full: 'fis' },
+        tu: { stem: 'f', ending: 'is', full: 'fis' },
+        il_elle: { stem: 'f', ending: 'it', full: 'fit' },
+        nous: { stem: 'f', ending: 'îmes', full: 'fîmes' },
+        vous: { stem: 'f', ending: 'îtes', full: 'fîtes' },
+        ils_elles: { stem: 'f', ending: 'irent', full: 'firent' }
       }
     }
   },
