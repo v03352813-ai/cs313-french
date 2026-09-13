@@ -38,7 +38,7 @@ export const VocabView: React.FC<VocabViewProps> = ({
   const [maskMode, setMaskMode] = useState<'none' | 'hideZh' | 'hideFr'>('none');
   const [viewMode, setViewMode] = useState<'flashcard' | 'list'>('flashcard');
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(false);
-  const [speechRate, setSpeechRate] = useState<number>(0.9); // 0.8 慢速 / 1.0 标准语速
+  const [speechRate, setSpeechRate] = useState<0.8 | 1.0 | 1.2>(1.0); // 0.8 慢速 / 1.0 标准 / 1.2 快速
 
   // Mastered Words Tracker (LocalStorage)
   const [masteredIds, setMasteredIds] = useState<string[]>(() => {
@@ -249,24 +249,36 @@ export const VocabView: React.FC<VocabViewProps> = ({
           </div>
 
           {/* 语速调节 */}
-          <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs">
+          <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs gap-0.5">
             <button
-              onClick={() => setSpeechRate(1.0)}
-              className={`px-2 py-1 rounded-lg font-bold transition cursor-pointer ${
-                speechRate === 1.0 ? 'bg-white text-slate-900 shadow-2xs font-black' : 'text-slate-500 hover:text-slate-900'
-              }`}
-              title="常速 1.0x"
-            >
-              1.0x
-            </button>
-            <button
+              type="button"
               onClick={() => setSpeechRate(0.8)}
               className={`px-2 py-1 rounded-lg font-bold transition cursor-pointer ${
-                speechRate === 0.8 ? 'bg-[#80142A] text-white shadow-2xs font-black' : 'text-slate-500 hover:text-slate-900'
+                speechRate === 0.8 ? 'bg-[#80142A] text-white shadow-2xs font-black' : 'text-slate-600 hover:text-slate-900'
               }`}
               title="慢速磨耳朵 0.8x"
             >
               0.8x 慢速
+            </button>
+            <button
+              type="button"
+              onClick={() => setSpeechRate(1.0)}
+              className={`px-2 py-1 rounded-lg font-bold transition cursor-pointer ${
+                speechRate === 1.0 ? 'bg-white text-slate-900 shadow-2xs font-black' : 'text-slate-600 hover:text-slate-900'
+              }`}
+              title="标准原速 1.0x"
+            >
+              1.0x
+            </button>
+            <button
+              type="button"
+              onClick={() => setSpeechRate(1.2)}
+              className={`px-2 py-1 rounded-lg font-bold transition cursor-pointer ${
+                speechRate === 1.2 ? 'bg-[#80142A] text-white shadow-2xs font-black' : 'text-slate-600 hover:text-slate-900'
+              }`}
+              title="快速挑战 1.2x"
+            >
+              1.2x 快速
             </button>
           </div>
 
@@ -467,21 +479,36 @@ export const VocabView: React.FC<VocabViewProps> = ({
                       {currentItem.french}
                     </h2>
                     
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 bg-white/95 p-1 rounded-2xl border border-slate-200/90 shadow-2xs">
                       <button
-                        onClick={(e) => playVoice(e, `${currentItem.article ? currentItem.article + ' ' : ''}${currentItem.french}`, 1.0)}
-                        className="p-2 rounded-xl bg-white border border-slate-200 text-[#80142A] hover:bg-[#80142A] hover:text-white transition shadow-2xs cursor-pointer"
-                        title="1.0x 标准语速"
+                        type="button"
+                        onClick={(e) => playVoice(e, `${currentItem.article ? currentItem.article + ' ' : ''}${currentItem.french}`, speechRate)}
+                        className="px-2.5 py-1.5 rounded-xl bg-slate-50 hover:bg-[#80142A] text-[#80142A] hover:text-white transition cursor-pointer flex items-center gap-1 font-bold text-xs"
+                        title={`当前语速 (${speechRate}x) 朗读`}
                       >
                         <Volume2 className="w-4 h-4" />
+                        <span>朗读</span>
                       </button>
-                      <button
-                        onClick={(e) => playVoice(e, `${currentItem.article ? currentItem.article + ' ' : ''}${currentItem.french}`, 0.8)}
-                        className="px-2 py-1 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-black transition cursor-pointer border border-amber-200"
-                        title="0.8x 慢速听辨"
-                      >
-                        0.8x 慢速
-                      </button>
+                      <div className="h-4 w-px bg-slate-200 mx-0.5" />
+                      {([0.8, 1.0, 1.2] as const).map((rate) => (
+                        <button
+                          key={rate}
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSpeechRate(rate);
+                            playVoice(e, `${currentItem.article ? currentItem.article + ' ' : ''}${currentItem.french}`, rate);
+                          }}
+                          className={`px-2 py-1 rounded-lg text-xs font-black transition cursor-pointer ${
+                            speechRate === rate
+                              ? 'bg-[#80142A] text-white shadow-2xs'
+                              : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'
+                          }`}
+                          title={`切换并以 ${rate}x 语速朗读`}
+                        >
+                          {rate}x
+                        </button>
+                      ))}
                     </div>
                   </div>
 
@@ -543,20 +570,15 @@ export const VocabView: React.FC<VocabViewProps> = ({
                       ({currentItem.gender === 'feminine' ? '阴性' : currentItem.gender === 'masculine' ? '阳性' : currentItem.pos})
                     </span>
                   </div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 bg-white/90 p-1 rounded-xl border border-slate-200 shadow-2xs">
                     <button
-                      onClick={(e) => playVoice(e, `${currentItem.article ? currentItem.article + ' ' : ''}${currentItem.french}`, 1.0)}
-                      className="p-1.5 rounded-lg bg-white text-[#80142A] hover:bg-[#80142A] hover:text-white transition cursor-pointer border border-slate-200"
-                      title="1.0x 标准发音"
+                      type="button"
+                      onClick={(e) => playVoice(e, `${currentItem.article ? currentItem.article + ' ' : ''}${currentItem.french}`, speechRate)}
+                      className="px-2 py-1 rounded-lg bg-slate-50 hover:bg-[#80142A] text-[#80142A] hover:text-white transition cursor-pointer flex items-center gap-1 font-bold text-xs"
+                      title={`以当前语速 (${speechRate}x) 朗读`}
                     >
-                      <Volume2 className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={(e) => playVoice(e, `${currentItem.article ? currentItem.article + ' ' : ''}${currentItem.french}`, 0.8)}
-                      className="px-2 py-1 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200 transition cursor-pointer"
-                      title="0.8x 慢速发音"
-                    >
-                      0.8x
+                      <Volume2 className="w-3.5 h-3.5" />
+                      <span>{speechRate}x</span>
                     </button>
                   </div>
                 </div>
