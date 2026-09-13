@@ -234,12 +234,16 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
   isVip = false,
   onOpenVipModal
 }) => {
-  // 核心视图模式：'workbench' (交互推导工作台) vs 'rules' (全景法则宝典) vs 'passe_simple' (考研简单过去时50词速认)
-  const [viewMode, setViewMode] = useState<'workbench' | 'rules' | 'passe_simple'>('workbench');
+  // 核心视图模式：'workbench' (交互推导工作台) vs 'pronouns_train' (代词小火车&COD配合) vs 'rules' (全景法则宝典) vs 'passe_simple' (考研简单过去时50词速认)
+  const [viewMode, setViewMode] = useState<'workbench' | 'pronouns_train' | 'rules' | 'passe_simple'>('workbench');
   const [showHatGuide, setShowHatGuide] = useState<boolean>(true);
   const [showFullMatrix, setShowFullMatrix] = useState<boolean>(true);
   const [showMaisonEtre, setShowMaisonEtre] = useState<boolean>(true);
   const [matrixTenseFilter, setMatrixTenseFilter] = useState<'core' | 'all'>('core'); // 默认核心 4 大时态，避免新手被吓退
+
+  // 代词小火车轨道与提前直宾COD配合状态
+  const [trainTrackMode, setTrainTrackMode] = useState<'declarative' | 'imperative'>('declarative');
+  const [activeCodTab, setActiveCodTab] = useState<number>(0);
 
   // 考研二外阅读：简单过去时 (Passé Simple) 50 核心词速认专区状态
   const [psSearch, setPsSearch] = useState<string>('');
@@ -682,7 +686,7 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
           </div>
 
           <div className="flex items-center gap-2 self-start md:self-auto shrink-0 flex-wrap">
-            {/* 视图切换 (工作台 vs 法则宝典 vs 考研简单过去时50词) */}
+            {/* 视图切换 (工作台 vs 代词小火车&COD配合 vs 法则宝典 vs 考研简单过去时50词) */}
             <div className="flex items-center bg-slate-100 p-1 rounded-2xl border border-slate-200/80 shrink-0 flex-wrap gap-1">
               <button
                 onClick={() => setViewMode('workbench')}
@@ -694,6 +698,17 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
               >
                 <Zap className="w-3.5 h-3.5 text-[#80142A]" />
                 <span>交互推导工作台</span>
+              </button>
+              <button
+                onClick={() => setViewMode('pronouns_train')}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
+                  viewMode === 'pronouns_train'
+                    ? 'bg-[#80142A] text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <span>🚂</span>
+                <span>代词小火车 & COD配合</span>
               </button>
               <button
                 onClick={() => setViewMode('rules')}
@@ -1299,7 +1314,429 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
       )}
 
       {/* ========================================================================= */}
-      {/* 模式 2：全景法则宝典 (Global Rules Encyclopedia) */}
+      {/* 模式 2：人称代词前置「多节小火车轨道图」与提前直宾 COD 性数配合铁律 */}
+      {/* ========================================================================= */}
+      {viewMode === 'pronouns_train' && (
+        <div className="space-y-6 animate-in fade-in duration-300">
+          
+          {/* ① 顶栏：教授级心法与双向轨道切换 */}
+          <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-white via-rose-50/40 to-amber-50/20 border border-rose-200/90 shadow-xs space-y-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#80142A] text-white font-black text-xs">
+                    🚂 教授级核心图谱
+                  </span>
+                  <h2 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
+                    人称代词前置「多节小火车轨道图（Train des pronoms）」
+                  </h2>
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200 text-[11px] font-black">
+                    口诀：一二在三前，直在间前，y在en前，全在动词前
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                  法语代词前置是各大语法考试最易丢分的死穴。牢记<strong>“车厢固定编组”</strong>，无论出现几个代词，绝不上错车厢！
+                </p>
+              </div>
+
+              {/* 顺向 vs 倒向 轨道模式切换 */}
+              <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-2xl border border-slate-200 shrink-0 self-start md:self-auto">
+                <button
+                  onClick={() => setTrainTrackMode('declarative')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1 ${
+                    trainTrackMode === 'declarative'
+                      ? 'bg-white text-[#80142A] shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  <span>直陈式 / 否定命令式 (顺向)</span>
+                </button>
+                <button
+                  onClick={() => setTrainTrackMode('imperative')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1 ${
+                    trainTrackMode === 'imperative'
+                      ? 'bg-[#80142A] text-white shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  <span>肯定命令式 (轨道反转)</span>
+                </button>
+              </div>
+            </div>
+
+            {/* ② 小火车轨道视觉模型 */}
+            {trainTrackMode === 'declarative' ? (
+              /* 顺向轨道（动词前置） */
+              <div className="space-y-3 pt-2">
+                <div className="text-xs font-bold text-slate-500 flex items-center justify-between">
+                  <span>🚆 标准顺向轨道：所有代词排在动词【之前】</span>
+                  <span className="text-[#80142A] font-bold">自反/一二人称 ➔ 直宾 ➔ 间宾 ➔ y ➔ en ➔ 动词</span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2">
+                  {/* 车头/主语 */}
+                  <div className="p-3 rounded-2xl bg-slate-100 border border-slate-200 text-center space-y-1">
+                    <span className="text-[10px] font-black text-slate-500 uppercase block">起点 · 主语</span>
+                    <span className="text-sm font-black text-slate-800">Sujet</span>
+                    <span className="text-[10px] text-slate-400 block font-mono">je, tu, il...</span>
+                  </div>
+
+                  {/* 车厢 1 */}
+                  <div className="p-3 rounded-2xl bg-sky-50 border border-sky-200 text-center space-y-1 ring-1 ring-sky-300/40">
+                    <span className="text-[10px] font-black text-sky-800 block">车厢 1 · 一二及自反</span>
+                    <span className="text-xs sm:text-sm font-black text-sky-900 font-mono">me, te, se, nous, vous</span>
+                    <span className="text-[10px] text-sky-600 block">第一、二人称与自反</span>
+                  </div>
+
+                  {/* 车厢 2 */}
+                  <div className="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-center space-y-1 ring-1 ring-rose-300/40">
+                    <span className="text-[10px] font-black text-[#80142A] block">车厢 2 · 第三人直宾</span>
+                    <span className="text-xs sm:text-sm font-black text-[#80142A] font-mono">le, la, l', les</span>
+                    <span className="text-[10px] text-rose-600 block">COD 直接宾语</span>
+                  </div>
+
+                  {/* 车厢 3 */}
+                  <div className="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-center space-y-1 ring-1 ring-amber-300/40">
+                    <span className="text-[10px] font-black text-amber-900 block">车厢 3 · 第三人间宾</span>
+                    <span className="text-xs sm:text-sm font-black text-amber-900 font-mono">lui, leur</span>
+                    <span className="text-[10px] text-amber-700 block">COI 间接宾语 (à + 人)</span>
+                  </div>
+
+                  {/* 车厢 4 */}
+                  <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-1 ring-1 ring-emerald-300/40">
+                    <span className="text-[10px] font-black text-emerald-900 block">车厢 4 · 副代词 y</span>
+                    <span className="text-sm font-black text-emerald-900 font-mono">y</span>
+                    <span className="text-[10px] text-emerald-700 block">地点 / à + 事物</span>
+                  </div>
+
+                  {/* 车厢 5 */}
+                  <div className="p-3 rounded-2xl bg-purple-50 border border-purple-200 text-center space-y-1 ring-1 ring-purple-300/40">
+                    <span className="text-[10px] font-black text-purple-900 block">车厢 5 · 副代词 en</span>
+                    <span className="text-sm font-black text-purple-900 font-mono">en</span>
+                    <span className="text-[10px] text-purple-700 block">数量 / de + 事物</span>
+                  </div>
+
+                  {/* 终点站：机车动词 */}
+                  <div className="p-3 rounded-2xl bg-[#80142A] text-white text-center space-y-1 shadow-xs">
+                    <span className="text-[10px] font-black text-rose-200 uppercase block">终点 · 动词机车</span>
+                    <span className="text-sm font-black font-serif">VERBE</span>
+                    <span className="text-[10px] text-rose-200 block font-mono">变位动词</span>
+                  </div>
+                </div>
+
+                {/* 经典顺向真题例句拆解 */}
+                <div className="p-4 rounded-2xl bg-white border border-slate-200/90 space-y-2">
+                  <span className="text-xs font-black text-slate-800 uppercase tracking-wider block">
+                    🎯 经典双代词轨道实战拆解：
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                    <div 
+                      onClick={() => speakFrench("Il me le donne.")}
+                      className="p-2.5 rounded-xl bg-slate-50 hover:bg-rose-50/50 border border-slate-100 flex items-center justify-between cursor-pointer group transition"
+                    >
+                      <div>
+                        <p className="font-bold text-slate-900 font-mono">Il <span className="text-sky-700 font-black">me</span> <span className="text-[#80142A] font-black">le</span> donne.</p>
+                        <p className="text-[11px] text-slate-500">他把它给我（me 车厢1 + le 车厢2 + donne）</p>
+                      </div>
+                      <Volume2 className="w-4 h-4 text-slate-400 group-hover:text-[#80142A]" />
+                    </div>
+
+                    <div 
+                      onClick={() => speakFrench("Je le lui explique.")}
+                      className="p-2.5 rounded-xl bg-slate-50 hover:bg-rose-50/50 border border-slate-100 flex items-center justify-between cursor-pointer group transition"
+                    >
+                      <div>
+                        <p className="font-bold text-slate-900 font-mono">Je <span className="text-[#80142A] font-black">le</span> <span className="text-amber-700 font-black">lui</span> explique.</p>
+                        <p className="text-[11px] text-slate-500">我向他解释这件事（le 车厢2 + lui 车厢3 + explique）</p>
+                      </div>
+                      <Volume2 className="w-4 h-4 text-slate-400 group-hover:text-[#80142A]" />
+                    </div>
+
+                    <div 
+                      onClick={() => speakFrench("Il y en a trois.")}
+                      className="p-2.5 rounded-xl bg-slate-50 hover:bg-rose-50/50 border border-slate-100 flex items-center justify-between cursor-pointer group transition"
+                    >
+                      <div>
+                        <p className="font-bold text-slate-900 font-mono">Il <span className="text-emerald-700 font-black">y</span> <span className="text-purple-700 font-black">en</span> a trois.</p>
+                        <p className="text-[11px] text-slate-500">那里有三个（y 车厢4 + en 车厢5 + a）</p>
+                      </div>
+                      <Volume2 className="w-4 h-4 text-slate-400 group-hover:text-[#80142A]" />
+                    </div>
+
+                    <div 
+                      onClick={() => speakFrench("Elle ne nous les a pas montrés.")}
+                      className="p-2.5 rounded-xl bg-slate-50 hover:bg-rose-50/50 border border-slate-100 flex items-center justify-between cursor-pointer group transition"
+                    >
+                      <div>
+                        <p className="font-bold text-slate-900 font-mono">Elle ne <span className="text-sky-700 font-black">nous</span> <span className="text-[#80142A] font-black">les</span> a pas montrés.</p>
+                        <p className="text-[11px] text-slate-500">否定句：ne 放在小火车最前，pas 夹在助动词后</p>
+                      </div>
+                      <Volume2 className="w-4 h-4 text-slate-400 group-hover:text-[#80142A]" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              /* 倒向轨道（肯定命令式） */
+              <div className="space-y-3 pt-2">
+                <div className="text-xs font-bold text-slate-500 flex items-center justify-between">
+                  <span>🚨 肯定命令式倒向轨道：动词打头，代词全部拖在【后面】并加连字符！</span>
+                  <span className="text-[#80142A] font-bold">动词 ➔ 直宾 (le/la/les) ➔ 间宾 (moi/toi/lui/leur) ➔ y ➔ en</span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                  {/* 车头：命令式动词 */}
+                  <div className="p-3 rounded-2xl bg-[#80142A] text-white text-center space-y-1 shadow-xs">
+                    <span className="text-[10px] font-black text-rose-200 uppercase block">打头机车 · 动词 !</span>
+                    <span className="text-sm font-black font-serif">VERBE !</span>
+                    <span className="text-[10px] text-rose-200 block font-mono">Donne / Parlez</span>
+                  </div>
+
+                  {/* 倒向车厢 1：直宾抢到前面 */}
+                  <div className="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-center space-y-1 ring-1 ring-rose-300/40">
+                    <span className="text-[10px] font-black text-[#80142A] block">车厢 1 · 直宾抢先</span>
+                    <span className="text-sm font-black text-[#80142A] font-mono">-le, -la, -les</span>
+                    <span className="text-[10px] text-rose-600 block">直接宾语排在动词正后方</span>
+                  </div>
+
+                  {/* 倒向车厢 2：间宾与人称 */}
+                  <div className="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-center space-y-1 ring-1 ring-amber-300/40">
+                    <span className="text-[10px] font-black text-amber-900 block">车厢 2 · 间宾与重读</span>
+                    <span className="text-sm font-black text-amber-900 font-mono">-moi, -toi, -lui, -nous, -vous, -leur</span>
+                    <span className="text-[10px] text-amber-700 block">⚠️ me/te 变成 moi/toi！</span>
+                  </div>
+
+                  {/* 倒向车厢 3：副代词 y */}
+                  <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-1 ring-1 ring-emerald-300/40">
+                    <span className="text-[10px] font-black text-emerald-900 block">车厢 3 · 副代词 y</span>
+                    <span className="text-sm font-black text-emerald-900 font-mono">-y</span>
+                    <span className="text-[10px] text-emerald-700 block">地点代词 (Vas-y !)</span>
+                  </div>
+
+                  {/* 倒向车厢 4：副代词 en */}
+                  <div className="p-3 rounded-2xl bg-purple-50 border border-purple-200 text-center space-y-1 ring-1 ring-purple-300/40">
+                    <span className="text-[10px] font-black text-purple-900 block">车厢 4 · 副代词 en</span>
+                    <span className="text-sm font-black text-purple-900 font-mono">-en</span>
+                    <span className="text-[10px] text-purple-700 block">遇到 moi/toi 省音为 -m'en / -t'en</span>
+                  </div>
+                </div>
+
+                {/* 肯定命令式真题例句 */}
+                <div className="p-4 rounded-2xl bg-white border border-slate-200/90 space-y-2">
+                  <span className="text-xs font-black text-slate-800 uppercase tracking-wider block">
+                    ⚡ 肯定命令式考点避坑实例：
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                    <div 
+                      onClick={() => speakFrench("Donne-le-moi !")}
+                      className="p-2.5 rounded-xl bg-slate-50 hover:bg-rose-50/50 border border-slate-100 flex items-center justify-between cursor-pointer group transition"
+                    >
+                      <div>
+                        <p className="font-bold text-slate-900 font-mono">Donne-<span className="text-[#80142A]">le</span>-<span className="text-amber-700">moi</span> !</p>
+                        <p className="text-[11px] text-slate-500">把它给我！(不能写 Donne-moi-le)</p>
+                      </div>
+                      <Volume2 className="w-4 h-4 text-slate-400 group-hover:text-[#80142A]" />
+                    </div>
+
+                    <div 
+                      onClick={() => speakFrench("Donne-m'en !")}
+                      className="p-2.5 rounded-xl bg-slate-50 hover:bg-rose-50/50 border border-slate-100 flex items-center justify-between cursor-pointer group transition"
+                    >
+                      <div>
+                        <p className="font-bold text-slate-900 font-mono">Donne-<span className="text-purple-700">m'en</span> !</p>
+                        <p className="text-[11px] text-slate-500">给我一点！(moi 遇到 en 省音缩合为 m'en)</p>
+                      </div>
+                      <Volume2 className="w-4 h-4 text-slate-400 group-hover:text-[#80142A]" />
+                    </div>
+
+                    <div 
+                      onClick={() => speakFrench("Vas-y !")}
+                      className="p-2.5 rounded-xl bg-slate-50 hover:bg-rose-50/50 border border-slate-100 flex items-center justify-between cursor-pointer group transition"
+                    >
+                      <div>
+                        <p className="font-bold text-slate-900 font-mono">Va<span className="text-[#80142A] font-black">s</span>-y !</p>
+                        <p className="text-[11px] text-slate-500">去吧！(tu原本砍掉的-s为了发音连读补回)</p>
+                      </div>
+                      <Volume2 className="w-4 h-4 text-slate-400 group-hover:text-[#80142A]" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* ③ 复合过去时：提前直宾 COD 性数配合铁律 (L'accord du participe passé) */}
+          <div className="p-5 sm:p-7 rounded-3xl bg-gradient-to-br from-white via-indigo-50/30 to-rose-50/20 border border-indigo-200/90 shadow-xs space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-indigo-100 pb-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-900 border border-indigo-200 text-xs font-black">
+                    ⚖️ 语法配合最高法庭
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
+                    提前直接宾语 COD 过去分词性数配合铁律
+                  </h3>
+                  <span className="px-2 py-0.5 rounded-full bg-rose-50 text-[#80142A] border border-rose-200 text-[11px] font-black">
+                    考研/专四必考雷区
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+                  助动词用 <code>avoir</code> 时，分词原本绝不配合；<strong>只要直接宾语（COD）抢跑提前到动词前面，过去分词回头看见直宾，必须立刻追加性数配合（阴性+e，复数+s）！间宾（COI）提前 100% 绝不配合！</strong>
+                </p>
+              </div>
+            </div>
+
+            {/* 4组经典对比测试仪 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* 对比 1：COD在后 vs COD提前 */}
+              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-black text-sm text-slate-900">场景 1 · 直宾代词 (le/la/les) 抢跑提前</span>
+                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">必须配合</span>
+                </div>
+
+                <div className="space-y-2 text-xs">
+                  <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100 space-y-0.5">
+                    <div className="flex items-center justify-between font-bold text-slate-700">
+                      <span>J'ai acheté les fleurs.</span>
+                      <span className="text-slate-400 font-mono text-[10px]">COD在后 ➔ 0配合</span>
+                    </div>
+                    <p className="text-[11px] text-slate-500">les fleurs（阴性复数）排在动词后面，分词维持原形 acheté。</p>
+                  </div>
+
+                  <div 
+                    onClick={() => speakFrench("Je les ai achetées.")}
+                    className="p-2.5 rounded-xl bg-rose-50 border border-rose-200/80 space-y-0.5 cursor-pointer group transition hover:shadow-xs"
+                  >
+                    <div className="flex items-center justify-between font-bold text-slate-900 font-mono">
+                      <span>Je <span className="text-[#80142A] underline font-black">les</span> ai acheté<span className="text-[#80142A] font-black underline">es</span>.</span>
+                      <div className="flex items-center gap-1 text-[#80142A] text-[10px]">
+                        <span>+es (阴复)</span>
+                        <Volume2 className="w-3.5 h-3.5" />
+                      </div>
+                    </div>
+                    <p className="text-[11px] text-[#80142A]">直宾代词 les 抢到前面，分词回头对齐 les fleurs，强制补上 -es！</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 对比 2：关系代词 que 先行词提前 */}
+              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-black text-sm text-slate-900">场景 2 · 关系代词 que 引导先行词提前</span>
+                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200 font-bold">考研阅读常客</span>
+                </div>
+
+                <div className="space-y-2 text-xs">
+                  <div 
+                    onClick={() => speakFrench("Les fleurs que j'ai achetées sont fraîches.")}
+                    className="p-2.5 rounded-xl bg-indigo-50/70 border border-indigo-200 space-y-0.5 cursor-pointer group transition hover:shadow-xs"
+                  >
+                    <div className="flex items-center justify-between font-bold text-slate-900 font-mono">
+                      <span>Les fleurs que j'ai acheté<span className="text-indigo-700 font-black underline">es</span>...</span>
+                      <div className="flex items-center gap-1 text-indigo-700 text-[10px]">
+                        <span>+es 配合</span>
+                        <Volume2 className="w-3.5 h-3.5" />
+                      </div>
+                    </div>
+                    <p className="text-[11px] text-slate-600">先行词 Les fleurs 作为直宾被 que 抽到动词前，分词必须与先行词配合！</p>
+                  </div>
+
+                  <div 
+                    onClick={() => speakFrench("Combien de lettres as-tu écrites ?")}
+                    className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 space-y-0.5 cursor-pointer group transition"
+                  >
+                    <div className="flex items-center justify-between font-bold text-slate-900 font-mono">
+                      <span>Combien de lettres as-tu écrit<span className="text-indigo-700 font-black underline">es</span> ?</span>
+                      <Volume2 className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-700" />
+                    </div>
+                    <p className="text-[11px] text-slate-500">疑问词 Combien de + 阴复名词提前，分词同样必须配合！</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 对比 3：间宾 COI 提前 100% 绝不配合 */}
+              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-black text-sm text-slate-900">场景 3 · 间接宾语 COI (lui/leur) 提前</span>
+                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-rose-100 text-[#80142A] border border-rose-300 font-black">🚨 100% 绝不配合</span>
+                </div>
+
+                <div className="space-y-2 text-xs">
+                  <div 
+                    onClick={() => speakFrench("Je leur ai téléphoné.")}
+                    className="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200 space-y-0.5 cursor-pointer group transition"
+                  >
+                    <div className="flex items-center justify-between font-bold text-slate-900 font-mono">
+                      <span>Je leur ai téléphoné.</span>
+                      <span className="text-amber-800 text-[10px] font-bold">0 配合！绝对不加 s！</span>
+                    </div>
+                    <p className="text-[11px] text-slate-600">téléphoner à qn 是间接及物！leur 代表 à eux/elles（间宾），分词绝不配合！</p>
+                  </div>
+
+                  <div 
+                    onClick={() => speakFrench("Ils se sont parlé.")}
+                    className="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200 space-y-0.5 cursor-pointer group transition"
+                  >
+                    <div className="flex items-center justify-between font-bold text-slate-900 font-mono">
+                      <span>Ils se sont parlé.</span>
+                      <span className="text-amber-800 text-[10px] font-bold">0 配合！绝对不加 s！</span>
+                    </div>
+                    <p className="text-[11px] text-slate-600">parler à qn 互相对话：se 是间接宾语，分词严禁加 s！写 parlés 直接 0 分！</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 对比 4：自反代动词的真假直宾陷阱 */}
+              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-black text-sm text-slate-900">场景 4 · 自反代动词的真假直宾陷阱</span>
+                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-purple-50 text-purple-900 border border-purple-200 font-bold">北外考研必考</span>
+                </div>
+
+                <div className="space-y-2 text-xs">
+                  <div 
+                    onClick={() => speakFrench("Elle s'est lavée.")}
+                    className="p-2.5 rounded-xl bg-purple-50/50 border border-purple-200 space-y-0.5 cursor-pointer group transition"
+                  >
+                    <div className="flex items-center justify-between font-bold text-slate-900 font-mono">
+                      <span>Elle s'est lavé<span className="text-purple-700 underline font-black">e</span>.</span>
+                      <span className="text-purple-700 text-[10px] font-bold">+e 配合 (se是直宾)</span>
+                    </div>
+                    <p className="text-[11px] text-slate-600">她洗了自己：se 是洗的直接承受者（COD），且在动词前 ➔ 必须加 e！</p>
+                  </div>
+
+                  <div 
+                    onClick={() => speakFrench("Elle s'est lavé les mains.")}
+                    className="p-2.5 rounded-xl bg-rose-50/60 border border-rose-200 space-y-0.5 cursor-pointer group transition"
+                  >
+                    <div className="flex items-center justify-between font-bold text-slate-900 font-mono">
+                      <span>Elle s'est lavé les mains.</span>
+                      <span className="text-[#80142A] text-[10px] font-bold">0 配合！严禁加 e！</span>
+                    </div>
+                    <p className="text-[11px] text-[#80142A]">直宾是后面的 les mains（双手在后不配合），se 被挤压成间宾（给自己洗）➔ 分词不配合！</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 一秒判断三字诀 */}
+            <div className="p-4 rounded-2xl bg-white border border-indigo-100 text-xs text-slate-700 space-y-1.5">
+              <span className="font-black text-indigo-950 uppercase tracking-wider block">
+                💡 考场一秒配合判定心法（问自己两句话）：
+              </span>
+              <p className="leading-relaxed">
+                1. 动词前面有没有<strong>直接宾语</strong>？（没有 ➔ 一律不配合；有 ➔ 看下一步）<br/>
+                2. 那个前面的代词是<strong>直宾（COD）</strong>还是<strong>间宾（COI）</strong>？（是 lui/leur/间宾自反 ➔ 绝不配合；是 le/la/les/que/直宾自反 ➔ 必须精准对齐性数！）
+              </p>
+            </div>
+          </div>
+
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 模式 3：全景法则宝典 (Global Rules Encyclopedia) */}
       {/* ========================================================================= */}
       {viewMode === 'rules' && (
         <div className="space-y-4">
