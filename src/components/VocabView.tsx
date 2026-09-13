@@ -38,6 +38,7 @@ export const VocabView: React.FC<VocabViewProps> = ({
   const [maskMode, setMaskMode] = useState<'none' | 'hideZh' | 'hideFr'>('none');
   const [viewMode, setViewMode] = useState<'flashcard' | 'list'>('flashcard');
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(false);
+  const [speechRate, setSpeechRate] = useState<number>(0.9); // 0.8 慢速 / 1.0 标准语速
 
   // Mastered Words Tracker (LocalStorage)
   const [masteredIds, setMasteredIds] = useState<string[]>(() => {
@@ -145,10 +146,49 @@ export const VocabView: React.FC<VocabViewProps> = ({
     });
   };
 
-  const playVoice = (e: React.MouseEvent, text: string) => {
-    e.stopPropagation();
-    speakFrench(text);
+  const isVowelOrMuteH = (word: string) => {
+    if (!word) return false;
+    const first = word.trim().toLowerCase()[0];
+    return ['a', 'e', 'i', 'o', 'u', 'y', 'é', 'è', 'ê', 'à', 'h'].includes(first);
   };
+
+  const playVoice = (e?: React.MouseEvent, text?: string, customRate?: number) => {
+    if (e) e.stopPropagation();
+    const targetText = text || (currentItem ? `${currentItem.article ? currentItem.article + ' ' : ''}${currentItem.french}` : '');
+    if (targetText) {
+      speakFrench(targetText, customRate ?? speechRate);
+    }
+  };
+
+  // 全键盘快捷键监听
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
+        return;
+      }
+
+      if (e.code === 'Space') {
+        e.preventDefault();
+        setIsFlipped(prev => !prev);
+      } else if (e.code === 'ArrowLeft') {
+        e.preventDefault();
+        handlePrev();
+      } else if (e.code === 'ArrowRight') {
+        e.preventDefault();
+        handleNext();
+      } else if (e.code === 'Digit1' || e.code === 'KeyM') {
+        e.preventDefault();
+        if (currentItem) toggleMastered(currentItem.id);
+      } else if (e.code === 'ArrowUp' || e.code === 'KeyR') {
+        e.preventDefault();
+        playVoice();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentIndex, currentItem, filteredVocab, speechRate]);
 
   return (
     <div className="space-y-3 sm:space-y-3.5 pb-0 animate-in fade-in duration-300">
@@ -205,6 +245,28 @@ export const VocabView: React.FC<VocabViewProps> = ({
             >
               <EyeOff className="w-3 h-3" />
               <span>遮法文</span>
+            </button>
+          </div>
+
+          {/* 语速调节 */}
+          <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs">
+            <button
+              onClick={() => setSpeechRate(1.0)}
+              className={`px-2 py-1 rounded-lg font-bold transition cursor-pointer ${
+                speechRate === 1.0 ? 'bg-white text-slate-900 shadow-2xs font-black' : 'text-slate-500 hover:text-slate-900'
+              }`}
+              title="常速 1.0x"
+            >
+              1.0x
+            </button>
+            <button
+              onClick={() => setSpeechRate(0.8)}
+              className={`px-2 py-1 rounded-lg font-bold transition cursor-pointer ${
+                speechRate === 0.8 ? 'bg-[#80142A] text-white shadow-2xs font-black' : 'text-slate-500 hover:text-slate-900'
+              }`}
+              title="慢速磨耳朵 0.8x"
+            >
+              0.8x 慢速
             </button>
           </div>
 
@@ -346,19 +408,26 @@ export const VocabView: React.FC<VocabViewProps> = ({
               }`}>
               
               {/* --- FRONT OF CARD (卡片正面: 法语单词 + 阴阳性 + 国际音标) --- */}
-              <div className="absolute inset-0 w-full h-full bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-lg shadow-slate-200/40 flex flex-col justify-between backface-hidden">
+              {/* --- FRONT OF CARD (卡片正面: 严格根据阴阳性赋予天空蓝 / 柔樱粉 辨析边框与背景) --- */}
+              <div className={`absolute inset-0 w-full h-full rounded-3xl p-6 sm:p-8 border-2 shadow-lg flex flex-col justify-between backface-hidden transition-all ${
+                currentItem.gender === 'feminine'
+                  ? 'bg-gradient-to-b from-rose-50/60 via-white to-rose-50/20 border-rose-300 ring-4 ring-rose-400/10 shadow-rose-200/30'
+                  : currentItem.gender === 'masculine'
+                  ? 'bg-gradient-to-b from-sky-50/60 via-white to-sky-50/20 border-sky-300 ring-4 ring-sky-400/10 shadow-sky-200/30'
+                  : 'bg-white border-slate-200/90 shadow-slate-200/40'
+              }`}>
                 
                 {/* Top Badge Info */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className={`px-2.5 py-1 rounded-lg text-xs font-bold ${
+                    <span className={`px-2.5 py-1 rounded-xl text-xs font-black shadow-2xs ${
                       currentItem.gender === 'feminine'
-                        ? 'bg-[#FCECEF] text-[#80142A] border border-[#80142A]/25'
+                        ? 'bg-rose-500 text-white border border-rose-600'
                         : currentItem.gender === 'masculine'
-                        ? 'bg-slate-100 text-[#29354A] border border-slate-200'
+                        ? 'bg-sky-600 text-white border border-sky-700'
                         : 'bg-slate-100 text-slate-700'
                     }`}>
-                      {currentItem.gender === 'feminine' ? '♀ 阴性 Féminin' : currentItem.gender === 'masculine' ? '♂ 阳性 Masculin' : currentItem.pos}
+                      {currentItem.gender === 'feminine' ? '♀ 阴性名词 (la / une)' : currentItem.gender === 'masculine' ? '♂ 阳性名词 (le / un)' : currentItem.pos}
                     </span>
                     <span className="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-bold">
                       {currentItem.level} · {currentItem.category}
@@ -383,32 +452,51 @@ export const VocabView: React.FC<VocabViewProps> = ({
                 </div>
 
                 {/* Center Word & Pronunciation */}
-                <div className="text-center py-6 space-y-3">
-                  <div className="flex items-center justify-center gap-3">
-                    <h2 className={`text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-serif transition-all ${
-                      maskMode === 'hideFr' && !isFlipped ? 'filter blur-md' : ''
-                    }`}>
+                <div className="text-center py-5 space-y-3">
+                  <div className="flex items-center justify-center gap-2 flex-wrap">
+                    <h2 className={`text-4xl sm:text-5xl font-black tracking-tight font-serif transition-all ${
+                      currentItem.gender === 'feminine' ? 'text-rose-950' : currentItem.gender === 'masculine' ? 'text-sky-950' : 'text-slate-900'
+                    } ${maskMode === 'hideFr' && !isFlipped ? 'filter blur-md' : ''}`}>
                       {currentItem.article && (
-                        <span className="text-[#80142A] mr-2 font-normal opacity-85">
+                        <span className={`mr-2 font-normal opacity-85 ${
+                          currentItem.gender === 'feminine' ? 'text-rose-600' : 'text-sky-600'
+                        }`}>
                           {currentItem.article}
                         </span>
                       )}
                       {currentItem.french}
                     </h2>
-                    <button
-                      onClick={(e) => playVoice(e, `${currentItem.article ? currentItem.article + ' ' : ''}${currentItem.french}`)}
-                      className="p-2.5 rounded-full bg-[#FCECEF] text-[#80142A] hover:bg-[#80142A] hover:text-white hover:scale-110 active:scale-95 transition shadow-xs cursor-pointer"
-                      title="朗读标准发音"
-                    >
-                      <Volume2 className="w-5 h-5" />
-                    </button>
+                    
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={(e) => playVoice(e, `${currentItem.article ? currentItem.article + ' ' : ''}${currentItem.french}`, 1.0)}
+                        className="p-2 rounded-xl bg-white border border-slate-200 text-[#80142A] hover:bg-[#80142A] hover:text-white transition shadow-2xs cursor-pointer"
+                        title="1.0x 标准语速"
+                      >
+                        <Volume2 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={(e) => playVoice(e, `${currentItem.article ? currentItem.article + ' ' : ''}${currentItem.french}`, 0.8)}
+                        className="px-2 py-1 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-black transition cursor-pointer border border-amber-200"
+                        title="0.8x 慢速听辨"
+                      >
+                        0.8x 慢速
+                      </button>
+                    </div>
                   </div>
 
-                  <p className={`text-sm font-mono text-stone-500 font-bold tracking-wider ${
-                    maskMode === 'hideFr' && !isFlipped ? 'filter blur-md' : ''
-                  }`}>
+                  <p className={`text-sm font-mono font-bold tracking-wider ${
+                    currentItem.gender === 'feminine' ? 'text-rose-800/80' : currentItem.gender === 'masculine' ? 'text-sky-800/80' : 'text-stone-500'
+                  } ${maskMode === 'hideFr' && !isFlipped ? 'filter blur-md' : ''}`}>
                     {currentItem.phonetic}
                   </p>
+
+                  {/* 元音/h开头省音与联诵提示 */}
+                  {currentItem.pos.includes('n.') && isVowelOrMuteH(currentItem.french) && (
+                    <div className="text-[11px] font-bold text-amber-900 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-xl inline-flex items-center gap-1 mt-1 shadow-2xs">
+                      <span>💡 <strong>省音/联诵提示</strong>：单数定冠词用 <strong>l'{currentItem.french}</strong>；复数定冠词 les 强制联诵 [z]（读作 [lez‿{currentItem.french}]）</span>
+                    </div>
+                  )}
 
                   {/* Masked Prompt Hint */}
                   {maskMode === 'hideFr' && !isFlipped && (
@@ -418,40 +506,68 @@ export const VocabView: React.FC<VocabViewProps> = ({
                   )}
                 </div>
 
-                {/* Bottom Hint */}
-                <div className="text-center">
+                {/* Bottom Hint & Keyboard shortcuts */}
+                <div className="text-center space-y-1">
                   <p className="text-xs text-slate-400 font-bold flex items-center justify-center gap-1">
                     <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
-                    <span>点击卡片翻转查看【中文释义 · 实战例句 · 考点】</span>
+                    <span>点击卡片翻转查看【中文释义 · 实战例句 · 阴阳性考点】</span>
                   </p>
+                  <div className="hidden sm:flex items-center justify-center gap-2 text-[11px] text-slate-400 font-mono">
+                    <span className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200">Space 翻转</span>
+                    <span className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200">← / → 切词</span>
+                    <span className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200">1 掌握</span>
+                    <span className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200">↑ 朗读</span>
+                  </div>
                 </div>
               </div>
 
               {/* --- BACK OF CARD (卡片背面: 3D 翻转呈现中文释义与原比例句) --- */}
-              <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#FCECEF]/80 via-white to-slate-50 text-slate-900 rounded-3xl p-6 sm:p-8 border border-[#80142A]/30 shadow-xl flex flex-col justify-between rotate-y-180 backface-hidden">
+              <div className={`absolute inset-0 w-full h-full rounded-3xl p-6 sm:p-8 border-2 shadow-xl flex flex-col justify-between rotate-y-180 backface-hidden overflow-y-auto ${
+                currentItem.gender === 'feminine'
+                  ? 'bg-gradient-to-br from-rose-50/90 via-white to-rose-50/30 border-rose-300'
+                  : currentItem.gender === 'masculine'
+                  ? 'bg-gradient-to-br from-sky-50/90 via-white to-sky-50/30 border-sky-300'
+                  : 'bg-gradient-to-br from-[#FCECEF]/80 via-white to-slate-50 border-[#80142A]/30'
+              }`}>
                 
                 {/* Top Info */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold px-2.5 py-0.5 rounded-md bg-[#80142A] text-white">
+                    <span className={`text-xs font-bold px-2.5 py-0.5 rounded-md ${
+                      currentItem.gender === 'feminine' ? 'bg-rose-500 text-white' : currentItem.gender === 'masculine' ? 'bg-sky-600 text-white' : 'bg-[#80142A] text-white'
+                    }`}>
                       {currentItem.article ? currentItem.article + ' ' : ''}{currentItem.french}
                     </span>
                     <span className="text-xs font-mono text-stone-500 font-semibold">{currentItem.phonetic}</span>
+                    <span className="text-xs font-bold text-slate-500">
+                      ({currentItem.gender === 'feminine' ? '阴性' : currentItem.gender === 'masculine' ? '阳性' : currentItem.pos})
+                    </span>
                   </div>
-                  <button
-                    onClick={(e) => playVoice(e, `${currentItem.article ? currentItem.article + ' ' : ''}${currentItem.french}`)}
-                    className="p-1.5 rounded-lg bg-[#FCECEF] text-[#80142A] hover:bg-[#80142A] hover:text-white transition cursor-pointer"
-                    title="重新朗读"
-                  >
-                    <Volume2 className="w-4 h-4" />
-                  </button>
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={(e) => playVoice(e, `${currentItem.article ? currentItem.article + ' ' : ''}${currentItem.french}`, 1.0)}
+                      className="p-1.5 rounded-lg bg-white text-[#80142A] hover:bg-[#80142A] hover:text-white transition cursor-pointer border border-slate-200"
+                      title="1.0x 标准发音"
+                    >
+                      <Volume2 className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={(e) => playVoice(e, `${currentItem.article ? currentItem.article + ' ' : ''}${currentItem.french}`, 0.8)}
+                      className="px-2 py-1 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200 transition cursor-pointer"
+                      title="0.8x 慢速发音"
+                    >
+                      0.8x
+                    </button>
+                  </div>
                 </div>
 
                 {/* Center Content: Meaning & Example */}
-                <div className="space-y-4 my-auto">
+                <div className="space-y-4 my-auto py-2">
                   {/* Meaning */}
                   <div>
-                    <span className="text-[10px] font-bold tracking-wider text-[#80142A] uppercase">
+                    <span className={`text-[10px] font-bold tracking-wider uppercase ${
+                      currentItem.gender === 'feminine' ? 'text-rose-700' : currentItem.gender === 'masculine' ? 'text-sky-700' : 'text-[#80142A]'
+                    }`}>
                       中文释义
                     </span>
                     <p className={`text-2xl sm:text-3xl font-black text-slate-900 mt-0.5 ${
@@ -463,7 +579,7 @@ export const VocabView: React.FC<VocabViewProps> = ({
 
                   {/* Example Sentence */}
                   {currentItem.example && (
-                    <div className="bg-white/90 p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 space-y-1.5 shadow-2xs">
+                    <div className="bg-white/95 p-3.5 sm:p-4 rounded-2xl border border-slate-200/90 space-y-1.5 shadow-2xs">
                       <div className="flex items-start justify-between gap-2">
                         <p className="text-sm sm:text-base font-serif font-bold text-[#29354A] leading-relaxed">
                           « {currentItem.example.fr} »
@@ -479,7 +595,7 @@ export const VocabView: React.FC<VocabViewProps> = ({
                       <p className={`text-xs text-slate-600 leading-relaxed font-medium ${
                         maskMode === 'hideZh' ? 'filter blur-md' : ''
                       }`}>
-                        {(currentItem.example as any).chinese || (currentItem.example as any).zh}
+                        {currentItem.example.chinese || currentItem.example.zh}
                       </p>
                     </div>
                   )}

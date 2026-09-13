@@ -25,6 +25,7 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
   const [activeCategory, setActiveCategory] = useState<'all' | 'oral_vowel' | 'nasal_vowel' | 'semi_vowel' | 'consonant'>('all');
   const [selectedItem, setSelectedItem] = useState<PhoneticItem>(FRENCH_PHONETICS[0]);
   const [playingWord, setPlayingWord] = useState<string | null>(null);
+  const [showCarefulRule, setShowCarefulRule] = useState<boolean>(true);
 
   const categories = [
     { id: 'all', label: '全部 35 音标' },
@@ -71,6 +72,141 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
             点击任意音标收听正统巴黎原声音频与嘴型指南；切换规则模块攻关连音联诵与考研避坑铁律。
           </p>
         </div>
+      </div>
+
+      {/* 🎯 法语词尾辅音 C-A-R-E-F-U-L 黄金铁律看板 */}
+      <div className="bg-gradient-to-r from-amber-50/90 via-rose-50/40 to-white p-4 sm:p-5 rounded-3xl border border-amber-200/90 shadow-xs space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-xl">🎯</span>
+            <h2 className="text-sm sm:text-base font-black text-slate-900">
+              法兰西教授铁律：词尾辅音发音「C-A-R-E-F-U-L」黄金口诀
+            </h2>
+            <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-black border border-amber-200">
+              彻底告别乱读
+            </span>
+          </div>
+          <button
+            onClick={() => setShowCarefulRule(!showCarefulRule)}
+            className="text-xs text-slate-400 hover:text-slate-600 font-bold cursor-pointer"
+          >
+            {showCarefulRule ? '收起铁律' : '展开铁律'}
+          </button>
+        </div>
+
+        {showCarefulRule && (
+          <div className="space-y-3 pt-1 animate-in fade-in duration-200">
+            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+              绝大多数法语词末辅音（-d, -p, -s, -t, -x, -z）<strong>通常不发音</strong>（如：Paris [paʁi], petit [pəti], beaucoup [boku]）；<br className="hidden sm:inline" />
+              唯独单词 <strong>CAREFUL</strong> 中的 4 个辅音字母 <strong>C、R、F、L</strong> 在词尾多数<strong>必须清脆发音</strong>！
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs">
+              {/* C */}
+              <div className="p-3 rounded-2xl bg-white border border-amber-200/80 shadow-2xs space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-black text-amber-900 font-mono">字母 C [k]</span>
+                  <span className="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-bold">词尾发音</span>
+                </div>
+                <div className="space-y-1">
+                  {[
+                    { word: 'sac', ipa: '[sak]', meaning: '包' },
+                    { word: 'avec', ipa: '[avɛk]', meaning: '和...' },
+                    { word: 'parc', ipa: '[paʁk]', meaning: '公园' },
+                  ].map(item => (
+                    <div 
+                      key={item.word}
+                      onClick={() => playSpeech(item.word)}
+                      className="flex items-center justify-between p-1.5 rounded-xl bg-slate-50 hover:bg-amber-50/60 cursor-pointer transition"
+                    >
+                      <span className="font-bold text-slate-900 font-serif">{item.word}</span>
+                      <span className="text-[10px] text-slate-400 font-mono">{item.ipa}</span>
+                      <Volume2 className="w-3.5 h-3.5 text-slate-400 hover:text-amber-800" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* R */}
+              <div className="p-3 rounded-2xl bg-white border border-amber-200/80 shadow-2xs space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-black text-amber-900 font-mono">字母 R [ʁ]</span>
+                  <span className="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-bold">词尾发音</span>
+                </div>
+                <div className="space-y-1">
+                  {[
+                    { word: 'mer', ipa: '[mɛʁ]', meaning: '大海' },
+                    { word: 'soir', ipa: '[swaʁ]', meaning: '晚上' },
+                    { word: 'hier', ipa: '[jɛʁ]', meaning: '昨天' },
+                  ].map(item => (
+                    <div 
+                      key={item.word}
+                      onClick={() => playSpeech(item.word)}
+                      className="flex items-center justify-between p-1.5 rounded-xl bg-slate-50 hover:bg-amber-50/60 cursor-pointer transition"
+                    >
+                      <span className="font-bold text-slate-900 font-serif">{item.word}</span>
+                      <span className="text-[10px] text-slate-400 font-mono">{item.ipa}</span>
+                      <Volume2 className="w-3.5 h-3.5 text-slate-400 hover:text-amber-800" />
+                    </div>
+                  ))}
+                </div>
+                <p className="text-[10px] text-amber-800 font-bold bg-amber-50 p-1 rounded">
+                  ⚠️ 特例：-er 动词原形词尾发 [e] (parler)
+                </p>
+              </div>
+
+              {/* F */}
+              <div className="p-3 rounded-2xl bg-white border border-amber-200/80 shadow-2xs space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-black text-amber-900 font-mono">字母 F [f]</span>
+                  <span className="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-bold">词尾发音</span>
+                </div>
+                <div className="space-y-1">
+                  {[
+                    { word: 'chef', ipa: '[ʃɛf]', meaning: '首领/厨师' },
+                    { word: 'neuf', ipa: '[nœf]', meaning: '九/新的' },
+                    { word: 'soif', ipa: '[swaf]', meaning: '口渴' },
+                  ].map(item => (
+                    <div 
+                      key={item.word}
+                      onClick={() => playSpeech(item.word)}
+                      className="flex items-center justify-between p-1.5 rounded-xl bg-slate-50 hover:bg-amber-50/60 cursor-pointer transition"
+                    >
+                      <span className="font-bold text-slate-900 font-serif">{item.word}</span>
+                      <span className="text-[10px] text-slate-400 font-mono">{item.ipa}</span>
+                      <Volume2 className="w-3.5 h-3.5 text-slate-400 hover:text-amber-800" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* L */}
+              <div className="p-3 rounded-2xl bg-white border border-amber-200/80 shadow-2xs space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-black text-amber-900 font-mono">字母 L [l]</span>
+                  <span className="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-bold">词尾发音</span>
+                </div>
+                <div className="space-y-1">
+                  {[
+                    { word: 'ciel', ipa: '[sjɛl]', meaning: '天空' },
+                    { word: 'hôtel', ipa: '[otɛl]', meaning: '酒店' },
+                    { word: 'sel', ipa: '[sɛl]', meaning: '食盐' },
+                  ].map(item => (
+                    <div 
+                      key={item.word}
+                      onClick={() => playSpeech(item.word)}
+                      className="flex items-center justify-between p-1.5 rounded-xl bg-slate-50 hover:bg-amber-50/60 cursor-pointer transition"
+                    >
+                      <span className="font-bold text-slate-900 font-serif">{item.word}</span>
+                      <span className="text-[10px] text-slate-400 font-mono">{item.ipa}</span>
+                      <Volume2 className="w-3.5 h-3.5 text-slate-400 hover:text-amber-800" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 关键：两大核心发音模块选择卡片 */}

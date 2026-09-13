@@ -238,6 +238,8 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
   const [viewMode, setViewMode] = useState<'workbench' | 'rules' | 'passe_simple'>('workbench');
   const [showHatGuide, setShowHatGuide] = useState<boolean>(true);
   const [showFullMatrix, setShowFullMatrix] = useState<boolean>(true);
+  const [showMaisonEtre, setShowMaisonEtre] = useState<boolean>(true);
+  const [matrixTenseFilter, setMatrixTenseFilter] = useState<'core' | 'all'>('core'); // 默认核心 4 大时态，避免新手被吓退
 
   // 考研二外阅读：简单过去时 (Passé Simple) 50 核心词速认专区状态
   const [psSearch, setPsSearch] = useState<string>('');
@@ -884,6 +886,64 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
             </div>
           </div>
 
+          {/* 🏠 La Maison d'Être（16 个房屋动词成对速记与配合图谱） */}
+          {showMaisonEtre && (
+            <div className="bg-gradient-to-r from-rose-50/90 via-amber-50/40 to-white p-5 rounded-3xl border border-rose-200/90 shadow-xs space-y-3.5 animate-in fade-in duration-200">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xl">🏠</span>
+                  <h3 className="text-sm sm:text-base font-black text-slate-900">
+                    法兰西名师图谱：La Maison d'Être（16 个房屋动词与性数配合铁律）
+                  </h3>
+                  <span className="px-2 py-0.5 rounded-full bg-rose-100 text-[#80142A] text-[10px] font-black">
+                    复合过去时核心考点
+                  </span>
+                </div>
+                <button
+                  onClick={() => setShowMaisonEtre(false)}
+                  className="text-xs text-slate-400 hover:text-slate-600 font-bold cursor-pointer"
+                >
+                  收起图谱
+                </button>
+              </div>
+
+              <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                全法语 90% 动词助动词用 <strong>avoir</strong>，唯独<strong>「16 个房屋位移动词（8 对反义词）」</strong>与<strong>全部自反代动词</strong>助动词必须用 <strong>être</strong>，且过去分词必须与主语<strong>【性数配合（贴标签）】</strong>！
+              </p>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                {[
+                  { pair: '1. 进出对', v1: 'entrer (进入)', v2: 'sortir (出去)' },
+                  { pair: '2. 到离对', v1: 'arriver (到达)', v2: 'partir (离开)' },
+                  { pair: '3. 升降对', v1: 'monter (上升)', v2: 'descendre (下降)' },
+                  { pair: '4. 去来对', v1: 'aller (去)', v2: 'venir (来)' },
+                  { pair: '5. 生死对', v1: 'naître (出生)', v2: 'mourir (死亡)' },
+                  { pair: '6. 留经对', v1: 'rester (停留)', v2: 'passer (经过)' },
+                  { pair: '7. 回落对', v1: 'retourner (返回)', v2: 'tomber (跌倒)' },
+                  { pair: '8. 重复对', v1: 'rentrer (回家)', v2: 'revenir (再来)' },
+                ].map((item, idx) => (
+                  <div key={idx} className="p-2.5 rounded-2xl bg-white border border-rose-200/80 shadow-2xs space-y-0.5">
+                    <span className="text-[10px] font-bold text-rose-800 block">{item.pair}</span>
+                    <div className="font-serif font-black text-slate-800 text-xs">{item.v1}</div>
+                    <div className="font-serif font-black text-[#80142A] text-xs">{item.v2}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="p-3 rounded-2xl bg-white/95 border border-amber-200/90 text-xs text-slate-800 space-y-1 font-medium shadow-2xs">
+                <div className="font-black text-amber-900 flex items-center gap-1">
+                  <span>⚠️ 过去分词性数配合规则（主语贴标签）：</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] font-mono pt-0.5">
+                  <span className="p-1.5 rounded-lg bg-slate-50 border border-slate-200">阳单：Il est allé (不加)</span>
+                  <span className="p-1.5 rounded-lg bg-rose-50 text-rose-900 border border-rose-200 font-bold">阴单：Elle est allée (+e)</span>
+                  <span className="p-1.5 rounded-lg bg-sky-50 text-sky-900 border border-sky-200 font-bold">阳复：Ils sont allés (+s)</span>
+                  <span className="p-1.5 rounded-lg bg-purple-50 text-purple-900 border border-purple-200 font-bold">阴复：Elles sont allées (+es)</span>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* ========================================================================= */}
           {/* ② 选中的动词大标头 + 7 大核心时态对称矩阵 */}
           {/* ========================================================================= */}
@@ -913,14 +973,27 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
                 </div>
               </div>
 
-              <button
-                onClick={() => playSpeech(selectedVerb.infinitive)}
-                className="px-4 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-[#80142A] border border-rose-200 text-xs font-black transition flex items-center gap-1.5 cursor-pointer shadow-2xs self-start sm:self-auto"
-                title="朗读原形发音"
-              >
-                <Volume2 className="w-4 h-4 text-[#80142A]" />
-                <span>朗读原形发音</span>
-              </button>
+              <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
+                <button
+                  onClick={() => setShowMaisonEtre(!showMaisonEtre)}
+                  className={`px-3 py-2 rounded-xl border text-xs font-black transition flex items-center gap-1.5 cursor-pointer shadow-2xs ${
+                    showMaisonEtre ? 'bg-rose-50 text-[#80142A] border-rose-300' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
+                  }`}
+                  title="查看 16 个房屋位移动词图谱"
+                >
+                  <span>🏠</span>
+                  <span>{showMaisonEtre ? '收起房屋动词' : '房屋动词速记图'}</span>
+                </button>
+
+                <button
+                  onClick={() => playSpeech(selectedVerb.infinitive)}
+                  className="px-3.5 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-[#80142A] border border-rose-200 text-xs font-black transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                  title="朗读原形发音"
+                >
+                  <Volume2 className="w-4 h-4 text-[#80142A]" />
+                  <span>朗读原形</span>
+                </button>
+              </div>
             </div>
 
             {/* 7 大时态切换条 (对称网格) */}
@@ -1139,20 +1212,44 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
           </div>
 
           {/* ========================================================================= */}
-          {/* ⑥ 当前动词全部时态速查表 (Full Matrix Table 一键展开/收起) */}
+          {/* ⑥ 当前动词全部时态速查表 (Full Matrix Table 一键展开/收起 + 初学核心分级) */}
           {/* ========================================================================= */}
           <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2 flex-wrap">
                 <Table className="w-4 h-4 text-[#80142A]" />
                 <h3 className="text-sm font-black text-slate-900">
-                  【{selectedVerb.infinitive}】全时态活用横向速查表 (Full Matrix)
+                  【{selectedVerb.infinitive}】变位活用横向速查表
                 </h3>
+
+                {/* 初学核心 4 大时态 vs 全量 8 大时态快速切换 */}
+                <div className="flex items-center bg-slate-100 p-0.5 rounded-xl text-xs">
+                  <button
+                    onClick={() => setMatrixTenseFilter('core')}
+                    className={`px-2.5 py-1 rounded-lg font-black transition cursor-pointer ${
+                      matrixTenseFilter === 'core'
+                        ? 'bg-white text-[#80142A] shadow-2xs'
+                        : 'text-slate-500 hover:text-slate-800'
+                    }`}
+                  >
+                    🌟 初学核心 4 大时态
+                  </button>
+                  <button
+                    onClick={() => setMatrixTenseFilter('all')}
+                    className={`px-2.5 py-1 rounded-lg font-black transition cursor-pointer ${
+                      matrixTenseFilter === 'all'
+                        ? 'bg-white text-[#80142A] shadow-2xs'
+                        : 'text-slate-500 hover:text-slate-800'
+                    }`}
+                  >
+                    📚 展开全部 8 大时态
+                  </button>
+                </div>
               </div>
 
               <button
                 onClick={() => setShowFullMatrix(!showFullMatrix)}
-                className="text-xs font-bold text-[#80142A] hover:underline flex items-center gap-1 cursor-pointer"
+                className="text-xs font-bold text-[#80142A] hover:underline flex items-center gap-1 cursor-pointer self-end sm:self-auto"
               >
                 {showFullMatrix ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                 <span>{showFullMatrix ? '收起速查表' : '展开速查表'}</span>
@@ -1161,7 +1258,9 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
 
             {showFullMatrix && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-2">
-                {TENSES_METADATA.map(t => {
+                {TENSES_METADATA
+                  .filter(t => matrixTenseFilter === 'all' || ['present', 'passe_compose', 'imparfait', 'futur_simple'].includes(t.key))
+                  .map(t => {
                   const forms = selectedVerb.tenses[t.key];
                   if (!forms) return null;
                   const isCurrent = t.key === selectedTense;
