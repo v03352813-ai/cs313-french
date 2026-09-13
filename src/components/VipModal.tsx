@@ -11,7 +11,8 @@ import {
   Laptop,
   Smartphone,
   Tablet,
-  AlertCircle
+  AlertCircle,
+  ArrowRight
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { getDeviceFingerprint, DeviceInfo } from '../utils/fingerprint';
@@ -83,6 +84,10 @@ export const VipModal: React.FC<VipModalProps> = ({
         } catch {
           // Ignore
         }
+        // 激活成功后 1 秒自动关闭弹窗，进入系统开始学习
+        setTimeout(() => {
+          onClose();
+        }, 1000);
       } else {
         setErrorMsg(res.message);
       }
@@ -90,30 +95,35 @@ export const VipModal: React.FC<VipModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fade-in">
+    <div 
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fade-in"
+    >
       <div 
         onClick={e => e.stopPropagation()}
         className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-200/80 overflow-hidden"
       >
         
         {/* Header Ribbon */}
-        <div className="bg-gradient-to-r from-[#80142A] via-[#9B1B36] to-[#680E20] text-white p-6 relative">
+        <div className="bg-gradient-to-r from-[#80142A] via-[#9B1B36] to-[#680E20] text-white p-5 sm:p-6 relative pr-14">
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition cursor-pointer"
+            className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/30 hover:bg-black/50 active:scale-90 flex items-center justify-center text-white transition cursor-pointer border border-white/20 shadow-sm"
+            aria-label="关闭"
+            title="关闭窗口"
           >
-            <X className="w-4 h-4" />
+            <X className="w-5 h-5" />
           </button>
 
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-[#DDBF78] text-[#29354A] flex items-center justify-center shadow-lg shadow-[#DDBF78]/25">
+            <div className="w-12 h-12 rounded-2xl bg-[#DDBF78] text-[#29354A] flex items-center justify-center shadow-lg shadow-[#DDBF78]/25 shrink-0">
               <Crown className="w-6 h-6 text-[#29354A]" />
             </div>
-            <div>
-              <h2 className="text-xl font-black tracking-tight">
+            <div className="min-w-0 pr-2">
+              <h2 className="text-lg sm:text-xl font-black tracking-tight truncate">
                 CS313 法语研习社 · 终身 VIP
               </h2>
-              <p className="text-xs text-rose-100 mt-0.5">
+              <p className="text-xs text-rose-100 mt-0.5 line-clamp-1">
                 全国考研二外名校真题 & DELF 欧标全功能授权
               </p>
             </div>
@@ -121,7 +131,7 @@ export const VipModal: React.FC<VipModalProps> = ({
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 space-y-5">
+        <div className="p-5 sm:p-6 space-y-4 sm:space-y-5 max-h-[80vh] overflow-y-auto">
           
           {/* Reason Alert Banner */}
           {reason && (
@@ -133,17 +143,28 @@ export const VipModal: React.FC<VipModalProps> = ({
 
           {/* If already VIP */}
           {isVip && license ? (
-            <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-2">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-200/80 text-emerald-900 text-xs font-bold">
-                <Check className="w-3.5 h-3.5" />
-                <span>已成功开通：{license.planName}</span>
+            <div className="space-y-4">
+              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-2">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-200/80 text-emerald-900 text-xs font-bold">
+                  <Check className="w-3.5 h-3.5" />
+                  <span>已成功开通：{license.planName}</span>
+                </div>
+                <p className="text-xs text-[#29354A]">
+                  卡密授权码：<strong className="font-mono text-[#29354A]">{license.cardKey}</strong>
+                </p>
+                <div className="text-[11px] text-[#29354A]/70">
+                  绑定设备上限：{license.boundDevicesCount || 1} / {license.maxDevices || 2} 台
+                </div>
               </div>
-              <p className="text-xs text-[#29354A]">
-                卡密授权码：<strong className="font-mono text-[#29354A]">{license.cardKey}</strong>
-              </p>
-              <div className="text-[11px] text-[#29354A]/70">
-                绑定设备上限：{license.boundDevicesCount || 1} / {license.maxDevices || 2} 台
-              </div>
+
+              {/* 核心行动按钮：立即进入系统开始学习 */}
+              <button
+                onClick={onClose}
+                className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#80142A] via-[#9B1B36] to-[#80142A] hover:from-[#9B1B36] hover:to-[#680E20] text-white font-black text-sm sm:text-base shadow-lg shadow-[#80142A]/25 active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <span>🚀 权限已生效 · 立即开始学习</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
           ) : (
             /* Activation Input Area */
