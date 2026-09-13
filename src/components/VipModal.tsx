@@ -42,8 +42,8 @@ export const VipModal: React.FC<VipModalProps> = ({
   const [copiedXianyu, setCopiedXianyu] = useState<boolean>(false);
   const [currentDevice] = useState<DeviceInfo>(() => getDeviceFingerprint());
 
-  // 预设闲鱼链接，上架后可随时更新 ID
-  const XIANYU_ITEM_ID = '1083031561914';
+  // 闲鱼官方拍下商品 ID
+  const XIANYU_ITEM_ID = '1082533646466';
   const XIANYU_ITEM_URL = `https://h5.m.goofish.com/item?id=${XIANYU_ITEM_ID}`;
 
   const copyXianyuLink = async () => {
