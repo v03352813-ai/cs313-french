@@ -83,6 +83,9 @@ export const App: React.FC = () => {
     setVipModalReason(reason || '');
     setIsVipModalOpen(true);
     api.trackEvent('vip_intent', { reason: reason || 'direct_click' });
+    if (reason) {
+      api.trackEvent('paywall_hit', { reason });
+    }
   };
 
   useEffect(() => {
@@ -307,7 +310,10 @@ export const App: React.FC = () => {
         onClose={() => setIsVipModalOpen(false)}
         isVip={isVip}
         license={license}
-        onActivated={lic => setLicense(lic)}
+        onActivated={lic => {
+          setLicense(lic);
+          api.trackEvent('key_activate', { status: 'success', tier: lic.tier || 'lifetime' });
+        }}
         reason={vipModalReason}
       />
 
