@@ -51,12 +51,37 @@ export const VocabView: React.FC<VocabViewProps> = ({
     }
   });
 
+  // SRS 艾宾浩斯记忆分级: Record<wordId, 'review' | 'fuzzy' | 'mastered'>
+  const [srsRatings, setSrsRatings] = useState<Record<string, 'review' | 'fuzzy' | 'mastered'>>(() => {
+    try {
+      const saved = localStorage.getItem('cs313_fr_srs_ratings');
+      if (saved) return JSON.parse(saved);
+      const legacy: string[] = JSON.parse(localStorage.getItem('cs313_fr_mastered_vocabs') || '[]');
+      const initial: Record<string, 'review' | 'fuzzy' | 'mastered'> = {};
+      legacy.forEach(id => { initial[id] = 'mastered'; });
+      return initial;
+    } catch {
+      return {};
+    }
+  });
+
+  // 靶场过滤: 全部 / 待复习(需重练+模糊) / 已吃透
+  const [srsFilter, setSrsFilter] = useState<'all' | 'need_review' | 'mastered'>('all');
+
   // 初始加载云端进度
   useEffect(() => {
     api.syncStudyProgress({}).then(progress => {
       if (progress && progress.masteredVocabIds && progress.masteredVocabIds.length > 0) {
-        setMasteredIds(progress.masteredVocabIds);
+        setMasteredIds(prev => Array.from(new Set([...prev, ...progress.masteredVocabIds!])));
         localStorage.setItem('cs313_fr_mastered_vocabs', JSON.stringify(progress.masteredVocabIds));
+        setSrsRatings(prev => {
+          const updated = { ...prev };
+          progress.masteredVocabIds!.forEach(id => {
+            if (!updated[id]) updated[id] = 'mastered';
+          });
+          localStorage.setItem('cs313_fr_srs_ratings', JSON.stringify(updated));
+          return updated;
+        });
       }
     }).catch(() => {});
   }, []);
@@ -82,47 +107,57 @@ export const VocabView: React.FC<VocabViewProps> = ({
     });
   }, [activeLevel, searchQuery]);
 
+  // 根据 SRS 筛选（全部 / 待复习 / 已吃透）
+  const displayVocab = useMemo(() => {
+    if (srsFilter === 'all') return filteredVocab;
+    if (srsFilter === 'need_review') {
+      return filteredVocab.filter(item => srsRatings[item.id] === 'review' || srsRatings[item.id] === 'fuzzy');
+    }
+    return filteredVocab.filter(item => srsRatings[item.id] === 'mastered' || masteredIds.includes(item.id));
+  }, [filteredVocab, srsFilter, srsRatings, masteredIds]);
+
   // Reset current index when filter or search changes
   useEffect(() => {
     setCurrentIndex(0);
     setIsFlipped(false);
     setIsAutoPlaying(false);
-  }, [activeLevel, searchQuery]);
+  }, [activeLevel, searchQuery, srsFilter]);
 
-  const currentItem: FrenchVocab | undefined = filteredVocab[currentIndex] || filteredVocab[0];
+  const currentItem: FrenchVocab | undefined = displayVocab[currentIndex] || displayVocab[0];
 
   // Auto Play Audio Loop (磨耳朵连读)
   const autoPlayTimerRef = useRef<any>(null);
   useEffect(() => {
-    if (!isAutoPlaying || filteredVocab.length === 0) {
+    if (!isAutoPlaying || displayVocab.length === 0) {
       if (autoPlayTimerRef.current) clearTimeout(autoPlayTimerRef.current);
       return;
     }
 
-    const item = filteredVocab[currentIndex];
+    const item = displayVocab[currentIndex];
     if (item) {
       speakFrench(`${item.article ? item.article + ' ' : ''}${item.french}`);
     }
 
     autoPlayTimerRef.current = setTimeout(() => {
       setCurrentIndex(prev => {
-        if (prev >= filteredVocab.length - 1) {
+        if (prev >= displayVocab.length - 1) {
           setIsAutoPlaying(false);
           return 0;
         }
         return prev + 1;
       });
       setIsFlipped(false);
-    }, 2900);
+    }, 3800);
 
     return () => {
       if (autoPlayTimerRef.current) clearTimeout(autoPlayTimerRef.current);
     };
-  }, [isAutoPlaying, currentIndex, filteredVocab]);
+  }, [isAutoPlaying, currentIndex, displayVocab]);
 
   const handleNext = () => {
     setIsFlipped(false);
-    if (currentIndex < filteredVocab.length - 1) {
+    if (displayVocab.length <= 1) return;
+    if (currentIndex < displayVocab.length - 1) {
       setCurrentIndex(prev => prev + 1);
     } else {
       setCurrentIndex(0);
@@ -131,32 +166,58 @@ export const VocabView: React.FC<VocabViewProps> = ({
 
   const handlePrev = () => {
     setIsFlipped(false);
+    if (displayVocab.length <= 1) return;
     if (currentIndex > 0) {
       setCurrentIndex(prev => prev - 1);
     } else {
-      setCurrentIndex(filteredVocab.length - 1);
+      setCurrentIndex(displayVocab.length - 1);
     }
   };
 
   const handleShuffle = () => {
     setIsFlipped(false);
-    if (filteredVocab.length <= 1) return;
-    const rand = Math.floor(Math.random() * filteredVocab.length);
+    if (displayVocab.length <= 1) return;
+    const rand = Math.floor(Math.random() * displayVocab.length);
     setCurrentIndex(rand);
   };
 
-  const toggleMastered = (id: string) => {
+  const handleRateSrs = (id: string, rating: 'review' | 'fuzzy' | 'mastered', e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setSrsRatings(prev => {
+      const updated = { ...prev, [id]: rating };
+      try {
+        localStorage.setItem('cs313_fr_srs_ratings', JSON.stringify(updated));
+      } catch {}
+      return updated;
+    });
+
     setMasteredIds(prev => {
-      const updated = prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id];
+      let updated: string[];
+      if (rating === 'mastered') {
+        updated = prev.includes(id) ? prev : [...prev, id];
+      } else {
+        updated = prev.filter(i => i !== id);
+      }
       try {
         localStorage.setItem('cs313_fr_mastered_vocabs', JSON.stringify(updated));
-      } catch {
-        // Ignore
-      }
+      } catch {}
       api.syncStudyProgress({ masteredVocabIds: updated }).catch(() => {});
       return updated;
     });
   };
+
+  const toggleMastered = (id: string) => {
+    const isCurrentlyMastered = srsRatings[id] === 'mastered' || masteredIds.includes(id);
+    handleRateSrs(id, isCurrentlyMastered ? 'fuzzy' : 'mastered');
+  };
+
+  const needReviewCount = useMemo(() => {
+    return filteredVocab.filter(v => srsRatings[v.id] === 'review' || srsRatings[v.id] === 'fuzzy').length;
+  }, [filteredVocab, srsRatings]);
+
+  const masteredCount = useMemo(() => {
+    return filteredVocab.filter(v => srsRatings[v.id] === 'mastered' || masteredIds.includes(v.id)).length;
+  }, [filteredVocab, srsRatings, masteredIds]);
 
   const isVowelOrMuteH = (word: string) => {
     if (!word) return false;
@@ -385,15 +446,43 @@ export const VocabView: React.FC<VocabViewProps> = ({
       {viewMode === 'flashcard' && filteredVocab.length > 0 && currentItem ? (
         <div className="max-w-2xl mx-auto space-y-4 w-full">
           
-          {/* Progress Indicator */}
-          <div className="flex items-center justify-between text-xs text-slate-500 px-1 font-bold">
-            <span>
-              当前词卡: <strong className="text-slate-900 font-black">{currentIndex + 1}</strong> / {filteredVocab.length}
-              <span className="text-[#80142A] ml-2 font-medium">({currentItem.category})</span>
-            </span>
-            <span className="flex items-center gap-1 text-slate-400">
-              <RotateCw className="w-3.5 h-3.5" /> 点击卡片 3D 翻转
-            </span>
+          {/* Progress & SRS Filter (极简紧凑，无冗余干扰) */}
+          <div className="flex items-center justify-between text-xs text-slate-500 px-1 font-bold flex-wrap gap-2">
+            <div className="flex items-center gap-2">
+              <span>
+                当前词卡: <strong className="text-slate-900 font-black">{currentIndex + 1}</strong> / {displayVocab.length}
+                <span className="text-[#80142A] ml-2 font-medium">({currentItem.category})</span>
+              </span>
+            </div>
+
+            {/* SRS 快速靶场: 全部 / 待复习 / 已吃透 */}
+            <div className="flex items-center bg-slate-100 p-0.5 rounded-xl text-[11px] font-bold">
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); setSrsFilter('all'); }}
+                className={`px-2 py-0.5 rounded-lg transition cursor-pointer ${srsFilter === 'all' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-500 hover:text-slate-900'}`}
+              >
+                全部
+              </button>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); setSrsFilter('need_review'); }}
+                className={`px-2 py-0.5 rounded-lg transition cursor-pointer flex items-center gap-1 ${srsFilter === 'need_review' ? 'bg-rose-500 text-white shadow-2xs' : 'text-slate-500 hover:text-rose-600'}`}
+                title="需重练或模糊的词汇"
+              >
+                <span>待复习</span>
+                {needReviewCount > 0 && <span className={`text-[10px] px-1 rounded-full ${srsFilter === 'need_review' ? 'bg-white/20' : 'bg-rose-100 text-rose-700'}`}>{needReviewCount}</span>}
+              </button>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); setSrsFilter('mastered'); }}
+                className={`px-2 py-0.5 rounded-lg transition cursor-pointer flex items-center gap-1 ${srsFilter === 'mastered' ? 'bg-emerald-600 text-white shadow-2xs' : 'text-slate-500 hover:text-emerald-700'}`}
+                title="已掌握吃透的词汇"
+              >
+                <span>已吃透</span>
+                {masteredCount > 0 && <span className={`text-[10px] px-1 rounded-full ${srsFilter === 'mastered' ? 'bg-white/20' : 'bg-emerald-100 text-emerald-700'}`}>{masteredCount}</span>}
+              </button>
+            </div>
           </div>
 
           {/* 🌟 免费试学节点拦截：非VIP学员在进阶词库中体验第11词时显示锁卡 */}
@@ -635,25 +724,50 @@ export const VocabView: React.FC<VocabViewProps> = ({
                   )}
                 </div>
 
-                {/* Bottom Mastery Button */}
-                <div className="flex items-center justify-between pt-2 border-t border-slate-200/60">
-                  <span className="text-xs text-slate-400 font-bold">
-                    再次点击卡片 3D 翻回正面
+                {/* Bottom SRS Rating Buttons (紧凑三档，科学反馈) */}
+                <div className="flex items-center justify-between pt-2.5 border-t border-slate-200/60 mt-auto">
+                  <span className="text-[11px] text-slate-400 font-bold hidden sm:inline">
+                    记忆分级:
                   </span>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleMastered(currentItem.id);
-                    }}
-                    className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-bold transition cursor-pointer ${
-                      masteredIds.includes(currentItem.id)
-                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                        : 'bg-white hover:bg-slate-50 text-slate-600 border border-slate-200'
-                    }`}
-                  >
-                    <Check className="w-3.5 h-3.5" />
-                    <span>{masteredIds.includes(currentItem.id) ? '已记牢' : '标记为已掌握'}</span>
-                  </button>
+                  <div className="flex items-center gap-1.5 w-full sm:w-auto justify-end">
+                    <button
+                      type="button"
+                      onClick={(e) => handleRateSrs(currentItem.id, 'review', e)}
+                      className={`px-2.5 py-1 rounded-xl text-xs font-bold transition flex items-center gap-1 cursor-pointer border ${
+                        srsRatings[currentItem.id] === 'review'
+                          ? 'bg-rose-500 text-white border-rose-600 shadow-2xs'
+                          : 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100'
+                      }`}
+                      title="完全忘记，加入重点复习"
+                    >
+                      <span>🔴 重练</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => handleRateSrs(currentItem.id, 'fuzzy', e)}
+                      className={`px-2.5 py-1 rounded-xl text-xs font-bold transition flex items-center gap-1 cursor-pointer border ${
+                        srsRatings[currentItem.id] === 'fuzzy'
+                          ? 'bg-amber-500 text-white border-amber-600 shadow-2xs'
+                          : 'bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100'
+                      }`}
+                      title="记忆模糊，需要巩固"
+                    >
+                      <span>🟡 模糊</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => handleRateSrs(currentItem.id, 'mastered', e)}
+                      className={`px-2.5 py-1 rounded-xl text-xs font-bold transition flex items-center gap-1 cursor-pointer border ${
+                        srsRatings[currentItem.id] === 'mastered'
+                          ? 'bg-emerald-600 text-white border-emerald-700 shadow-2xs'
+                          : 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
+                      }`}
+                      title="已熟练吃透"
+                    >
+                      <Check className="w-3.5 h-3.5" />
+                      <span>🟢 吃透</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
