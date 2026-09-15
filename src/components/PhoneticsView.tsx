@@ -39,6 +39,57 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
     ? FRENCH_PHONETICS
     : FRENCH_PHONETICS.filter(item => item.type === activeCategory);
 
+  // 获取法语标准音标/音素朗读文本（优先朗读标准音标字母音，而非直接读下方例词）
+  const getFrenchPhoneticSpokenText = (item: PhoneticItem): string => {
+    const ipaClean = item.ipa.replace(/[\[\]]/g, '').trim();
+    const phoneticAudioMap: Record<string, string> = {
+      // 口元音
+      'a': 'a',
+      'e': 'é',
+      'ɛ': 'è',
+      'i': 'i',
+      'o': 'o',
+      'ɔ': 'or',
+      'u': 'ou',
+      'y': 'u',
+      'ø': 'eux',
+      'œ': 'peur',
+      'ə': 'e',
+
+      // 鼻化元音
+      'ɛ̃': 'in',
+      'ɑ̃': 'an',
+      'ɔ̃': 'on',
+      'œ̃': 'un',
+
+      // 半元音
+      'j': 'ye',
+      'w': 'oui',
+      'ɥ': 'huit',
+
+      // 辅音 (标准字母名称或音素发音)
+      'p': 'pé',
+      'b': 'bé',
+      't': 'té',
+      'd': 'dé',
+      'k': 'ka',
+      'g': 'gué',
+      'f': 'effe',
+      'v': 'vé',
+      's': 'esse',
+      'z': 'zède',
+      'ʃ': 'che',
+      'ʒ': 'je',
+      'm': 'emme',
+      'n': 'enne',
+      'ɲ': 'gne',
+      'l': 'elle',
+      'ʁ': 'erre',
+    };
+
+    return phoneticAudioMap[ipaClean] || ipaClean;
+  };
+
   const playSpeech = (text: string) => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
     try {
@@ -318,9 +369,7 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
                   key={item.ipa}
                   onClick={() => {
                     setSelectedItem(item);
-                    if (item.examples.length > 0) {
-                      playSpeech(item.examples[0].word);
-                    }
+                    playSpeech(getFrenchPhoneticSpokenText(item));
                   }}
                   className={`relative p-3 rounded-2xl flex flex-col items-center justify-center transition-all duration-150 border cursor-pointer ${
                     isSelected
@@ -345,9 +394,14 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
           </div>
 
           {/* Quick Audio Hint */}
-          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70 flex items-center gap-2 text-xs text-[#29354A]">
-            <Volume2 className="w-4 h-4 text-[#DDBF78] shrink-0" />
-            <span>点击上方任意卡片即可发音，右侧可查看嘴型口诀与高频例词。</span>
+          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70 flex items-center justify-between text-xs text-[#29354A]">
+            <div className="flex items-center gap-2">
+              <Volume2 className="w-4 h-4 text-[#DDBF78] shrink-0" />
+              <span>点击上方卡片收听标准音标发音，右侧可查看嘴型技巧并可单独/连播例词。</span>
+            </div>
+            <span className="text-[11px] font-mono text-stone-400 hidden sm:inline">
+              共 {filteredItems.length} 个音标
+            </span>
           </div>
         </div>
 
@@ -372,9 +426,9 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
               </div>
 
               <button
-                onClick={() => playSpeech(selectedItem.examples.map(e => e.word).join(', '))}
-                className="w-11 h-11 rounded-2xl bg-[#80142A] hover:bg-[#680E20] text-white flex items-center justify-center shadow-xs hover:scale-105 transition cursor-pointer"
-                title="朗读全部例词"
+                onClick={() => playSpeech(getFrenchPhoneticSpokenText(selectedItem))}
+                className="w-11 h-11 rounded-2xl bg-[#80142A] hover:bg-[#680E20] text-white flex items-center justify-center shadow-xs hover:scale-105 transition cursor-pointer shrink-0"
+                title={`听标准音标发音: ${selectedItem.ipa}`}
               >
                 <Volume2 className="w-5 h-5" />
               </button>
@@ -393,8 +447,18 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
 
             {/* Practical Examples List */}
             <div className="space-y-2">
-              <div className="text-xs font-bold text-[#29354A]">
-                <span>权威考纲核心例词与发音对照</span>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-[#29354A]">权威考纲核心例词与发音对照</span>
+                {selectedItem.examples.length > 0 && (
+                  <button
+                    onClick={() => playSpeech(selectedItem.examples.map(e => e.word).join(', '))}
+                    className="text-xs font-bold text-[#80142A] hover:underline flex items-center gap-1 cursor-pointer"
+                    title="朗读当前音标全部例词"
+                  >
+                    <Volume2 className="w-3.5 h-3.5" />
+                    连播例词
+                  </button>
+                )}
               </div>
               <div className="space-y-2">
                 {selectedItem.examples.map(ex => (
