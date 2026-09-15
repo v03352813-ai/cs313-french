@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   X, 
   Calendar, 
@@ -14,6 +14,8 @@ import {
   Flame, 
   ChevronDown, 
   ChevronUp, 
+  ChevronLeft,
+  ChevronRight,
   BookOpen,
   Calculator,
   GraduationCap,
@@ -46,6 +48,13 @@ export const ExamRegistrationModal: React.FC<ExamRegistrationModalProps> = ({
 
   const countdown = getFrenchExamCountdown();
   const { kaoyanSession, delfSession, kaoyanTimeline, delfTimeline, snatchTips, scoringRules, keyCenters } = FRENCH_EXAM_REGISTRATION_DATA;
+
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const scrollTabs = (offset: number) => {
+    if (tabsRef.current) {
+      tabsRef.current.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+  };
 
   // ESC 键关闭模态窗
   useEffect(() => {
@@ -112,66 +121,93 @@ export const ExamRegistrationModal: React.FC<ExamRegistrationModalProps> = ({
           </button>
         </div>
 
-        {/* 5 维导航标签页 */}
-        <div className="flex items-center border-b border-slate-200/80 bg-slate-50/90 px-4 sm:px-6 overflow-x-auto no-scrollbar shrink-0">
+        {/* 5 维导航标签页 (全显平铺 + 真实滑块 + 左右滑动控制器) */}
+        <div className="relative border-b border-slate-200/80 bg-slate-50/95 shrink-0 flex items-center">
+          {/* 左翻按钮 */}
           <button
-            onClick={() => setActiveTab('gateways')}
-            className={`py-3 px-3 sm:px-4 text-xs font-bold border-b-2 transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
-              activeTab === 'gateways'
-                ? 'border-[#80142A] text-[#80142A] bg-white shadow-2xs font-black'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
-            }`}
+            type="button"
+            onClick={() => scrollTabs(-200)}
+            className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-200/70 transition shrink-0 z-10 hidden sm:flex items-center justify-center cursor-pointer h-full border-r border-slate-200/60"
+            title="向左滚动导航"
           >
-            <Globe2 className="w-4 h-4 text-[#80142A]" />
-            <span>🌐 官方报名唯一入口对接</span>
+            <ChevronLeft className="w-4 h-4" />
           </button>
 
-          <button
-            onClick={() => setActiveTab('timeline')}
-            className={`py-3 px-3 sm:px-4 text-xs font-bold border-b-2 transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
-              activeTab === 'timeline'
-                ? 'border-[#80142A] text-[#80142A] bg-white shadow-2xs font-black'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
-            }`}
+          {/* 导航标签槽：电脑端平铺全显，窄屏带明显可见滑块与拖拽 */}
+          <div 
+            ref={tabsRef}
+            className="flex-1 flex items-center overflow-x-auto px-2 sm:px-3 py-1.5 gap-1.5 w-full [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-slate-100 [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-400 cursor-pointer"
+            style={{ scrollbarWidth: 'thin', scrollbarColor: '#cbd5e1 #f1f5f9' }}
           >
-            <Clock className="w-4 h-4" />
-            <span>📅 官方考期全流程日历</span>
-          </button>
+            <button
+              onClick={() => setActiveTab('gateways')}
+              className={`flex-1 min-w-[140px] md:min-w-0 py-2 px-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap text-center ${
+                activeTab === 'gateways'
+                  ? 'bg-white text-[#80142A] shadow-xs border border-slate-200 font-black'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+              }`}
+            >
+              <Globe2 className="w-3.5 h-3.5 text-[#80142A] shrink-0" />
+              <span>🌐 官方报名入口</span>
+            </button>
 
-          <button
-            onClick={() => setActiveTab('tips')}
-            className={`py-3 px-3 sm:px-4 text-xs font-bold border-b-2 transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
-              activeTab === 'tips'
-                ? 'border-[#80142A] text-[#80142A] bg-white shadow-2xs font-black'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <Lightbulb className="w-4 h-4 text-amber-500" />
-            <span>💡 抢考位与考场避坑 SOP</span>
-          </button>
+            <button
+              onClick={() => setActiveTab('timeline')}
+              className={`flex-1 min-w-[140px] md:min-w-0 py-2 px-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap text-center ${
+                activeTab === 'timeline'
+                  ? 'bg-white text-[#80142A] shadow-xs border border-slate-200 font-black'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+              }`}
+            >
+              <Clock className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+              <span>📅 考期全流程日历</span>
+            </button>
 
-          <button
-            onClick={() => setActiveTab('scoring')}
-            className={`py-3 px-3 sm:px-4 text-xs font-bold border-b-2 transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
-              activeTab === 'scoring'
-                ? 'border-[#80142A] text-[#80142A] bg-white shadow-2xs font-black'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <Calculator className="w-4 h-4" />
-            <span>📊 100分制算分与单项淘汰测算</span>
-          </button>
+            <button
+              onClick={() => setActiveTab('tips')}
+              className={`flex-1 min-w-[140px] md:min-w-0 py-2 px-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap text-center ${
+                activeTab === 'tips'
+                  ? 'bg-white text-[#80142A] shadow-xs border border-slate-200 font-black'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+              }`}
+            >
+              <Lightbulb className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+              <span>💡 抢考位避坑SOP</span>
+            </button>
 
+            <button
+              onClick={() => setActiveTab('scoring')}
+              className={`flex-1 min-w-[140px] md:min-w-0 py-2 px-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap text-center ${
+                activeTab === 'scoring'
+                  ? 'bg-white text-[#80142A] shadow-xs border border-slate-200 font-black'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+              }`}
+            >
+              <Calculator className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <span>📊 100分算分测算</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('centers')}
+              className={`flex-1 min-w-[140px] md:min-w-0 py-2 px-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap text-center ${
+                activeTab === 'centers'
+                  ? 'bg-white text-[#80142A] shadow-xs border border-slate-200 font-black'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+              }`}
+            >
+              <Building2 className="w-3.5 h-3.5 text-purple-600 shrink-0" />
+              <span>🏛️ 全国考区评级</span>
+            </button>
+          </div>
+
+          {/* 右翻按钮 */}
           <button
-            onClick={() => setActiveTab('centers')}
-            className={`py-3 px-3 sm:px-4 text-xs font-bold border-b-2 transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
-              activeTab === 'centers'
-                ? 'border-[#80142A] text-[#80142A] bg-white shadow-2xs font-black'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
-            }`}
+            type="button"
+            onClick={() => scrollTabs(200)}
+            className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-200/70 transition shrink-0 z-10 hidden sm:flex items-center justify-center cursor-pointer h-full border-l border-slate-200/60"
+            title="向右滚动导航"
           >
-            <Building2 className="w-4 h-4" />
-            <span>📍 全国核心考点紧俏指数</span>
+            <ChevronRight className="w-4 h-4" />
           </button>
         </div>
 
