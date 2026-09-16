@@ -619,43 +619,41 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
     : generateDynamicSuggestions(currentScenario, userTurnsCount, refreshSeed);
 
   return (
-    <div className="max-w-6xl mx-auto px-2 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-5 animate-in fade-in duration-300">
+    <div className="w-full space-y-4 sm:space-y-5 animate-in fade-in duration-300 pb-12">
       
 
-      {/* 轻量级顶部 Hero 标题卡片 */}
-      <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#80142A] text-white font-black text-sm flex items-center justify-center shrink-0 shadow-xs shadow-[#80142A]/20">
-            06
+      {/* 顶部权威 Hero Banner (对标图3标准规范，移除 06 步骤圈) */}
+      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="px-2.5 py-0.5 rounded-full bg-[#FCECEF] text-[#80142A] border border-[#80142A]/20 text-xs font-bold">
+              🎙️ DELF 欧标口语大纲 · 沉浸实战对练
+            </span>
+            <span className="text-xs text-stone-500 font-medium">
+              巴黎标准发音 · 真实场景角色扮演 · 实时交互反馈 · 1v1 纯正语料
+            </span>
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-[#80142A] bg-rose-50 px-2 py-0.5 rounded-md border border-[#80142A]/20">
-                实战对练
-              </span>
-              <h2 className="text-base sm:text-lg font-black text-slate-900">
-                AI 智能法语口语实战对练 · 巴黎腔角色扮演工坊
-              </h2>
-            </div>
-            <p className="text-xs text-slate-500 mt-0.5">
-              DELF 欧标实用会话对练 · 巴黎生活实操 · 法企商务面试 · 经典影视名场面对戏
-            </p>
-          </div>
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            AI 智能法语口语实战对练 · 巴黎腔角色扮演工坊
+          </h1>
+          <p className="text-xs sm:text-sm text-stone-500 font-medium">
+            DELF 欧标实用会话对练 · 巴黎生活实操 · 法企商务面试 · 经典影视名场面对戏，随时随地开口脱敏！
+          </p>
         </div>
 
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-2 flex-wrap self-start md:self-auto shrink-0">
           {userTurnsCount >= 2 && (
             <button
               onClick={() => setIsReportOpen(true)}
-              className="px-3.5 py-1.5 rounded-xl bg-[#80142A] hover:bg-[#680E20] text-white text-xs font-bold flex items-center gap-1.5 shadow-xs shadow-[#80142A]/20 transition active:scale-98 cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-[#80142A] hover:bg-[#680E20] text-white text-xs font-bold flex items-center gap-1.5 shadow-xs shadow-[#80142A]/20 transition active:scale-98 cursor-pointer"
             >
               <BarChart3 className="w-3.5 h-3.5" />
               <span>生成能力报告</span>
             </button>
           )}
 
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200/60 text-xs font-semibold">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/60 text-xs font-bold">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
             AI 对练就绪
           </span>
         </div>

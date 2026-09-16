@@ -940,7 +940,9 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               {currentQuestion.options.map((opt, optIdx) => {
                 const isSelected = answers[currentQuestionIndex] === optIdx;
                 const isCorrect = currentQuestion.correctAnswer === optIdx;
-                const showResult = isSubmitted || (showInstantExplanation && answers[currentQuestionIndex] !== undefined);
+                const userAnswered = answers[currentQuestionIndex] !== undefined;
+                // 只对【用户实际作答过的题目】才展示对错反馈，未作答题目即使交卷也不显示正确答案
+                const showResult = userAnswered && (isSubmitted || showInstantExplanation);
 
                 let optStyle = 'bg-slate-50/70 hover:bg-white text-[#29354A] border-slate-200/80';
                 if (isSelected) {
@@ -982,8 +984,8 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
                 })}
               </div>
 
-              {/* Instant Explanation Card */}
-              {(isSubmitted || (showInstantExplanation && answers[currentQuestionIndex] !== undefined)) && (
+              {/* Instant Explanation Card — 只对已作答题目显示，不泄露未做题目的答案 */}
+              {answers[currentQuestionIndex] !== undefined && (isSubmitted || showInstantExplanation) && (
                 <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-3 text-xs">
                   <div className="flex items-center gap-1.5 text-[#80142A] font-black">
                     <Sparkles className="w-4 h-4 text-[#DDBF78]" />
