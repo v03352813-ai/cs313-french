@@ -86,6 +86,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
   const [drillFilter, setDrillFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showInstantExplanation, setShowInstantExplanation] = useState<boolean>(true);
+  const [showOfficialGuide, setShowOfficialGuide] = useState<boolean>(false);
   
   // Audio player state
   const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
@@ -510,43 +511,56 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
         </div>
       </div>
 
-      {/* 📌 四大赛道官方考纲权威说明横幅 */}
-      <div className="p-4 rounded-2xl bg-gradient-to-r from-[#FCECEF]/40 via-slate-50 to-white border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-        <div className="flex items-start gap-2.5">
-          <span className={`w-2.5 h-2.5 rounded-full mt-1 shrink-0 animate-pulse ${
-            activeTrack === 'kaoyan' ? 'bg-[#80142A]' : activeTrack === 'cft4' ? 'bg-indigo-600' : activeTrack === 'delf' ? 'bg-[#DDBF78]' : 'bg-slate-700'
-          }`} />
-          <div className="space-y-0.5">
-            <div className="flex items-center gap-2 font-black text-[#29354A]">
-              <span className={activeTrack === 'kaoyan' ? 'text-[#80142A]' : activeTrack === 'cft4' ? 'text-indigo-800' : activeTrack === 'delf' ? 'text-amber-800' : 'text-slate-800'}>
+      {/* 📌 四大赛道官方考纲权威说明横幅 (可折叠，默认收起节省首屏高) */}
+      <div className="rounded-2xl bg-gradient-to-r from-[#FCECEF]/40 via-slate-50 to-white border border-slate-200/80 overflow-hidden text-xs">
+        <div
+          onClick={() => setShowOfficialGuide(!showOfficialGuide)}
+          className="p-3.5 flex items-center justify-between cursor-pointer select-none hover:bg-slate-50/60 transition"
+        >
+          <div className="flex items-center gap-2.5">
+            <span className={`w-2.5 h-2.5 rounded-full shrink-0 animate-pulse ${
+              activeTrack === 'kaoyan' ? 'bg-[#80142A]' : activeTrack === 'cft4' ? 'bg-indigo-600' : activeTrack === 'delf' ? 'bg-[#DDBF78]' : 'bg-slate-700'
+            }`} />
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className={`font-black ${
+                activeTrack === 'kaoyan' ? 'text-[#80142A]' : activeTrack === 'cft4' ? 'text-indigo-800' : activeTrack === 'delf' ? 'text-amber-800' : 'text-slate-800'
+              }`}>
                 {activeTrack === 'kaoyan' ? `🎓 全国硕士考研二外法语·历年名校大卷 (${paperCounts.kaoyan.all}套)` 
                   : activeTrack === 'cft4' ? `🏛️ 大学法语四级 (CFT-4) 全国统考历年真题 (${paperCounts.cft4.all}套)`
                   : activeTrack === 'delf' ? `🌍 DELF-DALF 欧标国际认证 (A1-C1) 官方考卷 (${paperCounts.delf.all}套)`
                   : `⚡ 考研二外 & DELF 四大重点考点专项攻坚 (${paperCounts.drill.all}套)`}
               </span>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#29354A] border border-slate-200">
-                {activeTrack === 'kaoyan' ? '全国高校自主命题 · 100分制' 
-                  : activeTrack === 'cft4' ? '教育部高校外语指导委 · 100分制'
-                  : activeTrack === 'delf' ? '法国教育部官方标准 · 淘汰制'
-                  : '二外高频考点分类靶向攻坚'}
+              <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#29354A] border border-slate-200">
+                {activeTrack === 'kaoyan' ? '自主命题 · 100分' 
+                  : activeTrack === 'cft4' ? '全国统考 · 100分' 
+                  : activeTrack === 'delf' ? '官方标准 · 淘汰制' 
+                  : '分类靶向攻坚'}
               </span>
             </div>
-            <p className="text-stone-600 leading-relaxed font-medium">
-              {activeTrack === 'kaoyan' && (
-                <span>全面收录北京外国语大学、上海外国语大学、广东外语外贸大学、北京大学、清华大学、南京大学、武汉大学、复旦大学、中山大学、浙江大学、四川外国语大学等历年统考真题编年卷，重点考察 <strong>【时态配合·代词语序·虚拟式触发】</strong> 与 <strong>【社科长文逻辑推理】</strong>，满分 100 分。</span>
-              )}
-              {activeTrack === 'cft4' && (
-                <span>大学法语四级为全国高校公外二外最权威统一测试，全面考核 <strong>【听力理解·语法结构·完形填空·长篇读解】</strong>，精准检验 A2-B1 语言综合运用能力。</span>
-              )}
-              {activeTrack === 'delf' && (
-                <span>法国教育部 FEI 统一终身认证，覆盖 A1-B2 与 DALF C1 高阶学术认证，包含 <strong>【Compréhension orale 原声听解】</strong> 与 <strong>【Compréhension écrite 读解分析】</strong>，总分 100 分，及格线 50 分，且单项不得低于 <strong>5/25分（单科淘汰线）</strong>！</span>
-              )}
-              {activeTrack === 'drill' && (
-                <span>汇集中国二外考生失分率最高的四大专题：<strong>【代词系统与语序】</strong>、<strong>【时态配合与虚拟式】</strong>、<strong>【完形填空与介词】</strong>、<strong>【社科长篇阅读】</strong>，逐个击破！</span>
-              )}
-            </p>
+          </div>
+
+          <div className="flex items-center gap-1 text-[11px] text-slate-500 font-semibold shrink-0">
+            <span>{showOfficialGuide ? '收起考纲' : '查看考纲'}</span>
+            <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showOfficialGuide ? 'rotate-180' : ''}`} />
           </div>
         </div>
+
+        {showOfficialGuide && (
+          <div className="px-4 pb-3.5 pt-1 text-stone-600 leading-relaxed font-medium border-t border-slate-200/60 bg-white/60">
+            {activeTrack === 'kaoyan' && (
+              <p>全面收录北京外国语大学、上海外国语大学、广东外语外贸大学、北京大学、清华大学、南京大学、武汉大学、复旦大学、中山大学、浙江大学、四川外国语大学等历年统考真题编年卷，重点考察 <strong>【时态配合·代词语序·虚拟式触发】</strong> 与 <strong>【社科长文逻辑推理】</strong>，满分 100 分。</p>
+            )}
+            {activeTrack === 'cft4' && (
+              <p>大学法语四级为全国高校公外二外最权威统一测试，全面考核 <strong>【听力理解·语法结构·完形填空·长篇读解】</strong>，精准检验 A2-B1 语言综合运用能力。</p>
+            )}
+            {activeTrack === 'delf' && (
+              <p>法国教育部 FEI 统一终身认证，覆盖 A1-B2 与 DALF C1 高阶学术认证，包含 <strong>【Compréhension orale 原声听解】</strong> 与 <strong>【Compréhension écrite 读解分析】</strong>，总分 100 分，及格线 50 分，且单项不得低于 <strong>5/25分（单科淘汰线）</strong>！</p>
+            )}
+            {activeTrack === 'drill' && (
+              <p>汇集中国二外考生失分率最高的四大专题：<strong>【代词系统与语序】</strong>、<strong>【时态配合与虚拟式】</strong>、<strong>【完形填空与介词】</strong>、<strong>【社科长篇阅读】</strong>，逐个击破！</p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Track Switcher & Filter Card */}
