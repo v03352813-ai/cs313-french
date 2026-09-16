@@ -126,6 +126,7 @@ export const App: React.FC = () => {
       const hash = window.location.hash.replace('#', '') as ActiveTab;
       if (['home', 'phonetics', 'conjugation', 'vocab', 'grammar', 'exam', 'delf', 'mistakes', 'cinema', 'speaking', 'writing'].includes(hash)) {
         setActiveTab(hash);
+        window.scrollTo({ top: 0, behavior: 'instant' });
       }
     };
     handleHash();

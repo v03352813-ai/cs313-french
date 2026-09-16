@@ -406,6 +406,7 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
 
   const recognitionRef = useRef<any>(null);
   const chatScrollRef = useRef<HTMLDivElement | null>(null);
+  const isFirstRender = useRef(true);
 
   const currentScenario = AI_SCENARIOS_DATA.find(s => s.id === selectedScenarioId) || AI_SCENARIOS_DATA[0];
 
@@ -457,6 +458,9 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
     setInputText('');
     setTimerSeconds(scenario.examDurationSec || 120);
     setRefreshSeed(0);
+    if (chatScrollRef.current) {
+      chatScrollRef.current.scrollTo({ top: 0, behavior: 'instant' });
+    }
     // 自动播放欢迎语
     setTimeout(() => {
       handlePlaySpeech(firstTurn.fr);
@@ -468,7 +472,17 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
   };
 
   useEffect(() => {
-    chatScrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    // 仅在产生实际对话交互时滚动聊天容器内部，绝不触发外部窗口跳转
+    if (messages.length > 1 && chatScrollRef.current) {
+      chatScrollRef.current.scrollTo({
+        top: chatScrollRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
   }, [messages, isAiReplying]);
 
   // 语音播放
