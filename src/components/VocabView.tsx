@@ -266,21 +266,22 @@ export const VocabView: React.FC<VocabViewProps> = ({
   return (
     <div className="space-y-3 sm:space-y-3.5 pb-0 animate-in fade-in duration-300">
       
-      {/* 1. 顶部步骤导引条 (直观告知考纲词汇分级与已掌握统计) */}
-      <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* 1. 顶部权威 Hero Banner (对标图3音标规范) */}
+      <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="px-2.5 py-0.5 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-black border border-[#80142A]/20">
-              词汇切片 · 3D 闪卡
-            </span>
-            <h1 className="text-base sm:text-lg font-black text-[#29354A]">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-bold border border-[#80142A]/25">
+            <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
+            <span>词汇切片 · 3D 闪卡</span>
+          </div>
+          <div className="flex items-center gap-3 flex-wrap">
+            <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
               5,000+ 核心词汇 · 阴阳性双标 3D 翻转记忆库
             </h1>
-            <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+            <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
               已掌握 {masteredIds.length} 词
             </span>
           </div>
-          <p className="text-xs text-slate-500 font-medium">
+          <p className="text-xs sm:text-sm text-[#29354A]/80 leading-relaxed font-medium">
             背法语单词最忌讳不记阴阳性！严格标定 <strong className="text-[#80142A]">阳性 (le)</strong> 与 <strong className="text-[#80142A]">阴性 (la)</strong>，3D 空间翻转查看释义与原比例句。
           </p>
         </div>

@@ -713,24 +713,20 @@ export const ConjugationView: React.FC<ConjugationViewProps> = ({
     <div className="space-y-4 sm:space-y-6">
       
       {/* ========================================================================= */}
-      {/* 🎩 独家自研 · 动词变位推导中心 & 脱帽换衣法则速查 (浅色高质感统一顶栏) */}
+      {/* 🎩 独家自研 · 动词变位推导中心 & 脱帽换衣法则速查 (严格对标图3标准规范) */}
       {/* ========================================================================= */}
-      <div className="bg-gradient-to-br from-white via-rose-50/30 to-amber-50/20 rounded-3xl p-4 sm:p-6 border border-rose-200/80 shadow-xs space-y-3.5 overflow-hidden">
+      <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-xs space-y-4 overflow-hidden">
         {/* 顶部标题行与收起/展开按钮 */}
-        <div className="flex items-start justify-between gap-2.5">
-          <div className="space-y-1 min-w-0">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="w-8 h-8 rounded-xl bg-rose-50 text-[#80142A] border border-rose-200/70 flex items-center justify-center text-base shadow-2xs shrink-0">
-                🎩
-              </span>
-              <h2 className="text-base sm:text-xl font-black text-slate-900 tracking-tight">
-                动词活用推导 ·【脱帽换衣法则】速查指南
-              </h2>
-              <span className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200/80 font-bold text-xs shadow-2xs">
-                独家自研教学法 · 1分钟秒懂
-              </span>
+        <div className="flex items-start justify-between gap-4">
+          <div className="space-y-1.5 min-w-0">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCECEF] text-[#80142A] text-xs font-bold border border-[#80142A]/25">
+              <Sparkles className="w-3.5 h-3.5 text-[#DDBF78]" />
+              <span>独家自研教学法 · 1分钟秒懂</span>
             </div>
-            <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+            <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
+              动词活用推导 ·【脱帽换衣法则】速查指南
+            </h1>
+            <p className="text-xs sm:text-sm text-[#29354A]/80 font-medium leading-relaxed max-w-3xl">
               <strong className="text-[#80142A]">核心心法：</strong>85% 以上的法语动词都是极守规矩的<strong>【脱帽换衣派】</strong>！摘掉原形词尾帽子（-er / -ir），按人称换上新衣服！四个人称发音完全一样！
             </p>
           </div>
