@@ -499,7 +499,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               🏛️ 法国国家级与国际官方全真机考大卷库
             </span>
             <span className="text-xs text-stone-500 font-medium">
-              126套全国名校历年全卷 · 3,024道官方全真试题 · 100分标准实测评分 · 词汇语法 / 动词变位 / 完形填空 / 实用告示 / 原声听解 / 社科长篇读解
+              全国名校历年统考真题 · 官方全真标准评分 · 词汇语法 / 动词变位 / 完形填空 / 实用告示 / 原声听解 / 社科长篇读解
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#29354A] tracking-tight">
@@ -525,10 +525,10 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
               <span className={`font-black ${
                 activeTrack === 'kaoyan' ? 'text-[#80142A]' : activeTrack === 'cft4' ? 'text-indigo-800' : activeTrack === 'delf' ? 'text-amber-800' : 'text-slate-800'
               }`}>
-                {activeTrack === 'kaoyan' ? `🎓 全国硕士考研二外法语·历年名校大卷 (${paperCounts.kaoyan.all}套)` 
-                  : activeTrack === 'cft4' ? `🏛️ 大学法语四级 (CFT-4) 全国统考历年真题 (${paperCounts.cft4.all}套)`
-                  : activeTrack === 'delf' ? `🌍 DELF-DALF 欧标国际认证 (A1-C1) 官方考卷 (${paperCounts.delf.all}套)`
-                  : `⚡ 考研二外 & DELF 四大重点考点专项攻坚 (${paperCounts.drill.all}套)`}
+                {activeTrack === 'kaoyan' ? '🎓 全国硕士考研二外法语·历年名校大卷' 
+                  : activeTrack === 'cft4' ? '🏛️ 大学法语四级 (CFT-4) 全国统考历年真题' 
+                  : activeTrack === 'delf' ? '🌍 DELF-DALF 欧标国际认证 (A1-C1) 官方考卷' 
+                  : '⚡ 考研二外 & DELF 四大重点考点专项攻坚'}
               </span>
               <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#29354A] border border-slate-200">
                 {activeTrack === 'kaoyan' ? '自主命题 · 100分' 
@@ -583,7 +583,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             }`}
           >
             <GraduationCap className="w-4 h-4" />
-            <span>🎓 考研二外 ({paperCounts.kaoyan.all}套)</span>
+            <span>🎓 考研二外</span>
           </button>
 
           <button
@@ -601,7 +601,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             }`}
           >
             <Award className="w-4 h-4" />
-            <span>🏛️ 大学法语四级 ({paperCounts.cft4.all}套)</span>
+            <span>🏛️ 大学法语四级</span>
           </button>
 
           <button
@@ -619,7 +619,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             }`}
           >
             <Globe2 className="w-4 h-4" />
-            <span>🌍 DELF 欧标 ({paperCounts.delf.all}套)</span>
+            <span>🌍 DELF 欧标</span>
           </button>
 
           <button
@@ -637,7 +637,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
             }`}
           >
             <Target className="w-4 h-4" />
-            <span>⚡ 专项攻坚突破 ({paperCounts.drill.all}套)</span>
+            <span>⚡ 专项攻坚突破</span>
           </button>
         </div>
 
@@ -653,12 +653,12 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
           {activeTrack === 'kaoyan' && (
             <div className="flex items-center gap-1.5 flex-wrap">
               {[
-                { id: 'all', label: `全部考研真题 (${paperCounts.kaoyan.all})` },
-                { id: 'beiwai', label: `北京外国语大学 (${paperCounts.kaoyan.beiwai})` },
-                { id: 'shisu', label: `上海外国语大学 (${paperCounts.kaoyan.shisu})` },
-                { id: 'gdufs', label: `广东外语外贸大学 (${paperCounts.kaoyan.gdufs})` },
-                { id: 'others', label: `985名校联盟 (${paperCounts.kaoyan.others})` },
-                { id: 'tongkao', label: `全国统考综合 (${paperCounts.kaoyan.tongkao})` }
+                { id: 'all', label: '全部考研真题' },
+                { id: 'beiwai', label: '北京外国语大学' },
+                { id: 'shisu', label: '上海外国语大学' },
+                { id: 'gdufs', label: '广东外语外贸大学' },
+                { id: 'others', label: '985名校联盟' },
+                { id: 'tongkao', label: '全国统考综合' }
               ].map(f => (
                 <button
                   key={f.id}
@@ -678,10 +678,10 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
           {activeTrack === 'cft4' && (
             <div className="flex items-center gap-1.5 flex-wrap">
               {[
-                { id: 'all', label: `全部四级大卷 (${paperCounts.cft4.all})` },
-                { id: 'full_mock', label: `历年真题与模拟 (${paperCounts.cft4.full_mock})` },
-                { id: 'grammar', label: `语法词汇专项 (${paperCounts.cft4.grammar})` },
-                { id: 'cloze_reading', label: `完形读解强化 (${paperCounts.cft4.cloze_reading})` }
+                { id: 'all', label: '全部四级大卷' },
+                { id: 'full_mock', label: '历年真题与模拟' },
+                { id: 'grammar', label: '语法词汇专项' },
+                { id: 'cloze_reading', label: '完形读解强化' }
               ].map(f => (
                 <button
                   key={f.id}
@@ -701,12 +701,12 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
           {activeTrack === 'delf' && (
             <div className="flex items-center gap-1.5 flex-wrap">
               {[
-                { id: 'all', label: `全部欧标考卷 (${paperCounts.delf.all})` },
-                { id: 'A1', label: `DELF A1 入门级 (${paperCounts.delf.A1})` },
-                { id: 'A2', label: `DELF A2 进阶级 (${paperCounts.delf.A2})` },
-                { id: 'B1', label: `DELF B1 独立级 (${paperCounts.delf.B1})` },
-                { id: 'B2', label: `DELF B2 高阶级 (${paperCounts.delf.B2})` },
-                { id: 'C1', label: `DALF C1 精英级 (${paperCounts.delf.C1})` }
+                { id: 'all', label: '全部欧标考卷' },
+                { id: 'A1', label: 'DELF A1 入门级' },
+                { id: 'A2', label: 'DELF A2 进阶级' },
+                { id: 'B1', label: 'DELF B1 独立级' },
+                { id: 'B2', label: 'DELF B2 高阶级' },
+                { id: 'C1', label: 'DALF C1 精英级' }
               ].map(f => (
                 <button
                   key={f.id}
@@ -726,11 +726,11 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
           {activeTrack === 'drill' && (
             <div className="flex items-center gap-1.5 flex-wrap">
               {[
-                { id: 'all', label: `全部专项大卷 (${paperCounts.drill.all})` },
-                { id: 'pronoun', label: `代词系统与语序 (${paperCounts.drill.pronoun})` },
-                { id: 'tense', label: `时态配合与虚拟式 (${paperCounts.drill.tense})` },
-                { id: 'cloze', label: `完形填空与介词 (${paperCounts.drill.cloze})` },
-                { id: 'reading', label: `社科长篇深度阅读 (${paperCounts.drill.reading})` }
+                { id: 'all', label: '全部专项大卷' },
+                { id: 'pronoun', label: '代词系统与语序' },
+                { id: 'tense', label: '时态配合与虚拟式' },
+                { id: 'cloze', label: '完形填空与介词' },
+                { id: 'reading', label: '社科长篇深度阅读' }
               ].map(f => (
                 <button
                   key={f.id}
@@ -753,7 +753,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
           <div className="flex items-center justify-between text-xs font-bold text-slate-600 px-1">
             <span className="flex items-center gap-1.5">
               <FileCheck2 className="w-3.5 h-3.5 text-[#80142A]" />
-              <span>当前可作答试卷 ({filteredPapers.length} 套):</span>
+              <span>当前官方真题试卷库:</span>
             </span>
             <span className="text-[11px] text-stone-400">点击卡片直接进入考场</span>
           </div>
