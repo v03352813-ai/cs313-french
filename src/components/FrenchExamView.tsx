@@ -85,7 +85,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
   const [delfFilter, setDelfFilter] = useState<string>('all');
   const [drillFilter, setDrillFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [showInstantExplanation, setShowInstantExplanation] = useState<boolean>(true);
+  const [showInstantExplanation, setShowInstantExplanation] = useState<boolean>(false);
   const [showOfficialGuide, setShowOfficialGuide] = useState<boolean>(false);
   
   // Audio player state
