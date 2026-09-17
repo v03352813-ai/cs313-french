@@ -480,7 +480,7 @@ export const FrenchExamView: React.FC<FrenchExamViewProps> = ({
     const isLocked = !isVip && !isFree;
 
     if (isLocked) {
-      onOpenVipModal(`🔒《${paper.title}》为 VIP 专属高频考卷！升级 VIP 终身卡（仅 ¥49.9），即可解锁全部 36 套考研二外名校大卷、大学法语四级与 DELF 官方机考大卷及名师题解！`);
+      onOpenVipModal(`🔒《${paper.title}》为 VIP 专属高频考卷！升级 VIP 终身卡（仅 ¥49.9），即可解锁考研二外名校大卷、大学法语四级与 DELF 官方机考大卷及名师题解！`);
       return;
     }
 
