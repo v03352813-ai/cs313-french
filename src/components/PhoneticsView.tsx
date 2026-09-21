@@ -601,7 +601,7 @@ export const PhoneticsView: React.FC<PhoneticsViewProps> = ({
               <span>当前正在体验【法语 35 音标与基础联诵 · 免费体验】</span>
             </div>
             <p className="text-xs text-white/90 leading-relaxed">
-              开通 VIP 终身卡（仅 ¥49.9），立享<strong>全部 5 大高阶联诵/省音规则</strong>、36套国家级模考全真大卷与 5000+ 性数精解词库！
+              开通 VIP 终身卡（仅 ¥49.9），立享<strong>全部 5 大高阶联诵/省音规则</strong>、国家级模考全真大考场与 5000+ 性数精解词库！
             </p>
           </div>
           <button
