@@ -627,10 +627,66 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
     }, 1000);
   };
 
+  // Current active suggestions: 结合 AI 当前对话语境与场景拓展灵感库进行多批次循环切换
   const latestAiMessage = [...messages].reverse().find(m => m.sender === 'ai');
-  const activeSuggestions = normalizeSuggestions(latestAiMessage?.suggestedResponses).length > 0
-    ? normalizeSuggestions(latestAiMessage?.suggestedResponses)
-    : generateDynamicSuggestions(currentScenario, userTurnsCount, refreshSeed);
+  const aiSuggestions = normalizeSuggestions(latestAiMessage?.suggestedResponses);
+
+  const activeSuggestions = useMemo(() => {
+    const pools: SuggestionOption[][] = [];
+    if (aiSuggestions.length > 0) {
+      pools.push(aiSuggestions);
+    }
+
+    const isDelf = currentScenario.category === 'delf_speaking';
+    const isDaily = currentScenario.category === 'daily_life';
+    const isTravel = currentScenario.category === 'travel_transport';
+    const isBiz = currentScenario.category === 'business_work';
+
+    if (isDelf) {
+      pools.push(
+        [
+          { tag: '论点立意', text: 'À mon avis, cette mesure présente des atouts indéniables, mais il faut mesurer ses conséquences sociales.', zh: '在我看来，该举措具有不可否认的优势，但必须权衡其社会后果。' },
+          { tag: '让步转折', text: 'Bien que l\'argument écologique soit recevable, force est de constater que les alternatives actuelles restent insuffisantes.', zh: '尽管环保论点站得住脚，但不得不承认目前的替代方案依然不足。' },
+          { tag: '提议号召', text: 'Il conviendrait donc d\'instaurer une période de transition progressive avec des subventions adaptées.', zh: '因此，应当设立带有相应补贴的渐进过渡期。' }
+        ],
+        [
+          { tag: '现象剖析', text: 'Ce phénomène s\'explique en grande partie par l\'évolution rapide de nos modes de vie numériques.', zh: '这一现象很大程度上源于我们数字化生活方式的迅猛演变。' },
+          { tag: '反驳质疑', text: 'Je ne partage pas entièrement ce point de vue, car cela risque d\'accentuer la précarité des plus vulnérables.', zh: '我不能完全赞同这一观点，因为这可能会加剧弱势群体的脆弱性。' },
+          { tag: '总结陈词', text: 'En définitive, l\'éducation et la sensibilisation demeurent les leviers les plus pérennes pour surmonter cette crise.', zh: '归根结底，教育与倡导依然是克服这场危机最持久的抓手。' }
+        ]
+      );
+    } else if (isDaily || isTravel) {
+      pools.push(
+        [
+          { tag: '礼貌询问', text: 'Pardonnez-moi de vous déranger, pourriez-vous m\'indiquer le chemin le plus rapide ?', zh: '劳驾打扰一下，您能为我指明最快捷的路线吗？' },
+          { tag: '高频点选', text: 'Je vais prendre cette option, s\'il vous plaît, avec un reçu pour ma comptabilité.', zh: '请帮我选这个方案，并附带一份报销收据。' },
+          { tag: '确认感谢', text: 'C\'est parfait, merci infiniment pour vos explications limpides !', zh: '太棒了，非常感谢您清晰明了的说明！' }
+        ],
+        [
+          { tag: '退改要求', text: 'Est-il envisageable d\'échanger mon billet sans frais supplémentaires pour le train suivant ?', zh: '请问是否可以在没有额外手续费的情况下改签至下一班列车？' },
+          { tag: '生活咨询', text: 'Avez-vous une recommandation particulière pour un restaurant typique dans le quartier ?', zh: '在这一带您有什么地道的特色餐厅特别推荐吗？' },
+          { tag: '客套道别', text: 'Je vous remercie chaleureusement de votre accueil. Bonne journée !', zh: '衷心感谢您的热情接待。祝您拥有愉快的一天！' }
+        ]
+      );
+    } else if (isBiz) {
+      pools.push(
+        [
+          { tag: '商务汇报', text: 'Je vous confirme que nous avons franchi le premier jalon du projet dans le respect scrupuleux du calendrier.', zh: '我向您确认，我们已在严格遵守时间节点的前提下顺利通过了项目的首个里程碑。' },
+          { tag: '谈判协商', text: 'Nous serions disposés à accepter ces conditions tarifaires sous réserve d\'un étalement des livraisons.', zh: '只要能分期分批交付，我们愿意接受此价格条件。' },
+          { tag: '主动跟进', text: 'Je m\'engage à vous transmettre le compte-rendu synthétique avant la fin de la journée.', zh: '我保证在今天结束前向您呈送精简会议纪要。' }
+        ]
+      );
+    } else {
+      pools.push([
+        { tag: '积极回应', text: 'Oui, tout à fait, je partage pleinement votre point de vue sur cette question.', zh: '是的，完全正确，我完全赞同您在这个问题上的观点。' },
+        { tag: '阐述见解', text: 'D\'après mon expérience personnelle, il s\'agit d\'une approche particulièrement fructueuse.', zh: '根据我的个人经验，这是一种特别富有成效的方法。' },
+        { tag: '深入交流', text: 'Pourriez-vous développer davantage votre pensée sur cet aspect précis ?', zh: '关于这个具体方面，能否请您进一步展开您的想法？' }
+      ]);
+    }
+
+    if (pools.length === 0) return [];
+    return pools[refreshSeed % pools.length];
+  }, [aiSuggestions, currentScenario, refreshSeed]);
 
   return (
     <div className="w-full space-y-4 sm:space-y-5 animate-in fade-in duration-300 pb-12">
@@ -975,10 +1031,10 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
 
               <button
                 onClick={() => setRefreshSeed(prev => prev + 1)}
-                className="flex items-center gap-1 text-[11px] text-[#80142A] hover:underline font-bold cursor-pointer"
-                title="更换一批建议模版"
+                className="flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-rose-100/70 hover:bg-rose-200/80 text-[11px] text-[#80142A] font-bold transition active:scale-95 cursor-pointer"
+                title="点击切换下一批场景高分表达"
               >
-                <RefreshCw className="w-3 h-3" />
+                <RefreshCw className="w-3 h-3 text-[#80142A] active:rotate-180 transition-transform" />
                 <span>换一批灵感</span>
               </button>
             </div>
@@ -987,20 +1043,27 @@ export const AISpeakingView: React.FC<AISpeakingViewProps> = ({
               {activeSuggestions.map((item, idx) => {
                 const tag = item?.tag || '标准回答';
                 const text = item?.text || '';
+                const zh = item?.zh || '';
                 if (!text) return null;
                 return (
                   <button
-                    key={idx}
+                    key={`${refreshSeed}-${idx}`}
                     onClick={() => {
                       setInputText(text);
                       handlePlaySpeech(text);
                     }}
-                    className="group px-3 py-1.5 rounded-xl bg-white hover:bg-[#80142A] hover:text-white border border-rose-200/80 text-xs text-left transition shadow-2xs font-medium flex items-center gap-1.5 cursor-pointer"
+                    title={zh ? `中文释义: ${zh} (点击自动填入并试听)` : '点击直接填入输入框并试听发音'}
+                    className="group px-3 py-1.5 rounded-xl bg-white hover:bg-[#80142A] hover:text-white border border-rose-200/80 text-xs text-left transition shadow-2xs font-medium flex items-center gap-1.5 cursor-pointer animate-in fade-in duration-200"
                   >
-                    <span className="px-1.5 py-0.2 rounded-md bg-rose-100 text-[#80142A] text-[10px] font-black group-hover:bg-white/20 group-hover:text-white">
+                    <span className="px-1.5 py-0.5 rounded-md bg-rose-100 text-[#80142A] text-[10px] font-black group-hover:bg-white/20 group-hover:text-white shrink-0">
                       {tag}
                     </span>
                     <span className="font-bold">{text}</span>
+                    {zh && (
+                      <span className="text-[11px] text-slate-400 group-hover:text-rose-100 font-normal ml-0.5">
+                        ({zh})
+                      </span>
+                    )}
                   </button>
                 );
               })}
