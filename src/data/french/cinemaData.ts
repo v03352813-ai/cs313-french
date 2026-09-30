@@ -1421,5 +1421,281 @@ export const FRENCH_CINEMA_LIST: CinemaScene[] = [
         "meaning": "灵魂 / 心灵"
       }
     ]
+  },
+  {
+    "id": "film_sunset",
+    "movieTitle": "爱在落日黄昏时",
+    "frenchTitle": "Before Sunset",
+    "year": 2004,
+    "director": "Richard Linklater",
+    "genre": "传奇爱恋",
+    "levelTag": "B1进阶",
+    "coverImage": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&auto=format&fit=crop&q=80",
+    "tag": "巴黎左岸重逢神作 · 塞纳河畔漫步与灵魂交织",
+    "audioDuration": "02:00",
+    "isFreePreview": false,
+    "sceneSummary": "九年后杰西与塞琳在巴黎莎士比亚书店重逢。在日落前短暂的漫步中，两人沿着圣马丁运河诉说时光蹉跎与未曾熄灭的爱火。",
+    "dialogues": [
+      {
+        "character": "Céline",
+        "fr": "Le passé est comme une vieille chanson qu'on ne peut s'empêcher de fredonner.",
+        "zh": "往事就像是一首古老的老歌，你总是忍不住会在心头轻轻哼唱起来。",
+        "keyPoints": "ne pouvoir s'empêcher de + inf: 忍不住做某事；fredonner: 哼唱歌曲。"
+      },
+      {
+        "character": "Jesse",
+        "fr": "Tu as l'impression que le temps file entre nos doigts, mais chaque seconde avec toi semble éternelle.",
+        "zh": "你总觉得时间在指缝间悄然溜走，但与你共度的每一秒，却又仿佛凝结成了永恒。",
+        "keyPoints": "avoir l'impression que + indicatif: 感觉/觉得……；filer entre les doigts: 在指尖流逝。"
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "retrouvailles (n.f.pl.)",
+        "meaning": "重逢 / 久别重聚"
+      },
+      {
+        "word": "éternité (n.f.)",
+        "meaning": "永恒 / 永久"
+      },
+      {
+        "word": "s'empêcher de",
+        "meaning": "克制 / 自制"
+      },
+      {
+        "word": "flâner (v.)",
+        "meaning": "漫步 / 闲逛（巴黎特有的悠闲）"
+      }
+    ]
+  },
+  {
+    "id": "film_spivet",
+    "movieTitle": "少年斯派维的奇异旅行",
+    "frenchTitle": "L'Extravagant Voyage du jeune et prodigieux T.S. Spivet",
+    "year": 2013,
+    "director": "Jean-Pierre Jeunet",
+    "genre": "治愈温情",
+    "levelTag": "A1-A2入门",
+    "coverImage": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80",
+    "tag": "《天使爱美丽》导演温情巨献 · 蒙大拿少年穿越大半个美国的救赎",
+    "audioDuration": "01:50",
+    "isFreePreview": false,
+    "sceneSummary": "十岁的科学神童斯派维独自踏上前往华盛顿史密森尼学会领奖的列车，他在孤独的旅途中用纯净的双眼观察世界，解开孪生兄弟离世的家庭心结。",
+    "dialogues": [
+      {
+        "character": "T.S. Spivet",
+        "fr": "La science est la seule chose qui explique pourquoi le monde ne s'effondre pas.",
+        "zh": "科学是这世上唯一能向我解释‘为什么这个世界还没有分崩离析’的真理。",
+        "keyPoints": "la seule chose qui + subjonctif/indicatif: 唯一的事物；s'effondrer: 崩溃 / 坍塌。"
+      },
+      {
+        "character": "Docteur Clair",
+        "fr": "Parfois, le plus grand courage consiste simplement à rentrer chez soi.",
+        "zh": "有时，世界上最宏伟的勇敢，只不过是坦然地踏上回家的路途。",
+        "keyPoints": "consister à + inf: 在于做某事；rentrer chez soi: 回家。"
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "prodige (n.m.)",
+        "meaning": "奇迹 / 神童 / 奇才"
+      },
+      {
+        "word": "courage (n.m.)",
+        "meaning": "勇气 / 胆魄"
+      },
+      {
+        "word": "voyage (n.m.)",
+        "meaning": "旅行 / 航程"
+      },
+      {
+        "word": "famille (n.f.)",
+        "meaning": "家庭 / 家人"
+      }
+    ]
+  },
+  {
+    "id": "film_fiancailles",
+    "movieTitle": "漫长的婚约",
+    "frenchTitle": "Un long dimanche de fiançailles",
+    "year": 2004,
+    "director": "Jean-Pierre Jeunet",
+    "genre": "传奇爱恋",
+    "levelTag": "B2高阶",
+    "coverImage": "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=800&auto=format&fit=crop&q=80",
+    "tag": "奥黛丽·塔图史诗级爱情丰碑 · 哪怕全世界都说你已死我也依然相信",
+    "audioDuration": "02:10",
+    "isFreePreview": false,
+    "sceneSummary": "一战尾声，瘸腿少女玛蒂尔德坚信失踪在‘黄昏之宾’战壕中的未婚夫马奈克依然活着。她像侦探一样沿着微弱的线索抽丝剥茧，谱写法国影史最坚韧的寻爱史诗。",
+    "dialogues": [
+      {
+        "character": "Mathilde",
+        "fr": "Si ce fil ne se brise pas, c'est que Manech est encore en vie.",
+        "zh": "如果这根细线没有绷断，那就证明马奈克依然活着！",
+        "keyPoints": "se briser: 折断 / 破裂；c'est que...: 那是因为 / 证明了……；en vie: 活着。"
+      },
+      {
+        "character": "Manech",
+        "fr": "Mathilde, je te regarde... Je te regarde et j'ai l'impression de revenir d'entre les morts.",
+        "zh": "玛蒂尔德，我凝视着你……凝视着你，我就感觉自己从万劫不复的死神之地重返了人间。",
+        "keyPoints": "revenir d'entre les morts: 起死回生；regarder qqn: 凝望某人。"
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "fiançailles (n.f.pl.)",
+        "meaning": "订婚 / 婚约"
+      },
+      {
+        "word": "espérance (n.f.)",
+        "meaning": "希望 / 期盼"
+      },
+      {
+        "word": "tranchée (n.f.)",
+        "meaning": "战壕 / 堑壕"
+      },
+      {
+        "word": "promesse (n.f.)",
+        "meaning": "誓言 / 承诺"
+      }
+    ]
+  },
+  {
+    "id": "film_micmacs",
+    "movieTitle": "尽情游戏",
+    "frenchTitle": "Micmacs à tire-larigot",
+    "year": 2009,
+    "director": "Jean-Pierre Jeunet",
+    "genre": "人生哲理",
+    "levelTag": "B1进阶",
+    "coverImage": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&auto=format&fit=crop&q=80",
+    "tag": "法国奇幻黑色喜剧 · 巴黎底层拾荒怪咖大战军火寡头",
+    "audioDuration": "01:55",
+    "isFreePreview": false,
+    "sceneSummary": "头部中弹幸存的巴齐尔结识了巴黎废品回收站的一帮身怀绝技的边缘怪杰，他们策划了一场精妙绝伦的连环计，让两大冷酷军火商自相残杀。",
+    "dialogues": [
+      {
+        "character": "Bazil",
+        "fr": "On peut fabriquer les plus beaux miracles avec les débris que les autres ont jetés.",
+        "zh": "只要心怀巧思，用别人随手丢弃的破烂废料，我们也能创造出人世间最壮丽的奇迹。",
+        "keyPoints": "fabriquer: 制造 / 创造；débris: 废墟 / 残片 / 破烂；jeter: 抛弃 / 丢掉。"
+      },
+      {
+        "character": "Tambouille",
+        "fr": "Chacun a sa place ici, surtout ceux qui n'en ont nulle part ailleurs.",
+        "zh": "在这座废料场里，每个人都有属于自己的容身之所，尤其是那些在别处无家可归的人。",
+        "keyPoints": "chacun: 每个人；surtout: 尤其是；nulle part ailleurs: 别无去处。"
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "miracle (n.m.)",
+        "meaning": "奇迹 / 神迹"
+      },
+      {
+        "word": "ingéniosité (n.f.)",
+        "meaning": "机智 / 巧思"
+      },
+      {
+        "word": "solidarité (n.f.)",
+        "meaning": "团结 / 患难与共"
+      },
+      {
+        "word": "débris (n.m.pl.)",
+        "meaning": "残片 / 碎片"
+      }
+    ]
+  },
+  {
+    "id": "film_huit_femmes",
+    "movieTitle": "八美图",
+    "frenchTitle": "8 Femmes",
+    "year": 2002,
+    "director": "François Ozon",
+    "genre": "当代金棕榈",
+    "levelTag": "B2高阶",
+    "coverImage": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&auto=format&fit=crop&q=80",
+    "tag": "法国群星悬疑歌舞传奇 · 凯瑟琳·德纳芙与于佩尔同台飙戏",
+    "audioDuration": "02:05",
+    "isFreePreview": false,
+    "sceneSummary": "大雪封山的一座偏远孤岛宅邸中，男主人离奇遇刺身亡。宅邸内的八名女子各怀秘密，在相互猜忌与对质中揭开人性的伪善与脆弱。",
+    "dialogues": [
+      {
+        "character": "Gaby",
+        "fr": "Derrière chaque sourire élégant se cache souvent un secret inavouable.",
+        "zh": "在每一个优雅得体的微笑背后，往往潜藏着一段难以启齿的不可告人的秘密。",
+        "keyPoints": "se cacher: 躲藏 / 潜藏；inavouable: 不好意思承认的 / 见不得光的。"
+      },
+      {
+        "character": "Augustine",
+        "fr": "Vous me croyez folle parce que j'ose dire tout haut ce que vous pensez tout bas !",
+        "zh": "你们都以为我疯了，只不过是因为我敢大声说出你们所有人躲在心底嘀咕的真相！",
+        "keyPoints": "croire qqn + adj: 认为某人……；dire tout haut: 大声说出；penser tout bas: 暗自思忖。"
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "soupçon (n.m.)",
+        "meaning": "怀疑 / 嫌疑"
+      },
+      {
+        "word": "masque (n.m.)",
+        "meaning": "面具 / 伪装"
+      },
+      {
+        "word": "hypocrisie (n.f.)",
+        "meaning": "虚伪 / 伪善"
+      },
+      {
+        "word": "élégance (n.f.)",
+        "meaning": "优雅 / 高贵"
+      }
+    ]
+  },
+  {
+    "id": "film_pierrot",
+    "movieTitle": "狂人皮埃罗",
+    "frenchTitle": "Pierrot le Fou",
+    "year": 1965,
+    "director": "Jean-Luc Godard",
+    "genre": "新浪潮先锋",
+    "levelTag": "B2高阶",
+    "coverImage": "https://images.unsplash.com/photo-1500485035595-cbe6f645feb1?w=800&auto=format&fit=crop&q=80",
+    "tag": "戈达尔新浪潮至尊里程碑 · 让-保罗·贝尔蒙多色彩与自由之舞",
+    "audioDuration": "02:15",
+    "isFreePreview": false,
+    "sceneSummary": "厌倦巴黎资产阶级生活的费迪南德与前女友玛丽安娜开着装满书籍的小轿车私奔，南下蔚蓝海岸。蔚蓝地中海与火红烈日下，他们在诗歌、哲学与流浪中探索存在主义的边界。",
+    "dialogues": [
+      {
+        "character": "Ferdinand",
+        "fr": "Elle est retrouvée. Quoi ? L'éternité. C'est la mer allée avec le soleil.",
+        "zh": "它终于被找到了。什么？永恒。那就是融化在炽热烈日之中的浩瀚大海。（引用兰波诗作）",
+        "keyPoints": "retrouvée: 找到（阴性配合）；c'est A allée avec B: 与B融为一体的A（法国象征主义诗歌名句）。"
+      },
+      {
+        "character": "Marianne",
+        "fr": "Tu me parles avec des mots, et moi je te regarde avec des sentiments.",
+        "zh": "你总是用干瘪的字句同我说话，而我，却永远在用整个灵魂的情感深情注视着你。",
+        "keyPoints": "parler avec des mots: 用话语交谈；regarder avec des sentiments: 用情感注视。"
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "éternité (n.f.)",
+        "meaning": "永恒 / 万古"
+      },
+      {
+        "word": "sentiment (n.m.)",
+        "meaning": "情感 / 情愫"
+      },
+      {
+        "word": "liberté (n.f.)",
+        "meaning": "自由 / 奔放"
+      },
+      {
+        "word": "existence (n.f.)",
+        "meaning": "存在 / 人生"
+      }
+    ]
   }
 ];
